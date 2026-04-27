@@ -1,0 +1,4307 @@
+[
+  {
+    "id": "bas-agrisi",
+    "names": [
+      "baş ağrısı",
+      "baş ağrı",
+      "sefalji",
+      "gerilim baş ağrısı"
+    ],
+    "keywords": [
+      "baş ağrı",
+      "sefalji",
+      "gerilim"
+    ],
+    "ingredients": [
+      "parasetamol",
+      "paracetamol",
+      "asetaminofen",
+      "ibuprofen",
+      "asetilsalisilik",
+      "aspirin",
+      "naproksen",
+      "diklofenak",
+      "metamizol",
+      "dipiron",
+      "deksketoprofen",
+      "flurbiprofen",
+      "ketoprofen",
+      "etodolak",
+      "mefenamik",
+      "kafein",
+      "propifenazon"
+    ],
+    "priorityBrands": [
+      "PAROL",
+      "TYLOL",
+      "ASPIRIN",
+      "NUROFEN",
+      "MINOSET",
+      "MAJEZIK",
+      "ARVELES",
+      "CATAFLAM",
+      "NAPROSYN",
+      "A-PER",
+      "NOVALGIN",
+      "VOLTAREN",
+      "GRIPIN",
+      "DOLVEN"
+    ],
+    "atcPrefixes": [
+      "N02B",
+      "M01AE"
+    ],
+    "categories": [
+      "Ağrı Kesici",
+      "Analjezik",
+      "NSAI"
+    ],
+    "description": "Baş ağrısı ve gerilim tipi baş ağrısı tedavisi"
+  },
+  {
+    "id": "migren",
+    "names": [
+      "migren",
+      "migrene",
+      "migrenöz baş ağrısı"
+    ],
+    "keywords": [
+      "migren",
+      "triptan",
+      "ergotamin"
+    ],
+    "ingredients": [
+      "sumatriptan",
+      "rizatriptan",
+      "eletriptan",
+      "zolmitriptan",
+      "naratriptan",
+      "frovatriptan",
+      "almotriptan",
+      "ergotamin",
+      "dihidroergotamin",
+      "topiramat",
+      "propranolol",
+      "flunarizin"
+    ],
+    "priorityBrands": [
+      "IMIGRAN",
+      "MAXALT",
+      "RELPAX",
+      "ZOMIG",
+      "CAFERGOT"
+    ],
+    "atcPrefixes": [
+      "N02C"
+    ],
+    "categories": [
+      "Antimigren",
+      "Migren"
+    ],
+    "description": "Migren atağı tedavisi ve profilaksisi"
+  },
+  {
+    "id": "ates",
+    "names": [
+      "ateş",
+      "ateş düşürücü",
+      "yüksek ateş",
+      "antipiretik",
+      "ateşli hastalık"
+    ],
+    "keywords": [
+      "ateş",
+      "antipiretik",
+      "ateş düşürücü",
+      "pireksi"
+    ],
+    "ingredients": [
+      "parasetamol",
+      "paracetamol",
+      "asetaminofen",
+      "ibuprofen",
+      "asetilsalisilik",
+      "metamizol",
+      "naproksen",
+      "nimesulid"
+    ],
+    "priorityBrands": [
+      "PAROL",
+      "CALPOL",
+      "A-FERIN",
+      "NUROFEN",
+      "MINOSET",
+      "NOVALGIN"
+    ],
+    "atcPrefixes": [
+      "N02BE",
+      "N02BA"
+    ],
+    "categories": [
+      "Antipiretik",
+      "Ateş Düşürücü",
+      "Analjezik"
+    ],
+    "description": "Ateş düşürücü ilaçlar"
+  },
+  {
+    "id": "grip",
+    "names": [
+      "grip",
+      "soğuk algınlığı",
+      "nezle",
+      "üst solunum yolu enfeksiyonu",
+      "influenza"
+    ],
+    "keywords": [
+      "grip",
+      "soğuk algınlığı",
+      "nezle",
+      "influenza",
+      "üst solunum"
+    ],
+    "ingredients": [
+      "parasetamol",
+      "paracetamol",
+      "pseudoefedrin",
+      "psödoefedrin",
+      "fenilefrin",
+      "klorfeniramin",
+      "dekstrometorfan",
+      "gayakol",
+      "oseltamivir",
+      "askorbik",
+      "kafein",
+      "ibuprofen"
+    ],
+    "priorityBrands": [
+      "THERAFLU",
+      "A-FERIN",
+      "GRIPIN",
+      "COLDAWAY",
+      "BRONCHO",
+      "BIOGRIP",
+      "TAMIFLU",
+      "MIGPRIMER"
+    ],
+    "atcPrefixes": [
+      "R05X",
+      "N02BE51",
+      "R01BA",
+      "J05AH"
+    ],
+    "categories": [
+      "Soğuk Algınlığı",
+      "Grip",
+      "Nezle"
+    ],
+    "description": "Grip ve soğuk algınlığı tedavisi"
+  },
+  {
+    "id": "oksuruk",
+    "names": [
+      "öksürük",
+      "kuru öksürük",
+      "balgamlı öksürük",
+      "bronşit öksürüğü"
+    ],
+    "keywords": [
+      "öksürük",
+      "antitüsif",
+      "balgam",
+      "ekspektoran",
+      "mukolitik"
+    ],
+    "ingredients": [
+      "dekstrometorfan",
+      "kodein",
+      "asetilsistein",
+      "ambroksol",
+      "bromheksin",
+      "butamirat",
+      "levodropropizin",
+      "gayakol",
+      "karbosistein",
+      "erdostein",
+      "pentoksiverin",
+      "oksolamin"
+    ],
+    "priorityBrands": [
+      "BROFEN",
+      "BRONCHOSEDAL",
+      "SINECOD",
+      "BISOLVON",
+      "ABC",
+      "BRONKODIL",
+      "FLUIMUCIL",
+      "PECTOX"
+    ],
+    "atcPrefixes": [
+      "R05C",
+      "R05D",
+      "R05F"
+    ],
+    "categories": [
+      "Öksürük",
+      "Ekspektoran",
+      "Mukolitik"
+    ],
+    "description": "Öksürük tedavisi"
+  },
+  {
+    "id": "bogaz-agrisi",
+    "names": [
+      "boğaz ağrısı",
+      "boğaz enfeksiyonu",
+      "farenjit",
+      "tonsilit",
+      "bademcik",
+      "boğaz iltihabı"
+    ],
+    "keywords": [
+      "boğaz ağrı",
+      "farenjit",
+      "tonsilit",
+      "boğaz iltihab",
+      "bademcik"
+    ],
+    "ingredients": [
+      "flurbiprofen",
+      "benzidamin",
+      "klorheksidin",
+      "setilpiridinyum",
+      "diklofenak",
+      "ambazon",
+      "dequalinium",
+      "lidokain",
+      "tetrakain"
+    ],
+    "priorityBrands": [
+      "STREPSILS",
+      "TANTUM",
+      "BENICAL",
+      "DROSEDAN",
+      "LOKTOFEN"
+    ],
+    "atcPrefixes": [
+      "R02A",
+      "A01AD"
+    ],
+    "categories": [
+      "Boğaz",
+      "Antiseptik"
+    ],
+    "description": "Boğaz ağrısı ve enfeksiyonu tedavisi"
+  },
+  {
+    "id": "dis-agrisi",
+    "names": [
+      "diş ağrısı",
+      "diş ağrı",
+      "diş iltihabı"
+    ],
+    "keywords": [
+      "diş ağrı",
+      "dental ağrı"
+    ],
+    "ingredients": [
+      "parasetamol",
+      "paracetamol",
+      "ibuprofen",
+      "deksketoprofen",
+      "diklofenak",
+      "naproksen",
+      "metamizol",
+      "flurbiprofen",
+      "asetilsalisilik",
+      "etodolak",
+      "mefenamik",
+      "ketoprofen"
+    ],
+    "priorityBrands": [
+      "MAJEZIK",
+      "ARVELES",
+      "CATAFLAM",
+      "NUROFEN",
+      "VOLTAREN",
+      "PAROL",
+      "APRANAX"
+    ],
+    "atcPrefixes": [
+      "N02BE",
+      "N02BA",
+      "M01AE"
+    ],
+    "categories": [
+      "Analjezik",
+      "Ağrı Kesici"
+    ],
+    "description": "Diş ağrısı tedavisi"
+  },
+  {
+    "id": "kas-agrisi",
+    "names": [
+      "kas ağrısı",
+      "kas ağrı",
+      "miyalji",
+      "kas gevşetici",
+      "kas spazmı",
+      "kramp"
+    ],
+    "keywords": [
+      "kas ağrı",
+      "miyalji",
+      "kas gevşetici",
+      "spazm",
+      "kramp"
+    ],
+    "ingredients": [
+      "diklofenak",
+      "ibuprofen",
+      "naproksen",
+      "piroksikam",
+      "meloksikam",
+      "tizanidin",
+      "baklofen",
+      "deksketoprofen",
+      "etodolak",
+      "ketoprofen",
+      "flurbiprofen",
+      "dantrolen",
+      "siklobenzaprin",
+      "tolperizon",
+      "tiokolşikozid",
+      "metokarbamol",
+      "klorzoksazon"
+    ],
+    "priorityBrands": [
+      "VOLTAREN",
+      "MUSCORIL",
+      "MYDOCALM",
+      "SIRDALUD",
+      "DOLOBENE",
+      "FASTJEL"
+    ],
+    "atcPrefixes": [
+      "M01A",
+      "M02A",
+      "M03B"
+    ],
+    "categories": [
+      "Kas İskelet Sistemi",
+      "Kas Gevşetici",
+      "Antiinflamatuar"
+    ],
+    "description": "Kas ağrısı ve spazmı tedavisi"
+  },
+  {
+    "id": "eklem-agrisi",
+    "names": [
+      "eklem ağrısı",
+      "eklem ağrı",
+      "artrit",
+      "romatizma",
+      "artroz"
+    ],
+    "keywords": [
+      "eklem ağrı",
+      "artrit",
+      "romatiz",
+      "osteoartrit",
+      "artroz"
+    ],
+    "ingredients": [
+      "diklofenak",
+      "ibuprofen",
+      "naproksen",
+      "piroksikam",
+      "meloksikam",
+      "indometasin",
+      "deksketoprofen",
+      "etodolak",
+      "ketoprofen",
+      "flurbiprofen",
+      "tenoksikam",
+      "lornoksikam",
+      "selekoksib",
+      "etorikoksib",
+      "glukozamin",
+      "kondroitin",
+      "metotreksat",
+      "sulfasalazin",
+      "hidroksiklorokin",
+      "leflunomid"
+    ],
+    "priorityBrands": [
+      "VOLTAREN",
+      "DICLOFENAC",
+      "APRANAX",
+      "NAPROSYN",
+      "ARCOXIA",
+      "ARVELES",
+      "FELDEN",
+      "DOLOBENE"
+    ],
+    "atcPrefixes": [
+      "M01A",
+      "M01B",
+      "M01C"
+    ],
+    "categories": [
+      "Antienflamatuar",
+      "Antiromatik",
+      "NSAI"
+    ],
+    "description": "Eklem ağrısı ve romatizma tedavisi"
+  },
+  {
+    "id": "bel-agrisi",
+    "names": [
+      "bel ağrısı",
+      "bel ağrı",
+      "bel tutulması",
+      "lumbago",
+      "lomber ağrı"
+    ],
+    "keywords": [
+      "bel ağrı",
+      "lumbago",
+      "lomber",
+      "sırt ağrı"
+    ],
+    "ingredients": [
+      "diklofenak",
+      "ibuprofen",
+      "naproksen",
+      "deksketoprofen",
+      "etodolak",
+      "tizanidin",
+      "tolperizon",
+      "tiokolşikozid",
+      "piroksikam",
+      "meloksikam",
+      "siklobenzaprin"
+    ],
+    "priorityBrands": [
+      "VOLTAREN",
+      "MYDOCALM",
+      "MUSCORIL",
+      "SIRDALUD",
+      "APRANAX",
+      "ARVELES"
+    ],
+    "atcPrefixes": [
+      "M01A",
+      "M03B",
+      "M02A"
+    ],
+    "categories": [
+      "Antiinflamatuar",
+      "Kas Gevşetici"
+    ],
+    "description": "Bel ağrısı ve kas spazmı tedavisi"
+  },
+  {
+    "id": "adet-agrisi",
+    "names": [
+      "adet ağrısı",
+      "adet sancısı",
+      "regl ağrısı",
+      "dismenore",
+      "menstrual ağrı"
+    ],
+    "keywords": [
+      "adet ağrı",
+      "dismenore",
+      "regl"
+    ],
+    "ingredients": [
+      "ibuprofen",
+      "naproksen",
+      "deksketoprofen",
+      "parasetamol",
+      "paracetamol",
+      "diklofenak",
+      "metamizol",
+      "flurbiprofen",
+      "mefenamik",
+      "etodolak",
+      "ketoprofen"
+    ],
+    "priorityBrands": [
+      "ARVELES",
+      "MAJEZIK",
+      "APRANAX",
+      "NUROFEN",
+      "PONSTAN",
+      "PAROL"
+    ],
+    "atcPrefixes": [
+      "M01AE",
+      "N02BE",
+      "G02CB"
+    ],
+    "categories": [
+      "Analjezik",
+      "NSAI"
+    ],
+    "description": "Adet ağrısı (dismenore) tedavisi"
+  },
+  {
+    "id": "mide-agrisi",
+    "names": [
+      "mide ağrısı",
+      "mide yanması",
+      "mide rahatsızlığı",
+      "ülser"
+    ],
+    "keywords": [
+      "mide ağrı",
+      "gastrit",
+      "mide yanma",
+      "ülser",
+      "peptik"
+    ],
+    "ingredients": [
+      "omeprazol",
+      "lansoprazol",
+      "pantoprazol",
+      "esomeprazol",
+      "rabeprazol",
+      "ranitidin",
+      "famotidin",
+      "sukralfat",
+      "alüminyum",
+      "magnezyum",
+      "simetikon",
+      "bizmut",
+      "domperidon"
+    ],
+    "priorityBrands": [
+      "NEXIUM",
+      "LOSEC",
+      "DEGASTROL",
+      "LANSOR",
+      "PULCET",
+      "TALCID",
+      "RENNIE"
+    ],
+    "atcPrefixes": [
+      "A02B",
+      "A02A"
+    ],
+    "categories": [
+      "Mide",
+      "Antasit",
+      "Ülser",
+      "Proton Pompa"
+    ],
+    "description": "Mide ağrısı, gastrit ve ülser tedavisi"
+  },
+  {
+    "id": "reflu",
+    "names": [
+      "reflü",
+      "mide ekşimesi",
+      "gastroözofageal reflü",
+      "gerd",
+      "ekşime"
+    ],
+    "keywords": [
+      "reflü",
+      "mide ekşi",
+      "gastroözofageal",
+      "gerd"
+    ],
+    "ingredients": [
+      "omeprazol",
+      "lansoprazol",
+      "pantoprazol",
+      "esomeprazol",
+      "rabeprazol",
+      "famotidin",
+      "ranitidin",
+      "aljinik",
+      "sodyum aljinat",
+      "magaldrat"
+    ],
+    "priorityBrands": [
+      "NEXIUM",
+      "LOSEC",
+      "GAVISCON",
+      "LANSOR",
+      "PANTPAS"
+    ],
+    "atcPrefixes": [
+      "A02BC",
+      "A02BA",
+      "A02BX"
+    ],
+    "categories": [
+      "Reflü",
+      "Proton Pompa",
+      "Antasit"
+    ],
+    "description": "Reflü ve mide ekşimesi tedavisi"
+  },
+  {
+    "id": "ishal",
+    "names": [
+      "ishal",
+      "diyare",
+      "bağırsak enfeksiyonu",
+      "akut ishal"
+    ],
+    "keywords": [
+      "ishal",
+      "diyare"
+    ],
+    "ingredients": [
+      "loperamid",
+      "diosmektit",
+      "sakaromiçes",
+      "nifuroksazid",
+      "rifaksimin",
+      "racecadotril",
+      "probiyotik",
+      "laktobasil",
+      "oresol"
+    ],
+    "priorityBrands": [
+      "LOPERAX",
+      "SMECTA",
+      "REFLOR",
+      "ERCEFURYL",
+      "ULTRA-LEVURE",
+      "IMODIUM"
+    ],
+    "atcPrefixes": [
+      "A07D",
+      "A07X",
+      "A07B",
+      "A07A",
+      "A07F"
+    ],
+    "categories": [
+      "İshal",
+      "Antidiyareik",
+      "Probiyotik"
+    ],
+    "description": "İshal tedavisi"
+  },
+  {
+    "id": "kabizlik",
+    "names": [
+      "kabızlık",
+      "konstipasyon",
+      "peklik",
+      "bağırsak tembelliği"
+    ],
+    "keywords": [
+      "kabızlık",
+      "konstipasyon",
+      "laksatif",
+      "müshil"
+    ],
+    "ingredients": [
+      "laktuloz",
+      "bisakodil",
+      "senna",
+      "sennozid",
+      "makrogol",
+      "gliserin",
+      "psyllium",
+      "ispaghula",
+      "polietilen glikol",
+      "sodyum pikosülfat",
+      "dokusat"
+    ],
+    "priorityBrands": [
+      "DUPHALAC",
+      "BEKUNIS",
+      "LAXIVIT",
+      "FLEET",
+      "ENEMAKSPAR"
+    ],
+    "atcPrefixes": [
+      "A06A"
+    ],
+    "categories": [
+      "Kabızlık",
+      "Laksatif"
+    ],
+    "description": "Kabızlık tedavisi"
+  },
+  {
+    "id": "bulanti",
+    "names": [
+      "bulantı",
+      "kusma",
+      "mide bulantısı",
+      "seyahat tutması",
+      "araç tutması",
+      "gebelik bulantısı"
+    ],
+    "keywords": [
+      "bulantı",
+      "kusma",
+      "antiemetik",
+      "seyahat",
+      "araç"
+    ],
+    "ingredients": [
+      "metoklopramid",
+      "domperidon",
+      "ondansetron",
+      "granisetron",
+      "dimenhidrinat",
+      "meklizin",
+      "sinkarizin",
+      "prometazin",
+      "skopolamin",
+      "piridoksin",
+      "doksilamin"
+    ],
+    "priorityBrands": [
+      "ZOFRAN",
+      "EMEDUR",
+      "TRAVEL",
+      "METPAMID",
+      "MOTILIUM"
+    ],
+    "atcPrefixes": [
+      "A04A",
+      "A03FA",
+      "R06AA"
+    ],
+    "categories": [
+      "Bulantı",
+      "Antiemetik"
+    ],
+    "description": "Bulantı ve kusma tedavisi"
+  },
+  {
+    "id": "hazimsizlik",
+    "names": [
+      "hazımsızlık",
+      "sindirim güçlüğü",
+      "dispepsi",
+      "karın şişkinliği",
+      "gaz",
+      "şişkinlik"
+    ],
+    "keywords": [
+      "hazımsızlık",
+      "sindirim",
+      "dispepsi",
+      "gaz",
+      "şişkinlik"
+    ],
+    "ingredients": [
+      "omeprazol",
+      "pantoprazol",
+      "lansoprazol",
+      "alüminyum",
+      "magnezyum",
+      "simetikon",
+      "pankreatin",
+      "domperidon",
+      "trimebutin",
+      "dimetikon",
+      "betain"
+    ],
+    "priorityBrands": [
+      "TALCID",
+      "RENNIE",
+      "GAVISCON",
+      "MOTILIUM",
+      "DEBRIDAT"
+    ],
+    "atcPrefixes": [
+      "A02A",
+      "A09A",
+      "A03"
+    ],
+    "categories": [
+      "Sindirim",
+      "Antasit"
+    ],
+    "description": "Hazımsızlık, gaz ve sindirim sorunları tedavisi"
+  },
+  {
+    "id": "hemoroid",
+    "names": [
+      "hemoroid",
+      "basur",
+      "anal fissür",
+      "makat çatlağı"
+    ],
+    "keywords": [
+      "hemoroid",
+      "basur",
+      "fissür",
+      "anal",
+      "makat"
+    ],
+    "ingredients": [
+      "lidokain",
+      "benzokain",
+      "hidrokortizon",
+      "troksurutin",
+      "rutosid",
+      "flavonoid",
+      "diosmin",
+      "hesperidin",
+      "sukralfat",
+      "prednizolon"
+    ],
+    "priorityBrands": [
+      "FANIZOL",
+      "PROKTOLOG",
+      "DETRALEX",
+      "ULTRAPROCT",
+      "PREPARATION H",
+      "RUTOZID"
+    ],
+    "atcPrefixes": [
+      "C05A",
+      "C05B",
+      "C05C"
+    ],
+    "categories": [
+      "Hemoroid",
+      "Antihemoroidal"
+    ],
+    "description": "Hemoroid (basur) tedavisi"
+  },
+  {
+    "id": "varis",
+    "names": [
+      "varis",
+      "kronik venöz yetmezlik",
+      "bacak ağrısı damar"
+    ],
+    "keywords": [
+      "varis",
+      "venöz",
+      "flebit",
+      "damar yetmezlik"
+    ],
+    "ingredients": [
+      "diosmin",
+      "hesperidin",
+      "troksurutin",
+      "rutosid",
+      "flavonoid",
+      "heparin",
+      "pentoksifilin",
+      "sulodeksid"
+    ],
+    "priorityBrands": [
+      "DETRALEX",
+      "DAFLON",
+      "VENORUTON",
+      "VESSEL",
+      "HEMOCLAR"
+    ],
+    "atcPrefixes": [
+      "C05C",
+      "C05B",
+      "B01AB"
+    ],
+    "categories": [
+      "Venotonik",
+      "Varis"
+    ],
+    "description": "Varis ve venöz dolaşım bozuklukları tedavisi"
+  },
+  {
+    "id": "alerji",
+    "names": [
+      "alerji",
+      "alerjik reaksiyon",
+      "ürtiker",
+      "kurdeşen",
+      "besin alerjisi"
+    ],
+    "keywords": [
+      "alerji",
+      "alerjik",
+      "histamin",
+      "ürtiker",
+      "kurdeşen"
+    ],
+    "ingredients": [
+      "setirizin",
+      "levosetirizin",
+      "loratadin",
+      "desloratadin",
+      "feksofenadin",
+      "bilastin",
+      "rupatadin",
+      "ebastin",
+      "klemastin",
+      "difenhidramin",
+      "hidroksizin",
+      "klorfeniramin",
+      "ketotifen"
+    ],
+    "priorityBrands": [
+      "ZYRTEC",
+      "CLARITINE",
+      "XYZAL",
+      "AERIUS",
+      "TELFAST",
+      "BILAXTEN",
+      "ATARAX",
+      "AVIL"
+    ],
+    "atcPrefixes": [
+      "R06A"
+    ],
+    "categories": [
+      "Antihistaminik",
+      "Alerji"
+    ],
+    "description": "Alerjik reaksiyonlar ve alerji tedavisi"
+  },
+  {
+    "id": "alerjik-rinit",
+    "names": [
+      "alerjik rinit",
+      "saman nezlesi",
+      "polen alerjisi",
+      "burun alerjisi"
+    ],
+    "keywords": [
+      "alerjik rinit",
+      "saman nezlesi",
+      "polen",
+      "mevsim alerjisi"
+    ],
+    "ingredients": [
+      "setirizin",
+      "loratadin",
+      "desloratadin",
+      "feksofenadin",
+      "bilastin",
+      "mometazon",
+      "flutikazon",
+      "budesonid",
+      "beklometazon",
+      "azelastin",
+      "levokabastin",
+      "sodyum kromoglikat",
+      "oksimetazolin",
+      "ksilometazolin"
+    ],
+    "priorityBrands": [
+      "NASONEX",
+      "AVAMYS",
+      "RHINOCORT",
+      "ZYRTEC",
+      "CLARITINE",
+      "AERIUS"
+    ],
+    "atcPrefixes": [
+      "R01A",
+      "R01B",
+      "R06A"
+    ],
+    "categories": [
+      "Nazal Kortikosteroid",
+      "Antihistaminik",
+      "Dekonjestan"
+    ],
+    "description": "Alerjik rinit ve saman nezlesi tedavisi"
+  },
+  {
+    "id": "burun-tikanikligi",
+    "names": [
+      "burun tıkanıklığı",
+      "nazal konjesyon",
+      "dekonjestan"
+    ],
+    "keywords": [
+      "burun tıkan",
+      "nazal konjesyon",
+      "dekonjestan"
+    ],
+    "ingredients": [
+      "oksimetazolin",
+      "ksilometazolin",
+      "fenilefrin",
+      "psödoefedrin",
+      "nafazolin",
+      "serum fizyolojik",
+      "deniz suyu"
+    ],
+    "priorityBrands": [
+      "OTRIVIN",
+      "IlIADIN",
+      "AFRIN",
+      "XYLO",
+      "SINUSCAN",
+      "STERIMAR"
+    ],
+    "atcPrefixes": [
+      "R01A"
+    ],
+    "categories": [
+      "Dekonjestan",
+      "Nazal"
+    ],
+    "description": "Burun tıkanıklığı tedavisi"
+  },
+  {
+    "id": "sinuzit",
+    "names": [
+      "sinüzit",
+      "sinüs iltihabı",
+      "yüz ağrısı sinüs"
+    ],
+    "keywords": [
+      "sinüzit",
+      "sinüs"
+    ],
+    "ingredients": [
+      "amoksisilin",
+      "klavulanik",
+      "sefuroksim",
+      "azitromisin",
+      "mometazon",
+      "flutikazon",
+      "budesonid",
+      "oksimetazolin",
+      "serum fizyolojik",
+      "parasetamol",
+      "ibuprofen",
+      "psödoefedrin"
+    ],
+    "priorityBrands": [
+      "AUGMENTIN",
+      "KLAMOKS",
+      "NASONEX",
+      "SINUSCAN",
+      "THERAFLU"
+    ],
+    "atcPrefixes": [
+      "J01CR",
+      "R01AD",
+      "R01AB"
+    ],
+    "categories": [
+      "Antibiyotik",
+      "Nazal Kortikosteroid"
+    ],
+    "description": "Sinüzit (sinüs iltihabı) tedavisi"
+  },
+  {
+    "id": "astim",
+    "names": [
+      "astım",
+      "astim",
+      "bronşial astım",
+      "bronkospazm"
+    ],
+    "keywords": [
+      "astım",
+      "astim",
+      "bronşial",
+      "bronkospazm"
+    ],
+    "ingredients": [
+      "salbutamol",
+      "terbutalin",
+      "budesonid",
+      "formoterol",
+      "montelukast",
+      "zafirlukast",
+      "flutikazon",
+      "ipratropiyum",
+      "salmeterol",
+      "beklometazon",
+      "teofilin",
+      "tiotropiyum",
+      "indakaterol",
+      "glikopironyum",
+      "mometazon",
+      "omalizumab"
+    ],
+    "priorityBrands": [
+      "VENTOLIN",
+      "BRICANYL",
+      "SYMBICORT",
+      "SERETIDE",
+      "PULMICORT",
+      "SINGULAIR",
+      "FORADIL"
+    ],
+    "atcPrefixes": [
+      "R03A",
+      "R03B",
+      "R03C",
+      "R03D"
+    ],
+    "categories": [
+      "Astım",
+      "Bronkodilatör",
+      "Solunum Sistemi"
+    ],
+    "description": "Astım tedavisi ve kontrolü"
+  },
+  {
+    "id": "bronsit",
+    "names": [
+      "bronşit",
+      "akut bronşit"
+    ],
+    "keywords": [
+      "bronşit",
+      "koah",
+      "kronik obstrüktif"
+    ],
+    "ingredients": [
+      "amoksisilin",
+      "klavulanik",
+      "azitromisin",
+      "salbutamol",
+      "ipratropiyum",
+      "tiotropiyum",
+      "formoterol",
+      "budesonid",
+      "flutikazon",
+      "asetilsistein",
+      "ambroksol",
+      "karbosistein",
+      "bromheksin"
+    ],
+    "priorityBrands": [
+      "AUGMENTIN",
+      "VENTOLIN",
+      "SPIRIVA",
+      "SYMBICORT",
+      "FLUIMUCIL",
+      "BRONCHOBE"
+    ],
+    "atcPrefixes": [
+      "R03",
+      "J01CR",
+      "R05C"
+    ],
+    "categories": [
+      "Solunum Sistemi",
+      "Bronkodilatör",
+      "Mukolitik"
+    ],
+    "description": "Bronşit ve KOAH tedavisi"
+  },
+  {
+    "id": "tansiyon",
+    "names": [
+      "tansiyon",
+      "yüksek tansiyon",
+      "hipertansiyon",
+      "kan basıncı"
+    ],
+    "keywords": [
+      "tansiyon",
+      "hipertansiyon",
+      "kan basıncı"
+    ],
+    "ingredients": [
+      "amlodipin",
+      "valsartan",
+      "losartan",
+      "ramipril",
+      "enalapril",
+      "lisinopril",
+      "perindopril",
+      "metoprolol",
+      "bisoprolol",
+      "nebivolol",
+      "kandesartan",
+      "irbesartan",
+      "telmisartan",
+      "nifedipin",
+      "diltiazem",
+      "verapamil",
+      "hidroklorotiazid",
+      "indapamid",
+      "furosemid",
+      "spironolakton",
+      "atenolol",
+      "karvedilol",
+      "olmesartan"
+    ],
+    "priorityBrands": [
+      "NORVASC",
+      "COZAAR",
+      "MICARDIS",
+      "COVERSYL",
+      "TRITACE",
+      "BELOC",
+      "CONCOR",
+      "DELIX",
+      "DIOVAN"
+    ],
+    "atcPrefixes": [
+      "C09A",
+      "C09B",
+      "C09C",
+      "C09D",
+      "C07A",
+      "C07B",
+      "C08C",
+      "C08G",
+      "C02",
+      "C03A"
+    ],
+    "categories": [
+      "Antihipertansif",
+      "Tansiyon",
+      "Kalsiyum Kanal Blokörü"
+    ],
+    "description": "Yüksek tansiyon (hipertansiyon) tedavisi"
+  },
+  {
+    "id": "kolesterol",
+    "names": [
+      "kolesterol",
+      "yüksek kolesterol",
+      "hiperlipidemi",
+      "dislipidemi",
+      "trigliserid"
+    ],
+    "keywords": [
+      "kolesterol",
+      "hiperlipidemi",
+      "statin",
+      "trigliserid"
+    ],
+    "ingredients": [
+      "atorvastatin",
+      "rosuvastatin",
+      "simvastatin",
+      "pravastatin",
+      "fluvastatin",
+      "pitavastatin",
+      "ezetimib",
+      "fenofibrat",
+      "gemfibrozil",
+      "bezafibrat",
+      "omega-3",
+      "kolestiramin"
+    ],
+    "priorityBrands": [
+      "LIPITOR",
+      "CRESTOR",
+      "ZOCOR",
+      "EZETROL",
+      "LIPAREX",
+      "LIPANTHYL"
+    ],
+    "atcPrefixes": [
+      "C10A",
+      "C10B"
+    ],
+    "categories": [
+      "Kolesterol",
+      "Lipid Düzenleyici",
+      "Statin"
+    ],
+    "description": "Yüksek kolesterol ve trigliserid tedavisi"
+  },
+  {
+    "id": "diyabet",
+    "names": [
+      "diyabet",
+      "şeker hastalığı",
+      "kan şekeri",
+      "tip 2 diyabet",
+      "tip 1 diyabet"
+    ],
+    "keywords": [
+      "diyabet",
+      "şeker hastalığı",
+      "kan şekeri",
+      "hipoglisemi",
+      "hiperglisemi"
+    ],
+    "ingredients": [
+      "metformin",
+      "gliklazid",
+      "glimepirid",
+      "sitagliptin",
+      "vildagliptin",
+      "empagliflozin",
+      "dapagliflozin",
+      "insülin",
+      "pioglitazon",
+      "linagliptin",
+      "saksagliptin",
+      "kanagliflozin",
+      "glibenklamid",
+      "glipizid",
+      "repaglinid",
+      "akarboz",
+      "liraglutid",
+      "semaglutid"
+    ],
+    "priorityBrands": [
+      "GLUCOPHAGE",
+      "DIAMICRON",
+      "AMARYL",
+      "JANUVIA",
+      "GALVUS",
+      "JARDIANCE",
+      "FORXIGA"
+    ],
+    "atcPrefixes": [
+      "A10A",
+      "A10B"
+    ],
+    "categories": [
+      "Diyabet",
+      "Antidiyabetik",
+      "İnsülin"
+    ],
+    "description": "Diyabet (şeker hastalığı) tedavisi"
+  },
+  {
+    "id": "tiroid",
+    "names": [
+      "tiroid",
+      "hipertiroidi",
+      "guatr",
+      "tiroidit"
+    ],
+    "keywords": [
+      "tiroid",
+      "hipotiroidi",
+      "hipertiroidi",
+      "guatr"
+    ],
+    "ingredients": [
+      "levotiroksin",
+      "propiltiyourasil",
+      "metimazol",
+      "tiamazol",
+      "liyotironin",
+      "potasyum iyodür"
+    ],
+    "priorityBrands": [
+      "LEVOTIRON",
+      "TEFOR",
+      "EUTHYROX",
+      "PROPYCIL"
+    ],
+    "atcPrefixes": [
+      "H03A",
+      "H03B"
+    ],
+    "categories": [
+      "Tiroid",
+      "Endokrin"
+    ],
+    "description": "Tiroid hastalıkları tedavisi"
+  },
+  {
+    "id": "enfeksiyon",
+    "names": [
+      "enfeksiyon",
+      "bakteriyel enfeksiyon",
+      "antibiyotik"
+    ],
+    "keywords": [
+      "enfeksiyon",
+      "antibiyotik",
+      "bakteriyel"
+    ],
+    "ingredients": [
+      "amoksisilin",
+      "ampisilin",
+      "klavulanik",
+      "sefaleksin",
+      "sefuroksim",
+      "seftriakson",
+      "sefiksim",
+      "azitromisin",
+      "klaritromisin",
+      "eritromisin",
+      "siprofloksasin",
+      "levofloksasin",
+      "moksifloksasin",
+      "doksisiklin",
+      "tetrasiklin",
+      "metronidazol",
+      "trimetoprim",
+      "sulfametoksazol",
+      "gentamisin",
+      "amikasin",
+      "klindamisin",
+      "linezolid",
+      "vankomisin"
+    ],
+    "priorityBrands": [
+      "AUGMENTIN",
+      "KLAMOKS",
+      "CIPRASID",
+      "ZITHROMAX",
+      "SEFREIN"
+    ],
+    "atcPrefixes": [
+      "J01"
+    ],
+    "categories": [
+      "Antibiyotik",
+      "Antibakteriyel"
+    ],
+    "description": "Bakteriyel enfeksiyon tedavisi"
+  },
+  {
+    "id": "idrar-yolu-enfeksiyonu",
+    "names": [
+      "idrar yolu enfeksiyonu",
+      "sistit",
+      "mesane enfeksiyonu",
+      "üriner enfeksiyon"
+    ],
+    "keywords": [
+      "idrar yolu",
+      "sistit",
+      "mesane enfeksiyon",
+      "üriner"
+    ],
+    "ingredients": [
+      "siprofloksasin",
+      "levofloksasin",
+      "trimetoprim",
+      "sulfametoksazol",
+      "nitrofurantoin",
+      "fosfomisin",
+      "norfloksasin",
+      "sefuroksim",
+      "sefiksim",
+      "amoksisilin"
+    ],
+    "priorityBrands": [
+      "CIPRASID",
+      "MONUROL",
+      "FURANTRIL",
+      "BACTRIM"
+    ],
+    "atcPrefixes": [
+      "J01XE",
+      "J01MA",
+      "J01EA",
+      "J01XX"
+    ],
+    "categories": [
+      "Üriner Sistem",
+      "Antibiyotik"
+    ],
+    "description": "İdrar yolu enfeksiyonu tedavisi"
+  },
+  {
+    "id": "mantar",
+    "names": [
+      "mantar",
+      "mantar enfeksiyonu",
+      "kandidiyaz",
+      "cilt mantarı",
+      "tırnak mantarı",
+      "vajinal mantar"
+    ],
+    "keywords": [
+      "mantar",
+      "antifungal",
+      "kandidiyaz",
+      "mikoz"
+    ],
+    "ingredients": [
+      "flukonazol",
+      "itrakonazol",
+      "terbinafin",
+      "ketokonazol",
+      "mikonazol",
+      "klotrimazol",
+      "nistatin",
+      "ekonazol",
+      "sertakonazol",
+      "bifonazol",
+      "amorolfin",
+      "siklopiroks",
+      "griseofulvin",
+      "vorikonazol"
+    ],
+    "priorityBrands": [
+      "DIFLUCAN",
+      "LAMISIL",
+      "DAKTARIN",
+      "CANESTEN",
+      "MYCOSTATIN",
+      "FUNGORAL"
+    ],
+    "atcPrefixes": [
+      "D01A",
+      "D01B",
+      "J02A",
+      "G01AF"
+    ],
+    "categories": [
+      "Antifungal",
+      "Mantar"
+    ],
+    "description": "Mantar enfeksiyonu tedavisi"
+  },
+  {
+    "id": "zona",
+    "names": [
+      "zona",
+      "herpes zoster",
+      "kuşak hastalığı"
+    ],
+    "keywords": [
+      "zona",
+      "herpes zoster",
+      "varisella"
+    ],
+    "ingredients": [
+      "asiklovir",
+      "valasiklovir",
+      "famsiklovir",
+      "brivudin",
+      "penkasiklovir",
+      "gabapentin",
+      "pregabalin",
+      "amitriptilin"
+    ],
+    "priorityBrands": [
+      "ZOVIRAX",
+      "VALTREX",
+      "FAMVIR",
+      "NEURONTIN",
+      "LYRICA"
+    ],
+    "atcPrefixes": [
+      "J05AB",
+      "D06BB"
+    ],
+    "categories": [
+      "Antiviral"
+    ],
+    "description": "Zona (herpes zoster) tedavisi"
+  },
+  {
+    "id": "ucuk",
+    "names": [
+      "uçuk",
+      "dudak uçuğu",
+      "herpes simpleks",
+      "genital herpes"
+    ],
+    "keywords": [
+      "uçuk",
+      "herpes simpleks",
+      "labial"
+    ],
+    "ingredients": [
+      "asiklovir",
+      "valasiklovir",
+      "famsiklovir",
+      "penkasiklovir",
+      "dokosanol"
+    ],
+    "priorityBrands": [
+      "ZOVIRAX",
+      "HERPIZIG",
+      "VALTREX",
+      "FAMVIR"
+    ],
+    "atcPrefixes": [
+      "D06BB",
+      "J05AB"
+    ],
+    "categories": [
+      "Antiviral"
+    ],
+    "description": "Uçuk (herpes simpleks) tedavisi"
+  },
+  {
+    "id": "egzama",
+    "names": [
+      "egzama",
+      "dermatit",
+      "cilt iltihabı",
+      "seboreik dermatit"
+    ],
+    "keywords": [
+      "egzama",
+      "dermatit",
+      "cilt iltihab"
+    ],
+    "ingredients": [
+      "hidrokortizon",
+      "betametazon",
+      "mometazon",
+      "flutikazon",
+      "fluosinolon",
+      "prednizolon",
+      "klobetazol",
+      "takrolimus",
+      "pimekrolimus",
+      "üre",
+      "setilalkol"
+    ],
+    "priorityBrands": [
+      "ADVANTAN",
+      "ELIDEL",
+      "PROTOPIC",
+      "DERMOVATE",
+      "ELOCOM",
+      "MOMETA"
+    ],
+    "atcPrefixes": [
+      "D07A",
+      "D07B",
+      "D07C",
+      "D11AH"
+    ],
+    "categories": [
+      "Dermatolojik",
+      "Kortikosteroid"
+    ],
+    "description": "Egzama ve dermatit tedavisi"
+  },
+  {
+    "id": "sedef",
+    "names": [
+      "sedef",
+      "psöriazis",
+      "psöryazis",
+      "sedef hastalığı"
+    ],
+    "keywords": [
+      "sedef",
+      "psöriazis",
+      "psöryazis"
+    ],
+    "ingredients": [
+      "kalsipotriol",
+      "betametazon",
+      "klobetazol",
+      "metotreksat",
+      "asitretin",
+      "siklosporin",
+      "adalimumab",
+      "etanersept",
+      "infliksimab",
+      "ustekinumab",
+      "sekukinumab",
+      "kömür katranı",
+      "ditranol",
+      "salisilik"
+    ],
+    "priorityBrands": [
+      "DAIVOBET",
+      "HUMIRA",
+      "ENBREL",
+      "STELARA"
+    ],
+    "atcPrefixes": [
+      "D05A",
+      "D05B",
+      "L04AB",
+      "L04AC"
+    ],
+    "categories": [
+      "Dermatolojik",
+      "Psöriazis"
+    ],
+    "description": "Sedef hastalığı (psöriazis) tedavisi"
+  },
+  {
+    "id": "kasinti",
+    "names": [
+      "kaşıntı",
+      "pruritus",
+      "cilt kaşıntısı"
+    ],
+    "keywords": [
+      "kaşıntı",
+      "pruritus"
+    ],
+    "ingredients": [
+      "setirizin",
+      "loratadin",
+      "feksofenadin",
+      "hidroksizin",
+      "difenhidramin",
+      "klorfeniramin",
+      "prednizolon",
+      "hidrokortizon",
+      "betametazon",
+      "mentol",
+      "kamfur",
+      "kalamin",
+      "lidokain"
+    ],
+    "priorityBrands": [
+      "ATARAX",
+      "ZYRTEC",
+      "CALADRYL",
+      "AVENAL"
+    ],
+    "atcPrefixes": [
+      "R06A",
+      "D04A",
+      "D07A"
+    ],
+    "categories": [
+      "Antihistaminik",
+      "Kaşıntı"
+    ],
+    "description": "Kaşıntı (pruritus) tedavisi"
+  },
+  {
+    "id": "akne",
+    "names": [
+      "akne",
+      "sivilce",
+      "akne vulgaris"
+    ],
+    "keywords": [
+      "akne",
+      "sivilce"
+    ],
+    "ingredients": [
+      "izotretinoin",
+      "adapalen",
+      "benzoil peroksit",
+      "klindamisin",
+      "eritromisin",
+      "tretinoin",
+      "azelaik",
+      "salisilik",
+      "doksisiklin",
+      "tetrasiklin",
+      "spironolakton"
+    ],
+    "priorityBrands": [
+      "ROACCUTANE",
+      "DIFFERIN",
+      "CLINDAMAX",
+      "EPIDUO",
+      "AKNICHTHOL"
+    ],
+    "atcPrefixes": [
+      "D10A",
+      "D10B",
+      "J01AA"
+    ],
+    "categories": [
+      "Akne",
+      "Dermatolojik"
+    ],
+    "description": "Akne (sivilce) tedavisi"
+  },
+  {
+    "id": "sac-dokulmesi",
+    "names": [
+      "saç dökülmesi",
+      "alopesi",
+      "saç kaybı",
+      "androgenetik alopesi",
+      "kellik"
+    ],
+    "keywords": [
+      "saç dökülme",
+      "alopesi",
+      "saç kayb"
+    ],
+    "ingredients": [
+      "minoksidil",
+      "finasterid",
+      "dutasterid",
+      "biotin",
+      "ketokonazol",
+      "spironolakton",
+      "sideroksilen"
+    ],
+    "priorityBrands": [
+      "ROGAINE",
+      "PROPECIA",
+      "BIOTIN"
+    ],
+    "atcPrefixes": [
+      "D11AX"
+    ],
+    "categories": [
+      "Dermatolojik",
+      "Saç"
+    ],
+    "description": "Saç dökülmesi tedavisi"
+  },
+  {
+    "id": "kepek",
+    "names": [
+      "kepek",
+      "seboreik dermatit saç",
+      "saç kepeği"
+    ],
+    "keywords": [
+      "kepek",
+      "seboreik"
+    ],
+    "ingredients": [
+      "ketokonazol",
+      "siklopiroks",
+      "selenyum sülfür",
+      "çinko piriton",
+      "salisilik",
+      "kömür katranı"
+    ],
+    "priorityBrands": [
+      "NIZORAL",
+      "STIEPROX",
+      "SELSUN"
+    ],
+    "atcPrefixes": [
+      "D11AC",
+      "D01AC"
+    ],
+    "categories": [
+      "Dermatolojik",
+      "Saç"
+    ],
+    "description": "Kepek ve seboreik dermatit şampuanları"
+  },
+  {
+    "id": "depresyon",
+    "names": [
+      "depresyon",
+      "antidepresan",
+      "çökkünlük",
+      "majör depresyon"
+    ],
+    "keywords": [
+      "depresyon",
+      "antidepresan",
+      "majör depresif"
+    ],
+    "ingredients": [
+      "sertralin",
+      "fluoksetin",
+      "paroksetin",
+      "essitalopram",
+      "sitalopram",
+      "venlafaksin",
+      "duloksetin",
+      "mirtazapin",
+      "bupropion",
+      "trazodon",
+      "amitriptilin",
+      "klomipramin",
+      "vortioksetin",
+      "agomelatin",
+      "moklobemid",
+      "tianeptin"
+    ],
+    "priorityBrands": [
+      "PROZAC",
+      "CIPRALEX",
+      "LUSTRAL",
+      "EFEXOR",
+      "CYMBALTA",
+      "REMERON"
+    ],
+    "atcPrefixes": [
+      "N06A"
+    ],
+    "categories": [
+      "Antidepresan",
+      "Depresyon"
+    ],
+    "description": "Depresyon tedavisi"
+  },
+  {
+    "id": "anksiyete",
+    "names": [
+      "anksiyete",
+      "kaygı",
+      "kaygı bozukluğu",
+      "panik atak",
+      "panik bozukluk"
+    ],
+    "keywords": [
+      "anksiyete",
+      "kaygı",
+      "panik"
+    ],
+    "ingredients": [
+      "alprazolam",
+      "diazepam",
+      "lorazepam",
+      "klonazepam",
+      "buspiron",
+      "hidroksizin",
+      "bromazepam",
+      "klordiazepoksit",
+      "oksazepam",
+      "pregabalin"
+    ],
+    "priorityBrands": [
+      "XANAX",
+      "DIAZEM",
+      "ATARAX",
+      "LEXOTAN",
+      "NOROZAM",
+      "LYRICA"
+    ],
+    "atcPrefixes": [
+      "N05B",
+      "N05BA"
+    ],
+    "categories": [
+      "Anksiyolitik",
+      "Kaygı",
+      "Benzodiyazepin"
+    ],
+    "description": "Anksiyete ve kaygı bozukluğu tedavisi"
+  },
+  {
+    "id": "uykusuzluk",
+    "names": [
+      "uykusuzluk",
+      "insomni",
+      "uyku problemi",
+      "uyku bozukluğu",
+      "uyku"
+    ],
+    "keywords": [
+      "uykusuzluk",
+      "insomni",
+      "uyku bozuk"
+    ],
+    "ingredients": [
+      "zolpidem",
+      "zopiklon",
+      "eszopiklon",
+      "melatonin",
+      "trazodon",
+      "mirtazapin",
+      "doksilamin",
+      "difenhidramin",
+      "valerian"
+    ],
+    "priorityBrands": [
+      "STILNOX",
+      "IMOVANE",
+      "CIRCADIN"
+    ],
+    "atcPrefixes": [
+      "N05C"
+    ],
+    "categories": [
+      "Sedatif",
+      "Hipnotik",
+      "Uyku"
+    ],
+    "description": "Uykusuzluk tedavisi"
+  },
+  {
+    "id": "epilepsi",
+    "names": [
+      "epilepsi",
+      "sara",
+      "nöbet",
+      "konvülsiyon",
+      "epileptik nöbet"
+    ],
+    "keywords": [
+      "epilepsi",
+      "sara",
+      "nöbet",
+      "konvülsiyon",
+      "antiepileptik"
+    ],
+    "ingredients": [
+      "karbamazepin",
+      "valproik",
+      "valproat",
+      "levetirasetam",
+      "lamotrijin",
+      "fenitoin",
+      "topiramat",
+      "okskarbazepin",
+      "gabapentin",
+      "pregabalin",
+      "klonazepam",
+      "fenobarbital",
+      "lakozamid",
+      "zonisamid",
+      "perampanel",
+      "etosuksimid"
+    ],
+    "priorityBrands": [
+      "KEPPRA",
+      "LAMICTAL",
+      "TEGRETOL",
+      "DEPAKINE",
+      "TOPAMAX",
+      "NEURONTIN",
+      "LYRICA"
+    ],
+    "atcPrefixes": [
+      "N03A"
+    ],
+    "categories": [
+      "Antiepileptik"
+    ],
+    "description": "Epilepsi tedavisi"
+  },
+  {
+    "id": "parkinson",
+    "names": [
+      "parkinson",
+      "parkinson hastalığı",
+      "tremor"
+    ],
+    "keywords": [
+      "parkinson",
+      "tremor"
+    ],
+    "ingredients": [
+      "levodopa",
+      "karbidopa",
+      "benserazid",
+      "pramipeksol",
+      "ropinirol",
+      "rotigotin",
+      "rasajilin",
+      "selejilin",
+      "entakapon",
+      "tolkapon",
+      "amantadin",
+      "biperiden",
+      "triheksifenidil"
+    ],
+    "priorityBrands": [
+      "MADOPAR",
+      "SINEMET",
+      "AZILECT",
+      "REQUIP",
+      "MIRAPEX"
+    ],
+    "atcPrefixes": [
+      "N04A",
+      "N04B"
+    ],
+    "categories": [
+      "Antiparkinson"
+    ],
+    "description": "Parkinson hastalığı tedavisi"
+  },
+  {
+    "id": "alzheimer",
+    "names": [
+      "alzheimer",
+      "demans",
+      "bunama",
+      "alzheimer hastalığı"
+    ],
+    "keywords": [
+      "alzheimer",
+      "demans",
+      "bunama"
+    ],
+    "ingredients": [
+      "donepezil",
+      "rivastigmin",
+      "galantamin",
+      "memantin"
+    ],
+    "priorityBrands": [
+      "ARICEPT",
+      "EXELON",
+      "REMINYL",
+      "EBIXA"
+    ],
+    "atcPrefixes": [
+      "N06D"
+    ],
+    "categories": [
+      "Antidemans"
+    ],
+    "description": "Alzheimer ve demans tedavisi"
+  },
+  {
+    "id": "goz-enfeksiyonu",
+    "names": [
+      "göz enfeksiyonu",
+      "konjonktivit",
+      "göz iltihabı",
+      "göz damlası"
+    ],
+    "keywords": [
+      "göz enfeksiyon",
+      "konjonktivit",
+      "göz iltihab"
+    ],
+    "ingredients": [
+      "moksifloksasin",
+      "ofloksasin",
+      "tobramisin",
+      "siprofloksasin",
+      "deksametazon",
+      "prednizolon",
+      "kloramfenikol",
+      "gentamisin",
+      "levofloksasin"
+    ],
+    "priorityBrands": [
+      "VIGAMOX",
+      "TOBREX",
+      "TARIVID",
+      "CIPROXIN"
+    ],
+    "atcPrefixes": [
+      "S01A",
+      "S01B",
+      "S01C"
+    ],
+    "categories": [
+      "Oftalmolojik"
+    ],
+    "description": "Göz enfeksiyonu ve iltihabı tedavisi"
+  },
+  {
+    "id": "goz-kurulugu",
+    "names": [
+      "göz kuruluğu",
+      "kuru göz",
+      "yapay gözyaşı"
+    ],
+    "keywords": [
+      "göz kurulu",
+      "kuru göz",
+      "yapay gözyaş"
+    ],
+    "ingredients": [
+      "hipromelloz",
+      "karboksimetilselüloz",
+      "sodyum hyaluronat",
+      "hyaluronik",
+      "polietilen glikol",
+      "polisorbat",
+      "trehaloz"
+    ],
+    "priorityBrands": [
+      "TEARS NATURALE",
+      "OPTIVE",
+      "REFRESH",
+      "SYSTANE",
+      "HYLO"
+    ],
+    "atcPrefixes": [
+      "S01XA",
+      "S01KA"
+    ],
+    "categories": [
+      "Oftalmolojik",
+      "Yapay Gözyaşı"
+    ],
+    "description": "Göz kuruluğu (kuru göz) tedavisi"
+  },
+  {
+    "id": "glokom",
+    "names": [
+      "glokom",
+      "göz tansiyonu",
+      "karasu"
+    ],
+    "keywords": [
+      "glokom",
+      "göz tansiyon",
+      "intraoküler"
+    ],
+    "ingredients": [
+      "timolol",
+      "latanoprost",
+      "bimatoprost",
+      "travoprost",
+      "tafluprost",
+      "brimonidin",
+      "dorzolamid",
+      "brinzolamid",
+      "pilokarpin"
+    ],
+    "priorityBrands": [
+      "XALATAN",
+      "LUMIGAN",
+      "TIMOPTIC",
+      "COSOPT",
+      "ALPHAGAN"
+    ],
+    "atcPrefixes": [
+      "S01E"
+    ],
+    "categories": [
+      "Oftalmolojik",
+      "Glokom"
+    ],
+    "description": "Glokom (göz tansiyonu) tedavisi"
+  },
+  {
+    "id": "kulak-enfeksiyonu",
+    "names": [
+      "kulak enfeksiyonu",
+      "otit",
+      "kulak iltihabı",
+      "kulak ağrısı",
+      "dış kulak iltihabı"
+    ],
+    "keywords": [
+      "kulak enfeksiyon",
+      "otit",
+      "kulak iltihab",
+      "kulak ağrı"
+    ],
+    "ingredients": [
+      "siprofloksasin",
+      "ofloksasin",
+      "neomisin",
+      "polimiksin",
+      "deksametazon",
+      "hidrokortizon",
+      "amoksisilin",
+      "klavulanik"
+    ],
+    "priorityBrands": [
+      "CIPRO",
+      "OTOCAIN",
+      "OTRIL"
+    ],
+    "atcPrefixes": [
+      "S02A",
+      "S02B",
+      "S02C"
+    ],
+    "categories": [
+      "Otolojik"
+    ],
+    "description": "Kulak enfeksiyonu tedavisi"
+  },
+  {
+    "id": "kalp-yetmezligi",
+    "names": [
+      "kalp yetmezliği",
+      "kalp hastalığı",
+      "kardiyak yetmezlik",
+      "konjestif kalp"
+    ],
+    "keywords": [
+      "kalp yetmezliği",
+      "kardiyak",
+      "konjestif"
+    ],
+    "ingredients": [
+      "digoksin",
+      "furosemid",
+      "spironolakton",
+      "eplerenon",
+      "enalapril",
+      "ramipril",
+      "karvedilol",
+      "metoprolol",
+      "bisoprolol",
+      "sakubitril",
+      "valsartan",
+      "ivabradin",
+      "dapagliflozin",
+      "empagliflozin"
+    ],
+    "priorityBrands": [
+      "LANOXIN",
+      "LASIX",
+      "ALDACTONE",
+      "DILATREND",
+      "CONCOR",
+      "ENTRESTO"
+    ],
+    "atcPrefixes": [
+      "C01A",
+      "C01B",
+      "C01D",
+      "C03",
+      "C09"
+    ],
+    "categories": [
+      "Kardiyak",
+      "Kalp",
+      "Diüretik"
+    ],
+    "description": "Kalp yetmezliği tedavisi"
+  },
+  {
+    "id": "kan-sulandirici",
+    "names": [
+      "kan sulandırıcı",
+      "pıhtı önleyici",
+      "antikoagülan",
+      "tromboz",
+      "derin ven trombozu"
+    ],
+    "keywords": [
+      "kan sulandırıcı",
+      "pıhtı",
+      "antikoagülan",
+      "tromboz"
+    ],
+    "ingredients": [
+      "warfarin",
+      "heparin",
+      "enoksaparin",
+      "dalteparin",
+      "tinzaparin",
+      "rivaroksaban",
+      "apiksaban",
+      "dabigatran",
+      "edoksaban",
+      "klopidogrel",
+      "asetilsalisilik",
+      "aspirin",
+      "tikagrelor",
+      "prasugrel",
+      "dipiridamol"
+    ],
+    "priorityBrands": [
+      "COUMADIN",
+      "XARELTO",
+      "ELIQUIS",
+      "PRADAXA",
+      "PLAVIX",
+      "CORAP",
+      "ECOPIRIN"
+    ],
+    "atcPrefixes": [
+      "B01A"
+    ],
+    "categories": [
+      "Antikoagülan",
+      "Antitrombotik"
+    ],
+    "description": "Kan pıhtılaşmasını önleyici tedavi"
+  },
+  {
+    "id": "demir-eksikligi",
+    "names": [
+      "demir eksikliği",
+      "kansızlık",
+      "anemi",
+      "demir eksikliği anemisi"
+    ],
+    "keywords": [
+      "demir eksikliği",
+      "kansızlık",
+      "anemi"
+    ],
+    "ingredients": [
+      "demir",
+      "ferro",
+      "ferröz",
+      "ferröz sülfat",
+      "ferröz fumarat",
+      "ferrik",
+      "demir hidroksid",
+      "demir karboksimaltoz",
+      "folik",
+      "siyanokobalamin",
+      "eritropoietin",
+      "darbepoetin"
+    ],
+    "priorityBrands": [
+      "FERRO SANOL",
+      "FERROGLOBIN",
+      "MALTOFER",
+      "VENOFER"
+    ],
+    "atcPrefixes": [
+      "B03A",
+      "B03B",
+      "B03X"
+    ],
+    "categories": [
+      "Antianemik",
+      "Demir"
+    ],
+    "description": "Demir eksikliği ve kansızlık tedavisi"
+  },
+  {
+    "id": "vitamin",
+    "names": [
+      "vitamin",
+      "vitamin eksikliği",
+      "multivitamin"
+    ],
+    "keywords": [
+      "vitamin",
+      "multivitamin"
+    ],
+    "ingredients": [
+      "vitamin",
+      "askorbik",
+      "retinol",
+      "kolekalsiferol",
+      "ergokalsiferol",
+      "tokoferol",
+      "folik",
+      "siyanokobalamin",
+      "hidroksokobalamin",
+      "piridoksin",
+      "tiamin",
+      "riboflavin",
+      "niasin",
+      "biotin",
+      "pantotenik",
+      "kalsiyum",
+      "magnezyum",
+      "çinko"
+    ],
+    "priorityBrands": [
+      "SUPRADYN",
+      "CENTRUM",
+      "PHARMATON",
+      "BERKO",
+      "BIOTIN"
+    ],
+    "atcPrefixes": [
+      "A11",
+      "A12"
+    ],
+    "categories": [
+      "Vitamin",
+      "Mineral"
+    ],
+    "description": "Vitamin ve mineral takviyeleri"
+  },
+  {
+    "id": "osteoporoz",
+    "names": [
+      "osteoporoz",
+      "kemik erimesi",
+      "kemik güçsüzlüğü",
+      "kırık riski"
+    ],
+    "keywords": [
+      "osteoporoz",
+      "kemik erimesi"
+    ],
+    "ingredients": [
+      "alendronat",
+      "risedronat",
+      "ibandronat",
+      "zoledronik",
+      "kalsiyum",
+      "kolekalsiferol",
+      "d3",
+      "denosumab",
+      "teriparatid",
+      "raloksifen",
+      "stronsiyum ranelat"
+    ],
+    "priorityBrands": [
+      "FOSAMAX",
+      "ACTONEL",
+      "BONVIVA",
+      "AREDIA",
+      "PROLIA",
+      "FORSTEO"
+    ],
+    "atcPrefixes": [
+      "M05B"
+    ],
+    "categories": [
+      "Osteoporoz",
+      "Kemik",
+      "Bisfosfonat"
+    ],
+    "description": "Osteoporoz (kemik erimesi) tedavisi"
+  },
+  {
+    "id": "gut",
+    "names": [
+      "gut",
+      "gut hastalığı",
+      "ürik asit",
+      "gut atağı"
+    ],
+    "keywords": [
+      "gut",
+      "ürik asit"
+    ],
+    "ingredients": [
+      "allopurinol",
+      "febuksostat",
+      "kolşisin",
+      "probenesid",
+      "indometasin",
+      "naproksen"
+    ],
+    "priorityBrands": [
+      "ZYLORIC",
+      "ADENURIC",
+      "COLCHICUM"
+    ],
+    "atcPrefixes": [
+      "M04A"
+    ],
+    "categories": [
+      "Gut",
+      "Antigut"
+    ],
+    "description": "Gut hastalığı tedavisi"
+  },
+  {
+    "id": "prostat",
+    "names": [
+      "prostat",
+      "prostat büyümesi",
+      "iyi huylu prostat hiperplazisi",
+      "bph"
+    ],
+    "keywords": [
+      "prostat",
+      "bph"
+    ],
+    "ingredients": [
+      "tamsulosin",
+      "alfuzosin",
+      "finasterid",
+      "dutasterid",
+      "silodosin",
+      "doksazosin",
+      "terazosin",
+      "palmetto"
+    ],
+    "priorityBrands": [
+      "OMNIC",
+      "XATRAL",
+      "PROSCAR",
+      "AVODART",
+      "CARDURA"
+    ],
+    "atcPrefixes": [
+      "G04C",
+      "G04CA"
+    ],
+    "categories": [
+      "Prostat",
+      "Ürolojik"
+    ],
+    "description": "Prostat büyümesi tedavisi"
+  },
+  {
+    "id": "ereksiyon",
+    "names": [
+      "ereksiyon",
+      "erektil disfonksiyon",
+      "iktidarsızlık",
+      "cinsel güçsüzlük",
+      "sertleşme problemi"
+    ],
+    "keywords": [
+      "ereksiyon",
+      "erektil",
+      "iktidarsızlık"
+    ],
+    "ingredients": [
+      "sildenafil",
+      "tadalafil",
+      "vardenafil",
+      "avanafil"
+    ],
+    "priorityBrands": [
+      "VIAGRA",
+      "CIALIS",
+      "LEVITRA",
+      "SPEDRA"
+    ],
+    "atcPrefixes": [
+      "G04BE"
+    ],
+    "categories": [
+      "Ürolojik",
+      "Erektil"
+    ],
+    "description": "Erektil disfonksiyon tedavisi"
+  },
+  {
+    "id": "menopoz",
+    "names": [
+      "menopoz",
+      "klimakter",
+      "sıcak basması",
+      "hormon replasmanı"
+    ],
+    "keywords": [
+      "menopoz",
+      "klimakter",
+      "sıcak basma",
+      "östrojen"
+    ],
+    "ingredients": [
+      "östradiol",
+      "estradiol",
+      "östriol",
+      "noretisteron",
+      "drospirenon",
+      "tibolon",
+      "progesteron",
+      "medroksiprogesteron",
+      "konjuge östrojen",
+      "soya izoflavonu"
+    ],
+    "priorityBrands": [
+      "LIVIAL",
+      "KLIOGEST",
+      "PROGYNOVA",
+      "PREMARIN"
+    ],
+    "atcPrefixes": [
+      "G03C",
+      "G03D",
+      "G03F"
+    ],
+    "categories": [
+      "Hormon Replasman",
+      "Menopoz"
+    ],
+    "description": "Menopoz ve hormon replasman tedavisi"
+  },
+  {
+    "id": "dogum-kontrol",
+    "names": [
+      "doğum kontrol",
+      "gebelik önleyici",
+      "kontraseptif",
+      "oral kontraseptif"
+    ],
+    "keywords": [
+      "doğum kontrol",
+      "gebelik önle",
+      "kontraseptif"
+    ],
+    "ingredients": [
+      "etinil estradiol",
+      "levonorgestrel",
+      "desogestrel",
+      "drospirenon",
+      "gestodene",
+      "norgestimat",
+      "noretisteron",
+      "medroksiprogesteron",
+      "ulipristal"
+    ],
+    "priorityBrands": [
+      "YASMIN",
+      "DIANE",
+      "MYRELLE",
+      "MICROGYNON"
+    ],
+    "atcPrefixes": [
+      "G03A",
+      "G03AA",
+      "G03AD"
+    ],
+    "categories": [
+      "Kontraseptif",
+      "Hormon"
+    ],
+    "description": "Doğum kontrol hapları ve acil kontrasepsiyon"
+  },
+  {
+    "id": "vajinal-enfeksiyon",
+    "names": [
+      "vajinal enfeksiyon",
+      "vajinit",
+      "bakteriyel vajinoz",
+      "vajinal mantar"
+    ],
+    "keywords": [
+      "vajinit",
+      "vajinal",
+      "bakteriyel vajinoz"
+    ],
+    "ingredients": [
+      "klotrimazol",
+      "mikonazol",
+      "flukonazol",
+      "nistatin",
+      "metronidazol",
+      "klindamisin",
+      "tinidazol",
+      "sertakonazol"
+    ],
+    "priorityBrands": [
+      "CANESTEN",
+      "GYNO-DAKTARIN",
+      "FLAGYL",
+      "DIFLUCAN"
+    ],
+    "atcPrefixes": [
+      "G01A",
+      "G01AF"
+    ],
+    "categories": [
+      "Jinekolojik",
+      "Antifungal"
+    ],
+    "description": "Vajinal enfeksiyon tedavisi"
+  },
+  {
+    "id": "afta",
+    "names": [
+      "afta",
+      "ağız yarası",
+      "aftöz ülser",
+      "ağız içi yara"
+    ],
+    "keywords": [
+      "afta",
+      "ağız yara",
+      "aftöz"
+    ],
+    "ingredients": [
+      "klorheksidin",
+      "benzidamin",
+      "lidokain",
+      "triamsinolon",
+      "ambazon",
+      "karbenoksolon",
+      "kolorhekidin"
+    ],
+    "priorityBrands": [
+      "KENACORT A",
+      "AFTIR",
+      "TANTUM",
+      "KLORHEX"
+    ],
+    "atcPrefixes": [
+      "A01A"
+    ],
+    "categories": [
+      "Ağız-Diş",
+      "Topikal Steroid"
+    ],
+    "description": "Afta ve ağız içi yara tedavisi"
+  },
+  {
+    "id": "hijyen-yanik",
+    "names": [
+      "yanık",
+      "hafif yanık",
+      "güneş yanığı",
+      "yara bakımı",
+      "antiseptik"
+    ],
+    "keywords": [
+      "yanık",
+      "yara bakım",
+      "antiseptik",
+      "cilt dezenfekt"
+    ],
+    "ingredients": [
+      "gümüş sülfadiazin",
+      "sülfadiazin",
+      "povidon iyot",
+      "klorheksidin",
+      "tridekaptan",
+      "merbromin",
+      "dekspantenol",
+      "hyaluronik",
+      "sentella"
+    ],
+    "priorityBrands": [
+      "BATICON",
+      "SILVERDIN",
+      "BEPANTHEN",
+      "CICATRYL"
+    ],
+    "atcPrefixes": [
+      "D08A",
+      "D06B"
+    ],
+    "categories": [
+      "Antiseptik",
+      "Yara Bakım"
+    ],
+    "description": "Yanık, yara ve antiseptik tedavi"
+  },
+  {
+    "id": "bebek-gazi",
+    "names": [
+      "bebek gazı",
+      "bebek kolik",
+      "infantil kolik",
+      "gaz sancısı"
+    ],
+    "keywords": [
+      "bebek gaz",
+      "kolik",
+      "infantil"
+    ],
+    "ingredients": [
+      "simetikon",
+      "dimetikon",
+      "rezene",
+      "anason",
+      "kimyon"
+    ],
+    "priorityBrands": [
+      "SAB SIMPLEX",
+      "DENTINOX",
+      "ESPUMISAN",
+      "COLIMIL"
+    ],
+    "atcPrefixes": [
+      "A03AX"
+    ],
+    "categories": [
+      "Pediatrik",
+      "Sindirim"
+    ],
+    "description": "Bebek kolik ve gaz sancısı tedavisi"
+  },
+  {
+    "id": "solucan",
+    "names": [
+      "bağırsak solucanı",
+      "parazit",
+      "solucan",
+      "askariazis",
+      "oksür"
+    ],
+    "keywords": [
+      "bağırsak solucan",
+      "parazit",
+      "helmint",
+      "askaris"
+    ],
+    "ingredients": [
+      "mebendazol",
+      "albendazol",
+      "pirantel",
+      "praziquantel",
+      "niklozamid",
+      "ivermektin"
+    ],
+    "priorityBrands": [
+      "VERMOX",
+      "PANTELMIN",
+      "MEBENDEZOL"
+    ],
+    "atcPrefixes": [
+      "P02C",
+      "P02B"
+    ],
+    "categories": [
+      "Antihelmintik",
+      "Parazit"
+    ],
+    "description": "Bağırsak solucanları (helmint) tedavisi"
+  },
+  {
+    "id": "bit",
+    "names": [
+      "bit",
+      "pedikülozis",
+      "baş biti",
+      "saç biti",
+      "uyuz"
+    ],
+    "keywords": [
+      "bit",
+      "pedikülozis",
+      "skabies",
+      "uyuz"
+    ],
+    "ingredients": [
+      "permetrin",
+      "malation",
+      "dimetikon",
+      "ivermektin",
+      "benzil benzoat",
+      "lindan"
+    ],
+    "priorityBrands": [
+      "PARA PLUS",
+      "ASCABIOL",
+      "OSCIMED"
+    ],
+    "atcPrefixes": [
+      "P03A"
+    ],
+    "categories": [
+      "Antiparaziter",
+      "Pedikülosid"
+    ],
+    "description": "Baş biti ve uyuz tedavisi"
+  },
+  {
+    "id": "hepatit",
+    "names": [
+      "hepatit",
+      "sarılık",
+      "hepatit b",
+      "hepatit c",
+      "karaciğer"
+    ],
+    "keywords": [
+      "hepatit",
+      "karaciğer"
+    ],
+    "ingredients": [
+      "tenofovir",
+      "entekavir",
+      "lamivudin",
+      "adefovir",
+      "telbivudin",
+      "sofosbuvir",
+      "ledipasvir",
+      "velpatasvir",
+      "daklatasvir",
+      "ribavirin",
+      "interferon",
+      "ursodeoksikolik"
+    ],
+    "priorityBrands": [
+      "VIREAD",
+      "BARACLUDE",
+      "SOVALDI",
+      "HARVONI"
+    ],
+    "atcPrefixes": [
+      "J05AF",
+      "J05AX",
+      "J05AP"
+    ],
+    "categories": [
+      "Antiviral",
+      "Hepatit"
+    ],
+    "description": "Hepatit ve karaciğer hastalıkları tedavisi"
+  },
+  {
+    "id": "sigara-birakma",
+    "names": [
+      "sigara bırakma",
+      "nikotin bağımlılığı",
+      "tütün"
+    ],
+    "keywords": [
+      "sigara bırak",
+      "nikotin",
+      "tütün"
+    ],
+    "ingredients": [
+      "nikotin",
+      "vareniklin",
+      "bupropion"
+    ],
+    "priorityBrands": [
+      "CHAMPIX",
+      "NICORETTE",
+      "ZYBAN",
+      "NICOTINELL"
+    ],
+    "atcPrefixes": [
+      "N07BA"
+    ],
+    "categories": [
+      "Bağımlılık",
+      "Sigara"
+    ],
+    "description": "Sigara bırakma tedavisi"
+  },
+  {
+    "id": "kas-spazmi",
+    "names": [
+      "kas spazmı",
+      "kas krampı",
+      "kas tutulması",
+      "gece krampı"
+    ],
+    "keywords": [
+      "kas spazm",
+      "kas kramp",
+      "spastisite"
+    ],
+    "ingredients": [
+      "tizanidin",
+      "baklofen",
+      "tolperizon",
+      "tiokolşikozid",
+      "siklobenzaprin",
+      "metokarbamol",
+      "klorzoksazon",
+      "dantrolen",
+      "magnezyum"
+    ],
+    "priorityBrands": [
+      "SIRDALUD",
+      "MYDOCALM",
+      "MUSCORIL"
+    ],
+    "atcPrefixes": [
+      "M03B"
+    ],
+    "categories": [
+      "Kas Gevşetici"
+    ],
+    "description": "Kas spazmı ve kramp tedavisi"
+  },
+  {
+    "id": "anjina",
+    "names": [
+      "göğüs ağrısı",
+      "anjina",
+      "anjina pektoris",
+      "koroner"
+    ],
+    "keywords": [
+      "anjina",
+      "göğüs ağrı",
+      "koroner"
+    ],
+    "ingredients": [
+      "nitrogliserin",
+      "isosorbid dinitrat",
+      "isosorbid mononitrat",
+      "metoprolol",
+      "bisoprolol",
+      "atenolol",
+      "amlodipin",
+      "diltiazem",
+      "verapamil",
+      "ranolazin",
+      "nikorandil",
+      "trimetazidin"
+    ],
+    "priorityBrands": [
+      "NITROMINT",
+      "MONO MACK",
+      "BELOC",
+      "NORVASC",
+      "VASTAREL"
+    ],
+    "atcPrefixes": [
+      "C01D",
+      "C07A",
+      "C08C",
+      "C08D"
+    ],
+    "categories": [
+      "Antianjinal",
+      "Kardiyak"
+    ],
+    "description": "Anjina pektoris ve göğüs ağrısı tedavisi"
+  },
+  {
+    "id": "osoefajit-ozofageal",
+    "names": [
+      "yutma güçlüğü",
+      "disfaji",
+      "özofajit"
+    ],
+    "keywords": [
+      "disfaji",
+      "özofajit",
+      "yutma güçlüğü"
+    ],
+    "ingredients": [
+      "omeprazol",
+      "pantoprazol",
+      "esomeprazol",
+      "lansoprazol",
+      "sukralfat"
+    ],
+    "priorityBrands": [
+      "NEXIUM",
+      "LOSEC",
+      "PULCET"
+    ],
+    "atcPrefixes": [
+      "A02BC"
+    ],
+    "categories": [
+      "Özofagus",
+      "Proton Pompa"
+    ],
+    "description": "Özofajit ve yutma güçlüğü tedavisi"
+  },
+  {
+    "id": "ibs",
+    "names": [
+      "irritabıl bağırsak sendromu",
+      "ibs",
+      "spastik kolon",
+      "huzursuz bağırsak"
+    ],
+    "keywords": [
+      "irritabıl bağırsak",
+      "ibs",
+      "spastik kolon"
+    ],
+    "ingredients": [
+      "mebeverin",
+      "trimebutin",
+      "otilonyum bromür",
+      "hyoscine",
+      "butilskopolamin",
+      "pinaverium",
+      "alverin",
+      "rifaksimin",
+      "linaklotid"
+    ],
+    "priorityBrands": [
+      "DUSPATALIN",
+      "DEBRIDAT",
+      "SPASMOMEN",
+      "BUSCOPAN"
+    ],
+    "atcPrefixes": [
+      "A03A",
+      "A03B"
+    ],
+    "categories": [
+      "Spazmolitik",
+      "Bağırsak"
+    ],
+    "description": "İrritabıl bağırsak sendromu tedavisi"
+  },
+  {
+    "id": "inflamatuar-bagirsak",
+    "names": [
+      "crohn",
+      "ülseratif kolit",
+      "inflamatuar bağırsak hastalığı",
+      "ibd"
+    ],
+    "keywords": [
+      "crohn",
+      "ülseratif kolit",
+      "ibd",
+      "inflamatuar bağırsak"
+    ],
+    "ingredients": [
+      "mesalazin",
+      "sülfasalazin",
+      "budesonid",
+      "prednizolon",
+      "azatiyoprin",
+      "merkaptopurin",
+      "metotreksat",
+      "infliksimab",
+      "adalimumab",
+      "vedolizumab",
+      "ustekinumab"
+    ],
+    "priorityBrands": [
+      "SALOFALK",
+      "SALAZOPYRIN",
+      "ASACOL",
+      "HUMIRA",
+      "REMICADE"
+    ],
+    "atcPrefixes": [
+      "A07E",
+      "L04A"
+    ],
+    "categories": [
+      "İnflamatuar Bağırsak",
+      "İmmünosupresif"
+    ],
+    "description": "Crohn ve ülseratif kolit tedavisi"
+  },
+  {
+    "id": "multipl-skleroz",
+    "names": [
+      "multipl skleroz",
+      "ms hastalığı",
+      "ms"
+    ],
+    "keywords": [
+      "multipl skleroz"
+    ],
+    "ingredients": [
+      "interferon beta",
+      "glatiramer",
+      "teriflunomid",
+      "dimetil fumarat",
+      "fingolimod",
+      "nataluzimab",
+      "okrelizumab",
+      "alemtuzumab"
+    ],
+    "priorityBrands": [
+      "AVONEX",
+      "REBIF",
+      "COPAXONE",
+      "GILENYA",
+      "TECFIDERA"
+    ],
+    "atcPrefixes": [
+      "L03AB",
+      "L04A"
+    ],
+    "categories": [
+      "İmmünomodülatör",
+      "Nöroloji"
+    ],
+    "description": "Multipl skleroz tedavisi"
+  },
+  {
+    "id": "baston-anti-emitik",
+    "names": [
+      "bebek ishali",
+      "çocuk ishali",
+      "pediatrik ishal"
+    ],
+    "keywords": [
+      "bebek ishal",
+      "çocuk ishal",
+      "pediatrik"
+    ],
+    "ingredients": [
+      "racecadotril",
+      "diosmektit",
+      "sakaromiçes boulardii",
+      "laktobasil",
+      "probiyotik",
+      "oresol",
+      "zinc"
+    ],
+    "priorityBrands": [
+      "HIDRASEC",
+      "SMECTA",
+      "REFLOR",
+      "ULTRA-LEVURE"
+    ],
+    "atcPrefixes": [
+      "A07X",
+      "A07F",
+      "A07B"
+    ],
+    "categories": [
+      "Pediatrik",
+      "Antidiyareik",
+      "Probiyotik"
+    ],
+    "description": "Bebek ve çocuk ishali tedavisi"
+  },
+  {
+    "id": "odem-diuretik",
+    "names": [
+      "ödem",
+      "su tutma",
+      "şişme",
+      "diüretik"
+    ],
+    "keywords": [
+      "ödem",
+      "diüretik",
+      "su tutma"
+    ],
+    "ingredients": [
+      "furosemid",
+      "hidroklorotiazid",
+      "indapamid",
+      "klortalidon",
+      "spironolakton",
+      "eplerenon",
+      "amilorid",
+      "triamteren",
+      "torasemid"
+    ],
+    "priorityBrands": [
+      "LASIX",
+      "HYGROTON",
+      "ALDACTONE"
+    ],
+    "atcPrefixes": [
+      "C03"
+    ],
+    "categories": [
+      "Diüretik",
+      "Ödem"
+    ],
+    "description": "Ödem (sıvı tutma) tedavisi"
+  },
+  {
+    "id": "kanser-kemoterapi",
+    "names": [
+      "kanser",
+      "kemoterapi",
+      "tümör",
+      "onkoloji"
+    ],
+    "keywords": [
+      "kanser",
+      "kemoterapi",
+      "onkoloji",
+      "neoplazi",
+      "tümör"
+    ],
+    "ingredients": [
+      "siklofosfamid",
+      "metotreksat",
+      "5-florourasil",
+      "sisplatin",
+      "karboplatin",
+      "paklitaksel",
+      "dosetaksel",
+      "doksorubisin",
+      "tamoksifen",
+      "anastrozol",
+      "letrozol",
+      "imatinib",
+      "erlotinib",
+      "gefitinib",
+      "bevasizumab",
+      "trastuzumab",
+      "rituksimab"
+    ],
+    "atcPrefixes": [
+      "L01",
+      "L02"
+    ],
+    "categories": [
+      "Antineoplastik",
+      "Kemoterapi"
+    ],
+    "description": "Kanser kemoterapisi ilaçları"
+  },
+  {
+    "id": "ritm-bozuklugu",
+    "names": [
+      "ritm bozukluğu",
+      "aritmi",
+      "atriyal fibrilasyon",
+      "çarpıntı",
+      "kalp çarpıntısı"
+    ],
+    "keywords": [
+      "ritm bozukluğu",
+      "aritmi",
+      "fibrilasyon",
+      "çarpıntı"
+    ],
+    "ingredients": [
+      "amiodaron",
+      "propafenon",
+      "flekainid",
+      "sotalol",
+      "metoprolol",
+      "bisoprolol",
+      "verapamil",
+      "diltiazem",
+      "digoksin",
+      "dronedaron"
+    ],
+    "priorityBrands": [
+      "CORDARONE",
+      "RYTMONORM",
+      "BELOC",
+      "LANOXIN"
+    ],
+    "atcPrefixes": [
+      "C01B",
+      "C07A",
+      "C08"
+    ],
+    "categories": [
+      "Antiaritmik",
+      "Kardiyak"
+    ],
+    "description": "Kalp ritm bozukluğu tedavisi"
+  },
+  {
+    "id": "inme-felc",
+    "names": [
+      "inme",
+      "felç",
+      "strok",
+      "beyin kanaması",
+      "iskemik inme"
+    ],
+    "keywords": [
+      "inme",
+      "felç",
+      "strok",
+      "beyin kanama"
+    ],
+    "ingredients": [
+      "asetilsalisilik",
+      "klopidogrel",
+      "tikagrelor",
+      "dipiridamol",
+      "warfarin",
+      "rivaroksaban",
+      "apiksaban",
+      "dabigatran",
+      "alteplaz",
+      "atorvastatin",
+      "rosuvastatin"
+    ],
+    "atcPrefixes": [
+      "B01A",
+      "C10A"
+    ],
+    "categories": [
+      "Antitrombotik",
+      "Nöroloji"
+    ],
+    "description": "İnme (felç) önleme ve tedavi"
+  },
+  {
+    "id": "sizofreni",
+    "names": [
+      "şizofreni",
+      "psikoz",
+      "antipsikotik"
+    ],
+    "keywords": [
+      "şizofreni",
+      "psikoz",
+      "antipsikotik"
+    ],
+    "ingredients": [
+      "risperidon",
+      "olanzapin",
+      "ketiapin",
+      "aripiprazol",
+      "ziprasidon",
+      "klozapin",
+      "paliperidon",
+      "haloperidol",
+      "klorpromazin",
+      "sülpirid"
+    ],
+    "priorityBrands": [
+      "RISPERDAL",
+      "ZYPREXA",
+      "SEROQUEL",
+      "ABILIFY",
+      "LEPONEX"
+    ],
+    "atcPrefixes": [
+      "N05A"
+    ],
+    "categories": [
+      "Antipsikotik"
+    ],
+    "description": "Şizofreni ve psikotik bozukluk tedavisi"
+  },
+  {
+    "id": "bipolar",
+    "names": [
+      "bipolar bozukluk",
+      "manik depresif",
+      "duygudurum"
+    ],
+    "keywords": [
+      "bipolar",
+      "manik",
+      "duygudurum"
+    ],
+    "ingredients": [
+      "lityum",
+      "valproat",
+      "karbamazepin",
+      "lamotrijin",
+      "ketiapin",
+      "olanzapin",
+      "aripiprazol",
+      "risperidon"
+    ],
+    "priorityBrands": [
+      "LITHURIL",
+      "DEPAKINE",
+      "LAMICTAL"
+    ],
+    "atcPrefixes": [
+      "N05AN",
+      "N03A",
+      "N05A"
+    ],
+    "categories": [
+      "Duygudurum Düzenleyici"
+    ],
+    "description": "Bipolar bozukluk tedavisi"
+  },
+  {
+    "id": "mide-ulseri",
+    "names": [
+      "mide ülseri",
+      "peptik ülser",
+      "gastrit",
+      "duodenum ülseri",
+      "h. pylori",
+      "helikobakter",
+      "mide yarası"
+    ],
+    "keywords": [
+      "ülser",
+      "gastrit",
+      "helikobakter",
+      "mide asit",
+      "peptik"
+    ],
+    "ingredients": [
+      "omeprazol",
+      "pantoprazol",
+      "esomeprazol",
+      "lansoprazol",
+      "rabeprazol",
+      "ranitidin",
+      "famotidin",
+      "sukralfat",
+      "misoprostol",
+      "klaritromisin",
+      "amoksisilin",
+      "metronidazol",
+      "bizmut"
+    ],
+    "priorityBrands": [
+      "NEXIUM",
+      "LANSOR",
+      "PANTPAS",
+      "ULCURAN",
+      "RANITIN",
+      "ULCERAL",
+      "OMEPRAL",
+      "PROHIBIT",
+      "PARIET"
+    ],
+    "atcPrefixes": [
+      "A02BC",
+      "A02BA",
+      "A02BB",
+      "A02BX"
+    ],
+    "categories": [
+      "Antiülser",
+      "Proton Pompası İnhibitörü",
+      "H2 Reseptör Blokörü"
+    ],
+    "description": "Mide ülseri, gastrit ve helikobakter pilori tedavisi"
+  },
+  {
+    "id": "vertigo",
+    "names": [
+      "vertigo",
+      "baş dönmesi",
+      "denge bozukluğu",
+      "sersemlik",
+      "vestibüler bozukluk"
+    ],
+    "keywords": [
+      "vertigo",
+      "baş dönmesi",
+      "vestibüler",
+      "denge",
+      "meniere"
+    ],
+    "ingredients": [
+      "betahistin",
+      "dimenhidrinat",
+      "sinarizin",
+      "flunarizin",
+      "meklozin",
+      "sülpirid"
+    ],
+    "priorityBrands": [
+      "VERTIN",
+      "BETAVERT",
+      "VOMINORE",
+      "DRAMAMINE",
+      "SUNAROL",
+      "VOMENO"
+    ],
+    "atcPrefixes": [
+      "N07CA"
+    ],
+    "categories": [
+      "Antivertigo",
+      "Vertigo"
+    ],
+    "description": "Baş dönmesi ve vestibüler bozuklukların tedavisi"
+  },
+  {
+    "id": "alerjik-konjonktivit",
+    "names": [
+      "alerjik konjonktivit",
+      "göz alerjisi",
+      "göz kaşıntısı",
+      "alerjik göz iltihabı"
+    ],
+    "keywords": [
+      "konjonktivit",
+      "göz alerji",
+      "oftalmik antialerjik",
+      "göz kaşıntı"
+    ],
+    "ingredients": [
+      "olopatadin",
+      "ketotifen",
+      "nedokromil",
+      "lodoksamid",
+      "levokabastin",
+      "azelastin",
+      "epinastin",
+      "kromoglikat"
+    ],
+    "priorityBrands": [
+      "OPATANOL",
+      "OPTILAST",
+      "ZADITEN",
+      "TILAVIST",
+      "ALOMIDE"
+    ],
+    "atcPrefixes": [
+      "S01GX",
+      "S01GA"
+    ],
+    "categories": [
+      "Oftalmik Antialerjik",
+      "Göz Damlası"
+    ],
+    "description": "Alerjik göz iltihabı ve göz alerjisi tedavisi"
+  },
+  {
+    "id": "romatoid-artrit",
+    "names": [
+      "romatoid artrit",
+      "ra",
+      "iltihaplı eklem romatizması",
+      "romatizma",
+      "ankilozan spondilit"
+    ],
+    "keywords": [
+      "romatoid",
+      "romatizma",
+      "antiromatik",
+      "dmard",
+      "biyolojik ajan"
+    ],
+    "ingredients": [
+      "metotreksat",
+      "hidroksiklorokin",
+      "sulfasalazin",
+      "leflunomid",
+      "etanercept",
+      "adalimumab",
+      "infliksimab",
+      "sertolizumab",
+      "tofasitinib"
+    ],
+    "priorityBrands": [
+      "ZEXATE",
+      "EMTHEXATE",
+      "PLAQUENIL",
+      "SALAZOPYRIN",
+      "ARAVA",
+      "ENBREL",
+      "HUMIRA",
+      "REMICADE"
+    ],
+    "atcPrefixes": [
+      "L04AA",
+      "L04AB",
+      "L04AC",
+      "L04AD",
+      "L04AX",
+      "P01BA02"
+    ],
+    "categories": [
+      "İmmünosüpresan",
+      "Antiromatik",
+      "DMARD"
+    ],
+    "description": "Romatoid artrit, ankilozan spondilit ve iltihaplı eklem romatizması tedavisi"
+  },
+  {
+    "id": "noropatik-agri",
+    "names": [
+      "nöropatik ağrı",
+      "sinir ağrısı",
+      "diyabetik nöropati",
+      "postherpetik nevralji",
+      "siyatik"
+    ],
+    "keywords": [
+      "nöropatik",
+      "nöralji",
+      "sinir ağrı",
+      "diyabetik nöropati",
+      "siyatik"
+    ],
+    "ingredients": [
+      "gabapentin",
+      "pregabalin",
+      "duloksetin",
+      "amitriptilin",
+      "karbamazepin",
+      "okskarbazepin"
+    ],
+    "priorityBrands": [
+      "NEURONTIN",
+      "LYRICA",
+      "CYMBALTA",
+      "LAROXYL",
+      "TEGRETOL",
+      "TRILEPTAL"
+    ],
+    "atcPrefixes": [
+      "N03AX12",
+      "N03AX16",
+      "N06AA09",
+      "N06AX21",
+      "N03AF"
+    ],
+    "categories": [
+      "Antiepileptik",
+      "Nöropatik Ağrı"
+    ],
+    "description": "Nöropatik ağrı, sinir ağrısı ve diyabetik nöropati tedavisi"
+  },
+  {
+    "id": "pnomoni",
+    "names": [
+      "pnömoni",
+      "zatürre",
+      "akciğer enfeksiyonu",
+      "alt solunum yolu enfeksiyonu"
+    ],
+    "keywords": [
+      "pnömoni",
+      "zatürre",
+      "akciğer enfeksiyon",
+      "alt solunum",
+      "antibiyotik"
+    ],
+    "ingredients": [
+      "amoksisilin",
+      "klavulanat",
+      "sefuroksim",
+      "sefiksim",
+      "levofloksasin",
+      "moksifloksasin",
+      "klaritromisin",
+      "azitromisin",
+      "doksisiklin",
+      "piperasilin"
+    ],
+    "priorityBrands": [
+      "AUGMENTIN",
+      "KLAVUMOX",
+      "AMOKLAVIN",
+      "CEFAKS",
+      "TAVANIC",
+      "AVELOX",
+      "KLACID",
+      "ZITROMAX"
+    ],
+    "atcPrefixes": [
+      "J01CA",
+      "J01CR",
+      "J01DC",
+      "J01DD",
+      "J01FA",
+      "J01MA",
+      "J01AA"
+    ],
+    "categories": [
+      "Antibiyotik",
+      "Beta-laktam Antibiyotik",
+      "Makrolid"
+    ],
+    "description": "Pnömoni, zatürre ve akciğer enfeksiyonu tedavisi"
+  },
+  {
+    "id": "b12-eksikligi",
+    "names": [
+      "b12 eksikliği",
+      "b12 vitamini",
+      "kobalamin",
+      "pernisyöz anemi"
+    ],
+    "keywords": [
+      "b12",
+      "kobalamin",
+      "pernisyöz"
+    ],
+    "ingredients": [
+      "siyanokobalamin",
+      "hidroksikobalamin",
+      "metilkobalamin",
+      "kobalamin"
+    ],
+    "priorityBrands": [
+      "DODEX",
+      "B-12 ANKERMANN",
+      "BETOLVEX",
+      "NEUROBION"
+    ],
+    "atcPrefixes": [
+      "B03BA"
+    ],
+    "categories": [
+      "Vitamin B12"
+    ],
+    "description": "B12 vitamini eksikliği ve pernisyöz anemi tedavisi"
+  },
+  {
+    "id": "d-vitamini-eksikligi",
+    "names": [
+      "d vitamini eksikliği",
+      "d vitamini",
+      "kolekalsiferol",
+      "raşitizm",
+      "kemik yumuşaması"
+    ],
+    "keywords": [
+      "d vitamini",
+      "kolekalsiferol",
+      "ergokalsiferol",
+      "raşitizm",
+      "osteomalazi"
+    ],
+    "ingredients": [
+      "kolekalsiferol",
+      "ergokalsiferol",
+      "kalsitriol",
+      "alfakalsidol"
+    ],
+    "priorityBrands": [
+      "DEVIT-3",
+      "D3-VICOTRAT",
+      "ROCALTROL",
+      "DEVOCAL",
+      "OSTEOFEM"
+    ],
+    "atcPrefixes": [
+      "A11CC"
+    ],
+    "categories": [
+      "Vitamin D"
+    ],
+    "description": "D vitamini eksikliği, raşitizm ve kemik yumuşaması tedavisi"
+  },
+  {
+    "id": "atopik-dermatit",
+    "names": [
+      "atopik dermatit",
+      "cilt iltihabı",
+      "kontakt dermatit",
+      "allerjik dermatit",
+      "döküntü"
+    ],
+    "keywords": [
+      "atopik dermatit",
+      "kortikosteroid topikal",
+      "kontakt dermatit",
+      "cilt iltihab"
+    ],
+    "ingredients": [
+      "mometazon",
+      "betametazon",
+      "hidrokortizon",
+      "klobetazol",
+      "metilprednizolon aseponat",
+      "takrolimus",
+      "pimekrolimus",
+      "flutikazon"
+    ],
+    "priorityBrands": [
+      "ELOCON",
+      "BETNOVATE",
+      "DERMOVATE",
+      "ADVANTAN",
+      "PROTOPIC",
+      "ELIDEL",
+      "CUTIVATE"
+    ],
+    "atcPrefixes": [
+      "D07A",
+      "D11AH"
+    ],
+    "categories": [
+      "Topikal Kortikosteroid",
+      "Dermatolojik"
+    ],
+    "description": "Atopik dermatit, kontakt dermatit ve cilt iltihaplarının tedavisi"
+  },
+  {
+    "id": "cilt-enfeksiyonu",
+    "names": [
+      "cilt enfeksiyonu",
+      "empetigo",
+      "follikülit",
+      "enfekte yara",
+      "topikal antibiyotik"
+    ],
+    "keywords": [
+      "empetigo",
+      "cilt enfeksiyon",
+      "topikal antibiyotik",
+      "enfekte yara",
+      "follikülit"
+    ],
+    "ingredients": [
+      "mupirosin",
+      "fusidik asit",
+      "neomisin",
+      "basitrasin",
+      "gentamisin",
+      "klindamisin",
+      "eritromisin"
+    ],
+    "priorityBrands": [
+      "BACTROBAN",
+      "FUSIDIN",
+      "FUCIDIN",
+      "NEOSPORIN",
+      "TERAMYCIN",
+      "CLEOCIN"
+    ],
+    "atcPrefixes": [
+      "D06AX",
+      "D06AA",
+      "D10AF"
+    ],
+    "categories": [
+      "Topikal Antibiyotik",
+      "Dermatolojik"
+    ],
+    "description": "Empetigo, enfekte yara ve cilt enfeksiyonlarının tedavisi"
+  },
+  {
+    "id": "hipotiroidi",
+    "names": [
+      "hipotiroidi",
+      "tiroid yetmezliği",
+      "düşük tiroid",
+      "levotiroksin",
+      "hashimoto"
+    ],
+    "keywords": [
+      "hipotiroidi",
+      "levotiroksin",
+      "tiroid hormon",
+      "hashimoto"
+    ],
+    "ingredients": [
+      "levotiroksin",
+      "tiroksin",
+      "liyotironin"
+    ],
+    "priorityBrands": [
+      "EUTHYROX",
+      "LEVOTIRON",
+      "TEFOR",
+      "TIRONIN"
+    ],
+    "atcPrefixes": [
+      "H03AA"
+    ],
+    "categories": [
+      "Tiroid Hormonu"
+    ],
+    "description": "Hipotiroidi ve tiroid hormon yetmezliği tedavisi"
+  },
+  {
+    "id": "asiri-aktif-mesane",
+    "names": [
+      "aşırı aktif mesane",
+      "idrar kaçırma",
+      "inkontinans",
+      "sık idrara çıkma",
+      "mesane spazmı"
+    ],
+    "keywords": [
+      "aşırı aktif mesane",
+      "inkontinans",
+      "antimuskarinik",
+      "mesane spazm"
+    ],
+    "ingredients": [
+      "tolterodin",
+      "oksibutinin",
+      "solifenasin",
+      "darifenasin",
+      "fesoterodin",
+      "mirabegron",
+      "trospiyum"
+    ],
+    "priorityBrands": [
+      "DETROL",
+      "VESICARE",
+      "TOVIAZ",
+      "BETMIGA",
+      "DITROPAN"
+    ],
+    "atcPrefixes": [
+      "G04BD"
+    ],
+    "categories": [
+      "Üriner Antispazmodik",
+      "Antimuskarinik"
+    ],
+    "description": "Aşırı aktif mesane ve üriner inkontinans tedavisi"
+  },
+  {
+    "id": "koah",
+    "names": [
+      "koah",
+      "kronik bronşit",
+      "amfizem",
+      "kronik tıkayıcı akciğer hastalığı"
+    ],
+    "keywords": [
+      "koah",
+      "amfizem",
+      "bronkodilatör",
+      "kronik bronşit"
+    ],
+    "ingredients": [
+      "tiyotropium",
+      "ipratropium",
+      "salmeterol",
+      "formoterol",
+      "indakaterol",
+      "budesonid",
+      "flutikazon",
+      "olodaterol",
+      "aklidinyum"
+    ],
+    "priorityBrands": [
+      "SPIRIVA",
+      "ATROVENT",
+      "SEREVENT",
+      "FORADIL",
+      "ONBREZ",
+      "PULMICORT",
+      "SPIOLTO"
+    ],
+    "atcPrefixes": [
+      "R03BB",
+      "R03AC",
+      "R03AK",
+      "R03AL"
+    ],
+    "categories": [
+      "Bronkodilatör",
+      "Antikolinerjik İnhaler"
+    ],
+    "description": "KOAH, kronik bronşit ve amfizem tedavisi"
+  },
+  {
+    "id": "probiyotik",
+    "names": [
+      "probiyotik",
+      "bağırsak florası",
+      "antibiyotik sonrası ishal",
+      "mikrobiyota"
+    ],
+    "keywords": [
+      "probiyotik",
+      "lactobacillus",
+      "saccharomyces",
+      "bağırsak flora",
+      "mikrobiyota"
+    ],
+    "ingredients": [
+      "saccharomyces boulardii",
+      "lactobacillus",
+      "bifidobacterium",
+      "enterol"
+    ],
+    "priorityBrands": [
+      "REFLOR",
+      "ENTEROL",
+      "PROBIO",
+      "NORMIX"
+    ],
+    "atcPrefixes": [
+      "A07FA"
+    ],
+    "categories": [
+      "Probiyotik",
+      "Antidiyareik"
+    ],
+    "description": "Probiyotikler ve bağırsak florasının düzenlenmesi"
+  },
+  {
+    "id": "bebek-pisigi",
+    "names": [
+      "bebek pişiği",
+      "pişik",
+      "bez pişiği",
+      "diaper rash",
+      "kıçta pişik"
+    ],
+    "keywords": [
+      "pişik",
+      "bebek pişik",
+      "çinko oksit",
+      "pantenol",
+      "bez bölgesi"
+    ],
+    "ingredients": [
+      "çinko oksit",
+      "panthenol",
+      "dekspantenol",
+      "titanyum dioksit",
+      "lanolin"
+    ],
+    "priorityBrands": [
+      "BEPANTHEN",
+      "SUDOCREM",
+      "PENATEN",
+      "DESITIN"
+    ],
+    "atcPrefixes": [
+      "D02AB",
+      "D03AX"
+    ],
+    "categories": [
+      "Bebek Bakım",
+      "Cilt Bakımı"
+    ],
+    "description": "Bebek pişiği ve bez bölgesi tahrişi tedavisi"
+  },
+  {
+    "id": "karaciger-koruyucu",
+    "names": [
+      "karaciğer koruyucu",
+      "siroz",
+      "karaciğer yağlanması",
+      "safra",
+      "kolestaz"
+    ],
+    "keywords": [
+      "karaciğer",
+      "hepatoprotektif",
+      "silimarin",
+      "ursodeoksikolik",
+      "safra"
+    ],
+    "ingredients": [
+      "silimarin",
+      "ursodeoksikolik asit",
+      "tiamfenikol",
+      "metadoksin"
+    ],
+    "priorityBrands": [
+      "LEGALON",
+      "URSOFALK",
+      "URSACTIVE",
+      "ZENTIVA URSO"
+    ],
+    "atcPrefixes": [
+      "A05AA",
+      "A05BA"
+    ],
+    "categories": [
+      "Hepatoprotektif",
+      "Karaciğer"
+    ],
+    "description": "Karaciğer koruyucu, safra taşı ve kolestaz tedavisi"
+  },
+  {
+    "id": "pms",
+    "names": [
+      "pms",
+      "premenstrüel sendrom",
+      "adet öncesi sendromu",
+      "adet öncesi gerginlik"
+    ],
+    "keywords": [
+      "pms",
+      "premenstrüel",
+      "adet öncesi"
+    ],
+    "ingredients": [
+      "drospirenon",
+      "etinil estradiol",
+      "fluoksetin",
+      "sertralin",
+      "kalsiyum",
+      "magnezyum",
+      "b6 vitamini",
+      "piridoksin"
+    ],
+    "priorityBrands": [
+      "YASMIN",
+      "YAZ",
+      "PROZAC",
+      "LUSTRAL"
+    ],
+    "atcPrefixes": [
+      "G03AA",
+      "N06AB04",
+      "N06AB06"
+    ],
+    "categories": [
+      "PMS",
+      "Hormon"
+    ],
+    "description": "Premenstrüel sendrom (PMS) tedavisi"
+  },
+  {
+    "id": "osteoartrit",
+    "names": [
+      "osteoartrit",
+      "kireçlenme",
+      "eklem kireçlenmesi",
+      "oa",
+      "kıkırdak yıpranması"
+    ],
+    "keywords": [
+      "osteoartrit",
+      "kireçlenme",
+      "kıkırdak",
+      "kondroitin",
+      "glukozamin"
+    ],
+    "ingredients": [
+      "glukozamin",
+      "kondroitin",
+      "diaserin",
+      "hyaluronik asit",
+      "diklofenak",
+      "asetaminofen"
+    ],
+    "priorityBrands": [
+      "DONA",
+      "STRUKTUM",
+      "VOLTAREN GEL",
+      "JOINTIVA",
+      "ARTHROCEN"
+    ],
+    "atcPrefixes": [
+      "M01AX25",
+      "M09AX",
+      "M01AB05",
+      "M02AA15"
+    ],
+    "categories": [
+      "Antiartritik",
+      "Eklem Tedavisi"
+    ],
+    "description": "Osteoartrit ve eklem kireçlenmesinin tedavisi"
+  }
+]
