@@ -1,0 +1,9 @@
+{
+  "name": "ilac360",
+  "private": true,
+  "scripts": {
+    "dev": "cd client && npm run dev",
+    "build:data": "node scripts/build-data.mjs",
+    "build": "npm run build:data && cd client && npm install && npm run build && cd .. && rm -rf dist && cp -r client/dist dist"
+  }
+}
