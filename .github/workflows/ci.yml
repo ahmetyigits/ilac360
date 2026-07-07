@@ -31,6 +31,9 @@ jobs:
       - name: Smoke test (data integrity)
         run: node scripts/smoke-test.mjs
 
+      - name: Rules coverage report
+        run: node scripts/rules-coverage.mjs
+
       - name: Unit tests
         run: npm --prefix client run test
 

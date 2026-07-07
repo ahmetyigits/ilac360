@@ -16,9 +16,11 @@ The app runs entirely in the browser. No backend, no accounts, no tracking. The 
 
 - Search across ~20,000 drug products in the Turkish market (by brand name, active ingredient, or barcode)
 - Condition-based search with 80+ mapped indications and prospectus fallback
-- Interaction analysis with four risk levels (critical, high, medium, low)
-- Active ingredient + ATC-code rule engine
+- Interaction analysis with clear risk levels (critical, high, medium, low, unknown, info) and a severity legend
+- Rule engine: 219 sourced ingredient-pair rules + 130+ ATC-class rules, matched on salt-stripped ingredient components with a synonym table (no substring false positives)
 - Printable interaction report
+- Installable PWA with offline caching of previously viewed data
+- Optional cookie-free error reporting and analytics (off by default — see [docs/telemetry.md](docs/telemetry.md))
 - Dark mode
 
 ---
@@ -35,19 +37,22 @@ The app runs entirely in the browser. No backend, no accounts, no tracking. The 
 
 Source data lives in `data/`:
 
-| File                     | Content                                              |
-|--------------------------|------------------------------------------------------|
-| `ilaclar-dataset.json`   | ~20.000 drug records from the Turkish drug database  |
-| `interactions.json`      | Hand-curated interaction rules                       |
-| `condition-mapping.json` | Condition → drug-class mapping for indication search |
+| File                       | Content                                                            |
+|----------------------------|--------------------------------------------------------------------|
+| `ilaclar-dataset.json`     | ~20.000 drug records from the Turkish drug database (Git LFS)      |
+| `interactions.json`        | 219 curated ingredient-pair rules, each with a `source` field      |
+| `ingredient-synonyms.json` | Canonical ingredient names ↔ real-world dataset spellings          |
+| `condition-mapping.json`   | Condition → drug-class mapping for indication search               |
 
-`scripts/build-data.mjs` reads these and writes minimized JSON into `client/public/data/`:
+`scripts/build-data.mjs` reads these and writes content-hashed JSON into `client/public/data/` (resolved via `manifest.json`):
 
-- `drugs-index.json` — slim records for in-memory search
-- `drugs-descriptions.json` — leaflet text keyed by drug ID
-- `interactions.json`, `condition-mapping.json` — copied verbatim
+- `drugs-index.<hash>.json` — slim records for in-memory search
+- `drugs-desc-NN.<hash>.json` — leaflet text split into 64 hash buckets (~180 KB gzip each; a drug card fetches exactly one)
+- `usage-sections.<hash>.json` — "ne için kullanılır" excerpts for free-text condition search
+- `condition-desc-matches.<hash>.json` — precomputed condition ↔ leaflet matches
+- `interactions.<hash>.json`, `condition-mapping.<hash>.json`, `ingredient-synonyms.<hash>.json`
 
-The build also backfills missing ATC codes by mapping each drug's active ingredient to the most common ATC seen elsewhere in the dataset.
+The build also backfills missing ATC codes by mapping each drug's active ingredient to the most common ATC seen elsewhere in the dataset. `npm run rules-coverage` reports which rule ingredients actually match dataset components (currently 98.6%).
 
 ---
 

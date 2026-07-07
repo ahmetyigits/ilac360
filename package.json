@@ -7,6 +7,7 @@
     "lint": "npm --prefix client run lint",
     "test": "npm --prefix client run test",
     "smoke-test": "node scripts/smoke-test.mjs",
+    "rules-coverage": "node scripts/rules-coverage.mjs",
     "build:data": "node scripts/build-data.mjs",
     "build": "npm run build:data && npm --prefix client run build && rm -rf dist && cp -r client/dist dist"
   }
