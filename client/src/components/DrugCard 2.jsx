@@ -281,7 +281,7 @@ function InfoCard({ icon: Icon, label, value, missing }) {
   );
 }
 
-function DescriptionSection({ section, expanded, onToggle }) {
+function DescriptionSection({ section, index, expanded, onToggle }) {
   if (!section.title) {
     return (
       <div className="bg-bg-primary rounded-lg border border-border p-4">

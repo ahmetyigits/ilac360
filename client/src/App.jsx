@@ -1,5 +1,8 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { getStats, analyzeInteractions as analyzeInteractionsApi } from './data/api';
+import { bootData, getStats, analyzeInteractions as analyzeInteractionsApi } from './data/api';
+import DisclaimerGate from './components/DisclaimerGate';
+import { hasAcknowledgedDisclaimer } from './data/disclaimer.js';
+import { AlertTriangle } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import TopBar from './components/TopBar';
 import DrugSearch from './components/DrugSearch';
@@ -25,6 +28,8 @@ export default function App() {
   const [unknownDrugs, setUnknownDrugs] = useState([]);
   const [analysisLoading, setAnalysisLoading] = useState(false);
   const [stats, setStats] = useState(null);
+  const [dataError, setDataError] = useState(false);
+  const [showDisclaimerGate, setShowDisclaimerGate] = useState(false);
   const [toasts, setToasts] = useState([]);
   const toastIdRef = useRef(0);
   const [darkMode, setDarkMode] = useState(() => {
@@ -41,9 +46,18 @@ export default function App() {
     localStorage.setItem('darkMode', darkMode);
   }, [darkMode]);
 
-  useEffect(() => {
-    getStats().then(setStats).catch(() => {});
+  const loadInitialData = useCallback(() => {
+    setDataError(false);
+    // bootData üç veri setini birden ısıtır; istatistikler ilaç+kural verisinden gelir.
+    bootData()
+      .then(() => getStats())
+      .then(setStats)
+      .catch(() => setDataError(true));
   }, []);
+
+  useEffect(() => {
+    loadInitialData();
+  }, [loadInitialData]);
 
   const showToast = useCallback((message, type = 'info') => {
     const id = ++toastIdRef.current;
@@ -81,6 +95,10 @@ export default function App() {
       showToast(`En fazla ${MAX_DRUGS} ilaç analiz edilebilir.`, 'warning');
       return;
     }
+    if (!hasAcknowledgedDisclaimer()) {
+      setShowDisclaimerGate(true);
+      return;
+    }
     setAnalysisLoading(true);
     setUnknownDrugs([]);
     try {
@@ -105,6 +123,24 @@ export default function App() {
 
     return (
       <div className="max-w-5xl mx-auto space-y-5">
+        {dataError && (
+          <div className="rounded-xl border border-red-200 bg-red-50/60 p-4 flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-red-800">İlaç verileri yüklenemedi</p>
+              <p className="text-[12px] text-red-700 mt-0.5">
+                Bağlantınızı kontrol edin ve tekrar deneyin. Veri yüklenmeden arama ve analiz çalışmaz.
+              </p>
+            </div>
+            <button
+              onClick={loadInitialData}
+              className="px-3 py-1.5 rounded-lg bg-red-600 text-white text-xs font-medium hover:bg-red-700 transition-colors cursor-pointer shrink-0"
+            >
+              Tekrar dene
+            </button>
+          </div>
+        )}
+
         {selectedDrugs.length === 0 && !interactions && <Hero />}
 
         <div className="flex gap-1 bg-card rounded-xl border border-border p-1">
@@ -169,7 +205,7 @@ export default function App() {
         })()}
 
         {activeDrug && (
-          <DrugCard drug={activeDrug} onClose={() => setActiveDrug(null)} />
+          <DrugCard key={activeDrug.id} drug={activeDrug} onClose={() => setActiveDrug(null)} />
         )}
 
         {analysisLoading && (
@@ -200,6 +236,7 @@ export default function App() {
           <InteractionResults
             interactions={interactions}
             unknownDrugs={unknownDrugs}
+            onPrintBlocked={() => showToast('Yazdırma penceresi tarayıcı tarafından engellendi. Açılır pencerelere izin verin.', 'warning')}
           />
         )}
 
@@ -237,6 +274,16 @@ export default function App() {
         </div>
       )}
       <Onboarding />
+      {showDisclaimerGate && (
+        <DisclaimerGate
+          onAccept={() => {
+            setShowDisclaimerGate(false);
+            // Onay verildi; bekleyen analizi başlat.
+            analyzeInteractions();
+          }}
+          onCancel={() => setShowDisclaimerGate(false)}
+        />
+      )}
     </div>
   );
 }

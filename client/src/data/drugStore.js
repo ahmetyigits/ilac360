@@ -1,3 +1,17 @@
+import {
+  turkishLower,
+  searchFold,
+  flexibleIncludes,
+  flexibleEquals,
+  isValidIngredient,
+  cleanCategories,
+} from './turkishText.js';
+
+import { bucketOf } from './buckets.js';
+
+// Eski import yolları bozulmasın diye yeniden dışa aktarılır.
+export { turkishLower, searchFold, flexibleIncludes, flexibleEquals, isValidIngredient, cleanCategories };
+
 const DATA_BASE = `${import.meta.env.BASE_URL || '/'}data`.replace(/\/+$/, '');
 
 let drugs = [];
@@ -6,32 +20,23 @@ let drugsByNameLower = new Map();
 let cachedStats = null;
 let loadPromise = null;
 
-let descriptions = null;
-let descriptionsPromise = null;
+// Veri dosyaları içerik-hash'li adlarla yayınlanır (uzun süreli CDN cache için);
+// mantıksal ad → gerçek dosya adı çözümü manifest üzerinden yapılır.
+let manifestPromise = null;
 
-export function turkishLower(str) {
-  return String(str)
-    .replace(/İ/g, 'i')
-    .replace(/I/g, 'ı')
-    .replace(/Ş/g, 'ş')
-    .replace(/Ğ/g, 'ğ')
-    .replace(/Ü/g, 'ü')
-    .replace(/Ö/g, 'ö')
-    .replace(/Ç/g, 'ç')
-    .toLowerCase();
+export function loadManifest() {
+  if (manifestPromise) return manifestPromise;
+  manifestPromise = fetch(`${DATA_BASE}/manifest.json`, { cache: 'no-cache' })
+    .then((r) => (r.ok ? r.json() : null))
+    .catch(() => null);
+  return manifestPromise;
 }
 
-export function flexibleIncludes(haystack, needle) {
-  if (!haystack || !needle) return false;
-  const h1 = turkishLower(haystack);
-  const n1 = turkishLower(needle);
-  if (h1.includes(n1)) return true;
-  return haystack.toLowerCase().includes(needle.toLowerCase());
-}
-
-export function flexibleEquals(a, b) {
-  if (turkishLower(a) === turkishLower(b)) return true;
-  return String(a).toLowerCase() === String(b).toLowerCase();
+// Manifest yoksa (eski dağıtım / dev ortamı) hash'siz ada geri düşer.
+export async function dataUrl(logicalName) {
+  const manifest = await loadManifest();
+  const name = manifest?.files?.[logicalName] || logicalName;
+  return `${DATA_BASE}/${name}`;
 }
 
 // drugs-index.json kısaltılmış alan adlarını kullanıyor (5+ MB tasarrufu için).
@@ -55,7 +60,8 @@ function expand(entry) {
 
 export function loadDrugs() {
   if (loadPromise) return loadPromise;
-  loadPromise = fetch(`${DATA_BASE}/drugs-index.json`)
+  loadPromise = dataUrl('drugs-index.json')
+    .then((url) => fetch(url))
     .then((r) => {
       if (!r.ok) throw new Error(`drugs-index.json ${r.status}`);
       return r.json();
@@ -65,8 +71,12 @@ export function loadDrugs() {
       drugsById = new Map();
       drugsByNameLower = new Map();
       for (const d of drugs) {
+        // Arama alanları bir kez normalize edilir; searchDrugs her tuş vuruşunda
+        // 20 bin kayıt × regex çalıştırmak yerine düz string karşılaştırması yapar.
+        d._nameL = searchFold(d.Product_Name);
+        d._ingL = d.Active_Ingredient ? searchFold(d.Active_Ingredient) : '';
         drugsById.set(d.ID, d);
-        drugsByNameLower.set(turkishLower(d.Product_Name), d);
+        drugsByNameLower.set(d._nameL, d);
       }
       cachedStats = computeStats();
       return drugs;
@@ -76,6 +86,22 @@ export function loadDrugs() {
 
 export function getDrugs() {
   return drugs;
+}
+
+// Test kancası: fetch olmadan ilaç listesi enjekte etmek için.
+// Kayıtlar genişletilmiş şemada verilir (Product_Name, Active_Ingredient, ...).
+export function setDrugsForTest(entries) {
+  drugs = entries.map((d) => ({ ...d }));
+  drugsById = new Map();
+  drugsByNameLower = new Map();
+  for (const d of drugs) {
+    d._nameL = searchFold(d.Product_Name);
+    d._ingL = d.Active_Ingredient ? searchFold(d.Active_Ingredient) : '';
+    drugsById.set(d.ID, d);
+    drugsByNameLower.set(d._nameL, d);
+  }
+  cachedStats = computeStats();
+  loadPromise = Promise.resolve(drugs);
 }
 
 function computeStats() {
@@ -102,36 +128,17 @@ export async function getStats() {
 
 export function getDrugByName(name) {
   if (!name) return null;
-  const exact = drugsByNameLower.get(turkishLower(name));
+  const q = searchFold(name);
+  const exact = drugsByNameLower.get(q);
   if (exact) return exact;
   for (const d of drugs) {
-    if (flexibleIncludes(d.Product_Name, name)) return d;
+    if (d._nameL.includes(q)) return d;
   }
   return null;
 }
 
 export function getDrugById(id) {
   return drugsById.get(String(id)) || null;
-}
-
-const INVALID_INGREDIENTS = new Set([
-  'etken maddesi bilgisi bulunamadı.',
-  'etken maddesi bilgisi bulunamadı',
-  'other cold preparations',
-  'bilinmiyor',
-  '-',
-  '—',
-]);
-
-export function isValidIngredient(ingredient) {
-  if (!ingredient || !ingredient.trim()) return false;
-  return !INVALID_INGREDIENTS.has(ingredient.trim().toLowerCase());
-}
-
-export function cleanCategories(drug) {
-  return [drug.Category_1, drug.Category_2, drug.Category_3, drug.Category_4, drug.Category_5]
-    .map((c) => c?.trim())
-    .filter((c) => c && c.length > 0 && c !== 'Yok');
 }
 
 export function cleanDrugResponse(drug) {
@@ -167,7 +174,7 @@ export function searchDrugs(query, { limit = 25 } = {}) {
     return matches;
   }
 
-  const q = turkishLower(trimmed);
+  const q = searchFold(trimmed);
   const exact = [];
   const startsWith = [];
   const contains = [];
@@ -175,7 +182,7 @@ export function searchDrugs(query, { limit = 25 } = {}) {
   const seen = new Set();
 
   for (const drug of drugs) {
-    const nameL = turkishLower(drug.Product_Name);
+    const nameL = drug._nameL;
     if (nameL === q) {
       exact.push(drug);
       seen.add(drug.ID);
@@ -193,7 +200,7 @@ export function searchDrugs(query, { limit = 25 } = {}) {
   if (nameTotal < limit) {
     for (const drug of drugs) {
       if (seen.has(drug.ID)) continue;
-      if (drug.Active_Ingredient && turkishLower(drug.Active_Ingredient).includes(q)) {
+      if (drug._ingL && drug._ingL.includes(q)) {
         ingredient.push(drug);
         seen.add(drug.ID);
         if (nameTotal + ingredient.length >= limit) break;
@@ -206,32 +213,30 @@ export function searchDrugs(query, { limit = 25 } = {}) {
     .map(cleanDrugResponse);
 }
 
-// Açıklamalar dosyası ~45 MB — sadece DrugCard açıldığında veya
-// hastalığa göre arama prospektüs taramasına düştüğünde indirilir.
-export function loadDescriptions() {
-  if (descriptionsPromise) return descriptionsPromise;
-  descriptionsPromise = fetch(`${DATA_BASE}/drugs-descriptions.json`)
+// Prospektüsler 64 hash-bucket'a bölünmüş durumda; bir ilaç kartı açıldığında
+// 46 MB'lık tek dosya yerine yalnızca ilgili ~180 KB'lık bucket indirilir.
+const descBucketPromises = new Map();
+
+function loadDescBucket(bucket) {
+  const key = String(bucket).padStart(2, '0');
+  let promise = descBucketPromises.get(key);
+  if (promise) return promise;
+  promise = dataUrl(`drugs-desc-${key}.json`)
+    .then((url) => fetch(url))
     .then((r) => {
-      if (!r.ok) throw new Error(`drugs-descriptions.json ${r.status}`);
+      if (!r.ok) throw new Error(`drugs-desc-${key}.json ${r.status}`);
       return r.json();
     })
-    .then((map) => {
-      descriptions = map;
-      return descriptions;
+    .catch((err) => {
+      // Başarısız bucket cache'lenmesin; sonraki deneme yeniden indirsin.
+      descBucketPromises.delete(key);
+      throw err;
     });
-  return descriptionsPromise;
-}
-
-export function getDescriptionSync(id) {
-  if (!descriptions) return undefined;
-  return descriptions[String(id)] || null;
+  descBucketPromises.set(key, promise);
+  return promise;
 }
 
 export async function getDescription(id) {
-  await loadDescriptions();
-  return descriptions[String(id)] || null;
-}
-
-export function descriptionsLoaded() {
-  return descriptions !== null;
+  const map = await loadDescBucket(bucketOf(id));
+  return map[String(id)] || null;
 }

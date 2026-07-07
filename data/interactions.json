@@ -4,216 +4,311 @@
     "ingredientB": "parasetamol",
     "risk": "critical",
     "message": "Aynı etkin madde! Parasetamol doz aşımı karaciğer yetmezliğine neden olabilir.",
-    "details": "Günlük toplam parasetamol dozu 4g'ı geçmemelidir."
+    "details": "Günlük toplam parasetamol dozu 4g'ı geçmemelidir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "aspirin",
     "risk": "critical",
     "message": "Warfarin ve aspirin birlikte kullanımı ciddi kanama riskini çok artırır.",
-    "details": "Her iki ilaç da kan pıhtılaşmasını etkileyerek kanama riskini ciddi şekilde artırır."
+    "details": "Her iki ilaç da kan pıhtılaşmasını etkileyerek kanama riskini ciddi şekilde artırır.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "ibuprofen",
     "risk": "high",
     "message": "Warfarin ve ibuprofen birlikte kullanımı kanama riskini artırır.",
-    "details": "NSAID ilaçlar, warfarinin antikoagülan etkisini potansiyalize edebilir."
+    "details": "NSAID ilaçlar, warfarinin antikoagülan etkisini potansiyalize edebilir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "parasetamol",
     "risk": "medium",
     "message": "Yüksek doz parasetamol warfarinin etkisini artırabilir.",
-    "details": "Düşük doz ve kısa süreli kullanım genellikle güvenlidir, ancak INR takibi önerilir."
+    "details": "Düşük doz ve kısa süreli kullanım genellikle güvenlidir, ancak INR takibi önerilir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "metformin",
     "ingredientB": "alkol",
     "risk": "high",
     "message": "Metformin ve alkol birlikte kullanımı laktik asidoz riskini artırır.",
-    "details": "Alkol, metforminin laktik asidoz yan etkisini potansiyalize eder."
+    "details": "Alkol, metforminin laktik asidoz yan etkisini potansiyalize eder.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "metotreksat",
     "ingredientB": "ibuprofen",
     "risk": "critical",
     "message": "NSAID ilaçlar metotreksatın atılımını azaltarak toksisiteyi artırır.",
-    "details": "Bu kombinasyon kemik iliği baskılanması ve böbrek yetmezliğine neden olabilir."
+    "details": "Bu kombinasyon kemik iliği baskılanması ve böbrek yetmezliğine neden olabilir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "metotreksat",
     "ingredientB": "trimetoprim",
     "risk": "critical",
     "message": "Trimetoprim, metotreksatın folat metabolizması üzerindeki etkisini artırır.",
-    "details": "Ciddi kemik iliği baskılanması riski vardır."
+    "details": "Ciddi kemik iliği baskılanması riski vardır.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "digoksin",
     "ingredientB": "amiodaron",
     "risk": "high",
     "message": "Amiodaron, digoksin plazma düzeylerini önemli ölçüde artırır.",
-    "details": "Digoksin dozu %50 azaltılmalı ve düzey takibi yapılmalıdır."
+    "details": "Digoksin dozu %50 azaltılmalı ve düzey takibi yapılmalıdır.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "digoksin",
     "ingredientB": "verapamil",
     "risk": "high",
     "message": "Verapamil, digoksin düzeylerini artırır ve AV blok riskini yükseltir.",
-    "details": "Kalp ritim bozuklukları açısından yakın takip gerekir."
+    "details": "Kalp ritim bozuklukları açısından yakın takip gerekir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "simvastatin",
     "ingredientB": "eritromisin",
     "risk": "high",
     "message": "Eritromisin, simvastatinin plazma düzeylerini artırarak rabdomiyoliz riskini yükseltir.",
-    "details": "CYP3A4 inhibisyonu nedeniyle statin toksisitesi gelişebilir."
+    "details": "CYP3A4 inhibisyonu nedeniyle statin toksisitesi gelişebilir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "simvastatin",
     "ingredientB": "itrakonazol",
     "risk": "critical",
     "message": "İtrakonazol, simvastatinin metabolizmasını ciddi şekilde engeller.",
-    "details": "Bu kombinasyon kontrendikedir. Rabdomiyoliz riski çok yüksektir."
+    "details": "Bu kombinasyon kontrendikedir. Rabdomiyoliz riski çok yüksektir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "atorvastatin",
     "ingredientB": "klaritromisin",
     "risk": "high",
     "message": "Klaritromisin, atorvastatinin düzeylerini artırarak kas toksisitesi riskini yükseltir.",
-    "details": "Statin dozu azaltılmalı veya alternatif antibiyotik seçilmelidir."
+    "details": "Statin dozu azaltılmalı veya alternatif antibiyotik seçilmelidir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "sildenafil",
-    "ingredientB": "nitrat",
+    "ingredientB": "izosorbid dinitrat",
     "risk": "critical",
     "message": "Sildenafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
-    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir."
+    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "source": "manuel kürasyon"
+  },
+  {
+    "ingredientA": "sildenafil",
+    "ingredientB": "izosorbid mononitrat",
+    "risk": "critical",
+    "message": "Sildenafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
+    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "source": "manuel kürasyon"
+  },
+  {
+    "ingredientA": "sildenafil",
+    "ingredientB": "gliseril trinitrat",
+    "risk": "critical",
+    "message": "Sildenafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
+    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "source": "manuel kürasyon"
+  },
+  {
+    "ingredientA": "tadalafil",
+    "ingredientB": "izosorbid dinitrat",
+    "risk": "critical",
+    "message": "Tadalafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
+    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "source": "manuel kürasyon"
+  },
+  {
+    "ingredientA": "tadalafil",
+    "ingredientB": "izosorbid mononitrat",
+    "risk": "critical",
+    "message": "Tadalafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
+    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "source": "manuel kürasyon"
+  },
+  {
+    "ingredientA": "tadalafil",
+    "ingredientB": "gliseril trinitrat",
+    "risk": "critical",
+    "message": "Tadalafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
+    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "source": "manuel kürasyon"
+  },
+  {
+    "ingredientA": "vardenafil",
+    "ingredientB": "izosorbid dinitrat",
+    "risk": "critical",
+    "message": "Vardenafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
+    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "source": "manuel kürasyon"
+  },
+  {
+    "ingredientA": "vardenafil",
+    "ingredientB": "izosorbid mononitrat",
+    "risk": "critical",
+    "message": "Vardenafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
+    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "source": "manuel kürasyon"
+  },
+  {
+    "ingredientA": "vardenafil",
+    "ingredientB": "gliseril trinitrat",
+    "risk": "critical",
+    "message": "Vardenafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
+    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "lityum",
     "ingredientB": "ibuprofen",
     "risk": "high",
     "message": "NSAID ilaçlar lityumun böbrekten atılımını azaltarak toksik düzeylere çıkmasına neden olabilir.",
-    "details": "Lityum düzeyi yakın takip edilmelidir."
+    "details": "Lityum düzeyi yakın takip edilmelidir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "lityum",
     "ingredientB": "enalapril",
     "risk": "high",
     "message": "ACE inhibitörleri lityum düzeylerini artırabilir.",
-    "details": "Lityum toksisitesi açısından düzey takibi gereklidir."
+    "details": "Lityum toksisitesi açısından düzey takibi gereklidir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "fluoksetin",
     "ingredientB": "tramadol",
     "risk": "high",
     "message": "SSRI ve tramadol birlikte serotonin sendromu riskini artırır.",
-    "details": "Ateş, ajitasyon, tremor ve kas sertliği gibi belirtiler açısından dikkatli olunmalıdır."
+    "details": "Ateş, ajitasyon, tremor ve kas sertliği gibi belirtiler açısından dikkatli olunmalıdır.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "sertralin",
     "ingredientB": "tramadol",
     "risk": "high",
     "message": "SSRI ve tramadol birlikte serotonin sendromu riskini artırır.",
-    "details": "Alternatif analjezik tercih edilmelidir."
+    "details": "Alternatif analjezik tercih edilmelidir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "fluoksetin",
     "ingredientB": "moklobemid",
     "risk": "critical",
     "message": "SSRI ve MAO inhibitörü birlikte kullanımı serotonin sendromuna neden olabilir.",
-    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden bir durumdur."
+    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden bir durumdur.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "siprofloksasin",
     "ingredientB": "teofilin",
     "risk": "high",
     "message": "Siprofloksasin, teofilinin metabolizmasını yavaşlatarak toksik düzeylere çıkmasına neden olabilir.",
-    "details": "Teofilin düzeyleri yakın takip edilmeli, doz ayarlanmalıdır."
+    "details": "Teofilin düzeyleri yakın takip edilmeli, doz ayarlanmalıdır.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "klaritromisin",
     "ingredientB": "kolşisin",
     "risk": "critical",
     "message": "Klaritromisin kolşisin toksisitesini ciddi şekilde artırabilir.",
-    "details": "Özellikle böbrek veya karaciğer yetmezliği olan hastalarda ölümcül olabilir."
+    "details": "Özellikle böbrek veya karaciğer yetmezliği olan hastalarda ölümcül olabilir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "metoklopramid",
     "ingredientB": "haloperidol",
     "risk": "high",
     "message": "Her iki ilaç da ekstrapiramidal yan etki riskini artırır.",
-    "details": "Birlikte kullanımda parkinsonizm, distoni ve akatizi riski artar."
+    "details": "Birlikte kullanımda parkinsonizm, distoni ve akatizi riski artar.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "aspirin",
     "ingredientB": "ibuprofen",
     "risk": "high",
     "message": "İbuprofen, aspirinin antiplatelet etkisini azaltabilir.",
-    "details": "İbuprofen aspirinden en az 30 dakika sonra veya 8 saat önce alınmalıdır."
+    "details": "İbuprofen aspirinden en az 30 dakika sonra veya 8 saat önce alınmalıdır.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "omeprazol",
     "ingredientB": "klopidogrel",
     "risk": "high",
     "message": "Omeprazol, klopidogrelin aktif metabolite dönüşümünü azaltır.",
-    "details": "Klopidogrelin antiplatelet etkinliği azalabilir. Pantoprazol tercih edilmelidir."
+    "details": "Klopidogrelin antiplatelet etkinliği azalabilir. Pantoprazol tercih edilmelidir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "amiodaron",
     "ingredientB": "simvastatin",
     "risk": "high",
     "message": "Amiodaron, simvastatinin düzeylerini artırarak rabdomiyoliz riskini yükseltir.",
-    "details": "Simvastatin dozu günlük 20 mg'ı geçmemelidir."
+    "details": "Simvastatin dozu günlük 20 mg'ı geçmemelidir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "spironolakton",
     "ingredientB": "enalapril",
     "risk": "high",
     "message": "Spironolakton ve ACE inhibitörü birlikte hiperkalemi riskini artırır.",
-    "details": "Potasyum düzeyleri yakın takip edilmelidir."
+    "details": "Potasyum düzeyleri yakın takip edilmelidir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "eritromisin",
     "risk": "high",
     "message": "Eritromisin, karbamazepinin düzeylerini artırarak toksisiteye neden olabilir.",
-    "details": "Baş dönmesi, çift görme, ataksi gibi belirtiler açısından takip edilmelidir."
+    "details": "Baş dönmesi, çift görme, ataksi gibi belirtiler açısından takip edilmelidir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "fenitoin",
     "ingredientB": "flukonazol",
     "risk": "high",
     "message": "Flukonazol, fenitoinin metabolizmasını inhibe ederek düzeylerini artırır.",
-    "details": "Fenitoin toksisitesi açısından düzey takibi gereklidir."
+    "details": "Fenitoin toksisitesi açısından düzey takibi gereklidir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "teofilin",
     "ingredientB": "eritromisin",
     "risk": "high",
     "message": "Eritromisin, teofilinin metabolizmasını azaltarak toksik düzeylere çıkmasına neden olabilir.",
-    "details": "Teofilin düzeyleri izlenmeli ve doz ayarlanmalıdır."
+    "details": "Teofilin düzeyleri izlenmeli ve doz ayarlanmalıdır.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "diklofenak",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "Diklofenak, lityumun renal klirensini azaltarak toksisiteye neden olabilir.",
-    "details": "Lityum serum düzeyleri yakın takip edilmelidir."
+    "details": "Lityum serum düzeyleri yakın takip edilmelidir.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "amoksisilin",
     "ingredientB": "metotreksat",
     "risk": "high",
     "message": "Amoksisilin, metotreksatın renal eliminasyonunu azaltarak toksisiteyi artırabilir.",
-    "details": "Hematolojik takip yapılmalıdır."
+    "details": "Hematolojik takip yapılmalıdır.",
+    "source": "manuel kürasyon"
   },
   {
     "ingredientA": "flukonazol",
     "ingredientB": "warfarin",
     "risk": "high",
     "message": "Flukonazol, warfarinin metabolizmasını inhibe ederek kanama riskini artırır.",
-    "details": "INR yakın takip edilmeli, warfarin dozu ayarlanmalıdır."
+    "details": "INR yakın takip edilmeli, warfarin dozu ayarlanmalıdır.",
+    "source": "manuel kürasyon"
   }
 ]

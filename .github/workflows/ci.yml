@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --prefix client
+
+      - name: Lint
+        run: npm --prefix client run lint
+
+      - name: Build data files
+        run: node scripts/build-data.mjs
+
+      - name: Smoke test (data integrity)
+        run: node scripts/smoke-test.mjs
+
+      - name: Unit tests
+        run: npm --prefix client run test
+
+      - name: Build client
+        run: npm --prefix client run build
+
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: client/dist
+          retention-days: 7

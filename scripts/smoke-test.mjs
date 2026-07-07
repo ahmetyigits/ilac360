@@ -1,53 +1,96 @@
-// Lightweight Node smoke test: load the public JSON files the same way the
-// browser will, then exercise search + interaction analysis to confirm the
-// data plumbing matches the legacy server output.
+// Hafif Node smoke testi: üretilen public JSON dosyalarını tarayıcının
+// kullanacağı şekilde (manifest üzerinden) yükler, arama ve veri bütünlüğünü
+// spot-check eder. Başarısızlıkta sıfır olmayan çıkış koduyla biter (CI için).
 
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { turkishLower, flexibleIncludes } from '../client/src/data/turkishText.js';
+import { bucketOf } from '../client/src/data/buckets.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA = join(__dirname, '..', 'client', 'public', 'data');
 
-function turkishLower(s) {
-  return String(s)
-    .replace(/İ/g, 'i').replace(/I/g, 'ı').replace(/Ş/g, 'ş')
-    .replace(/Ğ/g, 'ğ').replace(/Ü/g, 'ü').replace(/Ö/g, 'ö')
-    .replace(/Ç/g, 'ç').toLowerCase();
+let failures = 0;
+function assert(cond, label) {
+  if (cond) {
+    console.log(`  ✓ ${label}`);
+  } else {
+    failures++;
+    console.error(`  ✗ ${label}`);
+  }
 }
-function flexibleIncludes(h, n) {
-  if (turkishLower(h).includes(turkishLower(n))) return true;
-  return String(h).toLowerCase().includes(String(n).toLowerCase());
+
+// Manifest
+const manifest = JSON.parse(readFileSync(join(DATA, 'manifest.json'), 'utf-8'));
+console.log(`manifest: v${manifest.version}, üretim: ${manifest.generatedAt}`);
+assert(manifest.files && Object.keys(manifest.files).length > 5, 'manifest dosya listesi dolu');
+assert(manifest.drugCount > 20000, `ilaç sayısı > 20000 (${manifest.drugCount})`);
+assert(manifest.usageSectionCount > 2700, `kullanım bölümü sayısı > 2700 (${manifest.usageSectionCount})`);
+
+const file = (logical) => join(DATA, manifest.files[logical]);
+for (const [logical, hashed] of Object.entries(manifest.files)) {
+  if (!existsSync(join(DATA, hashed))) {
+    failures++;
+    console.error(`  ✗ manifest'te listelenen dosya eksik: ${logical} → ${hashed}`);
+  }
 }
 
 const t0 = Date.now();
-const index = JSON.parse(readFileSync(join(DATA, 'drugs-index.json'), 'utf-8'));
-console.log(`drugs-index.json   : ${index.length} entries, ${(Date.now()-t0)}ms`);
+const index = JSON.parse(readFileSync(file('drugs-index.json'), 'utf-8'));
+console.log(`drugs-index        : ${index.length} entries, ${Date.now() - t0}ms`);
+assert(index.length === manifest.drugCount, 'index kaydı manifest ile tutarlı');
 
-const t1 = Date.now();
-const interactions = JSON.parse(readFileSync(join(DATA, 'interactions.json'), 'utf-8'));
-console.log(`interactions.json  : ${interactions.length} rules, ${(Date.now()-t1)}ms`);
+const interactions = JSON.parse(readFileSync(file('interactions.json'), 'utf-8'));
+assert(interactions.length >= 30, `etkileşim kuralı >= 30 (${interactions.length})`);
+assert(interactions.every((r) => r.ingredientA && r.ingredientB && r.risk && r.message), 'tüm kurallarda zorunlu alanlar var');
 
-const t2 = Date.now();
-const conditions = JSON.parse(readFileSync(join(DATA, 'condition-mapping.json'), 'utf-8'));
-console.log(`conditions         : ${conditions.length} entries, ${(Date.now()-t2)}ms`);
+const conditions = JSON.parse(readFileSync(file('condition-mapping.json'), 'utf-8'));
+assert(conditions.length >= 90, `durum sayısı >= 90 (${conditions.length})`);
 
-// Spot-check: search for "parol"
+// Bucket bütünlüğü: prospektüsü olan bir ilaç kendi bucket'ında bulunmalı
+const withDesc = index.find((e) => e.h);
+assert(!!withDesc, 'prospektüslü en az bir ilaç var');
+if (withDesc) {
+  const b = String(bucketOf(withDesc.i)).padStart(2, '0');
+  const bucket = JSON.parse(readFileSync(file(`drugs-desc-${b}.json`), 'utf-8'));
+  assert(typeof bucket[withDesc.i] === 'string' && bucket[withDesc.i].length > 50,
+    `ilaç ${withDesc.i} kendi bucket'ında (${b}) bulundu`);
+}
+
+// Kullanım bölümleri
+const usage = JSON.parse(readFileSync(file('usage-sections.json'), 'utf-8'));
+assert(Object.keys(usage).length === manifest.usageSectionCount, 'usage-sections manifest ile tutarlı');
+
+// Durum eşleşmeleri
+const descMatches = JSON.parse(readFileSync(file('condition-desc-matches.json'), 'utf-8'));
+assert(Object.keys(descMatches).length === conditions.length, 'condition-desc-matches tüm durumları kapsıyor');
+
+// Arama spot-check
 const matches = [];
 for (const e of index) {
   if (flexibleIncludes(e.n, 'parol')) matches.push(e);
   if (matches.length >= 5) break;
 }
-console.log('\nSearch "parol" → first 5:');
-for (const m of matches) console.log(`  - ${m.n}  [${m.a || '?'}]  atc=${m.t || '-'}`);
+assert(matches.length > 0, `"parol" araması sonuç veriyor (${matches.length})`);
+for (const m of matches) console.log(`    - ${m.n}  [${m.a || '?'}]  atc=${m.t || '-'}`);
 
-// Spot-check: lookup PAROL by name
 const parol = index.find((e) => turkishLower(e.n).startsWith('parol'));
-const aspirin = index.find((e) => turkishLower(e.n).includes('aspirin'));
-console.log('\nFound PAROL    :', parol?.n, parol?.a);
-console.log('Found ASPIRIN  :', aspirin?.n, aspirin?.a);
+// "ASPIRIN" kaynakta Latin büyük I ile yazılı; uygulamadaki arama gibi
+// ı/i katlaması yapan flexibleIncludes ile bakılır (searchFold regresyon testi).
+const aspirin = index.find((e) => flexibleIncludes(e.n, 'aspirin'));
+assert(!!parol, `PAROL bulundu: ${parol?.n}`);
+assert(!!aspirin, `ASPIRIN bulundu: ${aspirin?.n}`);
 
-// Spot-check: condition mapping for "baş ağrısı"
+// Kategori tekilleştirme regresyonu
+const dupCats = index.filter((e) => e.c && new Set(e.c).size !== e.c.length);
+assert(dupCats.length === 0, `hiçbir kayıtta yinelenen kategori yok (${dupCats.length})`);
+
 const mig = conditions.find((c) => c.id === 'bas-agrisi');
-console.log('\nCondition bas-agrisi has', mig?.ingredients?.length, 'ingredients,',
-  mig?.priorityBrands?.length, 'priority brands');
+assert((mig?.ingredients?.length || 0) > 0, `bas-agrisi durumunda ${mig?.ingredients?.length} etken madde var`);
+
+if (failures > 0) {
+  console.error(`\nSMOKE TEST BAŞARISIZ: ${failures} kontrol geçemedi.`);
+  process.exit(1);
+}
+console.log('\nSmoke test geçti.');
