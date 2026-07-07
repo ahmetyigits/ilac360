@@ -1,29 +1,38 @@
 import {
-  turkishLower,
-  flexibleIncludes,
   getDrugs,
+  getDrugById,
   cleanDrugResponse,
-  loadDescriptions,
-  getDescriptionSync,
+  dataUrl,
 } from './drugStore.js';
-
-const DATA_BASE = `${import.meta.env.BASE_URL || '/'}data`.replace(/\/+$/, '');
+import { turkishLower, searchFold, flexibleIncludes } from './turkishText.js';
 
 let conditions = [];
+// Durum id → { usage: {drugId: keyword}, full: {drugId: keyword} }
+// Build sırasında hesaplanır; istemci prospektüs metinlerini indirmeden
+// "prospektüste belirtilmiş" eşleşmelerini bilir.
+let descMatches = {};
 let cachedResults = new Map();
 let loadPromise = null;
 
 export function loadConditions() {
   if (loadPromise) return loadPromise;
-  loadPromise = fetch(`${DATA_BASE}/condition-mapping.json`)
-    .then((r) => {
-      if (!r.ok) throw new Error(`condition-mapping.json ${r.status}`);
-      return r.json();
-    })
-    .then((list) => {
-      conditions = list;
-      return conditions;
-    });
+  loadPromise = Promise.all([
+    dataUrl('condition-mapping.json')
+      .then((url) => fetch(url))
+      .then((r) => {
+        if (!r.ok) throw new Error(`condition-mapping.json ${r.status}`);
+        return r.json();
+      }),
+    // Eşleşme dosyası opsiyonel: yoksa yalnızca prospektüs katmanı devre dışı kalır.
+    dataUrl('condition-desc-matches.json')
+      .then((url) => fetch(url))
+      .then((r) => (r.ok ? r.json() : {}))
+      .catch(() => ({})),
+  ]).then(([list, matches]) => {
+    conditions = list;
+    descMatches = matches || {};
+    return conditions;
+  });
   return loadPromise;
 }
 
@@ -51,34 +60,6 @@ function findMatchingCondition(query) {
     if (exact) break;
   }
   return exact || prefix || substring || null;
-}
-
-function extractUsageSection(description) {
-  if (!description) return null;
-  const lower = turkishLower(description);
-  const startMarkers = [
-    'ne için kullanılır', 'nedir ve ne için kullanılır', 'endikasyonlar', 'endikedir',
-    'endikasyon', 'kullanım alanı', 'kullanım alanları', 'kullanıldığı durumlar',
-    'kullanılır', 'tedavisinde', 'tedavisi için', 'etkilidir', 'neyi tedavi eder',
-    'terapötik endikasyon',
-  ];
-  const endMarkers = [
-    'kullanmadan önce', 'nasıl kullanılır', 'kullanırken dikkat', 'kullanmayınız',
-    'yan etki', 'olası yan etki', 'istenmeyen etki', 'doz aşımı', 'saklama koşul',
-    'içeri̇k', 'içerik', 'kontrendikasyon', 'uyarı',
-  ];
-  let startIdx = -1;
-  for (const marker of startMarkers) {
-    const idx = lower.indexOf(marker);
-    if (idx !== -1) { startIdx = idx; break; }
-  }
-  if (startIdx === -1) return null;
-  let endIdx = description.length;
-  for (const marker of endMarkers) {
-    const idx = lower.indexOf(marker, startIdx + 20);
-    if (idx !== -1 && idx < endIdx) endIdx = idx;
-  }
-  return description.substring(startIdx, endIdx);
 }
 
 function ingredientMatches(drugIngredient, targetIngredients) {
@@ -110,10 +91,11 @@ function sortScore(item) {
   return sourceScore * 100 + formScore * 10 + singleScore;
 }
 
-function buildFullResultList(matchedCondition, drugs, descriptionsAvailable) {
+function buildFullResultList(matchedCondition, drugs) {
   const seen = new Set();
   const allItems = [];
   const conditionIngredients = matchedCondition.ingredients || [];
+  const dm = descMatches[matchedCondition.id] || { usage: {}, full: {} };
 
   for (const drug of drugs) {
     if (seen.has(drug.ID)) continue;
@@ -130,7 +112,7 @@ function buildFullResultList(matchedCondition, drugs, descriptionsAvailable) {
           _source: 'ingredient',
           _isOral: isOralSystemic(drug.Product_Name),
           _isTopical: isTopicalForm(drug.Product_Name),
-          _isSingle: !(drug.Active_Ingredient || '').match(/[,+\/]/),
+          _isSingle: !(drug.Active_Ingredient || '').match(/[,+/]/),
         });
         matched = true;
       }
@@ -177,51 +159,32 @@ function buildFullResultList(matchedCondition, drugs, descriptionsAvailable) {
       }
     }
 
-    if (!matched && descriptionsAvailable) {
-      const desc = getDescriptionSync(drug.ID);
-      if (desc) {
-        const usageSection = extractUsageSection(desc);
-        if (usageSection) {
-          for (const keyword of matchedCondition.keywords) {
-            if (flexibleIncludes(usageSection, keyword)) {
-              seen.add(drug.ID);
-              allItems.push({
-                ...cleanDrugResponse(drug),
-                matchReason: `Prospektüste belirtilmiş — ${keyword}`,
-                matchSource: 'description',
-                _source: 'description',
-                _isOral: isOralSystemic(drug.Product_Name),
-                _isTopical: isTopicalForm(drug.Product_Name),
-                _isSingle: true,
-              });
-              matched = true;
-              break;
-            }
-          }
-        }
-      }
+    // Prospektüs eşleşmeleri build'de hesaplandı; burada yalnızca lookup yapılır.
+    if (!matched && dm.usage[drug.ID]) {
+      seen.add(drug.ID);
+      allItems.push({
+        ...cleanDrugResponse(drug),
+        matchReason: `Prospektüste belirtilmiş — ${dm.usage[drug.ID]}`,
+        matchSource: 'description',
+        _source: 'description',
+        _isOral: isOralSystemic(drug.Product_Name),
+        _isTopical: isTopicalForm(drug.Product_Name),
+        _isSingle: true,
+      });
+      matched = true;
     }
 
-    if (!matched && descriptionsAvailable) {
-      const desc = getDescriptionSync(drug.ID);
-      if (desc && desc.length > 50) {
-        for (const keyword of matchedCondition.keywords) {
-          if (keyword.length < 4) continue;
-          if (flexibleIncludes(desc, keyword)) {
-            seen.add(drug.ID);
-            allItems.push({
-              ...cleanDrugResponse(drug),
-              matchReason: `Prospektüste geçiyor — ${keyword}`,
-              matchSource: 'description-full',
-              _source: 'description-full',
-              _isOral: isOralSystemic(drug.Product_Name),
-              _isTopical: isTopicalForm(drug.Product_Name),
-              _isSingle: true,
-            });
-            break;
-          }
-        }
-      }
+    if (!matched && dm.full[drug.ID]) {
+      seen.add(drug.ID);
+      allItems.push({
+        ...cleanDrugResponse(drug),
+        matchReason: `Prospektüste geçiyor — ${dm.full[drug.ID]}`,
+        matchSource: 'description-full',
+        _source: 'description-full',
+        _isOral: isOralSystemic(drug.Product_Name),
+        _isTopical: isTopicalForm(drug.Product_Name),
+        _isSingle: true,
+      });
     }
   }
 
@@ -233,12 +196,14 @@ function buildFullResultList(matchedCondition, drugs, descriptionsAvailable) {
     const priorityIds = new Set();
 
     for (const brand of priorityBrands) {
-      const brandLower = turkishLower(brand);
+      const brandLower = searchFold(brand);
       let bestMatch = null;
       for (const drug of drugs) {
         if (priorityIds.has(drug.ID)) continue;
-        if (!turkishLower(drug.Product_Name).startsWith(brandLower)) continue;
-        const nameLower = turkishLower(drug.Product_Name);
+        // _nameL loadDrugs'ta bir kez hesaplandı; regex tabanlı turkishLower'ı
+        // marka × 20 bin ilaç döngüsünde yeniden çalıştırmaya gerek yok.
+        const nameLower = drug._nameL;
+        if (!nameLower.startsWith(brandLower)) continue;
         if (nameLower.includes('tablet') || nameLower.includes('draje') || nameLower.includes('kapsül') || nameLower.includes('kapsul')) {
           bestMatch = drug;
           break;
@@ -266,8 +231,73 @@ function buildFullResultList(matchedCondition, drugs, descriptionsAvailable) {
   return allItems;
 }
 
-function cleanItem({ _source, _isOral, _isTopical, _isSingle, ...rest }) {
+function cleanItem(item) {
+  const rest = { ...item };
+  delete rest._source;
+  delete rest._isOral;
+  delete rest._isTopical;
+  delete rest._isSingle;
   return rest;
+}
+
+function rememberResult(cacheKey, list) {
+  cachedResults.set(cacheKey, list);
+  if (cachedResults.size > 50) {
+    const firstKey = cachedResults.keys().next().value;
+    cachedResults.delete(firstKey);
+  }
+}
+
+// Serbest metin fallback'i için "ne için kullanılır" bölümleri (~%2'lik dosya).
+// Tam prospektüs seti (46 MB) hiçbir arama yolunda indirilmez.
+let usageSectionsPromise = null;
+
+function loadUsageSections() {
+  if (usageSectionsPromise) return usageSectionsPromise;
+  usageSectionsPromise = dataUrl('usage-sections.json')
+    .then((url) => fetch(url))
+    .then((r) => {
+      if (!r.ok) throw new Error(`usage-sections.json ${r.status}`);
+      return r.json();
+    })
+    .then((map) => Object.entries(map).map(([id, text]) => [id, searchFold(text)]))
+    .catch((err) => {
+      usageSectionsPromise = null;
+      throw err;
+    });
+  return usageSectionsPromise;
+}
+
+async function fallbackSearch(query) {
+  const cacheKey = `fallback:${searchFold(query).trim()}`;
+  const cached = cachedResults.get(cacheKey);
+  if (cached) return cached;
+
+  let entries;
+  try {
+    entries = await loadUsageSections();
+  } catch {
+    return [];
+  }
+
+  const q = searchFold(query);
+  const results = [];
+  for (let i = 0; i < entries.length; i++) {
+    // Uzun taramada ana thread'i kilitleme: 500 kayıtta bir olay döngüsüne dön.
+    if (i > 0 && i % 500 === 0) await new Promise((r) => setTimeout(r, 0));
+    const [id, foldedText] = entries[i];
+    if (!foldedText.includes(q)) continue;
+    const drug = getDrugById(id);
+    if (!drug) continue;
+    results.push({
+      ...cleanDrugResponse(drug),
+      matchReason: 'Prospektüste belirtilmiş',
+      matchSource: 'description',
+    });
+  }
+
+  rememberResult(cacheKey, results);
+  return results;
 }
 
 export async function searchByCondition(query, { page = 1, limit = 25 } = {}) {
@@ -279,17 +309,11 @@ export async function searchByCondition(query, { page = 1, limit = 25 } = {}) {
   const matchedCondition = findMatchingCondition(query);
 
   if (matchedCondition) {
-    await loadDescriptions().catch(() => {});
-
     const cacheKey = matchedCondition.id;
     let fullList = cachedResults.get(cacheKey);
     if (!fullList) {
-      fullList = buildFullResultList(matchedCondition, drugs, true);
-      cachedResults.set(cacheKey, fullList);
-      if (cachedResults.size > 50) {
-        const firstKey = cachedResults.keys().next().value;
-        cachedResults.delete(firstKey);
-      }
+      fullList = buildFullResultList(matchedCondition, drugs);
+      rememberResult(cacheKey, fullList);
     }
 
     const totalFound = fullList.length;
@@ -307,21 +331,8 @@ export async function searchByCondition(query, { page = 1, limit = 25 } = {}) {
     };
   }
 
-  // Fallback: direct usage-section search across all drugs.
-  await loadDescriptions().catch(() => {});
-  const fallbackResults = [];
-  for (const drug of drugs) {
-    const desc = getDescriptionSync(drug.ID);
-    const usageSection = extractUsageSection(desc);
-    if (!usageSection) continue;
-    if (flexibleIncludes(usageSection, query)) {
-      fallbackResults.push({
-        ...cleanDrugResponse(drug),
-        matchReason: 'Prospektüste belirtilmiş',
-        matchSource: 'description',
-      });
-    }
-  }
+  // Fallback: kullanım bölümü metinlerinde serbest arama.
+  const fallbackResults = await fallbackSearch(query);
 
   const totalFound = fallbackResults.length;
   const totalPages = Math.ceil(totalFound / limit);

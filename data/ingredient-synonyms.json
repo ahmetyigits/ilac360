@@ -1,0 +1,14 @@
+{
+  "asetilsalisilik asit": ["aspirin", "asa", "asetil salisilik asit"],
+  "parasetamol": ["asetaminofen"],
+  "gliseril trinitrat": ["nitrogliserin", "trinitrogliserin"],
+  "izosorbid dinitrat": ["isosorbid dinitrat"],
+  "izosorbid mononitrat": ["isosorbid mononitrat", "izosorbid 5-mononitrat", "izosorbid-5-mononitrat"],
+  "lityum": ["lityum karbonat", "lityum sitrat"],
+  "adrenalin": ["epinefrin"],
+  "noradrenalin": ["norepinefrin"],
+  "vitamin c": ["askorbik asit"],
+  "levotiroksin": ["levotiroksin sodyum", "l-tiroksin"],
+  "metotreksat": ["methotrexate", "metotreksat sodyum"],
+  "kotrimoksazol": ["trimetoprim-sülfametoksazol", "sülfametoksazol-trimetoprim"]
+}

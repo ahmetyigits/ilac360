@@ -12,6 +12,7 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
   const wrapperRef = useRef(null);
   const debounceRef = useRef(null);
   const inputRef = useRef(null);
+  const requestIdRef = useRef(0);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -34,21 +35,30 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
 
   useEffect(() => {
     if (query.length < 2) {
+      requestIdRef.current++;
       setResults([]);
       setSearched(false);
+      setLoading(false);
       return;
     }
     setLoading(true);
     clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(async () => {
+      // İlk veri yüklemesi sürerken eski bir sorgu geç dönüp yeni sorgunun
+      // sonuçlarını ezmesin diye monoton istek numarasıyla korunur.
+      const requestId = ++requestIdRef.current;
       try {
         const data = await searchDrugs(query);
+        if (requestId !== requestIdRef.current) return;
         setResults(data);
       } catch {
+        if (requestId !== requestIdRef.current) return;
         setResults([]);
       } finally {
-        setLoading(false);
-        setSearched(true);
+        if (requestId === requestIdRef.current) {
+          setLoading(false);
+          setSearched(true);
+        }
       }
     }, 300);
     return () => clearTimeout(debounceRef.current);
@@ -89,6 +99,10 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
               }}
               onFocus={() => setShowResults(true)}
               onKeyDown={(e) => {
+                if (e.key === 'Escape') {
+                  setShowResults(false);
+                  return;
+                }
                 if (!showResults || results.length === 0) return;
                 if (e.key === 'ArrowDown') {
                   e.preventDefault();
@@ -113,6 +127,8 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
               aria-autocomplete="list"
               role="combobox"
               aria-expanded={showResults && results.length > 0}
+              aria-controls="drug-search-listbox"
+              aria-activedescendant={activeIndex >= 0 ? `drug-search-option-${activeIndex}` : undefined}
               disabled={isMaxReached}
               className="w-full pl-10 pr-4 py-2.5 bg-bg-primary border border-border rounded-lg text-sm placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             />
@@ -120,19 +136,30 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
               <Loader2 className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted animate-spin" />
             )}
           </div>
+          {/* Ekran okuyucular için sonuç sayısı duyurusu */}
+          <div aria-live="polite" className="sr-only">
+            {searched && !loading
+              ? results.length > 0
+                ? `${results.length} sonuç bulundu`
+                : 'Sonuç bulunamadı'
+              : ''}
+          </div>
         </div>
       </div>
 
       {showResults && query.length >= 2 && !loading && (
         <>
           {results.length > 0 ? (
-            <div role="listbox" aria-label="Arama sonuçları" className="absolute z-50 left-0 right-0 mt-1.5 bg-card rounded-xl shadow-lg border border-border overflow-hidden max-h-96 overflow-y-auto animate-fade-in">
+            <div id="drug-search-listbox" role="listbox" aria-label="Arama sonuçları" className="absolute z-50 left-0 right-0 mt-1.5 bg-card rounded-xl shadow-lg border border-border overflow-hidden max-h-96 overflow-y-auto animate-fade-in">
               {results.map((drug, idx) => {
                 const selected = isSelected(drug);
                 const isHighlighted = idx === activeIndex;
                 return (
                   <button
                     key={drug.id}
+                    id={`drug-search-option-${idx}`}
+                    role="option"
+                    aria-selected={isHighlighted}
                     disabled={selected || isMaxReached}
                     onClick={() => {
                       if (isMaxReached) {

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { X, ArrowRight, Search, Stethoscope, Barcode, FlaskConical } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { ArrowRight, Search, Stethoscope, Barcode, FlaskConical } from 'lucide-react';
 
 const steps = [
   {
@@ -25,19 +25,43 @@ const steps = [
 ];
 
 export default function Onboarding() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(() => !localStorage.getItem('onboarding_done'));
   const [step, setStep] = useState(0);
-
-  useEffect(() => {
-    if (!localStorage.getItem('onboarding_done')) {
-      setVisible(true);
-    }
-  }, []);
+  const cardRef = useRef(null);
+  const primaryButtonRef = useRef(null);
 
   const dismiss = () => {
     setVisible(false);
     localStorage.setItem('onboarding_done', 'true');
   };
+
+  // Dialog semantiği: açılışta odak, Escape ile kapatma, Tab odak tuzağı.
+  useEffect(() => {
+    if (!visible) return;
+    primaryButtonRef.current?.focus();
+    function handleKeyDown(e) {
+      if (e.key === 'Escape') {
+        setVisible(false);
+        localStorage.setItem('onboarding_done', 'true');
+        return;
+      }
+      if (e.key === 'Tab') {
+        const focusable = cardRef.current?.querySelectorAll('button');
+        if (!focusable || focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [visible]);
 
   if (!visible) return null;
 
@@ -47,7 +71,12 @@ export default function Onboarding() {
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 animate-fade-in">
-      <div className="bg-card rounded-2xl border border-border shadow-2xl w-[420px] max-w-[90vw] overflow-hidden animate-slide-up">
+      <div
+        ref={cardRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="onboarding-title"
+        className="bg-card rounded-2xl border border-border shadow-2xl w-[420px] max-w-[90vw] overflow-hidden animate-slide-up">
         {/* Progress */}
         <div className="flex gap-1 px-6 pt-5">
           {steps.map((_, i) => (
@@ -62,7 +91,7 @@ export default function Onboarding() {
           <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
             <Icon className="w-6 h-6 text-accent" />
           </div>
-          <h3 className="text-base font-semibold text-text-primary">{current.title}</h3>
+          <h3 id="onboarding-title" className="text-base font-semibold text-text-primary">{current.title}</h3>
           <p className="text-sm text-text-secondary mt-2 leading-relaxed">{current.desc}</p>
         </div>
 
@@ -83,6 +112,7 @@ export default function Onboarding() {
               </button>
             )}
             <button
+              ref={primaryButtonRef}
               onClick={() => (isLast ? dismiss() : setStep((p) => p + 1))}
               className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-accent text-white text-xs font-medium hover:bg-accent/90 transition-all cursor-pointer"
             >

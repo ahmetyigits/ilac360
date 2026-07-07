@@ -16,6 +16,7 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
   const [explainingDrug, setExplainingDrug] = useState(null);
   const inputRef = useRef(null);
   const resultsRef = useRef(null);
+  const requestIdRef = useRef(0);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -25,16 +26,22 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
   const doSearch = useCallback(async (searchQuery, searchPage = 1, limit = pageSize) => {
     if (!searchQuery || searchQuery.length < 2) return;
     setLoading(true);
+    // Geç dönen eski bir arama, yeni aramanın sonuçlarını ezmesin.
+    const requestId = ++requestIdRef.current;
     try {
       const data = await searchCondition(searchQuery, { page: searchPage, limit });
+      if (requestId !== requestIdRef.current) return;
       setResults(data);
       setPage(searchPage);
       setSubmittedQuery(searchQuery);
     } catch {
+      if (requestId !== requestIdRef.current) return;
       setResults(null);
     } finally {
-      setLoading(false);
-      setSearched(true);
+      if (requestId === requestIdRef.current) {
+        setLoading(false);
+        setSearched(true);
+      }
     }
   }, [pageSize]);
 

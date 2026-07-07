@@ -1,54 +1,35 @@
-// Reads source data from /data and emits minimized JSON to /client/public/data:
-//   - drugs-index.json         slim records (id, name, ingredient, atc, barcode, categories, hasDescription)
-//   - drugs-descriptions.json  id -> leaflet text (only drugs with usable descriptions)
-//   - interactions.json        copied verbatim
-//   - condition-mapping.json   copied verbatim
+// Kaynak veriyi (/data) okuyup /client/public/data altına istemcinin kullandığı
+// içerik-hash'li JSON dosyalarını üretir:
+//   - manifest.json                    mantıksal ad → hash'li dosya adı + sürüm damgası (hash'siz tek dosya)
+//   - drugs-index.<hash>.json          kısaltılmış kayıtlar (id, ad, etken madde, atc, barkod, kategoriler, h)
+//   - drugs-desc-NN.<hash>.json        64 hash-bucket: id → prospektüs metni (kart açılınca tek bucket iner)
+//   - usage-sections.<hash>.json       id → "ne için kullanılır" bölümü (fallback araması için, ~%2'lik boyut)
+//   - condition-desc-matches.<hash>.json  durum id → prospektüs eşleşmeleri (build'de önceden hesaplanır)
+//   - interactions.<hash>.json         etkileşim kuralları
+//   - condition-mapping.<hash>.json    durum eşleme tablosu
+//   - ingredient-synonyms.<hash>.json  etken madde sinonimleri
+//
+// Normalizasyon istemciyle AYNI modülden gelir (client/src/data/turkishText.js);
+// build ile runtime'ın farklı lowercase davranışı kullanması veri hatası üretir.
 
-import { readFileSync, writeFileSync, statSync } from 'fs';
+import { readFileSync, writeFileSync, statSync, readdirSync, unlinkSync, mkdirSync } from 'fs';
+import { createHash } from 'crypto';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import {
+  turkishLower,
+  isValidIngredient,
+  isValidDescription,
+  cleanCategories,
+  extractUsageSection,
+  flexibleIncludes,
+} from '../client/src/data/turkishText.js';
+import { BUCKET_COUNT, bucketOf } from '../client/src/data/buckets.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const SRC = join(ROOT, 'data');
 const OUT = join(ROOT, 'client', 'public', 'data');
-
-const INVALID_INGREDIENTS = new Set([
-  'etken maddesi bilgisi bulunamadı.',
-  'etken maddesi bilgisi bulunamadı',
-  'other cold preparations',
-  'bilinmiyor',
-  '-',
-  '—',
-]);
-
-const INVALID_DESCRIPTION_MARKERS = [
-  'ikinci siteye ait içerik bulunamadı',
-  'içerik bulunamadı',
-  'bilgi bulunamadı',
-];
-
-function isValidIngredient(s) {
-  if (!s || !s.trim()) return false;
-  return !INVALID_INGREDIENTS.has(s.trim().toLowerCase());
-}
-
-function isValidDescription(d) {
-  if (!d || typeof d !== 'string') return false;
-  const trimmed = d.trim();
-  if (trimmed.length < 50) return false;
-  const lower = trimmed.toLowerCase();
-  for (const marker of INVALID_DESCRIPTION_MARKERS) {
-    if (lower.includes(marker)) return false;
-  }
-  return true;
-}
-
-function cleanCategories(d) {
-  return [d.Category_1, d.Category_2, d.Category_3, d.Category_4, d.Category_5]
-    .map(c => c?.trim())
-    .filter(c => c && c.length > 0 && c !== 'Yok');
-}
 
 const raw = JSON.parse(readFileSync(join(SRC, 'ilaclar-dataset.json'), 'utf-8'));
 const drugs = raw[2].data;
@@ -60,7 +41,7 @@ const atcCountsByIngredient = new Map();
 for (const d of drugs) {
   if (!isValidIngredient(d.Active_Ingredient)) continue;
   if (!d.ATC_code || d.ATC_code === '0') continue;
-  const key = d.Active_Ingredient.trim().toLowerCase();
+  const key = turkishLower(d.Active_Ingredient.trim());
   const atc = d.ATC_code.trim();
   let counts = atcCountsByIngredient.get(key);
   if (!counts) {
@@ -78,15 +59,27 @@ for (const [ing, counts] of atcCountsByIngredient) {
   if (bestAtc) ingredientToAtc.set(ing, bestAtc);
 }
 
+// Yinelenen kayıt raporu (otomatik silinmez; kaynak veri QA'sı için loglanır)
+const byBarcode = new Map();
+const byName = new Map();
+for (const d of drugs) {
+  if (d.barcode) byBarcode.set(d.barcode, (byBarcode.get(d.barcode) || 0) + 1);
+  if (d.Product_Name) byName.set(d.Product_Name, (byName.get(d.Product_Name) || 0) + 1);
+}
+const dupBarcodes = [...byBarcode.entries()].filter(([, c]) => c > 1);
+const dupNames = [...byName.entries()].filter(([, c]) => c > 1);
+
 const index = [];
-const descriptions = {};
+const buckets = Array.from({ length: BUCKET_COUNT }, () => ({}));
+const usageSections = {};
 let atcBackfilled = 0;
+let descriptionCount = 0;
 
 for (const d of drugs) {
   const ingredient = isValidIngredient(d.Active_Ingredient) ? d.Active_Ingredient.trim() : null;
   let atc = d.ATC_code && d.ATC_code !== '0' ? d.ATC_code.trim() : null;
   if (!atc && ingredient) {
-    const inferred = ingredientToAtc.get(ingredient.toLowerCase());
+    const inferred = ingredientToAtc.get(turkishLower(ingredient));
     if (inferred) {
       atc = inferred;
       atcBackfilled++;
@@ -105,22 +98,114 @@ for (const d of drugs) {
     h: !!desc,
   });
 
-  if (desc) descriptions[id] = desc;
+  if (desc) {
+    buckets[bucketOf(id)][id] = desc;
+    descriptionCount++;
+    const usage = extractUsageSection(desc);
+    if (usage) usageSections[id] = usage;
+  }
 }
 
-writeFileSync(join(OUT, 'drugs-index.json'), JSON.stringify(index));
-writeFileSync(join(OUT, 'drugs-descriptions.json'), JSON.stringify(descriptions));
-
-// Copy interaction rules + condition mapping verbatim (already small)
-const interactions = JSON.parse(readFileSync(join(SRC, 'interactions.json'), 'utf-8'));
-writeFileSync(join(OUT, 'interactions.json'), JSON.stringify(interactions));
-
+// Durum → prospektüs eşleşmeleri build'de hesaplanır; istemci hiçbir durumda
+// tam prospektüs setini indirmek zorunda kalmaz.
 const conditions = JSON.parse(readFileSync(join(SRC, 'condition-mapping.json'), 'utf-8'));
-writeFileSync(join(OUT, 'condition-mapping.json'), JSON.stringify(conditions));
+const descById = new Map();
+for (const bucket of buckets) {
+  for (const [id, desc] of Object.entries(bucket)) descById.set(id, desc);
+}
+const conditionDescMatches = {};
+for (const condition of conditions) {
+  const usage = {};
+  const full = {};
+  for (const [id, desc] of descById) {
+    const usageSection = usageSections[id];
+    let matched = false;
+    if (usageSection) {
+      for (const keyword of condition.keywords || []) {
+        if (flexibleIncludes(usageSection, keyword)) {
+          usage[id] = keyword;
+          matched = true;
+          break;
+        }
+      }
+    }
+    if (!matched && desc.length > 50) {
+      for (const keyword of condition.keywords || []) {
+        if (keyword.length < 4) continue;
+        if (flexibleIncludes(desc, keyword)) {
+          full[id] = keyword;
+          break;
+        }
+      }
+    }
+  }
+  conditionDescMatches[condition.id] = { usage, full };
+}
 
+const interactions = JSON.parse(readFileSync(join(SRC, 'interactions.json'), 'utf-8'));
+let synonyms = {};
+try {
+  synonyms = JSON.parse(readFileSync(join(SRC, 'ingredient-synonyms.json'), 'utf-8'));
+} catch {
+  console.warn('ingredient-synonyms.json bulunamadı; sinonimler boş bırakıldı.');
+}
+
+// --- İçerik-hash'li yazım + manifest ---
+mkdirSync(OUT, { recursive: true });
+
+// Önceki üretimden kalan dosyaları temizle (hash değişince eskiler birikmesin)
+for (const f of readdirSync(OUT)) {
+  if (f.endsWith('.json')) unlinkSync(join(OUT, f));
+}
+
+const manifestFiles = {};
+function emit(logicalName, data) {
+  const json = JSON.stringify(data);
+  const hash = createHash('sha256').update(json).digest('hex').slice(0, 8);
+  const hashedName = logicalName.replace(/\.json$/, `.${hash}.json`);
+  writeFileSync(join(OUT, hashedName), json);
+  manifestFiles[logicalName] = hashedName;
+  return hashedName;
+}
+
+emit('drugs-index.json', index);
+for (let b = 0; b < BUCKET_COUNT; b++) {
+  emit(`drugs-desc-${String(b).padStart(2, '0')}.json`, buckets[b]);
+}
+emit('usage-sections.json', usageSections);
+emit('condition-desc-matches.json', conditionDescMatches);
+emit('interactions.json', interactions);
+emit('condition-mapping.json', conditions);
+emit('ingredient-synonyms.json', synonyms);
+
+const manifest = {
+  version: 1,
+  generatedAt: new Date().toISOString(),
+  bucketCount: BUCKET_COUNT,
+  drugCount: index.length,
+  descriptionCount,
+  usageSectionCount: Object.keys(usageSections).length,
+  interactionRuleCount: interactions.length,
+  conditionCount: conditions.length,
+  files: manifestFiles,
+};
+writeFileSync(join(OUT, 'manifest.json'), JSON.stringify(manifest, null, 2));
+
+// --- Rapor ---
 const mb = (p) => (statSync(p).size / 1024 / 1024).toFixed(2) + ' MB';
 const kb = (p) => (statSync(p).size / 1024).toFixed(1) + ' KB';
-console.log('drugs-index.json        ', mb(join(OUT, 'drugs-index.json')), '(' + index.length + ' drugs, ATC backfilled: ' + atcBackfilled + ')');
-console.log('drugs-descriptions.json ', mb(join(OUT, 'drugs-descriptions.json')), '(' + Object.keys(descriptions).length + ' descriptions)');
-console.log('interactions.json       ', kb(join(OUT, 'interactions.json')), '(' + interactions.length + ' rules)');
-console.log('condition-mapping.json  ', kb(join(OUT, 'condition-mapping.json')), '(' + conditions.length + ' conditions)');
+const bucketSizes = manifestFiles && Object.entries(manifestFiles)
+  .filter(([k]) => k.startsWith('drugs-desc-'))
+  .map(([, v]) => statSync(join(OUT, v)).size);
+const maxBucket = Math.max(...bucketSizes);
+const totalBucket = bucketSizes.reduce((a, b) => a + b, 0);
+
+console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled})`);
+console.log('desc buckets            ', `${BUCKET_COUNT} adet, toplam ${(totalBucket / 1024 / 1024).toFixed(2)} MB, en büyük ${(maxBucket / 1024).toFixed(0)} KB (${descriptionCount} descriptions)`);
+console.log('usage-sections          ', kb(join(OUT, manifestFiles['usage-sections.json'])), `(${Object.keys(usageSections).length} entries)`);
+console.log('condition-desc-matches  ', kb(join(OUT, manifestFiles['condition-desc-matches.json'])), `(${conditions.length} conditions)`);
+console.log('interactions            ', kb(join(OUT, manifestFiles['interactions.json'])), `(${interactions.length} rules)`);
+console.log('condition-mapping       ', kb(join(OUT, manifestFiles['condition-mapping.json'])), `(${conditions.length} conditions)`);
+if (dupBarcodes.length || dupNames.length) {
+  console.log(`UYARI: kaynak veride ${dupBarcodes.length} yinelenen barkod grubu, ${dupNames.length} yinelenen ürün adı grubu var (otomatik silinmedi).`);
+}

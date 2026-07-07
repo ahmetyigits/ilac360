@@ -1,48 +1,71 @@
-import { getDrugByName, turkishLower, isValidIngredient } from './drugStore.js';
-
-const DATA_BASE = `${import.meta.env.BASE_URL || '/'}data`.replace(/\/+$/, '');
+import { getDrugByName, dataUrl } from './drugStore.js';
+import { isValidIngredient } from './turkishText.js';
+import {
+  getComponents,
+  normalizeRuleIngredient,
+  buildSynonymLookup,
+} from './ingredientMatcher.js';
 
 let knownInteractions = [];
+let compiledRules = [];
+let synonymLookup = new Map();
 let loadPromise = null;
+
+// Kural taraflarını da ilaç tarafıyla aynı boru hattından geçirip önceden derle:
+// eşleştirme, kanonik bileşen adları üzerinde TAM eşitlikle yapılır.
+function compileRules(rules) {
+  const compiled = [];
+  for (const rule of rules) {
+    const a = normalizeRuleIngredient(rule.ingredientA, synonymLookup);
+    const b = normalizeRuleIngredient(rule.ingredientB, synonymLookup);
+    if (!a || !b) continue;
+    compiled.push({ ...rule, _a: a, _b: b });
+  }
+  return compiled;
+}
 
 export function loadInteractions() {
   if (loadPromise) return loadPromise;
-  loadPromise = fetch(`${DATA_BASE}/interactions.json`)
-    .then((r) => {
-      if (!r.ok) throw new Error(`interactions.json ${r.status}`);
-      return r.json();
-    })
-    .then((rules) => {
-      knownInteractions = rules;
-      return knownInteractions;
-    });
+  loadPromise = Promise.all([
+    dataUrl('interactions.json')
+      .then((url) => fetch(url))
+      .then((r) => {
+        if (!r.ok) throw new Error(`interactions.json ${r.status}`);
+        return r.json();
+      }),
+    // Sinonim tablosu opsiyonel: yüklenemezse tam-ad eşleşmesiyle devam edilir.
+    dataUrl('ingredient-synonyms.json')
+      .then((url) => fetch(url))
+      .then((r) => (r.ok ? r.json() : {}))
+      .catch(() => ({})),
+  ]).then(([rules, synonyms]) => {
+    synonymLookup = buildSynonymLookup(synonyms);
+    knownInteractions = rules;
+    compiledRules = compileRules(rules);
+    return knownInteractions;
+  });
   return loadPromise;
 }
 
-function normalizeIngredient(ingredient) {
-  if (!ingredient) return null;
-  return turkishLower(
-    ingredient
-      .trim()
-      .replace(/\n/g, '')
-      .replace(/\s+/g, ' ')
-      .trim()
-  );
+// Test kancası: fetch olmadan kural/sinonim enjekte etmek için.
+export function setInteractionsForTest(rules, synonyms = {}) {
+  synonymLookup = buildSynonymLookup(synonyms);
+  knownInteractions = rules;
+  compiledRules = compileRules(rules);
+  loadPromise = Promise.resolve(knownInteractions);
 }
 
 const getAtcGroup = (a) => (a && a.length >= 4 ? a.substring(0, 4) : null);
-const getAtcTherapeutic = (a) => (a && a.length >= 3 ? a.substring(0, 3) : null);
 
-function checkKnownInteraction(ingredient1, ingredient2) {
-  const i1 = normalizeIngredient(ingredient1);
-  const i2 = normalizeIngredient(ingredient2);
-  if (!i1 || !i2) return null;
-  for (const rule of knownInteractions) {
-    const rA = normalizeIngredient(rule.ingredientA);
-    const rB = normalizeIngredient(rule.ingredientB);
-    if (!rA || !rB) continue;
-    if ((i1.includes(rA) && i2.includes(rB)) || (i1.includes(rB) && i2.includes(rA))) return rule;
-    if ((rA.includes(i1) && rB.includes(i2)) || (rA.includes(i2) && rB.includes(i1))) return rule;
+function checkKnownInteraction(componentsA, componentsB) {
+  if (componentsA.size === 0 || componentsB.size === 0) return null;
+  for (const rule of compiledRules) {
+    if (
+      (componentsA.has(rule._a) && componentsB.has(rule._b)) ||
+      (componentsA.has(rule._b) && componentsB.has(rule._a))
+    ) {
+      return rule;
+    }
   }
   return null;
 }
@@ -206,10 +229,7 @@ export function getRuleCount() {
   return knownInteractions.length + CATEGORY_INTERACTIONS.length;
 }
 
-const SKIP_INGREDIENTS = new Set([
-  'etken maddesi bilgisi bulunamadı.',
-  'other cold preparations',
-]);
+const RISK_ORDER = { critical: 0, high: 1, medium: 2, low: 3, unknown: 4, info: 5, safe: 6 };
 
 export function analyzeInteractions(drugNames) {
   const results = [];
@@ -217,15 +237,15 @@ export function analyzeInteractions(drugNames) {
   const drugData = drugNames.map((name) => {
     const drug = getDrugByName(name);
     if (!drug) unknownDrugs.push(name);
+    const components = drug ? getComponents(drug.Active_Ingredient, synonymLookup) : [];
     return {
       name,
       drug,
-      ingredient: drug ? normalizeIngredient(drug.Active_Ingredient) : null,
+      components: new Set(components),
       atcCode: drug?.ATC_code || null,
       categories: drug ? getAllCategories(drug.ATC_code) : [],
       primaryCategory: drug ? getCategory(drug.ATC_code) : null,
       atcGroup: drug ? getAtcGroup(drug.ATC_code) : null,
-      atcTherapeutic: drug ? getAtcTherapeutic(drug.ATC_code) : null,
     };
   });
 
@@ -235,42 +255,31 @@ export function analyzeInteractions(drugNames) {
       const b = drugData[j];
       if (!a.drug || !b.drug) continue;
 
-      const aIngredientValid = a.ingredient && !SKIP_INGREDIENTS.has(a.ingredient);
-      const bIngredientValid = b.ingredient && !SKIP_INGREDIENTS.has(b.ingredient);
+      const bothHaveComponents = a.components.size > 0 && b.components.size > 0;
 
-      if (aIngredientValid && bIngredientValid && a.ingredient === b.ingredient) {
-        results.push({
-          drug1: a.name,
-          drug2: b.name,
-          risk: 'critical',
-          message: `Her iki ilaç da aynı etkin maddeyi (${a.drug.Active_Ingredient.trim()}) içermektedir. Doz aşımı riski!`,
-          details: 'Aynı etkin maddeyi içeren ilaçların birlikte kullanımı doz aşımına neden olabilir.',
-        });
-        continue;
-      }
-
-      if (aIngredientValid && bIngredientValid) {
-        const aWords = a.ingredient.split(/[,+\/]/).map((w) => w.trim()).filter(Boolean);
-        const bWords = b.ingredient.split(/[,+\/]/).map((w) => w.trim()).filter(Boolean);
-        const overlap = aWords.some((aw) =>
-          bWords.some((bw) =>
-            aw === bw || (aw.length > 4 && bw.includes(aw)) || (bw.length > 4 && aw.includes(bw))
-          )
-        );
-        if (overlap) {
+      // Ortak etken madde: kanonik bileşen kümeleri üzerinden tam eşitlik.
+      if (bothHaveComponents) {
+        const shared = [...a.components].filter((c) => b.components.has(c));
+        if (shared.length > 0) {
+          const identical =
+            shared.length === a.components.size && shared.length === b.components.size;
           results.push({
             drug1: a.name,
             drug2: b.name,
-            risk: 'high',
-            message: 'İlaçlar ortak etkin madde içermektedir. Doz aşımı riski olabilir.',
-            details: `${a.drug.Active_Ingredient.trim()} ↔ ${b.drug.Active_Ingredient.trim()}`,
+            risk: identical ? 'critical' : 'high',
+            message: identical
+              ? `Her iki ilaç da aynı etkin maddeyi (${a.drug.Active_Ingredient.trim()}) içermektedir. Doz aşımı riski!`
+              : `İlaçlar ortak etkin madde içermektedir (${shared.join(', ')}). Doz aşımı riski olabilir.`,
+            details: identical
+              ? 'Aynı etkin maddeyi içeren ilaçların birlikte kullanımı doz aşımına neden olabilir.'
+              : `${a.drug.Active_Ingredient.trim()} ↔ ${b.drug.Active_Ingredient.trim()}`,
           });
           continue;
         }
       }
 
-      if (aIngredientValid && bIngredientValid) {
-        const knownRule = checkKnownInteraction(a.drug.Active_Ingredient, b.drug.Active_Ingredient);
+      if (bothHaveComponents) {
+        const knownRule = checkKnownInteraction(a.components, b.components);
         if (knownRule) {
           results.push({
             drug1: a.name,
@@ -291,33 +300,22 @@ export function analyzeInteractions(drugNames) {
             drug2: b.name,
             risk: catRule.risk,
             message: catRule.message,
-            details: `${a.drug.Active_Ingredient.trim()} (${catRule.matchedCat1}) ↔ ${b.drug.Active_Ingredient.trim()} (${catRule.matchedCat2})`,
+            details: `${a.drug.Active_Ingredient?.trim() || 'Bilinmiyor'} (${catRule.matchedCat1}) ↔ ${b.drug.Active_Ingredient?.trim() || 'Bilinmiyor'} (${catRule.matchedCat2})`,
           });
           continue;
         }
       }
 
-      const aIngLabel = a.drug.Active_Ingredient?.trim() || 'Bilinmiyor';
-      const bIngLabel = b.drug.Active_Ingredient?.trim() || 'Bilinmiyor';
-
+      // Aynı ATC alt grubu bir etkileşim DEĞİLDİR; yalnızca bilgilendirme olarak
+      // işaretlenir. (Daha genel 3 karakterlik terapötik grup karşılaştırması
+      // aşırı alarm ürettiği için tamamen kaldırıldı.)
       if (a.atcGroup && b.atcGroup && a.atcGroup === b.atcGroup && a.atcCode !== b.atcCode) {
         results.push({
           drug1: a.name,
           drug2: b.name,
-          risk: 'medium',
-          message: `Her iki ilaç da aynı farmakolojik gruba (${a.atcGroup}) aittir. Benzer etki mekanizması nedeniyle dikkatli kullanılmalıdır.`,
-          details: `${aIngLabel} ↔ ${bIngLabel}`,
-        });
-        continue;
-      }
-
-      if (a.atcTherapeutic && b.atcTherapeutic && a.atcTherapeutic === b.atcTherapeutic && a.atcCode !== b.atcCode) {
-        results.push({
-          drug1: a.name,
-          drug2: b.name,
-          risk: 'medium',
-          message: `Her iki ilaç da aynı terapötik gruba (${a.atcTherapeutic}) aittir. Benzer etki profili nedeniyle dikkatli kullanılmalıdır.`,
-          details: `${aIngLabel} ↔ ${bIngLabel}`,
+          risk: 'info',
+          message: `Her iki ilaç da aynı farmakolojik alt gruba (${a.atcGroup}) aittir. Bu bir etkileşim değil, bilgilendirmedir.`,
+          details: `${a.drug.Active_Ingredient?.trim() || 'Bilinmiyor'} ↔ ${b.drug.Active_Ingredient?.trim() || 'Bilinmiyor'}`,
         });
         continue;
       }
@@ -325,17 +323,14 @@ export function analyzeInteractions(drugNames) {
       results.push({
         drug1: a.name,
         drug2: b.name,
-        risk: 'low',
-        message: 'Bilinen bir etkileşim kuralı bulunmamaktadır. Bu, etkileşim olmadığı anlamına gelmez; klinik değerlendirme önerilir.',
+        risk: 'unknown',
+        message: 'Bu ilaç çifti için veritabanımızda bilinen bir etkileşim kuralı yok. Bu, etkileşim olmadığı anlamına gelmez; klinik değerlendirme önerilir.',
         details: null,
       });
     }
   }
 
-  results.sort((a, b) => {
-    const order = { critical: 0, high: 1, medium: 2, low: 3, safe: 4 };
-    return (order[a.risk] ?? 5) - (order[b.risk] ?? 5);
-  });
+  results.sort((a, b) => (RISK_ORDER[a.risk] ?? 7) - (RISK_ORDER[b.risk] ?? 7));
 
   return { interactions: results, unknownDrugs };
 }

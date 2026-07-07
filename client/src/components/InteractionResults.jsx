@@ -1,10 +1,11 @@
 import { useState, useRef } from 'react';
-import { AlertTriangle, AlertCircle, CheckCircle, ShieldAlert, ChevronDown, ChevronUp, Info, Printer } from 'lucide-react';
+import { AlertTriangle, AlertCircle, CheckCircle, ShieldAlert, ChevronDown, ChevronUp, Info, HelpCircle, Printer } from 'lucide-react';
 
 const riskConfig = {
   critical: {
     icon: ShieldAlert,
     label: 'Kritik',
+    legend: 'Birlikte kullanımı hayati risk taşır; kontrendike olabilir.',
     dot: 'bg-risk-critical',
     iconColor: 'text-risk-critical',
     badge: 'bg-red-50 text-risk-critical border-red-100 dark-risk-critical',
@@ -13,6 +14,7 @@ const riskConfig = {
   high: {
     icon: AlertTriangle,
     label: 'Yüksek',
+    legend: 'Ciddi yan etki riski; doktor kontrolü olmadan birlikte kullanılmamalı.',
     dot: 'bg-risk-high',
     iconColor: 'text-risk-high',
     badge: 'bg-orange-50 text-risk-high border-orange-100 dark-risk-high',
@@ -21,22 +23,44 @@ const riskConfig = {
   medium: {
     icon: AlertCircle,
     label: 'Orta',
+    legend: 'Etkileşim olabilir; doz ayarı veya takip gerekebilir.',
     dot: 'bg-risk-medium',
     iconColor: 'text-risk-medium',
     badge: 'bg-amber-50 text-risk-medium border-amber-100 dark-risk-medium',
-    card: 'border-amber-100 bg-amber-50/30 dark-risk-medium',
+    card: 'border-amber-50 bg-amber-50/30 dark-risk-medium',
   },
   low: {
     icon: CheckCircle,
     label: 'Düşük',
+    legend: 'Bilinen etkileşim hafif; genellikle klinik önemi azdır.',
     dot: 'bg-risk-low',
     iconColor: 'text-risk-low',
     badge: 'bg-emerald-50 text-risk-low border-emerald-100 dark-risk-low',
     card: 'border-emerald-50 bg-emerald-50/20 dark-risk-low',
   },
+  // "Kural bulunamadı" güvenli demek DEĞİLDİR — yeşil değil gri gösterilir.
+  unknown: {
+    icon: HelpCircle,
+    label: 'Bilinmiyor',
+    legend: 'Veritabanında kural yok; etkileşim olmadığı anlamına gelmez.',
+    dot: 'bg-slate-400',
+    iconColor: 'text-slate-500',
+    badge: 'bg-slate-50 text-slate-600 border-slate-200',
+    card: 'border-slate-200 bg-slate-50/40',
+  },
+  info: {
+    icon: Info,
+    label: 'Bilgi',
+    legend: 'Etkileşim değil; aynı ilaç grubuna dair bilgilendirme.',
+    dot: 'bg-sky-400',
+    iconColor: 'text-sky-500',
+    badge: 'bg-sky-50 text-sky-600 border-sky-200',
+    card: 'border-sky-100 bg-sky-50/30',
+  },
   safe: {
     icon: CheckCircle,
     label: 'Güvenli',
+    legend: 'Bilinen etkileşim yok.',
     dot: 'bg-risk-safe',
     iconColor: 'text-risk-safe',
     badge: 'bg-emerald-50 text-risk-safe border-emerald-100 dark-risk-safe',
@@ -44,7 +68,19 @@ const riskConfig = {
   },
 };
 
-export default function InteractionResults({ interactions, unknownDrugs }) {
+// Katlanabilir "düşük öncelikli" grup: gerçek uyarılar değil.
+const FOLDED_RISKS = new Set(['low', 'unknown', 'info']);
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+export default function InteractionResults({ interactions, unknownDrugs, onPrintBlocked }) {
   const [showLowRisk, setShowLowRisk] = useState(false);
   const [riskFilter, setRiskFilter] = useState('all');
   const printRef = useRef(null);
@@ -52,9 +88,13 @@ export default function InteractionResults({ interactions, unknownDrugs }) {
   if (!interactions) return null;
 
   const handlePrint = () => {
-    const el = printRef.current;
-    if (!el) return;
     const win = window.open('', '_blank');
+    if (!win) {
+      // Popup engelleyici: sessiz crash yerine kullanıcıya haber ver.
+      if (onPrintBlocked) onPrintBlocked();
+      else window.alert('Yazdırma penceresi tarayıcı tarafından engellendi. Lütfen açılır pencerelere izin verin.');
+      return;
+    }
     win.document.write(`
       <html><head><title>Etkileşim Raporu</title>
       <style>body{font-family:Inter,sans-serif;padding:24px;color:#0F172A}
@@ -63,13 +103,14 @@ export default function InteractionResults({ interactions, unknownDrugs }) {
       .card{border:1px solid #E2E8F0;border-radius:8px;padding:12px;margin-bottom:8px}
       .risk-critical{border-left:4px solid #991B1B}.risk-high{border-left:4px solid #DC2626}
       .risk-medium{border-left:4px solid #D97706}.risk-low{border-left:4px solid #059669}
+      .risk-unknown{border-left:4px solid #94A3B8}.risk-info{border-left:4px solid #38BDF8}
       .pair{font-weight:600;font-size:14px}.msg{font-size:12px;color:#64748B;margin-top:4px}
       .badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:12px;font-weight:600}
       .warn{background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;border-radius:8px;padding:10px;margin-bottom:12px;font-size:12px}
       .footer{margin-top:24px;padding-top:12px;border-top:1px solid #E2E8F0;font-size:10px;color:#94A3B8}
       </style></head><body>
       <h1>İlaç Etkileşim Raporu</h1>
-      <p class="sub">${new Date().toLocaleDateString('tr-TR', { year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' })}</p>
+      <p class="sub">${escapeHtml(new Date().toLocaleString('tr-TR', { year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' }))}</p>
       <div style="display:flex;gap:16px;margin-bottom:16px">
         <div style="flex:1;border:1px solid #E2E8F0;border-radius:8px;padding:10px">
           <p style="font-size:10px;color:#94A3B8;margin:0 0 4px">Hasta Adı</p>
@@ -85,14 +126,14 @@ export default function InteractionResults({ interactions, unknownDrugs }) {
         </div>
       </div>
       ${interactions.map(i => {
-        const cfg = riskConfig[i.risk] || riskConfig.low;
-        return `<div class="card risk-${i.risk}">
-          <div class="pair">${i.drug1} ↔ ${i.drug2} <span class="badge">${cfg.label}</span></div>
-          <div class="msg">${i.message || ''}</div>
-          ${i.ingredientA || i.ingredientB ? `<div class="msg">${i.ingredientA || '—'} ↔ ${i.ingredientB || '—'}</div>` : ''}
+        const cfg = riskConfig[i.risk] || riskConfig.unknown;
+        return `<div class="card risk-${escapeHtml(i.risk)}">
+          <div class="pair">${escapeHtml(i.drug1)} ↔ ${escapeHtml(i.drug2)} <span class="badge">${escapeHtml(cfg.label)}</span></div>
+          <div class="msg">${escapeHtml(i.message || '')}</div>
+          ${i.ingredientA || i.ingredientB ? `<div class="msg">${escapeHtml(i.ingredientA || '—')} ↔ ${escapeHtml(i.ingredientB || '—')}</div>` : ''}
         </div>`;
       }).join('')}
-      <div class="footer">Bu rapor yalnızca bilgilendirme amaçlıdır. Herhangi bir ilaç kullanmadan önce mutlaka bir sağlık uzmanına danışınız.</div>
+      <div class="footer">Bu rapor yalnızca bilgilendirme amaçlıdır ve doz, yaş, gebelik, böbrek/karaciğer fonksiyonu gibi hasta faktörlerini dikkate almaz. Herhangi bir ilaç kullanmadan önce mutlaka bir sağlık uzmanına danışınız.</div>
       </body></html>
     `);
     win.document.close();
@@ -104,8 +145,8 @@ export default function InteractionResults({ interactions, unknownDrugs }) {
     return acc;
   }, {});
 
-  const highRiskInteractions = interactions.filter((i) => i.risk !== 'low');
-  const lowRiskInteractions = interactions.filter((i) => i.risk === 'low');
+  const highRiskInteractions = interactions.filter((i) => !FOLDED_RISKS.has(i.risk));
+  const lowRiskInteractions = interactions.filter((i) => FOLDED_RISKS.has(i.risk));
 
   let visibleInteractions = showLowRisk ? interactions : highRiskInteractions;
   if (riskFilter !== 'all') {
@@ -113,9 +154,16 @@ export default function InteractionResults({ interactions, unknownDrugs }) {
   }
 
   // Özet banner için en yüksek risk seviyesi
-  const riskOrder = ['critical', 'high', 'medium', 'low', 'safe'];
+  const riskOrder = ['critical', 'high', 'medium', 'low', 'unknown', 'info', 'safe'];
   const highestRisk = riskOrder.find((r) => riskCounts[r] > 0);
   const highestConfig = highestRisk ? riskConfig[highestRisk] : null;
+
+  const seriousCount = (riskCounts.critical || 0) + (riskCounts.high || 0);
+  const summaryText = seriousCount > 0
+    ? `${seriousCount} yüksek/kritik riskli etkileşim tespit edildi`
+    : riskCounts.medium > 0
+      ? `${riskCounts.medium} orta riskli etkileşim tespit edildi`
+      : 'Bilinen yüksek riskli etkileşim bulunamadı — bu, etkileşim olmadığını garanti etmez';
 
   return (
     <div ref={printRef} className="bg-card rounded-xl border border-border overflow-hidden animate-slide-up">
@@ -144,6 +192,7 @@ export default function InteractionResults({ interactions, unknownDrugs }) {
               <button
                 key={risk}
                 onClick={() => setRiskFilter(riskFilter === risk ? 'all' : risk)}
+                title={cfg.label}
                 className={`inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full border cursor-pointer transition-all ${cfg.badge} ${riskFilter === risk ? 'ring-2 ring-accent/30 scale-105' : 'hover:scale-105'}`}
               >
                 <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot}`} />
@@ -160,13 +209,7 @@ export default function InteractionResults({ interactions, unknownDrugs }) {
           <div className="flex items-center gap-3">
             <highestConfig.icon className={`w-5 h-5 shrink-0 ${highestConfig.iconColor}`} />
             <div className="flex-1">
-              <p className="text-xs font-semibold text-text-primary">
-                {(riskCounts.critical || 0) + (riskCounts.high || 0) > 0
-                  ? `${(riskCounts.critical || 0) + (riskCounts.high || 0)} yüksek/kritik riskli etkileşim tespit edildi`
-                  : riskCounts.medium > 0
-                    ? `${riskCounts.medium} orta riskli etkileşim tespit edildi`
-                    : 'Yalnızca düşük riskli etkileşimler bulundu'}
-              </p>
+              <p className="text-xs font-semibold text-text-primary">{summaryText}</p>
               <p className="text-[11px] text-text-secondary mt-0.5">
                 {Object.entries(riskCounts).map(([risk, count]) => {
                   const cfg = riskConfig[risk];
@@ -201,14 +244,17 @@ export default function InteractionResults({ interactions, unknownDrugs }) {
       <div className="p-4 space-y-2.5">
         {interactions.length === 0 ? (
           <div className="text-center py-10 text-text-muted">
-            <CheckCircle className="w-8 h-8 mx-auto mb-3 text-risk-low" />
-            <p className="text-sm font-medium text-text-primary">Etkileşim bulunamadı</p>
-            <p className="text-[11px] mt-1">Seçilen ilaçlar arasında bilinen bir etkileşim yok.</p>
+            <HelpCircle className="w-8 h-8 mx-auto mb-3 text-slate-400" />
+            <p className="text-sm font-medium text-text-primary">Analiz edilebilir çift bulunamadı</p>
+            <p className="text-[11px] mt-1">Seçilen ilaçlar için karşılaştırma yapılamadı.</p>
           </div>
         ) : (
           <>
-            {visibleInteractions.map((interaction, idx) => (
-              <InteractionCard key={idx} interaction={interaction} />
+            {visibleInteractions.map((interaction) => (
+              <InteractionCard
+                key={`${interaction.drug1}::${interaction.drug2}`}
+                interaction={interaction}
+              />
             ))}
 
             {riskFilter === 'all' && !showLowRisk && lowRiskInteractions.length > 0 && (
@@ -217,7 +263,7 @@ export default function InteractionResults({ interactions, unknownDrugs }) {
                 className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border border-border text-[12px] text-text-muted hover:text-text-secondary hover:bg-bg-primary transition-all cursor-pointer"
               >
                 <Info className="w-3.5 h-3.5" />
-                <span>{lowRiskInteractions.length} düşük riskli etkileşimi göster</span>
+                <span>{lowRiskInteractions.length} düşük öncelikli sonucu göster (bilinmiyor/bilgi)</span>
                 <ChevronDown className="w-3 h-3" />
               </button>
             )}
@@ -227,7 +273,7 @@ export default function InteractionResults({ interactions, unknownDrugs }) {
                 onClick={() => setShowLowRisk(false)}
                 className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border border-border text-[12px] text-text-muted hover:text-text-secondary hover:bg-bg-primary transition-all cursor-pointer"
               >
-                <span>Düşük riskleri gizle</span>
+                <span>Düşük öncelikli sonuçları gizle</span>
                 <ChevronUp className="w-3 h-3" />
               </button>
             )}
@@ -242,13 +288,37 @@ export default function InteractionResults({ interactions, unknownDrugs }) {
             )}
           </>
         )}
+
+        {/* Risk seviyeleri lejantı + hasta faktörü uyarısı */}
+        {interactions.length > 0 && (
+          <div className="mt-3 rounded-lg border border-border bg-bg-primary/60 p-3 space-y-1.5">
+            <p className="text-[11px] font-semibold text-text-secondary">Risk seviyeleri ne anlama gelir?</p>
+            <div className="grid sm:grid-cols-2 gap-x-4 gap-y-1">
+              {['critical', 'high', 'medium', 'unknown', 'info'].map((risk) => {
+                const cfg = riskConfig[risk];
+                return (
+                  <div key={risk} className="flex items-start gap-1.5">
+                    <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot} mt-1.5 shrink-0`} />
+                    <p className="text-[10px] text-text-muted leading-relaxed">
+                      <span className="font-medium text-text-secondary">{cfg.label}:</span> {cfg.legend}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="text-[10px] text-text-muted leading-relaxed pt-1 border-t border-border">
+              Bu analiz doz, yaş, gebelik, böbrek/karaciğer fonksiyonu gibi hasta faktörlerini dikkate almaz.
+              Sonuçlar yalnızca bilgilendirme amaçlıdır; ilaç kullanımıyla ilgili kararlar için mutlaka doktorunuza veya eczacınıza danışın.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
 function InteractionCard({ interaction }) {
-  const config = riskConfig[interaction.risk] || riskConfig.low;
+  const config = riskConfig[interaction.risk] || riskConfig.unknown;
 
   return (
     <div className={`rounded-lg border p-3.5 transition-all ${config.card}`}>

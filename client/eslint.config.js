@@ -23,7 +23,9 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // Büyük harfli bağlamalar bileşen-olarak-prop desenidir (icon: Icon → <Icon/>);
+      // eslint-plugin-react olmadığından JSX kullanımı sayılmaz, bu yüzden yoksayılır.
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^_|^[A-Z]' }],
     },
   },
 ])

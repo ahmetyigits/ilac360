@@ -11,7 +11,7 @@ export default function Hero() {
       </h1>
       <p className="text-sm sm:text-base text-text-secondary max-w-xl mx-auto leading-relaxed">
         Türkiye&apos;deki ilaçlar arasında etkileşim kontrolü, hastalığa göre arama
-        ve etken madde bilgisi — tek noktadan, ücretsiz.
+        ve etken madde bilgisi. Tek noktadan, ücretsiz.
       </p>
     </div>
   );
