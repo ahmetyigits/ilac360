@@ -88,4 +88,45 @@ describe.skipIf(!hasData)('gerçek veri entegrasyonu', () => {
     const results = searchDrugs('aspirin');
     expect(results.length).toBeGreaterThan(0);
   });
+
+  it('gerçek varfarin ürünü ("Varfarin" yazımı) warfarin kurallarıyla eşleşir', () => {
+    const varfarin = findByIngredient('varfarin');
+    const aspirin = findByIngredient('asetilsalisilik');
+    expect(varfarin).toBeTruthy();
+    expect(aspirin).toBeTruthy();
+    const { interactions } = analyzeInteractions([varfarin, aspirin]);
+    expect(interactions[0].risk).toBe('critical');
+  });
+
+  it('gerçek potasyum takviyesi + spironolakton → hiperkalemi sınıf kuralı (high)', () => {
+    const potasyum = index.find((e) => e.t && e.t.startsWith('A12BA'))?.n;
+    const spironolakton = findByIngredient('spironolakton');
+    expect(potasyum).toBeTruthy();
+    expect(spironolakton).toBeTruthy();
+    const { interactions } = analyzeInteractions([potasyum, spironolakton]);
+    expect(['critical', 'high']).toContain(interactions[0].risk);
+    expect(interactions[0].message).toContain('hiperkalemi');
+  });
+
+  it('gerçek kotrimoksazol ürünü (Sülfametoksazol, trimetoprim) metotreksatla kritik verir', () => {
+    const kotrimoksazol = index.find(
+      (e) => e.a && /sülfametoksazol|sulfametoksazol/i.test(e.a)
+    )?.n;
+    const metotreksat = findByIngredient('metotreksat');
+    expect(kotrimoksazol).toBeTruthy();
+    expect(metotreksat).toBeTruthy();
+    const { interactions } = analyzeInteractions([kotrimoksazol, metotreksat]);
+    expect(interactions[0].risk).toBe('critical');
+  });
+
+  it('tüm çift kuralları normalizasyon hattından geçebiliyor (derlenemeyen kural yok)', async () => {
+    const manifest = JSON.parse(readFileSync(join(DATA, 'manifest.json'), 'utf-8'));
+    const rules = JSON.parse(readFileSync(join(DATA, manifest.files['interactions.json']), 'utf-8'));
+    const { normalizeRuleIngredient } = await import('../ingredientMatcher.js');
+    for (const rule of rules) {
+      expect(normalizeRuleIngredient(rule.ingredientA), rule.ingredientA).toBeTruthy();
+      expect(normalizeRuleIngredient(rule.ingredientB), rule.ingredientB).toBeTruthy();
+    }
+    expect(rules.length).toBeGreaterThanOrEqual(200);
+  });
 });

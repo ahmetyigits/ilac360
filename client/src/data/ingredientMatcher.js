@@ -24,7 +24,11 @@ const SALT_TOKENS = new Set([
   'karbonat', 'bikarbonat',
   'monohidrat', 'dihidrat', 'trihidrat', 'hemihidrat', 'seskihidrat', 'hidrat', 'anhidrat',
   'disproksil', 'fumarat', 'etabonat', 'alafenamid',
+  // Ester/prodrug ekleri: farmakolojik olarak ana moleküle eşdeğer
+  // (kandesartan sileksetil ≡ kandesartan, sefuroksim aksetil ≡ sefuroksim)
+  'sileksetil', 'medoksomil', 'aksetil', 'proksetil', 'mofetil', 'pivoksil',
   'sodyum', 'disodyum', 'potasyum', 'kalsiyum', 'magnezyum', 'trometamol', 'meglumin',
+  'hbr',
 ]);
 
 // Adı katyonla BAŞLAYAN bileşikler inorganik tuzlardır ("kalsiyum karbonat",

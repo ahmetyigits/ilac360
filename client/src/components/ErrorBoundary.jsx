@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { AlertCircle, RefreshCw } from 'lucide-react';
+import { reportError } from '../data/telemetry.js';
 
 export default class ErrorBoundary extends Component {
   constructor(props) {
@@ -15,6 +16,8 @@ export default class ErrorBoundary extends Component {
     if (!import.meta.env.PROD) {
       console.error('ErrorBoundary caught:', error, info);
     }
+    // Üretimde hata sessizce kaybolmasın (endpoint tanımlıysa raporlanır).
+    reportError(error, `ErrorBoundary: ${info?.componentStack?.split('\n')[1]?.trim() || ''}`);
   }
 
   handleReload = () => {

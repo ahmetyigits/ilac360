@@ -12,7 +12,7 @@
   <FilesMatch "\.[0-9a-f]{8}\.(json|js|css)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
-  <FilesMatch "^(index\.html|manifest\.json)$">
+  <FilesMatch "^(index\.html|manifest\.json|sw\.js|registerSW\.js|manifest\.webmanifest)$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
   Header set X-Content-Type-Options "nosniff"
