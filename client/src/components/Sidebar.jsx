@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Pill, FlaskConical, Info, Settings, Menu, X, Moon, Sun } from 'lucide-react';
+import { Pill, FlaskConical, Info, Github, Menu, X, Moon, Sun } from 'lucide-react';
 
 const navItems = [
-  { id: 'checker', icon: FlaskConical, label: 'İlaç Kontrol' },
+  { id: 'checker', icon: FlaskConical, label: 'Etkileşim Kontrolü' },
   { id: 'about', icon: Info, label: 'Hakkında' },
 ];
 
@@ -52,7 +52,6 @@ export default function Sidebar({ currentView, onNavigate, darkMode, onToggleDar
         </div>
 
         <nav aria-label="Ana menü" className="flex-1 px-3 mt-1">
-          <p className="text-[10px] font-medium text-white/30 uppercase tracking-wider px-3 mb-2">Menü</p>
           <div className="space-y-0.5">
             {navItems.map((item) => {
               const isActive = currentView === item.id;
@@ -99,10 +98,15 @@ export default function Sidebar({ currentView, onNavigate, darkMode, onToggleDar
           </div>
 
           <div className="border-t border-white/5 pt-4 px-3">
-            <div className="flex items-center gap-2 text-white/30">
-              <Settings className="w-3.5 h-3.5" />
-              <span className="text-[11px]">v1.0</span>
-            </div>
+            <a
+              href="https://github.com/ahmetyigits/ilac360"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-white/30 hover:text-white/60 transition-colors"
+            >
+              <Github className="w-3.5 h-3.5" />
+              <span className="text-[11px]">Açık kaynak · v2.0</span>
+            </a>
           </div>
         </div>
       </aside>

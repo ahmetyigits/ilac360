@@ -32,6 +32,8 @@ export default function App() {
   const [showDisclaimerGate, setShowDisclaimerGate] = useState(false);
   const [toasts, setToasts] = useState([]);
   const toastIdRef = useRef(0);
+  const analysisRef = useRef(null);
+  const drugCardRef = useRef(null);
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('darkMode');
@@ -58,6 +60,20 @@ export default function App() {
   useEffect(() => {
     loadInitialData();
   }, [loadInitialData]);
+
+  // Analiz sonucu gelince görünür alana kaydır — özellikle hastalık aramasında
+  // uzun sonuç listesi varken sonuçların "kaybolmasını" engeller.
+  useEffect(() => {
+    if (interactions) {
+      analysisRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [interactions]);
+
+  useEffect(() => {
+    if (activeDrug) {
+      drugCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [activeDrug]);
 
   const showToast = useCallback((message, type = 'info') => {
     const id = ++toastIdRef.current;
@@ -167,16 +183,63 @@ export default function App() {
         </div>
 
         {(() => {
-          const sepet = selectedDrugs.length > 0 && (
-            <SelectedDrugs
-              drugs={selectedDrugs}
-              onRemove={removeDrug}
-              onSelect={setActiveDrug}
-              activeDrugId={activeDrug?.id}
-              onAnalyze={analyzeInteractions}
-              analysisLoading={analysisLoading}
-              onClearAll={clearAllDrugs}
-            />
+          // Sepet + ilaç detayı + analiz sonuçları her iki arama modunda da
+          // arama listesinin ÜSTÜNDE durur; hastalık aramasının uzun sonuç
+          // listesi bu blokları ekran dışına itemez.
+          const workspace = (
+            <>
+              {selectedDrugs.length > 0 && (
+                <SelectedDrugs
+                  drugs={selectedDrugs}
+                  onRemove={removeDrug}
+                  onSelect={setActiveDrug}
+                  activeDrugId={activeDrug?.id}
+                  onAnalyze={analyzeInteractions}
+                  analysisLoading={analysisLoading}
+                  onClearAll={clearAllDrugs}
+                />
+              )}
+
+              {activeDrug && (
+                <div ref={drugCardRef}>
+                  <DrugCard key={activeDrug.id} drug={activeDrug} onClose={() => setActiveDrug(null)} />
+                </div>
+              )}
+
+              {analysisLoading && (
+                <div className="bg-card rounded-xl border border-border overflow-hidden animate-fade-in">
+                  <div className="px-5 py-3.5 border-b border-border flex items-center gap-2.5">
+                    <div className="skeleton h-4 w-32" />
+                    <div className="skeleton h-4 w-12 rounded-full" />
+                  </div>
+                  <div className="p-4 space-y-2.5">
+                    {[1, 2, 3].map((i) => (
+                      <div key={i} className="rounded-lg border border-border p-3.5">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="skeleton w-2 h-2 rounded-full" />
+                          <div className="skeleton h-4 w-28" />
+                          <div className="skeleton h-3 w-4" />
+                          <div className="skeleton h-4 w-28" />
+                          <div className="skeleton h-4 w-14 rounded-full" />
+                        </div>
+                        <div className="skeleton h-3 w-3/4 ml-5" />
+                        <div className="skeleton h-3 w-1/2 ml-5 mt-1.5" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {interactions && (
+                <div ref={analysisRef} className="scroll-mt-5">
+                  <InteractionResults
+                    interactions={interactions}
+                    unknownDrugs={unknownDrugs}
+                    onPrintBlocked={() => showToast('Yazdırma penceresi tarayıcı tarafından engellendi. Açılır pencerelere izin verin.', 'warning')}
+                  />
+                </div>
+              )}
+            </>
           );
 
           if (searchMode === 'drug') {
@@ -188,7 +251,7 @@ export default function App() {
                   maxDrugs={MAX_DRUGS}
                   onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
                 />
-                {sepet}
+                {workspace}
               </>
             );
           }
@@ -199,46 +262,10 @@ export default function App() {
               selectedDrugs={selectedDrugs}
               maxDrugs={MAX_DRUGS}
               onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
-              renderBeforeResults={sepet}
+              renderBeforeResults={workspace}
             />
           );
         })()}
-
-        {activeDrug && (
-          <DrugCard key={activeDrug.id} drug={activeDrug} onClose={() => setActiveDrug(null)} />
-        )}
-
-        {analysisLoading && (
-          <div className="bg-card rounded-xl border border-border overflow-hidden animate-fade-in">
-            <div className="px-5 py-3.5 border-b border-border flex items-center gap-2.5">
-              <div className="skeleton h-4 w-32" />
-              <div className="skeleton h-4 w-12 rounded-full" />
-            </div>
-            <div className="p-4 space-y-2.5">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="rounded-lg border border-border p-3.5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="skeleton w-2 h-2 rounded-full" />
-                    <div className="skeleton h-4 w-28" />
-                    <div className="skeleton h-3 w-4" />
-                    <div className="skeleton h-4 w-28" />
-                    <div className="skeleton h-4 w-14 rounded-full" />
-                  </div>
-                  <div className="skeleton h-3 w-3/4 ml-5" />
-                  <div className="skeleton h-3 w-1/2 ml-5 mt-1.5" />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {interactions && (
-          <InteractionResults
-            interactions={interactions}
-            unknownDrugs={unknownDrugs}
-            onPrintBlocked={() => showToast('Yazdırma penceresi tarayıcı tarafından engellendi. Açılır pencerelere izin verin.', 'warning')}
-          />
-        )}
 
         <LegalWarning />
       </div>

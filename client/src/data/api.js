@@ -1,5 +1,6 @@
 import {
   loadDrugs,
+  loadManifest,
   searchDrugs as searchDrugsLocal,
   getDrugById as getDrugByIdLocal,
   getStats as getStatsLocal,
@@ -63,7 +64,12 @@ export async function getDrugDetail(id) {
 export async function getStats() {
   await Promise.all([loadDrugs(), loadInteractions()]);
   const stats = await getStatsLocal();
-  return { ...stats, interactionRules: getRuleCount() };
+  const manifest = await loadManifest();
+  return {
+    ...stats,
+    interactionRules: getRuleCount(),
+    dataGeneratedAt: manifest?.generatedAt || null,
+  };
 }
 
 export async function analyzeInteractions(drugNames) {

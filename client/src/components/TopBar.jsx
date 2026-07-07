@@ -1,19 +1,17 @@
-import { Database, CheckCircle, Activity, ChevronRight } from 'lucide-react';
+import { Database, CheckCircle, Activity } from 'lucide-react';
 
 export default function TopBar({ totalDrugs, selectedCount, lastAnalysis, currentView }) {
   const viewLabels = {
-    checker: 'İlaç Kontrol',
+    checker: 'Etkileşim Kontrolü',
     about: 'Hakkında',
   };
 
   return (
     <header className="bg-card border-b border-border px-6 py-3.5 shrink-0">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-sm">
-          <span className="text-text-muted">Sistem</span>
-          <ChevronRight className="w-3.5 h-3.5 text-text-muted" />
-          <span className="text-text-primary font-medium">{viewLabels[currentView] || 'İlaç Kontrol'}</span>
-        </div>
+        <h1 className="text-sm font-semibold text-text-primary pl-10 lg:pl-0">
+          {viewLabels[currentView] || 'Etkileşim Kontrolü'}
+        </h1>
 
         <div className="flex items-center gap-3">
           <MetricPill
