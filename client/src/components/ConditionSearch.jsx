@@ -121,6 +121,10 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
         </div>
       </form>
 
+      {/* Sepet + ilaç detayı + analiz sonuçları: arama yapılmamış olsa bile
+          her zaman görünür (sonuç listesinin üstünde) */}
+      {renderBeforeResults}
+
       {/* Hızlı etiketler */}
       {!searched && conditions.length > 0 && (
         <div className="bg-card rounded-xl border border-border p-4">
@@ -161,7 +165,6 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
       {/* Sonuçlar */}
       {searched && !loading && results && (
         <div ref={resultsRef} className="space-y-5">
-          {renderBeforeResults}
           {results.drugs.length > 0 ? (
             <div className="bg-card rounded-xl border border-border overflow-hidden">
               {/* Üst bilgi */}

@@ -1,10 +1,13 @@
-import { Info, ShieldAlert, Database, Layers, FileText } from 'lucide-react';
+import { Info, ShieldAlert, Database, Layers, FileText, AlertTriangle, Github } from 'lucide-react';
 
 export default function AboutPage({ stats }) {
   const drugCount = stats ? stats.totalDrugs.toLocaleString('tr-TR') : '—';
   const ingredientCount = stats ? stats.uniqueIngredients.toLocaleString('tr-TR') : '—';
   const atcCount = stats ? stats.uniqueAtcCodes.toLocaleString('tr-TR') : '—';
   const ruleCount = stats?.interactionRules ? stats.interactionRules.toLocaleString('tr-TR') : '—';
+  const dataDate = stats?.dataGeneratedAt
+    ? new Date(stats.dataGeneratedAt).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })
+    : null;
 
   return (
     <div className="max-w-3xl mx-auto space-y-5">
@@ -18,9 +21,14 @@ export default function AboutPage({ stats }) {
 
         <div className="p-6 space-y-6">
           <p className="text-sm text-text-secondary leading-relaxed">
-            Bu site, Türkiye'de ruhsatlı ilaçların etkin maddeleri ve ATC kodları üzerinden
-            olası etkileşimleri kontrol etmek için hazırlanmış basit bir araçtır. Tüm
-            arama ve analiz tarayıcınızda yerel olarak çalışır; hiçbir veri sunucuya gönderilmez.
+            ilac360, Türkiye'de ruhsatlı ilaçlar arasındaki olası etkileşimleri kontrol etmenizi
+            sağlayan ücretsiz ve açık kaynaklı bir araçtır. Birden fazla ilaç kullanıyorsanız —
+            ya da yakınınızın ilaç listesini gözden geçiriyorsanız — riskli kombinasyonları
+            doktor veya eczacınıza sormadan önce burada görebilirsiniz.
+          </p>
+          <p className="text-sm text-text-secondary leading-relaxed">
+            Tüm arama ve analiz tarayıcınızda çalışır: seçtiğiniz ilaçlar, aradığınız hastalıklar
+            veya sağlık bilgileriniz hiçbir sunucuya gönderilmez.
           </p>
 
           <div>
@@ -33,6 +41,10 @@ export default function AboutPage({ stats }) {
               <Stat label="ATC Kodu" value={atcCount} />
               <Stat label="Etkileşim Kuralı" value={ruleCount} />
             </div>
+            <p className="text-[11px] text-text-muted mt-2">
+              İlaç listesi TİTCK (Türkiye İlaç ve Tıbbi Cihaz Kurumu) ürün verilerine dayanır
+              {dataDate ? `; veri dosyaları en son ${dataDate} tarihinde derlenmiştir` : ''}.
+            </p>
           </div>
 
           <div>
@@ -42,15 +54,49 @@ export default function AboutPage({ stats }) {
             <ul className="space-y-2.5 text-sm text-text-secondary leading-relaxed">
               <li className="flex gap-2.5">
                 <Database className="w-4 h-4 text-accent shrink-0 mt-0.5" />
-                <span>Seçtiğiniz ilaçların etkin maddeleri ve ATC kodları çıkarılır.</span>
+                <span>
+                  Seçtiğiniz her ilacın etkin maddeleri bileşenlerine ayrılır; tuz ve ester
+                  formları ana moleküle indirgenir (örneğin "amlodipin besilat" → amlodipin).
+                </span>
               </li>
               <li className="flex gap-2.5">
                 <Layers className="w-4 h-4 text-accent shrink-0 mt-0.5" />
-                <span>Bu maddeler, bilinen etkileşim kurallarıyla eşleştirilir.</span>
+                <span>
+                  Her ilaç çifti önce madde bazlı kurallarla, ardından ATC ilaç sınıfı
+                  kurallarıyla karşılaştırılır. Kurallar ONC yüksek öncelikli etkileşim
+                  listesi, FDA/EMA ürün bilgileri ve klinik farmakoloji kaynaklarından derlenmiştir.
+                </span>
               </li>
               <li className="flex gap-2.5">
                 <FileText className="w-4 h-4 text-accent shrink-0 mt-0.5" />
-                <span>Eşleşen etkileşimler, risk seviyesi ve kısa açıklamayla listelenir.</span>
+                <span>
+                  Eşleşen etkileşimler risk seviyesi ve açıklamasıyla listelenir. Kural
+                  bulunamayan çiftler "güvenli" olarak değil, "bilinmiyor" olarak işaretlenir.
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-3">
+              Sınırlamalar
+            </h3>
+            <ul className="space-y-2 text-[13px] text-text-secondary leading-relaxed list-disc pl-5">
+              <li>
+                Analiz; doz, kullanım süresi, yaş, gebelik, böbrek/karaciğer fonksiyonu gibi
+                kişisel faktörleri <strong>dikkate almaz</strong>.
+              </li>
+              <li>
+                Kural veritabanı en yaygın ve klinik olarak önemli etkileşimlere odaklanır;
+                literatürdeki her etkileşimi kapsamaz. "Bilinmiyor" sonucu güvenli demek değildir.
+              </li>
+              <li>
+                Bitkisel ürünler, takviyeler ve besinlerle (örneğin greyfurt) olan etkileşimler
+                kapsam dışıdır.
+              </li>
+              <li>
+                Veriler TİTCK listesinin belirli bir tarihteki kopyasıdır; piyasaya yeni çıkan
+                ürünler gecikmeli yansıyabilir.
               </li>
             </ul>
           </div>
@@ -61,17 +107,32 @@ export default function AboutPage({ stats }) {
               <div>
                 <p className="text-xs font-medium text-risk-medium warn-title">Yasal Uyarı</p>
                 <p className="text-[11px] text-text-secondary mt-1 leading-relaxed">
-                  Bu araç tanı veya tedavi için kullanılamaz. Yalnızca bilgilendirme amaçlıdır.
-                  İlaç değişikliği ya da yeni bir ilaç kullanımı için mutlaka doktor veya
-                  eczacınıza danışın.
+                  Bu araç tanı veya tedavi amacıyla kullanılamaz; sağlık profesyonelinin
+                  değerlendirmesinin yerini tutmaz. İlaç başlama, bırakma veya değiştirme
+                  kararlarını mutlaka doktorunuz veya eczacınızla birlikte alın. Burada bir
+                  etkileşim görünmemesi, etkileşim olmadığı anlamına gelmez.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="text-[11px] text-text-muted pt-3 border-t border-border space-y-0.5">
-            <p>Veri kaynağı: Türkiye İlaç Veritabanı.</p>
-            <p>Etkileşim verisi açık kaynaklı klinik referanslardan derlenmiştir.</p>
+          <div className="rounded-lg border border-border bg-bg-primary p-4">
+            <div className="flex items-start gap-2.5">
+              <AlertTriangle className="w-4 h-4 text-text-muted shrink-0 mt-0.5" />
+              <p className="text-[11px] text-text-secondary leading-relaxed">
+                Hatalı bir sonuç mu gördünüz? Kod ve kural veritabanı açık kaynaklıdır;
+                düzeltme önerilerinizi{' '}
+                <a
+                  href="https://github.com/ahmetyigits/ilac360/issues"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:underline inline-flex items-center gap-1"
+                >
+                  <Github className="w-3 h-3" /> GitHub üzerinden
+                </a>{' '}
+                iletebilirsiniz. Her etkileşim kuralının kaynağı veritabanında kayıtlıdır.
+              </p>
+            </div>
           </div>
         </div>
       </div>
