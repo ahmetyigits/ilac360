@@ -53,12 +53,14 @@ The build also backfills missing ATC codes by mapping each drug's active ingredi
 
 ## Local Development
 
-Requires Node.js 20+.
+Requires Node.js 20+ and [Git LFS](https://git-lfs.com) (the 55 MB source dataset `data/ilaclar-dataset.json` is stored in LFS — run `git lfs install` before cloning/pulling).
 
 ```bash
-cd client && npm install
-cd .. && npm run build:data    # generates client/public/data/*
+npm run setup                  # npm ci in client/
+npm run build:data             # generates client/public/data/* (hashed files + manifest.json)
 npm run dev                    # starts Vite dev server on :5173
+npm test                       # unit tests (Vitest)
+npm run smoke-test             # data integrity checks on generated files
 ```
 
 ---
@@ -69,9 +71,9 @@ npm run dev                    # starts Vite dev server on :5173
 npm run build
 ```
 
-This regenerates the data files, builds the client into `client/dist/`, and mirrors the output to `dist/` at the repo root for static deployment.
+This regenerates the data files, builds the client into `client/dist/`, and mirrors the output to `dist/` at the repo root for static deployment. `dist/` is **not** committed — it is produced locally by the build (CI also uploads it as an artifact).
 
-The contents of `dist/` can be uploaded to any static host (Netlify, Vercel, Hostinger static, GitHub Pages, plain S3 + CloudFront, etc.). No runtime is needed.
+The contents of `dist/` can be uploaded to any static host (Netlify, Vercel, Hostinger static, GitHub Pages, plain S3 + CloudFront, etc.). No runtime is needed. A `.htaccess` with cache/gzip/SPA-rewrite rules for Apache/LiteSpeed hosts (e.g. Hostinger) ships inside the build; data files use content-hashed names resolved through `data/manifest.json`, so they can be cached immutably at the edge.
 
 ---
 
@@ -79,9 +81,9 @@ The contents of `dist/` can be uploaded to any static host (Netlify, Vercel, Hos
 
 ```
 client/        React app (Vite)
-data/          Source data (drug records, interaction rules, conditions)
-scripts/       Data build script
-dist/          Production build output (committed for static deploy)
+data/          Source data (drug records via Git LFS, interaction rules, synonyms, conditions)
+scripts/       Data build + smoke test scripts
+dist/          Production build output (generated; not in git)
 ```
 
 ---
