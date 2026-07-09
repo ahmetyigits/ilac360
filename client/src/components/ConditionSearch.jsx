@@ -125,19 +125,30 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
           her zaman görünür (sonuç listesinin üstünde) */}
       {renderBeforeResults}
 
-      {/* Hızlı etiketler */}
+      {/* Sık aranan durumlar — tasarımdaki kategori kartları düzeni */}
       {!searched && conditions.length > 0 && (
-        <div className="bg-card rounded-xl border border-border p-4">
-          <p className="text-xs font-semibold text-text-secondary mb-3">Sık Aranan Durumlar</p>
-          <div className="flex flex-wrap gap-2">
+        <div className="bg-card rounded-2xl border border-border p-5 sm:p-6">
+          <div className="flex items-baseline justify-between mb-5">
+            <h3 className="text-lg sm:text-[22px] font-semibold tracking-tight text-text-primary m-0">
+              Sık aranan durumlar
+            </h3>
+            <span className="text-sm text-text-muted">{conditions.length} başlık</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {conditions.slice(0, 12).map(c => (
               <button
                 key={c.id}
                 onClick={() => handleQuickSearch(c.names[0])}
                 disabled={isMaxReached}
-                className="px-3 py-1.5 bg-bg-primary border border-border rounded-lg text-xs text-text-secondary hover:bg-accent/5 hover:border-accent/30 hover:text-accent transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                className="flex items-center gap-3.5 bg-card border border-border rounded-[13px] p-4 text-left hover:border-accent/40 hover:bg-accent-soft/40 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                {c.names[0]}
+                <div className="w-11 h-11 rounded-[11px] bg-accent-soft flex-none flex items-center justify-center">
+                  <Stethoscope className="w-5 h-5 text-accent" />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-[15px] font-semibold text-text-primary truncate">{c.names[0]}</div>
+                  <div className="text-[13px] text-text-muted mt-0.5 truncate">{c.description || 'İlaçları gör'}</div>
+                </div>
               </button>
             ))}
           </div>
@@ -195,22 +206,24 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
                       }`}
                       title="Detayını görmek için tıklayın"
                     >
-                      <div className="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center shrink-0 text-[11px] font-semibold text-accent">
-                        {(page - 1) * pageSize + idx + 1}
+                      <div className="w-11 h-11 rounded-[10px] bg-accent-soft flex items-center justify-center shrink-0 font-mono text-[12px] font-semibold text-accent">
+                        {(drug.name || '').replace(/[^A-Za-zÇĞİÖŞÜçğıöşü]/g, '').slice(0, 3).toLocaleUpperCase('tr') || (page - 1) * pageSize + idx + 1}
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <p className="text-sm font-medium text-text-primary truncate">{drug.name}</p>
-                        <div className="flex items-center gap-2 mt-0.5">
-                          <p className="text-[11px] text-text-muted">
-                            {drug.activeIngredient || 'Etkin madde bilinmiyor'}
+                        <p className="text-[15px] font-semibold text-text-primary truncate">{drug.name}</p>
+                        <div className="flex items-center gap-2.5 mt-1 flex-wrap">
+                          <p className="text-[12.5px] text-text-secondary">
+                            Etkin madde: <span className="font-semibold text-accent/90">{drug.activeIngredient || 'Bilinmiyor'}</span>
                           </p>
                           {drug.atcCode && (
-                            <span className="text-[10px] text-text-muted">ATC: {drug.atcCode}</span>
+                            <span className="font-mono text-[11px] text-text-muted bg-bg-primary rounded px-1.5 py-px">
+                              ATC {drug.atcCode}
+                            </span>
                           )}
                         </div>
                         {drug.matchReason && (
-                          <p className="text-[10px] text-text-muted mt-1 italic truncate">
+                          <p className="text-[11px] text-text-muted mt-1 truncate">
                             ↳ {drug.matchReason}
                           </p>
                         )}

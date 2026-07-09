@@ -69,6 +69,8 @@ export async function getStats() {
     ...stats,
     interactionRules: getRuleCount(),
     dataGeneratedAt: manifest?.generatedAt || null,
+    conditionCount: manifest?.conditionCount || null,
+    descriptionCount: manifest?.descriptionCount || null,
   };
 }
 
