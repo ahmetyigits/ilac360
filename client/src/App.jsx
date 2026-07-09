@@ -285,12 +285,21 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Logo: her durumda gerçek ana sayfaya (hero) döner — çalışma alanı sıfırlanır.
+  const handleLogoClick = () => {
+    clearAllDrugs();
+    setCurrentView('checker');
+    setSearchMode('drug');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-bg-primary">
       <Navbar
         currentView={currentView}
         searchMode={searchMode}
         onNavigate={handleNavigate}
+        onLogoClick={handleLogoClick}
         darkMode={darkMode}
         onToggleDark={() => setDarkMode(p => !p)}
       />

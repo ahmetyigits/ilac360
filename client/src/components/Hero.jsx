@@ -36,38 +36,6 @@ export default function Hero({ stats, onPopularSearch, children }) {
           ))}
         </div>
       </div>
-
-      {/* Güven şeridi — kenardan kenara, canlı istatistikler */}
-      <div className="w-full bg-card border-t border-border">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-2 lg:grid-cols-4">
-          <TrustCell
-            value={stats?.totalDrugs?.toLocaleString('tr-TR') ?? '—'}
-            label="Kayıtlı ilaç"
-          />
-          <TrustCell
-            value={stats?.interactionRules?.toLocaleString('tr-TR') ?? '—'}
-            label="Etkileşim kuralı"
-          />
-          <TrustCell
-            value={stats?.conditionCount?.toLocaleString('tr-TR') ?? '—'}
-            label="Hastalık başlığı"
-          />
-          <TrustCell
-            value={stats?.descriptionCount?.toLocaleString('tr-TR') ?? '—'}
-            label="Prospektüs"
-            last
-          />
-        </div>
-      </div>
     </section>
-  );
-}
-
-function TrustCell({ value, label, last }) {
-  return (
-    <div className={`px-6 sm:px-10 py-6 sm:py-7 border-border-light ${last ? '' : 'lg:border-r'} border-b lg:border-b-0`}>
-      <div className="text-xl sm:text-[26px] font-bold text-accent">{value}</div>
-      <div className="text-sm text-text-secondary mt-0.5">{label}</div>
-    </div>
   );
 }
