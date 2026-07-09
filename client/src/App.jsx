@@ -118,7 +118,8 @@ export default function App() {
     setAnalysisLoading(true);
     setUnknownDrugs([]);
     try {
-      const data = await analyzeInteractionsApi(selectedDrugs.map((d) => d.name));
+      // Ad yerine id ile analiz: veri setinde 135 üründe ad çakışması var.
+      const data = await analyzeInteractionsApi(selectedDrugs.map((d) => ({ id: d.id, name: d.name })));
       setInteractions(data.interactions);
       setUnknownDrugs(data.unknownDrugs || []);
       if (data.unknownDrugs?.length > 0) {
@@ -132,14 +133,19 @@ export default function App() {
     }
   }, [selectedDrugs, showToast]);
 
+  // İçerik kutusu: tasarımdaki 1400px'lik geniş kolon
+  const boxed = (children, extra = '') => (
+    <div className={`max-w-[1400px] mx-auto px-5 sm:px-12 py-6 sm:py-8 space-y-5 ${extra}`}>
+      {children}
+    </div>
+  );
+
   const renderContent = () => {
     if (currentView === 'about') {
-      return <AboutPage stats={stats} />;
+      return boxed(<AboutPage stats={stats} />);
     }
 
-    return (
-      <div className="space-y-5">
-        {dataError && (
+    const errorBanner = dataError && (
           <div className="rounded-xl border border-red-200 bg-red-50/60 p-4 flex items-start gap-3">
             <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
             <div className="flex-1">
@@ -155,13 +161,12 @@ export default function App() {
               Tekrar dene
             </button>
           </div>
-        )}
+    );
 
-        {(() => {
-          // Sepet + ilaç detayı + analiz sonuçları her iki arama modunda da
-          // arama listesinin ÜSTÜNDE durur; hastalık aramasının uzun sonuç
-          // listesi bu blokları ekran dışına itemez.
-          const workspace = (
+    // Sepet + ilaç detayı + analiz sonuçları her iki arama modunda da
+    // arama listesinin ÜSTÜNDE durur; hastalık aramasının uzun sonuç
+    // listesi bu blokları ekran dışına itemez.
+    const workspace = (
             <>
               {selectedDrugs.length > 0 && (
                 <SelectedDrugs
@@ -217,46 +222,56 @@ export default function App() {
             </>
           );
 
-          if (searchMode === 'drug') {
-            const searchBar = (
-              <DrugSearch
-                onSelect={addDrug}
-                selectedDrugs={selectedDrugs}
-                maxDrugs={MAX_DRUGS}
-                chipQuery={chipQuery}
-                onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
-              />
-            );
-            // Boş durumda arama, hero'nun içinde büyük merkezi çubuk olarak durur;
-            // çalışma alanı doluyken sade bir üst çubuğa döner.
-            const showHero = selectedDrugs.length === 0 && !interactions && !activeDrug;
-            return (
+    if (searchMode === 'drug') {
+      const searchBar = (
+        <DrugSearch
+          onSelect={addDrug}
+          selectedDrugs={selectedDrugs}
+          maxDrugs={MAX_DRUGS}
+          chipQuery={chipQuery}
+          onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
+        />
+      );
+      // Boş durumda arama, tam genişlik hero'nun içinde büyük merkezi çubuk
+      // olarak durur; çalışma alanı doluyken kutulu kolonda sade çubuğa döner.
+      const showHero = selectedDrugs.length === 0 && !interactions && !activeDrug;
+      if (showHero) {
+        return (
+          <>
+            <Hero stats={stats} onPopularSearch={(name) => setChipQuery({ q: name, at: Date.now() })}>
+              {searchBar}
+            </Hero>
+            {boxed(
               <>
-                {showHero ? (
-                  <Hero stats={stats} onPopularSearch={(name) => setChipQuery({ q: name, at: Date.now() })}>
-                    {searchBar}
-                  </Hero>
-                ) : (
-                  searchBar
-                )}
-                {workspace}
+                {errorBanner}
+                <LegalWarning />
               </>
-            );
-          }
-          return (
-            <ConditionSearch
-              onSelect={addDrug}
-              onViewDrug={setActiveDrug}
-              selectedDrugs={selectedDrugs}
-              maxDrugs={MAX_DRUGS}
-              onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
-              renderBeforeResults={workspace}
-            />
-          );
-        })()}
-
+            )}
+          </>
+        );
+      }
+      return boxed(
+        <>
+          {errorBanner}
+          {searchBar}
+          {workspace}
+          <LegalWarning />
+        </>
+      );
+    }
+    return boxed(
+      <>
+        {errorBanner}
+        <ConditionSearch
+          onSelect={addDrug}
+          onViewDrug={setActiveDrug}
+          selectedDrugs={selectedDrugs}
+          maxDrugs={MAX_DRUGS}
+          onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
+          renderBeforeResults={workspace}
+        />
         <LegalWarning />
-      </div>
+      </>
     );
   };
 
@@ -279,7 +294,7 @@ export default function App() {
         darkMode={darkMode}
         onToggleDark={() => setDarkMode(p => !p)}
       />
-      <main className="flex-1 w-full max-w-6xl mx-auto px-5 sm:px-8 py-6 sm:py-8">
+      <main className="flex-1 w-full">
         {renderContent()}
       </main>
       <Footer onNavigate={handleNavigate} />

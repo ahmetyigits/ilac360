@@ -1,4 +1,4 @@
-import { getDrugByName, dataUrl } from './drugStore.js';
+import { getDrugByName, getDrugById, dataUrl } from './drugStore.js';
 import { isValidIngredient } from './turkishText.js';
 import {
   getComponents,
@@ -9,6 +9,9 @@ import {
 let knownInteractions = [];
 let compiledRules = [];
 let synonymLookup = new Map();
+// Kanonik bileşen → ATC (build'de üretilir). Kombinasyon ürünlerinde
+// bileşenlerin gerçek farmakolojik sınıflarını türetmek için kullanılır.
+let componentAtcMap = {};
 let loadPromise = null;
 
 // Kural taraflarını da ilaç tarafıyla aynı boru hattından geçirip önceden derle:
@@ -38,8 +41,13 @@ export function loadInteractions() {
       .then((url) => fetch(url))
       .then((r) => (r.ok ? r.json() : {}))
       .catch(() => ({})),
-  ]).then(([rules, synonyms]) => {
+    dataUrl('component-atc.json')
+      .then((url) => fetch(url))
+      .then((r) => (r.ok ? r.json() : {}))
+      .catch(() => ({})),
+  ]).then(([rules, synonyms, compAtc]) => {
     synonymLookup = buildSynonymLookup(synonyms);
+    componentAtcMap = compAtc || {};
     knownInteractions = rules;
     compiledRules = compileRules(rules);
     return knownInteractions;
@@ -48,8 +56,9 @@ export function loadInteractions() {
 }
 
 // Test kancası: fetch olmadan kural/sinonim enjekte etmek için.
-export function setInteractionsForTest(rules, synonyms = {}) {
+export function setInteractionsForTest(rules, synonyms = {}, compAtc = {}) {
   synonymLookup = buildSynonymLookup(synonyms);
+  componentAtcMap = compAtc || {};
   knownInteractions = rules;
   compiledRules = compileRules(rules);
   loadPromise = Promise.resolve(knownInteractions);
@@ -319,6 +328,16 @@ const CATEGORY_INTERACTIONS = [
   // --- Kardiyak ---
   { catA: 'BETA_BLOCKER', catB: 'ANTIARRHYTHMIC_III', risk: 'high', message: 'Beta bloker ve amiodaron birlikte ciddi bradikardi ve AV blok riskini artırır.' },
   { catA: 'CARDIAC_GLYCOSIDE', catB: 'MACROLIDE', risk: 'high', message: 'Makrolidler digoksin düzeylerini artırarak toksisiteye neden olabilir.' },
+  // --- Salisilatlar (aspirin N02BA): NSAID'lerle aynı kanama profili ---
+  { catA: 'SALICYLATE', catB: 'NSAID', risk: 'high', message: 'Aspirin ve NSAID birlikte GI kanama riskini artırır; NSAID aspirinin antiplatelet etkisini de azaltabilir.' },
+  { catA: 'SALICYLATE', catB: 'SALICYLATE', risk: 'high', message: 'İki salisilat birlikte doz aşımı ve GI kanama riskini artırır.' },
+  { catA: 'SALICYLATE', catB: 'VITAMIN_K_ANTAGONIST', risk: 'critical', message: 'Aspirin ve warfarin birlikte ciddi kanama riskini çok artırır.' },
+  { catA: 'SALICYLATE', catB: 'DIRECT_FACTOR_XA_INHIBITOR', risk: 'high', message: 'Aspirin ve DOAK birlikte kanama riskini belirgin artırır.' },
+  { catA: 'SALICYLATE', catB: 'DIRECT_THROMBIN_INHIBITOR', risk: 'high', message: 'Aspirin ve direkt trombin inhibitörü birlikte kanama riskini artırır.' },
+  { catA: 'SALICYLATE', catB: 'HEPARIN', risk: 'high', message: 'Aspirin ve heparin birlikte kanama riskini artırır.' },
+  { catA: 'SALICYLATE', catB: 'ANTIPLATELET', risk: 'medium', message: 'Aspirin ve antiplatelet birlikte kanama riskini artırır; bazı durumlarda bilinçli ikili tedavi olabilir.' },
+  { catA: 'SALICYLATE', catB: 'SSRI', risk: 'medium', message: 'SSRI ve aspirin birlikte GI kanama riskini artırır.' },
+  { catA: 'SALICYLATE', catB: 'CORTICOSTEROID', risk: 'high', message: 'Aspirin ve kortikosteroid birlikte GI kanama ve ülser riskini artırır.' },
 ];
 
 function checkCategoryInteraction(cats1, cats2) {
@@ -340,19 +359,34 @@ export function getRuleCount() {
 
 const RISK_ORDER = { critical: 0, high: 1, medium: 2, low: 3, unknown: 4, info: 5, safe: 6 };
 
-export function analyzeInteractions(drugNames) {
+// Girdi: {id, name} nesneleri (tercih edilen — 135 üründe ürün adı çakışması
+// olduğundan yalnızca ada güvenilmez) veya geriye dönük uyumluluk için ad stringleri.
+export function analyzeInteractions(drugRefs) {
   const results = [];
   const unknownDrugs = [];
-  const drugData = drugNames.map((name) => {
-    const drug = getDrugByName(name);
+  const drugData = drugRefs.map((ref) => {
+    const id = typeof ref === 'object' && ref !== null ? ref.id : null;
+    const name = typeof ref === 'object' && ref !== null ? ref.name : ref;
+    const drug = (id != null ? getDrugById(id) : null) || getDrugByName(name);
     if (!drug) unknownDrugs.push(name);
     const components = drug ? getComponents(drug.Active_Ingredient, synonymLookup) : [];
+
+    // Sınıflar hem ürünün kendi ATC'sinden hem de bileşenlerin bilinen
+    // ATC'lerinden türetilir: "flurbiprofen+tiyokolşikosid" (M03BX55) ürünü
+    // böylece flurbiprofen üzerinden NSAID sınıfına da girer.
+    const categorySet = new Set(drug ? getAllCategories(drug.ATC_code) : []);
+    for (const comp of components) {
+      const compAtc = componentAtcMap[comp];
+      if (!compAtc) continue;
+      for (const cat of getAllCategories(compAtc)) categorySet.add(cat);
+    }
+
     return {
-      name,
+      name: name || drug?.Product_Name,
       drug,
       components: new Set(components),
       atcCode: drug?.ATC_code || null,
-      categories: drug ? getAllCategories(drug.ATC_code) : [],
+      categories: [...categorySet],
       primaryCategory: drug ? getCategory(drug.ATC_code) : null,
       atcGroup: drug ? getAtcGroup(drug.ATC_code) : null,
     };
@@ -444,11 +478,20 @@ export function analyzeInteractions(drugNames) {
   return { interactions: results, unknownDrugs };
 }
 
-export function analyzeWithEnrichment(drugNames) {
-  const { interactions, unknownDrugs } = analyzeInteractions(drugNames);
+export function analyzeWithEnrichment(drugRefs) {
+  const { interactions, unknownDrugs } = analyzeInteractions(drugRefs);
+  // Zenginleştirmede de ada değil, analiz girdisindeki id'lere göre çözümle.
+  const byName = new Map();
+  for (const ref of drugRefs) {
+    const id = typeof ref === 'object' && ref !== null ? ref.id : null;
+    const name = typeof ref === 'object' && ref !== null ? ref.name : ref;
+    const drug = (id != null ? getDrugById(id) : null) || getDrugByName(name);
+    if (drug && name) byName.set(name, drug);
+  }
+  const resolve = (n) => byName.get(n) || getDrugByName(n);
   const enriched = interactions.map((interaction) => {
-    const d1 = getDrugByName(interaction.drug1);
-    const d2 = getDrugByName(interaction.drug2);
+    const d1 = resolve(interaction.drug1);
+    const d2 = resolve(interaction.drug2);
     return {
       ...interaction,
       ingredientA: d1 && isValidIngredient(d1.Active_Ingredient) ? d1.Active_Ingredient.trim() : null,

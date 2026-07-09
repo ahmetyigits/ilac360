@@ -39,7 +39,7 @@ export default function Navbar({ currentView, searchMode, onNavigate, darkMode, 
 
   return (
     <header className="bg-card border-b border-border">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between gap-4 flex-wrap">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-12 py-4 flex items-center justify-between gap-4 flex-wrap">
         <button
           onClick={() => onNavigate('drug')}
           className="flex items-center gap-2.5 cursor-pointer"
