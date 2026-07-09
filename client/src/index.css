@@ -1,22 +1,32 @@
 @import "tailwindcss";
+/* IBM Plex — yerelden servis edilir (harici font isteği yok) */
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-sans/700.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/600.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-bg-primary: #F1F5F9;
-  --color-bg-sidebar: #0F172A;
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+  --color-bg-primary: #EEF2F7;
+  --color-ink: #0F2239;
   --color-card: #FFFFFF;
   --color-accent: #2563EB;
   --color-accent-light: #DBEAFE;
-  --color-text-primary: #0F172A;
-  --color-text-secondary: #64748B;
-  --color-text-muted: #94A3B8;
+  --color-accent-soft: #EFF5FF;
+  --color-text-primary: #12263F;
+  --color-text-secondary: #5B6B80;
+  --color-text-muted: #93A2B7;
   --color-risk-critical: #991B1B;
   --color-risk-high: #DC2626;
   --color-risk-medium: #D97706;
   --color-risk-low: #059669;
   --color-risk-safe: #059669;
-  --color-border: #E2E8F0;
+  --color-border: #E3E9F1;
   --color-border-light: #F1F5F9;
 }
 
@@ -24,26 +34,26 @@
 
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-sans);
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
 }
 
 /* Dark Mode */
 .dark {
-  --color-bg-primary: #0F172A;
-  --color-bg-sidebar: #020617;
-  --color-card: #1E293B;
+  --color-bg-primary: #0D1829;
+  --color-ink: #0A1420;
+  --color-card: #16233A;
   --color-accent: #3B82F6;
   --color-accent-light: #1E3A5F;
-  --color-text-primary: #F1F5F9;
-  --color-text-secondary: #94A3B8;
+  --color-accent-soft: #1A2C49;
+  --color-text-primary: #EDF2F9;
+  --color-text-secondary: #96A6BC;
   --color-text-muted: #64748B;
-  --color-border: #334155;
-  --color-border-light: #1E293B;
+  --color-border: #263A57;
+  --color-border-light: #16233A;
   --color-risk-critical: #FCA5A5;
   --color-risk-high: #F87171;
   --color-risk-medium: #FBBF24;

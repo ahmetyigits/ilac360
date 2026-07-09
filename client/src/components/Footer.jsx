@@ -1,31 +1,38 @@
-import { Database, Github, ExternalLink } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 
-export default function Footer() {
+// Tasarım 1A: koyu lacivert footer bandı.
+export default function Footer({ onNavigate }) {
   return (
-    <footer className="mt-8 pt-5 border-t border-border">
-      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-text-muted">
-        <p className="flex items-center gap-1.5">
-          <Database className="w-3 h-3" />
-          Veri kaynağı:{' '}
+    <footer className="bg-ink text-slate-400 mt-10">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="text-[15px] font-semibold text-white">
+          ilaç<span className="text-blue-400">360</span>
+        </div>
+        <div className="flex items-center gap-6 text-sm flex-wrap justify-center">
+          <button
+            onClick={() => onNavigate?.('about')}
+            className="hover:text-white transition-colors cursor-pointer"
+          >
+            Hakkında
+          </button>
           <a
             href="https://titck.gov.tr/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-text-secondary hover:text-accent transition-colors inline-flex items-center gap-0.5"
+            className="hover:text-white transition-colors inline-flex items-center gap-1"
           >
-            TİTCK <ExternalLink className="w-2.5 h-2.5" />
+            Veri kaynağı: TİTCK <ExternalLink className="w-3 h-3" />
           </a>
-        </p>
-        <p>
           <a
             href="https://github.com/ahmetyigits/ilac360"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-accent transition-colors inline-flex items-center gap-1"
+            className="hover:text-white transition-colors inline-flex items-center gap-1"
           >
-            <Github className="w-3 h-3" /> GitHub&apos;da aç
+            <Github className="w-3.5 h-3.5" /> Açık kaynak
           </a>
-        </p>
+        </div>
+        <div className="text-[13px] text-slate-500">© 2026 ilaç360</div>
       </div>
     </footer>
   );

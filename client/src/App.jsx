@@ -3,8 +3,7 @@ import { bootData, getStats, analyzeInteractions as analyzeInteractionsApi } fro
 import DisclaimerGate from './components/DisclaimerGate';
 import { hasAcknowledgedDisclaimer } from './data/disclaimer.js';
 import { AlertTriangle } from 'lucide-react';
-import Sidebar from './components/Sidebar';
-import TopBar from './components/TopBar';
+import Navbar from './components/Navbar';
 import DrugSearch from './components/DrugSearch';
 import SelectedDrugs from './components/SelectedDrugs';
 import DrugCard from './components/DrugCard';
@@ -31,6 +30,7 @@ export default function App() {
   const [dataError, setDataError] = useState(false);
   const [showDisclaimerGate, setShowDisclaimerGate] = useState(false);
   const [toasts, setToasts] = useState([]);
+  const [chipQuery, setChipQuery] = useState(null);
   const toastIdRef = useRef(0);
   const analysisRef = useRef(null);
   const drugCardRef = useRef(null);
@@ -138,7 +138,7 @@ export default function App() {
     }
 
     return (
-      <div className="max-w-5xl mx-auto space-y-5">
+      <div className="space-y-5">
         {dataError && (
           <div className="rounded-xl border border-red-200 bg-red-50/60 p-4 flex items-start gap-3">
             <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
@@ -156,31 +156,6 @@ export default function App() {
             </button>
           </div>
         )}
-
-        {selectedDrugs.length === 0 && !interactions && <Hero />}
-
-        <div className="flex gap-1 bg-card rounded-xl border border-border p-1">
-          <button
-            onClick={() => setSearchMode('drug')}
-            className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
-              searchMode === 'drug'
-                ? 'bg-accent text-white shadow-sm'
-                : 'text-text-secondary hover:text-text-primary hover:bg-bg-primary'
-            }`}
-          >
-            İlaç Ara
-          </button>
-          <button
-            onClick={() => setSearchMode('condition')}
-            className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
-              searchMode === 'condition'
-                ? 'bg-accent text-white shadow-sm'
-                : 'text-text-secondary hover:text-text-primary hover:bg-bg-primary'
-            }`}
-          >
-            Hastalığa Göre Ara
-          </button>
-        </div>
 
         {(() => {
           // Sepet + ilaç detayı + analiz sonuçları her iki arama modunda da
@@ -243,14 +218,27 @@ export default function App() {
           );
 
           if (searchMode === 'drug') {
+            const searchBar = (
+              <DrugSearch
+                onSelect={addDrug}
+                selectedDrugs={selectedDrugs}
+                maxDrugs={MAX_DRUGS}
+                chipQuery={chipQuery}
+                onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
+              />
+            );
+            // Boş durumda arama, hero'nun içinde büyük merkezi çubuk olarak durur;
+            // çalışma alanı doluyken sade bir üst çubuğa döner.
+            const showHero = selectedDrugs.length === 0 && !interactions && !activeDrug;
             return (
               <>
-                <DrugSearch
-                  onSelect={addDrug}
-                  selectedDrugs={selectedDrugs}
-                  maxDrugs={MAX_DRUGS}
-                  onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
-                />
+                {showHero ? (
+                  <Hero stats={stats} onPopularSearch={(name) => setChipQuery({ q: name, at: Date.now() })}>
+                    {searchBar}
+                  </Hero>
+                ) : (
+                  searchBar
+                )}
                 {workspace}
               </>
             );
@@ -272,27 +260,29 @@ export default function App() {
     );
   };
 
+  const handleNavigate = (id) => {
+    if (id === 'about') {
+      setCurrentView('about');
+      return;
+    }
+    setCurrentView('checker');
+    setSearchMode(id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <div className="flex h-screen overflow-hidden bg-bg-primary">
-      <Sidebar
+    <div className="min-h-screen flex flex-col bg-bg-primary">
+      <Navbar
         currentView={currentView}
-        onNavigate={setCurrentView}
+        searchMode={searchMode}
+        onNavigate={handleNavigate}
         darkMode={darkMode}
         onToggleDark={() => setDarkMode(p => !p)}
-        selectedCount={selectedDrugs.length}
       />
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <TopBar
-          totalDrugs={stats?.totalDrugs || 0}
-          selectedCount={selectedDrugs.length}
-          lastAnalysis={interactions ? `${interactions.length} etkileşim` : null}
-          currentView={currentView}
-        />
-        <main className="flex-1 overflow-y-auto p-5">
-          {renderContent()}
-          <Footer />
-        </main>
-      </div>
+      <main className="flex-1 w-full max-w-6xl mx-auto px-5 sm:px-8 py-6 sm:py-8">
+        {renderContent()}
+      </main>
+      <Footer onNavigate={handleNavigate} />
       {toasts.length > 0 && (
         <div className="fixed top-5 right-5 z-[100] space-y-2">
           {toasts.map((t) => (
