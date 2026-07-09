@@ -4,7 +4,7 @@ import { ExternalLink, Github } from 'lucide-react';
 export default function Footer({ onNavigate }) {
   return (
     <footer className="bg-ink text-slate-400 mt-10">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-12 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="text-[15px] font-semibold text-white">
           ilaç<span className="text-blue-400">360</span>
         </div>

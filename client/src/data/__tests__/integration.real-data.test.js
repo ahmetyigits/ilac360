@@ -37,7 +37,11 @@ describe.skipIf(!hasData)('gerçek veri entegrasyonu', () => {
     const file = (logical) => JSON.parse(readFileSync(join(DATA, manifest.files[logical]), 'utf-8'));
     index = file('drugs-index.json');
     setDrugsForTest(index.map(expand));
-    setInteractionsForTest(file('interactions.json'), file('ingredient-synonyms.json'));
+    setInteractionsForTest(
+      file('interactions.json'),
+      file('ingredient-synonyms.json'),
+      file('component-atc.json')
+    );
   });
 
   const findByIngredient = (needle) =>
@@ -87,6 +91,34 @@ describe.skipIf(!hasData)('gerçek veri entegrasyonu', () => {
   it('Latin-I ile yazılmış ürünler aranabilir (ASPIRIN)', () => {
     const results = searchDrugs('aspirin');
     expect(results.length).toBeGreaterThan(0);
+  });
+
+  it('REGRESYON: etken maddesi eksik kayıtlar ATC üzerinden doldurulur (ASPIRIN 100 MG)', () => {
+    // Kaynak veride bu kaydın Active_Ingredient alanı boştu; build artık
+    // 7 haneli ATC kodundan (N02BA01) etken maddeyi geri dolduruyor.
+    const aspirin = index.find((e) => e.n === 'ASPIRIN 100 MG 20 TABLET');
+    expect(aspirin?.a).toBeTruthy();
+  });
+
+  it('ekran senaryosu: ASPIRIN 100 MG × MAJEZIK DUO TABLET artık uyarı üretir', () => {
+    // Aspirin (salisilat) + flurbiprofen (NSAID, M03BX55 kombinasyon ürünü
+    // içinde) — bileşen→ATC türetmesiyle NSAID sınıfı yakalanır.
+    const { interactions } = analyzeInteractions([
+      'ASPIRIN 100 MG 20 TABLET',
+      'MAJEZIK DUO 100 MG/8 MG 14 FILM KAPLI TABLET',
+    ]);
+    expect(['critical', 'high', 'medium']).toContain(interactions[0].risk);
+    expect(interactions[0].risk).not.toBe('unknown');
+  });
+
+  it('id ile analiz, ad çakışmasında doğru kaydı kullanır', () => {
+    const aspirin = index.find((e) => e.n === 'ASPIRIN 100 MG 20 TABLET');
+    const majezik = index.find((e) => e.n.startsWith('MAJEZIK DUO') && e.n.includes('TABLET'));
+    const { interactions } = analyzeInteractions([
+      { id: aspirin.i, name: aspirin.n },
+      { id: majezik.i, name: majezik.n },
+    ]);
+    expect(interactions[0].risk).not.toBe('unknown');
   });
 
   it('gerçek varfarin ürünü ("Varfarin" yazımı) warfarin kurallarıyla eşleşir', () => {

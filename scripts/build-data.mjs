@@ -25,6 +25,7 @@ import {
   flexibleIncludes,
 } from '../client/src/data/turkishText.js';
 import { BUCKET_COUNT, bucketOf } from '../client/src/data/buckets.js';
+import { getComponents, buildSynonymLookup } from '../client/src/data/ingredientMatcher.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -59,6 +60,31 @@ for (const [ing, counts] of atcCountsByIngredient) {
   if (bestAtc) ingredientToAtc.set(ing, bestAtc);
 }
 
+// Ters yön: ATC → en sık görülen etken madde. 7 karakterlik tam ATC kodu
+// maddeyi birebir tanımlar (N02BA01 = asetilsalisilik asit); etken maddesi
+// eksik ~800 kayıt bu haritayla dolduruluyor.
+const ingredientCountsByAtc = new Map();
+for (const d of drugs) {
+  if (!isValidIngredient(d.Active_Ingredient)) continue;
+  if (!d.ATC_code || d.ATC_code === '0' || d.ATC_code.trim().length < 7) continue;
+  const atc = d.ATC_code.trim();
+  const ing = d.Active_Ingredient.trim();
+  let counts = ingredientCountsByAtc.get(atc);
+  if (!counts) {
+    counts = new Map();
+    ingredientCountsByAtc.set(atc, counts);
+  }
+  counts.set(ing, (counts.get(ing) || 0) + 1);
+}
+const atcToIngredient = new Map();
+for (const [atc, counts] of ingredientCountsByAtc) {
+  let best = null, bestCount = -1;
+  for (const [ing, count] of counts) {
+    if (count > bestCount) { best = ing; bestCount = count; }
+  }
+  if (best) atcToIngredient.set(atc, best);
+}
+
 // Yinelenen kayıt raporu (otomatik silinmez; kaynak veri QA'sı için loglanır)
 const byBarcode = new Map();
 const byName = new Map();
@@ -73,16 +99,24 @@ const index = [];
 const buckets = Array.from({ length: BUCKET_COUNT }, () => ({}));
 const usageSections = {};
 let atcBackfilled = 0;
+let ingredientBackfilled = 0;
 let descriptionCount = 0;
 
 for (const d of drugs) {
-  const ingredient = isValidIngredient(d.Active_Ingredient) ? d.Active_Ingredient.trim() : null;
+  let ingredient = isValidIngredient(d.Active_Ingredient) ? d.Active_Ingredient.trim() : null;
   let atc = d.ATC_code && d.ATC_code !== '0' ? d.ATC_code.trim() : null;
   if (!atc && ingredient) {
     const inferred = ingredientToAtc.get(turkishLower(ingredient));
     if (inferred) {
       atc = inferred;
       atcBackfilled++;
+    }
+  }
+  if (!ingredient && atc) {
+    const inferred = atcToIngredient.get(atc);
+    if (inferred) {
+      ingredient = inferred;
+      ingredientBackfilled++;
     }
   }
   const desc = isValidDescription(d.Description) ? d.Description.trim() : null;
@@ -150,6 +184,33 @@ try {
   console.warn('ingredient-synonyms.json bulunamadı; sinonimler boş bırakıldı.');
 }
 
+// Kanonik bileşen → en sık ATC kodu. Motor bunu, kendi ATC'si sınıf haritasına
+// düşmeyen kombinasyon ürünlerinde (ör. flurbiprofen+tiyokolşikosid → M03BX55)
+// bileşenlerin gerçek sınıflarını (flurbiprofen → M01AE09 → NSAID) türetmek
+// için kullanır.
+const synonymLookup = buildSynonymLookup(synonyms);
+const atcCountsByComponent = new Map();
+for (const d of drugs) {
+  if (!d.ATC_code || d.ATC_code === '0' || d.ATC_code.trim().length < 7) continue;
+  const atc = d.ATC_code.trim();
+  for (const comp of getComponents(d.Active_Ingredient, synonymLookup)) {
+    let counts = atcCountsByComponent.get(comp);
+    if (!counts) {
+      counts = new Map();
+      atcCountsByComponent.set(comp, counts);
+    }
+    counts.set(atc, (counts.get(atc) || 0) + 1);
+  }
+}
+const componentAtc = {};
+for (const [comp, counts] of atcCountsByComponent) {
+  let best = null, bestCount = -1;
+  for (const [atc, count] of counts) {
+    if (count > bestCount) { best = atc; bestCount = count; }
+  }
+  if (best) componentAtc[comp] = best;
+}
+
 // --- İçerik-hash'li yazım + manifest ---
 mkdirSync(OUT, { recursive: true });
 
@@ -177,6 +238,7 @@ emit('condition-desc-matches.json', conditionDescMatches);
 emit('interactions.json', interactions);
 emit('condition-mapping.json', conditions);
 emit('ingredient-synonyms.json', synonyms);
+emit('component-atc.json', componentAtc);
 
 const manifest = {
   version: 1,
@@ -200,7 +262,8 @@ const bucketSizes = manifestFiles && Object.entries(manifestFiles)
 const maxBucket = Math.max(...bucketSizes);
 const totalBucket = bucketSizes.reduce((a, b) => a + b, 0);
 
-console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled})`);
+console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled})`);
+console.log('component-atc           ', kb(join(OUT, manifestFiles['component-atc.json'])), `(${Object.keys(componentAtc).length} components)`);
 console.log('desc buckets            ', `${BUCKET_COUNT} adet, toplam ${(totalBucket / 1024 / 1024).toFixed(2)} MB, en büyük ${(maxBucket / 1024).toFixed(0)} KB (${descriptionCount} descriptions)`);
 console.log('usage-sections          ', kb(join(OUT, manifestFiles['usage-sections.json'])), `(${Object.keys(usageSections).length} entries)`);
 console.log('condition-desc-matches  ', kb(join(OUT, manifestFiles['condition-desc-matches.json'])), `(${conditions.length} conditions)`);
