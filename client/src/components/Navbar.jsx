@@ -30,7 +30,7 @@ export function BrandName({ className = 'text-xl' }) {
   );
 }
 
-export default function Navbar({ currentView, searchMode, onNavigate, darkMode, onToggleDark }) {
+export default function Navbar({ currentView, searchMode, onNavigate, onLogoClick, darkMode, onToggleDark }) {
   const links = [
     { id: 'drug', label: 'İlaç Ara', active: currentView === 'checker' && searchMode === 'drug' },
     { id: 'condition', label: 'Hastalığa Göre', active: currentView === 'checker' && searchMode === 'condition' },
@@ -41,9 +41,9 @@ export default function Navbar({ currentView, searchMode, onNavigate, darkMode, 
     <header className="bg-card border-b border-border">
       <div className="max-w-[1400px] mx-auto px-5 sm:px-12 py-4 flex items-center justify-between gap-4 flex-wrap">
         <button
-          onClick={() => onNavigate('drug')}
+          onClick={() => (onLogoClick ? onLogoClick() : onNavigate('drug'))}
           className="flex items-center gap-2.5 cursor-pointer"
-          aria-label="Ana sayfa"
+          aria-label="Ana sayfaya dön"
         >
           <BrandMark size={36} />
           <BrandName />
