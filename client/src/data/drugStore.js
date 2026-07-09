@@ -75,6 +75,10 @@ export function loadDrugs() {
         // 20 bin kayıt × regex çalıştırmak yerine düz string karşılaştırması yapar.
         d._nameL = searchFold(d.Product_Name);
         d._ingL = d.Active_Ingredient ? searchFold(d.Active_Ingredient) : '';
+        // Hastalık aramasının kategori katmanı için fold edilmiş kategoriler
+        d._catsL = [d.Category_1, d.Category_2, d.Category_3, d.Category_4, d.Category_5]
+          .filter((c) => c && c.trim())
+          .map((c) => searchFold(c));
         drugsById.set(d.ID, d);
         drugsByNameLower.set(d._nameL, d);
       }
@@ -97,6 +101,9 @@ export function setDrugsForTest(entries) {
   for (const d of drugs) {
     d._nameL = searchFold(d.Product_Name);
     d._ingL = d.Active_Ingredient ? searchFold(d.Active_Ingredient) : '';
+    d._catsL = [d.Category_1, d.Category_2, d.Category_3, d.Category_4, d.Category_5]
+      .filter((c) => c && c.trim())
+      .map((c) => searchFold(c));
     drugsById.set(d.ID, d);
     drugsByNameLower.set(d._nameL, d);
   }

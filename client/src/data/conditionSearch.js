@@ -4,7 +4,7 @@ import {
   cleanDrugResponse,
   dataUrl,
 } from './drugStore.js';
-import { turkishLower, searchFold, flexibleIncludes } from './turkishText.js';
+import { turkishLower, searchFold } from './turkishText.js';
 
 let conditions = [];
 // Durum id → { usage: {drugId: keyword}, full: {drugId: keyword} }
@@ -62,26 +62,18 @@ function findMatchingCondition(query) {
   return exact || prefix || substring || null;
 }
 
-function ingredientMatches(drugIngredient, targetIngredients) {
-  if (!drugIngredient) return null;
-  const normalized = turkishLower(drugIngredient);
-  for (const target of targetIngredients) {
-    if (normalized.includes(turkishLower(target))) return target;
-  }
-  return null;
-}
-
+// Form kontrolleri fold edilmiş ürün adı (drug._nameL) üzerinde çalışır;
+// 20 bin kayıtlık taramada ilaç başına yeniden normalizasyon YAPILMAZ.
+// Not: listeler searchFold sonrası ı→i katlamasına göre yazılmıştır.
 const TOPICAL_FORMS = ['krem', 'jel', 'merhem', 'pomad', 'losyon', 'şampuan', 'ovül', 'vajinal', 'rektal'];
+const ORAL_FORMS = ['tablet', 'kapsül', 'kapsul', 'draje', 'şurup', 'surup', 'süspansiyon', 'suspansiyon', 'granül', 'efervesan', 'saşe', 'sase', 'ampul', 'flakon', 'enjeksiyon', 'kase', 'poşet', 'poset'];
 
-function isTopicalForm(productName) {
-  const lower = turkishLower(productName);
-  return TOPICAL_FORMS.some((form) => lower.includes(form));
+function isTopicalFormL(nameL) {
+  return TOPICAL_FORMS.some((form) => nameL.includes(form));
 }
 
-function isOralSystemic(productName) {
-  const lower = turkishLower(productName);
-  const oralForms = ['tablet', 'kapsül', 'kapsul', 'draje', 'şurup', 'surup', 'süspansiyon', 'suspansiyon', 'granül', 'efervesan', 'saşe', 'sase', 'ampul', 'flakon', 'enjeksiyon', 'kase', 'poşet', 'poset'];
-  return oralForms.some((form) => lower.includes(form));
+function isOralSystemicL(nameL) {
+  return ORAL_FORMS.some((form) => nameL.includes(form));
 }
 
 function sortScore(item) {
@@ -91,36 +83,50 @@ function sortScore(item) {
   return sourceScore * 100 + formScore * 10 + singleScore;
 }
 
-function buildFullResultList(matchedCondition, drugs) {
+// 20 bin kayıtlık tarama: tüm fold'lar döngü DIŞINDA bir kez hesaplanır,
+// ilaç başına yalnızca düz .includes/.startsWith çalışır ve döngü belirli
+// aralıklarla olay döngüsüne dönerek ana thread'i kilitlemez.
+const SCAN_CHUNK = 5000;
+
+async function buildFullResultList(matchedCondition, drugs) {
   const seen = new Set();
   const allItems = [];
-  const conditionIngredients = matchedCondition.ingredients || [];
   const dm = descMatches[matchedCondition.id] || { usage: {}, full: {} };
 
-  for (const drug of drugs) {
+  // Koşul tarafındaki hedefler bir kez normalize edilir
+  const ingredientTargets = (matchedCondition.ingredients || []).map((t) => searchFold(t));
+  const atcPrefixes = matchedCondition.atcPrefixes || [];
+  const categoryTargets = (matchedCondition.categories || []).map((c) => searchFold(c));
+
+  for (let i = 0; i < drugs.length; i++) {
+    if (i > 0 && i % SCAN_CHUNK === 0) await new Promise((r) => setTimeout(r, 0));
+    const drug = drugs[i];
     if (seen.has(drug.ID)) continue;
+    const nameL = drug._nameL;
     let matched = false;
 
-    if (!matched && conditionIngredients.length > 0) {
-      const matchedIng = ingredientMatches(drug.Active_Ingredient, conditionIngredients);
-      if (matchedIng) {
-        seen.add(drug.ID);
-        allItems.push({
-          ...cleanDrugResponse(drug),
-          matchReason: `Etken madde: ${drug.Active_Ingredient?.trim()}`,
-          matchSource: 'ingredient',
-          _source: 'ingredient',
-          _isOral: isOralSystemic(drug.Product_Name),
-          _isTopical: isTopicalForm(drug.Product_Name),
-          _isSingle: !(drug.Active_Ingredient || '').match(/[,+/]/),
-        });
-        matched = true;
+    if (ingredientTargets.length > 0 && drug._ingL) {
+      for (const target of ingredientTargets) {
+        if (drug._ingL.includes(target)) {
+          seen.add(drug.ID);
+          allItems.push({
+            ...cleanDrugResponse(drug),
+            matchReason: `Etken madde: ${drug.Active_Ingredient?.trim()}`,
+            matchSource: 'ingredient',
+            _source: 'ingredient',
+            _isOral: isOralSystemicL(nameL),
+            _isTopical: isTopicalFormL(nameL),
+            _isSingle: !(drug.Active_Ingredient || '').match(/[,+/]/),
+          });
+          matched = true;
+          break;
+        }
       }
     }
 
     if (!matched && drug.ATC_code && drug.ATC_code !== '0') {
       const atcCode = drug.ATC_code.trim();
-      for (const prefix of matchedCondition.atcPrefixes) {
+      for (const prefix of atcPrefixes) {
         if (atcCode.startsWith(prefix)) {
           seen.add(drug.ID);
           allItems.push({
@@ -128,8 +134,8 @@ function buildFullResultList(matchedCondition, drugs) {
             matchReason: `ATC grubu (${prefix})`,
             matchSource: 'atc',
             _source: 'atc',
-            _isOral: isOralSystemic(drug.Product_Name),
-            _isTopical: isTopicalForm(drug.Product_Name),
+            _isOral: isOralSystemicL(nameL),
+            _isTopical: isTopicalFormL(nameL),
             _isSingle: true,
           });
           matched = true;
@@ -138,23 +144,23 @@ function buildFullResultList(matchedCondition, drugs) {
       }
     }
 
-    if (!matched) {
-      const drugCategories = [drug.Category_1, drug.Category_2, drug.Category_3, drug.Category_4, drug.Category_5]
-        .filter((c) => c && c.trim());
-      for (const cat of matchedCondition.categories) {
-        if (drugCategories.some((dc) => flexibleIncludes(dc, cat))) {
-          seen.add(drug.ID);
-          allItems.push({
-            ...cleanDrugResponse(drug),
-            matchReason: 'Kategori eşleşmesi',
-            matchSource: 'category',
-            _source: 'category',
-            _isOral: false,
-            _isTopical: false,
-            _isSingle: true,
-          });
-          matched = true;
-          break;
+    if (!matched && drug._catsL && drug._catsL.length > 0) {
+      outer: for (const cat of categoryTargets) {
+        for (const dc of drug._catsL) {
+          if (dc.includes(cat)) {
+            seen.add(drug.ID);
+            allItems.push({
+              ...cleanDrugResponse(drug),
+              matchReason: 'Kategori eşleşmesi',
+              matchSource: 'category',
+              _source: 'category',
+              _isOral: false,
+              _isTopical: false,
+              _isSingle: true,
+            });
+            matched = true;
+            break outer;
+          }
         }
       }
     }
@@ -167,8 +173,8 @@ function buildFullResultList(matchedCondition, drugs) {
         matchReason: `Prospektüste belirtilmiş — ${dm.usage[drug.ID]}`,
         matchSource: 'description',
         _source: 'description',
-        _isOral: isOralSystemic(drug.Product_Name),
-        _isTopical: isTopicalForm(drug.Product_Name),
+        _isOral: isOralSystemicL(nameL),
+        _isTopical: isTopicalFormL(nameL),
         _isSingle: true,
       });
       matched = true;
@@ -181,8 +187,8 @@ function buildFullResultList(matchedCondition, drugs) {
         matchReason: `Prospektüste geçiyor — ${dm.full[drug.ID]}`,
         matchSource: 'description-full',
         _source: 'description-full',
-        _isOral: isOralSystemic(drug.Product_Name),
-        _isTopical: isTopicalForm(drug.Product_Name),
+        _isOral: isOralSystemicL(nameL),
+        _isTopical: isTopicalFormL(nameL),
         _isSingle: true,
       });
     }
@@ -200,15 +206,13 @@ function buildFullResultList(matchedCondition, drugs) {
       let bestMatch = null;
       for (const drug of drugs) {
         if (priorityIds.has(drug.ID)) continue;
-        // _nameL loadDrugs'ta bir kez hesaplandı; regex tabanlı turkishLower'ı
-        // marka × 20 bin ilaç döngüsünde yeniden çalıştırmaya gerek yok.
         const nameLower = drug._nameL;
         if (!nameLower.startsWith(brandLower)) continue;
         if (nameLower.includes('tablet') || nameLower.includes('draje') || nameLower.includes('kapsül') || nameLower.includes('kapsul')) {
           bestMatch = drug;
           break;
         }
-        if (!bestMatch && isOralSystemic(drug.Product_Name)) bestMatch = drug;
+        if (!bestMatch && isOralSystemicL(nameLower)) bestMatch = drug;
       }
       if (bestMatch) {
         priorityIds.add(bestMatch.ID);
@@ -312,7 +316,7 @@ export async function searchByCondition(query, { page = 1, limit = 25 } = {}) {
     const cacheKey = matchedCondition.id;
     let fullList = cachedResults.get(cacheKey);
     if (!fullList) {
-      fullList = buildFullResultList(matchedCondition, drugs);
+      fullList = await buildFullResultList(matchedCondition, drugs);
       rememberResult(cacheKey, fullList);
     }
 
