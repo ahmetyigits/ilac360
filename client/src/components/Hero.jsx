@@ -4,7 +4,7 @@ import { Search, Scan, FileText, Database, Lock, Github, BadgeCheck } from 'luci
 // altında özellik kolonları, koyu "Hastalığa Göre" bandı ve sayısız güven şeridi.
 // Arama bileşeni (children) odak kartın içine gömülür.
 
-export default function Hero({ onConditionMode, children }) {
+export default function Hero({ onConditionMode, workspace, children }) {
   return (
     <>
       {/* HERO */}
@@ -59,11 +59,18 @@ export default function Hero({ onConditionMode, children }) {
             <span><span className="font-mono text-accent">3</span> Kontrol Et</span>
           </div>
 
-          {/* Odak kart — arama buraya gömülür */}
+          {/* Odak kart — arama ve seçili ilaçlar buraya gömülür */}
           <div className="max-w-[740px] mx-auto mt-6 bg-card border border-ink/10 rounded-[20px] shadow-[0_40px_80px_-34px_rgba(20,32,46,.4)] text-left p-5 sm:p-[26px]">
             {children}
           </div>
         </div>
+
+        {/* İlaç detayı + analiz sonuçları: aynı sayfada, odak kartın hemen altında */}
+        {workspace && (
+          <div className="relative z-[2] max-w-[900px] mx-auto px-5 sm:px-8 pb-10 text-left space-y-5">
+            {workspace}
+          </div>
+        )}
       </section>
 
       {/* GÜVEN ŞERİDİ — sayısız */}
