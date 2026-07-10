@@ -87,7 +87,7 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
   return (
     <div className="space-y-4">
       {/* Arama formu */}
-      <form onSubmit={handleSubmit} className="bg-card rounded-xl border border-border overflow-hidden">
+      <form onSubmit={handleSubmit} className="bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] overflow-hidden">
         <div className="px-5 py-3.5 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Stethoscope className="w-4 h-4 text-accent" />
@@ -108,7 +108,7 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
               placeholder="Hastalık veya şikayet yazın, Enter'a basın (ör. baş ağrısı, ateş, grip)"
               aria-label="Hastalık arama"
               disabled={isMaxReached}
-              className="w-full pl-10 pr-20 py-2.5 bg-bg-primary border border-border rounded-lg text-sm placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full pl-10 pr-20 py-3 bg-card-inset border-[1.5px] border-accent/30 rounded-[13px] text-[15px] placeholder:text-text-muted focus:outline-none focus:border-accent/60 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             />
             <button
               type="submit"
@@ -127,9 +127,9 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
 
       {/* Sık aranan durumlar — tasarımdaki kategori kartları düzeni */}
       {!searched && conditions.length > 0 && (
-        <div className="bg-card rounded-2xl border border-border p-5 sm:p-6">
+        <div className="bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] p-5 sm:p-6">
           <div className="flex items-baseline justify-between mb-5">
-            <h3 className="text-lg sm:text-[22px] font-semibold tracking-tight text-text-primary m-0">
+            <h3 className="font-serif text-xl sm:text-[24px] font-medium tracking-tight text-text-primary m-0">
               Sık aranan durumlar
             </h3>
             <span className="text-sm text-text-muted">{conditions.length} başlık</span>
@@ -157,7 +157,7 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
 
       {/* Yükleniyor */}
       {loading && (
-        <div className="bg-card rounded-xl border border-border p-5">
+        <div className="bg-card rounded-[20px] border border-ink/10 p-5">
           <div className="space-y-2.5">
             {[1, 2, 3, 4].map(i => (
               <div key={i} className="rounded-lg border border-border p-3.5 flex items-center gap-3">
@@ -177,7 +177,7 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
       {searched && !loading && results && (
         <div ref={resultsRef} className="space-y-5">
           {results.drugs.length > 0 ? (
-            <div className="bg-card rounded-xl border border-border overflow-hidden">
+            <div className="bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] overflow-hidden">
               {/* Üst bilgi */}
               {results.condition && (
                 <div className="px-5 py-3 bg-accent/5 border-b border-border flex items-center gap-2">
@@ -274,7 +274,7 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
               />
             </div>
           ) : (
-            <div className="bg-card rounded-xl border border-border p-8 text-center">
+            <div className="bg-card rounded-[20px] border border-ink/10 p-8 text-center">
               <SearchX className="w-8 h-8 text-text-muted mx-auto mb-3" />
               <p className="text-sm font-medium text-text-primary">Sonuç bulunamadı</p>
               <p className="text-[12px] text-text-muted mt-1">"{submittedQuery}" ile eşleşen ilaç bulunamadı. Farklı bir terim deneyin.</p>

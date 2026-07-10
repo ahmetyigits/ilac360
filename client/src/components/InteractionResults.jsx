@@ -1,70 +1,92 @@
 import { useState, useRef } from 'react';
 import { AlertTriangle, AlertCircle, CheckCircle, ShieldAlert, ChevronDown, ChevronUp, Info, HelpCircle, Printer } from 'lucide-react';
 
+// 3A panel dili: solda renkli ikon karesi, başlık satırında mono RİSK rozeti.
 const riskConfig = {
   critical: {
     icon: ShieldAlert,
     label: 'Kritik',
+    glyph: '!',
     legend: 'Birlikte kullanımı hayati risk taşır; kontrendike olabilir.',
     dot: 'bg-risk-critical',
     iconColor: 'text-risk-critical',
+    iconBox: 'bg-red-700',
+    badgeSolid: 'bg-red-700 text-white',
     badge: 'bg-red-50 text-risk-critical border-red-100 dark-risk-critical',
-    card: 'border-red-100 bg-red-50/30 dark-risk-critical',
+    card: 'border-red-200/70 bg-red-50/50 dark-risk-critical',
   },
   high: {
     icon: AlertTriangle,
     label: 'Yüksek',
+    glyph: '!',
     legend: 'Ciddi yan etki riski; doktor kontrolü olmadan birlikte kullanılmamalı.',
     dot: 'bg-risk-high',
     iconColor: 'text-risk-high',
+    iconBox: 'bg-[#B5761E]',
+    badgeSolid: 'bg-[#B5761E] text-white',
     badge: 'bg-orange-50 text-risk-high border-orange-100 dark-risk-high',
-    card: 'border-orange-100 bg-orange-50/30 dark-risk-high',
+    card: 'border-[#EAD9B8] bg-[#FBF3E2]/80 dark-risk-high',
   },
   medium: {
     icon: AlertCircle,
     label: 'Orta',
+    glyph: '!',
     legend: 'Etkileşim olabilir; doz ayarı veya takip gerekebilir.',
     dot: 'bg-risk-medium',
     iconColor: 'text-risk-medium',
+    iconBox: 'bg-amber-500',
+    badgeSolid: 'bg-amber-500 text-white',
     badge: 'bg-amber-50 text-risk-medium border-amber-100 dark-risk-medium',
-    card: 'border-amber-50 bg-amber-50/30 dark-risk-medium',
+    card: 'border-amber-100 bg-amber-50/50 dark-risk-medium',
   },
   low: {
     icon: CheckCircle,
     label: 'Düşük',
+    glyph: '✓',
     legend: 'Bilinen etkileşim hafif; genellikle klinik önemi azdır.',
     dot: 'bg-risk-low',
     iconColor: 'text-risk-low',
+    iconBox: 'bg-emerald-600',
+    badgeSolid: 'bg-emerald-600 text-white',
     badge: 'bg-emerald-50 text-risk-low border-emerald-100 dark-risk-low',
-    card: 'border-emerald-50 bg-emerald-50/20 dark-risk-low',
+    card: 'border-emerald-100 bg-emerald-50/40 dark-risk-low',
   },
   // "Kural bulunamadı" güvenli demek DEĞİLDİR — yeşil değil gri gösterilir.
   unknown: {
     icon: HelpCircle,
     label: 'Bilinmiyor',
+    glyph: '?',
     legend: 'Veritabanında kural yok; etkileşim olmadığı anlamına gelmez.',
     dot: 'bg-slate-400',
     iconColor: 'text-slate-500',
+    iconBox: 'bg-slate-400',
+    badgeSolid: 'bg-slate-400 text-white',
     badge: 'bg-slate-50 text-slate-600 border-slate-200',
-    card: 'border-slate-200 bg-slate-50/40',
+    card: 'border-slate-200 bg-slate-50/60 dark:bg-slate-500/10 dark:border-slate-500/30',
   },
   info: {
     icon: Info,
     label: 'Bilgi',
+    glyph: 'i',
     legend: 'Etkileşim değil; aynı ilaç grubuna dair bilgilendirme.',
-    dot: 'bg-sky-400',
-    iconColor: 'text-sky-500',
-    badge: 'bg-sky-50 text-sky-600 border-sky-200',
-    card: 'border-sky-100 bg-sky-50/30',
+    dot: 'bg-accent',
+    iconColor: 'text-accent',
+    iconBox: 'bg-accent',
+    badgeSolid: 'bg-accent text-white',
+    badge: 'bg-accent-soft text-accent border-accent-light',
+    card: 'border-accent-light bg-accent-soft/60',
   },
   safe: {
     icon: CheckCircle,
     label: 'Güvenli',
+    glyph: '✓',
     legend: 'Bilinen etkileşim yok.',
     dot: 'bg-risk-safe',
     iconColor: 'text-risk-safe',
+    iconBox: 'bg-emerald-600',
+    badgeSolid: 'bg-emerald-600 text-white',
     badge: 'bg-emerald-50 text-risk-safe border-emerald-100 dark-risk-safe',
-    card: 'border-emerald-50 bg-emerald-50/20 dark-risk-safe',
+    card: 'border-emerald-100 bg-emerald-50/40 dark-risk-safe',
   },
 };
 
@@ -166,7 +188,7 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
       : 'Bilinen yüksek riskli etkileşim bulunamadı — bu, etkileşim olmadığını garanti etmez';
 
   return (
-    <div ref={printRef} className="bg-card rounded-xl border border-border overflow-hidden animate-slide-up">
+    <div ref={printRef} className="bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] overflow-hidden animate-slide-up">
       <div className="px-5 py-3.5 border-b border-border flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <h2 className="text-sm font-semibold text-text-primary">Etkileşim Sonuçları</h2>
@@ -321,26 +343,29 @@ function InteractionCard({ interaction }) {
   const config = riskConfig[interaction.risk] || riskConfig.unknown;
 
   return (
-    <div className={`rounded-lg border p-3.5 transition-all ${config.card}`}>
-      <div className="flex items-start gap-3">
-        <span className={`w-2 h-2 rounded-full ${config.dot} mt-1.5 shrink-0`} />
+    <div className={`rounded-[14px] border p-4 transition-all ${config.card}`}>
+      <div className="flex items-start gap-3.5">
+        {/* 3A: soldaki renkli ikon karesi */}
+        <div className={`flex-none w-[42px] h-[42px] rounded-[13px] text-white flex items-center justify-center ${config.iconBox}`}>
+          <span className="font-serif font-bold text-[22px] leading-none" aria-hidden="true">{config.glyph}</span>
+        </div>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="font-medium text-sm text-text-primary">{interaction.drug1}</span>
-            <span className="text-text-muted text-[10px]">&harr;</span>
-            <span className="font-medium text-sm text-text-primary">{interaction.drug2}</span>
-            <span className={`text-[10px] px-1.5 py-0.5 rounded-full border font-medium ${config.badge}`}>
+          <div className="flex items-center gap-2.5 flex-wrap">
+            <span className="font-semibold text-[15px] text-text-primary">{interaction.drug1}</span>
+            <span className="text-text-muted text-[11px]">&harr;</span>
+            <span className="font-semibold text-[15px] text-text-primary">{interaction.drug2}</span>
+            <span className={`font-mono text-[10.5px] font-bold px-[9px] py-[2px] rounded-md uppercase ${config.badgeSolid}`}>
               {config.label}
             </span>
           </div>
           {(interaction.ingredientA || interaction.ingredientB) && (
-            <p className="text-[10px] text-text-muted mt-0.5">
+            <p className="text-[11px] text-text-muted mt-1">
               {interaction.ingredientA || '—'} ↔ {interaction.ingredientB || '—'}
             </p>
           )}
-          <p className="text-[12px] text-text-secondary mt-1 leading-relaxed">{interaction.message}</p>
+          <p className="text-[13.5px] text-text-secondary mt-1 leading-[1.5]">{interaction.message}</p>
           {interaction.details && (
-            <p className="text-[11px] text-text-muted mt-0.5">{interaction.details}</p>
+            <p className="text-[12px] text-text-muted mt-0.5">{interaction.details}</p>
           )}
         </div>
       </div>

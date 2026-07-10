@@ -1,38 +1,35 @@
-import { ExternalLink, Github } from 'lucide-react';
+import { Github } from 'lucide-react';
 
-// Tasarım 1A: koyu lacivert footer bandı.
+// 3A footer: üst çizgili tek satır — solda marka, sağda italik serif uyarı.
 export default function Footer({ onNavigate }) {
   return (
-    <footer className="bg-ink text-slate-400 mt-10">
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-12 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="text-[15px] font-semibold text-white">
-          ilaç<span className="text-blue-400">360</span>
-        </div>
-        <div className="flex items-center gap-6 text-sm flex-wrap justify-center">
+    <footer className="w-full border-t border-border mt-10">
+      <div className="max-w-[1180px] mx-auto px-5 sm:px-12 py-[30px] flex flex-col sm:flex-row justify-between items-center gap-5">
+        <span className="text-[16px] font-semibold text-text-primary flex items-center gap-3">
+          <span>
+            ilaç<span className="text-accent">360</span>{' '}
+            <span className="font-normal text-text-muted text-[13px]">© 2026</span>
+          </span>
           <button
             onClick={() => onNavigate?.('about')}
-            className="hover:text-white transition-colors cursor-pointer"
+            className="text-[13px] font-normal text-text-muted hover:text-accent transition-colors cursor-pointer"
           >
             Hakkında
           </button>
           <a
-            href="https://titck.gov.tr/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white transition-colors inline-flex items-center gap-1"
-          >
-            Veri kaynağı: TİTCK <ExternalLink className="w-3 h-3" />
-          </a>
-          <a
             href="https://github.com/ahmetyigits/ilac360"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-white transition-colors inline-flex items-center gap-1"
+            aria-label="GitHub deposu"
+            className="text-text-muted hover:text-accent transition-colors"
           >
-            <Github className="w-3.5 h-3.5" /> Açık kaynak
+            <Github className="w-4 h-4" />
           </a>
-        </div>
-        <div className="text-[13px] text-slate-500">© 2026 ilaç360</div>
+        </span>
+        <span className="font-serif italic text-[12.5px] leading-normal text-text-muted max-w-[430px] text-center sm:text-right">
+          Bu araç yalnızca bilgilendirme amaçlıdır ve hekim veya eczacı tavsiyesinin
+          yerine geçmez.
+        </span>
       </div>
     </footer>
   );
