@@ -173,8 +173,8 @@ export default function App() {
               )}
 
               {analysisLoading && (
-                <div className="bg-card rounded-xl border border-border overflow-hidden animate-fade-in">
-                  <div className="px-5 py-3.5 border-b border-border flex items-center gap-2.5">
+                <div className="bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] overflow-hidden animate-fade-in">
+                  <div className="px-5 py-3.5 border-b border-border-light flex items-center gap-2.5">
                     <div className="skeleton h-4 w-32" />
                     <div className="skeleton h-4 w-12 rounded-full" />
                   </div>

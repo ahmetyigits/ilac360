@@ -189,24 +189,18 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
 
   return (
     <div ref={printRef} className="bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] overflow-hidden animate-slide-up">
-      <div className="px-5 py-3.5 border-b border-border flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <h2 className="text-sm font-semibold text-text-primary">Etkileşim Sonuçları</h2>
-          <span className="text-[11px] text-text-muted bg-bg-primary px-2 py-0.5 rounded-full font-medium">
-            {interactions.length} sonuç
-          </span>
+      {/* Başlık: mono kicker + display başlık, sağda yazdır + filtre çipleri */}
+      <div className="px-5 sm:px-[26px] pt-5 sm:pt-[22px] pb-4 border-b border-border-light flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <span className="font-mono text-[11px] tracking-[.18em] uppercase text-accent">Analiz Sonucu</span>
+          <h2 className="font-display font-bold text-[20px] sm:text-[24px] tracking-tight text-text-primary mt-1.5 flex items-baseline gap-2.5">
+            Etkileşim Sonuçları
+            <span className="font-mono font-normal text-[12px] text-text-muted tracking-normal">
+              {interactions.length} sonuç
+            </span>
+          </h2>
         </div>
-        <div className="flex items-center gap-2">
-          {interactions.length > 0 && (
-            <button
-              onClick={handlePrint}
-              title="Raporu yazdır"
-              className="flex items-center gap-1.5 text-[11px] text-text-muted hover:text-text-primary px-2 py-1 rounded-md hover:bg-bg-primary transition-colors cursor-pointer"
-            >
-              <Printer className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Yazdır</span>
-            </button>
-          )}
+        <div className="flex items-center gap-2 flex-wrap">
           {Object.entries(riskCounts).map(([risk, count]) => {
             const cfg = riskConfig[risk];
             if (!cfg) return null;
@@ -215,24 +209,36 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
                 key={risk}
                 onClick={() => setRiskFilter(riskFilter === risk ? 'all' : risk)}
                 title={cfg.label}
-                className={`inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full border cursor-pointer transition-all ${cfg.badge} ${riskFilter === risk ? 'ring-2 ring-accent/30 scale-105' : 'hover:scale-105'}`}
+                className={`inline-flex items-center gap-1.5 font-mono text-[11px] font-bold px-2.5 py-1 rounded-[8px] border cursor-pointer transition-all ${cfg.badge} ${riskFilter === risk ? 'ring-2 ring-accent/30' : 'hover:opacity-80'}`}
               >
                 <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot}`} />
                 {count}
               </button>
             );
           })}
+          {interactions.length > 0 && (
+            <button
+              onClick={handlePrint}
+              title="Raporu yazdır"
+              className="flex items-center gap-1.5 text-[12.5px] font-semibold text-accent border border-accent/25 hover:bg-accent-soft px-3 py-1.5 rounded-[10px] transition-colors cursor-pointer"
+            >
+              <Printer className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Yazdır</span>
+            </button>
+          )}
         </div>
       </div>
 
-      {/* Özet Banner */}
+      {/* Özet Banner — 3A panel dili */}
       {interactions.length > 0 && highestConfig && (
-        <div className={`mx-4 mt-3 rounded-lg border p-3 ${highestConfig.card}`}>
-          <div className="flex items-center gap-3">
-            <highestConfig.icon className={`w-5 h-5 shrink-0 ${highestConfig.iconColor}`} />
+        <div className={`mx-5 sm:mx-[26px] mt-4 rounded-[14px] border p-4 ${highestConfig.card}`}>
+          <div className="flex items-center gap-3.5">
+            <div className={`flex-none w-[42px] h-[42px] rounded-[13px] text-white flex items-center justify-center ${highestConfig.iconBox}`}>
+              <span className="font-display font-bold text-[20px] leading-none" aria-hidden="true">{highestConfig.glyph}</span>
+            </div>
             <div className="flex-1">
-              <p className="text-xs font-semibold text-text-primary">{summaryText}</p>
-              <p className="text-[11px] text-text-secondary mt-0.5">
+              <p className="text-[14px] font-semibold text-text-primary">{summaryText}</p>
+              <p className="font-mono text-[11px] text-text-secondary mt-1">
                 {Object.entries(riskCounts).map(([risk, count]) => {
                   const cfg = riskConfig[risk];
                   return cfg ? `${count} ${cfg.label.toLowerCase()}` : null;
@@ -242,7 +248,7 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
             {riskFilter !== 'all' && (
               <button
                 onClick={() => setRiskFilter('all')}
-                className="text-[10px] text-accent hover:underline cursor-pointer shrink-0"
+                className="text-[12px] font-semibold text-accent hover:underline cursor-pointer shrink-0"
               >
                 Filtreyi kaldır
               </button>
@@ -252,23 +258,25 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
       )}
 
       {unknownDrugs && unknownDrugs.length > 0 && (
-        <div className="mx-4 mt-3 rounded-lg border border-amber-200 bg-amber-50/50 dark-warn p-3 flex items-start gap-2.5">
-          <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+        <div className="mx-5 sm:mx-[26px] mt-4 rounded-[14px] border border-[#EAD9B8] bg-[#FBF3E2]/80 dark-warn p-4 flex items-start gap-3.5">
+          <div className="flex-none w-[38px] h-[38px] rounded-[11px] bg-[#B5761E] text-white flex items-center justify-center">
+            <AlertTriangle className="w-4 h-4" />
+          </div>
           <div>
-            <p className="text-xs font-medium text-amber-800 warn-title">Veritabanında Bulunamayan İlaçlar</p>
-            <p className="text-[11px] text-amber-700 mt-0.5">
+            <p className="text-[13.5px] font-semibold text-[#7A4E12] warn-title">Veritabanında Bulunamayan İlaçlar</p>
+            <p className="text-[12.5px] leading-relaxed text-[#8A6320] mt-0.5">
               {unknownDrugs.join(', ')} — Bu ilaçlar veritabanında bulunamadığı için analiz dışı bırakıldı.
             </p>
           </div>
         </div>
       )}
 
-      <div className="p-4 space-y-2.5">
+      <div className="p-5 sm:p-[26px] space-y-3">
         {interactions.length === 0 ? (
           <div className="text-center py-10 text-text-muted">
             <HelpCircle className="w-8 h-8 mx-auto mb-3 text-slate-400" />
-            <p className="text-sm font-medium text-text-primary">Analiz edilebilir çift bulunamadı</p>
-            <p className="text-[11px] mt-1">Seçilen ilaçlar için karşılaştırma yapılamadı.</p>
+            <p className="text-[15px] font-semibold text-text-primary">Analiz edilebilir çift bulunamadı</p>
+            <p className="text-[12.5px] mt-1">Seçilen ilaçlar için karşılaştırma yapılamadı.</p>
           </div>
         ) : (
           <>
@@ -282,28 +290,28 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
             {riskFilter === 'all' && !showLowRisk && lowRiskInteractions.length > 0 && (
               <button
                 onClick={() => setShowLowRisk(true)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border border-border text-[12px] text-text-muted hover:text-text-secondary hover:bg-bg-primary transition-all cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-[13px] bg-card-inset text-[13px] font-medium text-text-secondary hover:text-text-primary hover:bg-accent-soft/60 transition-all cursor-pointer"
               >
-                <Info className="w-3.5 h-3.5" />
+                <Info className="w-4 h-4 text-accent" />
                 <span>{lowRiskInteractions.length} düşük öncelikli sonucu göster (bilinmiyor/bilgi)</span>
-                <ChevronDown className="w-3 h-3" />
+                <ChevronDown className="w-3.5 h-3.5" />
               </button>
             )}
 
             {riskFilter === 'all' && showLowRisk && lowRiskInteractions.length > 0 && (
               <button
                 onClick={() => setShowLowRisk(false)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border border-border text-[12px] text-text-muted hover:text-text-secondary hover:bg-bg-primary transition-all cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-[13px] bg-card-inset text-[13px] font-medium text-text-secondary hover:text-text-primary hover:bg-accent-soft/60 transition-all cursor-pointer"
               >
                 <span>Düşük öncelikli sonuçları gizle</span>
-                <ChevronUp className="w-3 h-3" />
+                <ChevronUp className="w-3.5 h-3.5" />
               </button>
             )}
 
             {visibleInteractions.length === 0 && riskFilter !== 'all' && (
               <div className="text-center py-6 text-text-muted">
                 <p className="text-sm">Bu risk seviyesinde etkileşim yok.</p>
-                <button onClick={() => setRiskFilter('all')} className="text-xs text-accent mt-1 cursor-pointer hover:underline">
+                <button onClick={() => setRiskFilter('all')} className="text-[12.5px] font-semibold text-accent mt-1 cursor-pointer hover:underline">
                   Tüm sonuçları göster
                 </button>
               </div>
@@ -313,22 +321,22 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
 
         {/* Risk seviyeleri lejantı + hasta faktörü uyarısı */}
         {interactions.length > 0 && (
-          <div className="mt-3 rounded-lg border border-border bg-bg-primary/60 p-3 space-y-1.5">
-            <p className="text-[11px] font-semibold text-text-secondary">Risk seviyeleri ne anlama gelir?</p>
-            <div className="grid sm:grid-cols-2 gap-x-4 gap-y-1">
+          <div className="mt-4 rounded-[14px] bg-card-inset p-4 sm:p-5 space-y-2.5">
+            <p className="font-mono text-[10.5px] tracking-[.12em] uppercase text-text-muted">Risk seviyeleri ne anlama gelir?</p>
+            <div className="grid sm:grid-cols-2 gap-x-5 gap-y-1.5">
               {['critical', 'high', 'medium', 'unknown', 'info'].map((risk) => {
                 const cfg = riskConfig[risk];
                 return (
-                  <div key={risk} className="flex items-start gap-1.5">
-                    <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot} mt-1.5 shrink-0`} />
-                    <p className="text-[10px] text-text-muted leading-relaxed">
-                      <span className="font-medium text-text-secondary">{cfg.label}:</span> {cfg.legend}
+                  <div key={risk} className="flex items-start gap-2">
+                    <span className={`w-2 h-2 rounded-full ${cfg.dot} mt-[5px] shrink-0`} />
+                    <p className="text-[11.5px] text-text-muted leading-relaxed">
+                      <span className="font-semibold text-text-secondary">{cfg.label}:</span> {cfg.legend}
                     </p>
                   </div>
                 );
               })}
             </div>
-            <p className="text-[10px] text-text-muted leading-relaxed pt-1 border-t border-border">
+            <p className="text-[11.5px] text-text-muted leading-relaxed pt-2.5 border-t border-border">
               Bu analiz doz, yaş, gebelik, böbrek/karaciğer fonksiyonu gibi hasta faktörlerini dikkate almaz.
               Sonuçlar yalnızca bilgilendirme amaçlıdır; ilaç kullanımıyla ilgili kararlar için mutlaka doktorunuza veya eczacınıza danışın.
             </p>
