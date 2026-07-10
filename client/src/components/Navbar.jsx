@@ -1,30 +1,33 @@
-import { Moon, Sun, Database } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 
-// Tasarımdaki artı-haç logo (SVG yerine saf div — tasarım dosyasıyla birebir)
-export function BrandMark({ size = 36 }) {
-  const bar = Math.round(size * 0.44);
-  const thick = Math.round(size * 0.11);
+// 3A logosu: gradyan kare içinde beyaz kapsül (ortasında ayırma çizgisi)
+export function BrandMark({ size = 32 }) {
+  const capW = Math.round(size * 0.47);
+  const capH = Math.round(size * 0.19);
   return (
     <div
-      className="relative rounded-[10px] bg-accent flex-none"
-      style={{ width: size, height: size }}
+      className="relative rounded-[10px] flex-none flex items-center justify-center"
+      style={{
+        width: size,
+        height: size,
+        background: 'linear-gradient(145deg,#2E6FB8,#1E4E86)',
+        boxShadow: '0 6px 14px -6px rgba(37,99,168,.7)',
+      }}
       aria-hidden="true"
     >
-      <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-sm bg-white"
-        style={{ width: bar, height: thick }}
-      />
-      <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-sm bg-white"
-        style={{ width: thick, height: bar }}
-      />
+      <div className="relative bg-white" style={{ width: capW, height: capH, borderRadius: capH }}>
+        <div
+          className="absolute top-0"
+          style={{ left: '50%', width: '1.4px', height: '100%', background: 'rgba(37,99,168,.55)', transform: 'translateX(-.7px)' }}
+        />
+      </div>
     </div>
   );
 }
 
 export function BrandName({ className = 'text-xl' }) {
   return (
-    <span className={`font-bold tracking-tight text-text-primary ${className}`}>
+    <span className={`font-semibold tracking-tight text-text-primary ${className}`}>
       ilaç<span className="text-accent">360</span>
     </span>
   );
@@ -38,26 +41,24 @@ export default function Navbar({ currentView, searchMode, onNavigate, onLogoClic
   ];
 
   return (
-    <header className="bg-card border-b border-border">
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-12 py-4 flex items-center justify-between gap-4 flex-wrap">
+    <header className="bg-bg-primary">
+      <div className="max-w-[1180px] mx-auto px-5 sm:px-12 py-5 sm:py-6 flex items-center justify-between gap-4 flex-wrap">
         <button
           onClick={() => (onLogoClick ? onLogoClick() : onNavigate('drug'))}
           className="flex items-center gap-2.5 cursor-pointer"
           aria-label="Ana sayfaya dön"
         >
-          <BrandMark size={36} />
-          <BrandName />
+          <BrandMark size={32} />
+          <BrandName className="text-[20px]" />
         </button>
 
-        <nav aria-label="Ana menü" className="flex items-center gap-1 sm:gap-2 order-3 sm:order-2 w-full sm:w-auto justify-center">
+        <nav aria-label="Ana menü" className="flex items-center gap-1 sm:gap-4 order-3 sm:order-2 w-full sm:w-auto justify-center">
           {links.map((link) => (
             <button
               key={link.id}
               onClick={() => onNavigate(link.id)}
-              className={`px-3.5 py-2 rounded-lg text-[15px] transition-colors cursor-pointer ${
-                link.active
-                  ? 'text-accent font-semibold'
-                  : 'text-text-secondary font-medium hover:text-text-primary hover:bg-bg-primary'
+              className={`px-2.5 py-1.5 text-[14px] font-medium transition-colors cursor-pointer ${
+                link.active ? 'text-accent' : 'text-text-secondary hover:text-text-primary'
               }`}
             >
               {link.label}
@@ -66,15 +67,17 @@ export default function Navbar({ currentView, searchMode, onNavigate, onLogoClic
         </nav>
 
         <div className="flex items-center gap-3 order-2 sm:order-3">
-          <span className="hidden md:inline-flex items-center gap-2 text-[13px] font-medium text-accent bg-accent-soft border border-accent/15 rounded-full px-3.5 py-1.5">
-            <Database className="w-3.5 h-3.5" />
-            TİTCK ürün verisi
-          </span>
+          <button
+            onClick={() => onNavigate('drug')}
+            className="hidden sm:inline-block px-[19px] py-2.5 bg-ink text-bg-primary rounded-[10px] text-[13.5px] font-semibold hover:opacity-90 transition-opacity cursor-pointer"
+          >
+            Kontrole Başla
+          </button>
           <button
             onClick={onToggleDark}
             title={darkMode ? 'Açık tema' : 'Koyu tema'}
             aria-label={darkMode ? 'Açık temaya geç' : 'Koyu temaya geç'}
-            className="w-9 h-9 rounded-lg border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-bg-primary transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-[10px] border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-card transition-colors cursor-pointer"
           >
             {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>

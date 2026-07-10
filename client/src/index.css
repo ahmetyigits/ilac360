@@ -1,33 +1,41 @@
 @import "tailwindcss";
-/* IBM Plex — yerelden servis edilir (harici font isteği yok) */
-@import "@fontsource/ibm-plex-sans/400.css";
-@import "@fontsource/ibm-plex-sans/500.css";
-@import "@fontsource/ibm-plex-sans/600.css";
-@import "@fontsource/ibm-plex-sans/700.css";
-@import "@fontsource/ibm-plex-mono/500.css";
-@import "@fontsource/ibm-plex-mono/600.css";
+/* 3A tasarım fontları — yerelden servis edilir (harici font isteği yok) */
+@import "@fontsource/hanken-grotesk/400.css";
+@import "@fontsource/hanken-grotesk/500.css";
+@import "@fontsource/hanken-grotesk/600.css";
+@import "@fontsource/hanken-grotesk/700.css";
+@import "@fontsource/newsreader/500.css";
+@import "@fontsource/newsreader/600.css";
+@import "@fontsource/newsreader/400-italic.css";
+@import "@fontsource/newsreader/500-italic.css";
+@import "@fontsource/space-mono/400.css";
+@import "@fontsource/space-mono/700.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
-  --color-bg-primary: #EEF2F7;
-  --color-ink: #0F2239;
+  --font-sans: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-mono: 'Space Mono', ui-monospace, 'SF Mono', monospace;
+  /* 3A mavi tema */
+  --color-bg-primary: #F1F4F9;
+  --color-ink: #122438;
   --color-card: #FFFFFF;
-  --color-accent: #2563EB;
-  --color-accent-light: #DBEAFE;
-  --color-accent-soft: #EFF5FF;
-  --color-text-primary: #12263F;
-  --color-text-secondary: #5B6B80;
-  --color-text-muted: #93A2B7;
+  --color-card-inset: #F7F9FC;
+  --color-accent: #2563A8;
+  --color-accent-deep: #1E4E86;
+  --color-accent-light: #C4DAF0;
+  --color-accent-soft: #E7EEF8;
+  --color-text-primary: #14202E;
+  --color-text-secondary: #566072;
+  --color-text-muted: #8792A2;
   --color-risk-critical: #991B1B;
-  --color-risk-high: #DC2626;
-  --color-risk-medium: #D97706;
+  --color-risk-high: #C2410C;
+  --color-risk-medium: #B5761E;
   --color-risk-low: #059669;
   --color-risk-safe: #059669;
-  --color-border: #E3E9F1;
-  --color-border-light: #F1F5F9;
+  --color-border: #E2E7EF;
+  --color-border-light: #EDF1F6;
 }
 
 * { box-sizing: border-box; }
@@ -41,48 +49,50 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Dark Mode */
+/* Dark Mode — 3A paletinin lacivert eşlemesi */
 .dark {
-  --color-bg-primary: #0D1829;
-  --color-ink: #0A1420;
-  --color-card: #16233A;
-  --color-accent: #3B82F6;
-  --color-accent-light: #1E3A5F;
-  --color-accent-soft: #1A2C49;
-  --color-text-primary: #EDF2F9;
-  --color-text-secondary: #96A6BC;
+  --color-bg-primary: #0C1622;
+  --color-ink: #081019;
+  --color-card: #14202E;
+  --color-card-inset: #0F1926;
+  --color-accent: #5B93D3;
+  --color-accent-deep: #7FA8D6;
+  --color-accent-light: #24466E;
+  --color-accent-soft: #1A2A40;
+  --color-text-primary: #E9EEF5;
+  --color-text-secondary: #97A5B8;
   --color-text-muted: #64748B;
-  --color-border: #263A57;
+  --color-border: #223349;
   --color-border-light: #16233A;
   --color-risk-critical: #FCA5A5;
-  --color-risk-high: #F87171;
+  --color-risk-high: #FDBA74;
   --color-risk-medium: #FBBF24;
   --color-risk-low: #34D399;
   --color-risk-safe: #34D399;
 }
 
-.dark ::-webkit-scrollbar-thumb { background: #475569; }
-.dark ::-webkit-scrollbar-thumb:hover { background: #64748B; }
+.dark ::-webkit-scrollbar-thumb { background: #375171; }
+.dark ::-webkit-scrollbar-thumb:hover { background: #4A6A88; }
 
 /* Dark mode: risk kartları ve uyarı kutuları için override */
 .dark .dark-risk-critical { background: rgba(153,27,27,0.15); border-color: rgba(220,38,38,0.3); }
-.dark .dark-risk-high { background: rgba(220,38,38,0.1); border-color: rgba(220,38,38,0.25); }
-.dark .dark-risk-medium { background: rgba(217,119,6,0.1); border-color: rgba(217,119,6,0.25); }
+.dark .dark-risk-high { background: rgba(194,65,12,0.12); border-color: rgba(194,65,12,0.3); }
+.dark .dark-risk-medium { background: rgba(181,118,30,0.12); border-color: rgba(181,118,30,0.3); }
 .dark .dark-risk-low { background: rgba(5,150,105,0.1); border-color: rgba(5,150,105,0.2); }
 .dark .dark-risk-safe { background: rgba(5,150,105,0.08); border-color: rgba(5,150,105,0.15); }
-.dark .dark-warn { background: rgba(217,119,6,0.1); border-color: rgba(217,119,6,0.25); }
+.dark .dark-warn { background: rgba(181,118,30,0.12); border-color: rgba(181,118,30,0.3); }
 .dark .dark-warn p { color: var(--color-text-secondary); }
 .dark .dark-warn svg { color: var(--color-risk-medium); }
 .dark .dark-warn .warn-title { color: #FBBF24; }
 .dark .dark-toast-error { background: rgba(220,38,38,0.15); border-color: rgba(220,38,38,0.3); }
-.dark .dark-toast-warning { background: rgba(217,119,6,0.15); border-color: rgba(217,119,6,0.3); }
+.dark .dark-toast-warning { background: rgba(181,118,30,0.15); border-color: rgba(181,118,30,0.3); }
 .dark .dark-toast-success { background: rgba(5,150,105,0.15); border-color: rgba(5,150,105,0.3); }
-.dark .dark-toast-info { background: rgba(59,130,246,0.15); border-color: rgba(59,130,246,0.3); }
+.dark .dark-toast-info { background: rgba(91,147,211,0.15); border-color: rgba(91,147,211,0.3); }
 
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+::-webkit-scrollbar-thumb { background: #C4CFDC; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #8792A2; }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
@@ -101,6 +111,21 @@ body {
   to { opacity: 1; transform: translateX(0); }
 }
 .animate-toast-in { animation: toastIn 0.3s ease-out forwards; }
+
+/* 3A: hero'daki cam görünümlü şekillerin salınımı */
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes floatySlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+.animate-floaty { animation: floaty 6.5s ease-in-out infinite; }
+.animate-floaty-slow { animation: floatySlow 8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .animate-floaty, .animate-floaty-slow { animation: none; }
+}
 
 @keyframes shimmer {
   0% { background-position: -200% 0; }

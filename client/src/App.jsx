@@ -30,7 +30,6 @@ export default function App() {
   const [dataError, setDataError] = useState(false);
   const [showDisclaimerGate, setShowDisclaimerGate] = useState(false);
   const [toasts, setToasts] = useState([]);
-  const [chipQuery, setChipQuery] = useState(null);
   const toastIdRef = useRef(0);
   const analysisRef = useRef(null);
   const drugCardRef = useRef(null);
@@ -133,9 +132,9 @@ export default function App() {
     }
   }, [selectedDrugs, showToast]);
 
-  // İçerik kutusu: tasarımdaki 1400px'lik geniş kolon
+  // İçerik kutusu: 3A tasarımının 1180px'lik kolonu
   const boxed = (children, extra = '') => (
-    <div className={`max-w-[1400px] mx-auto px-5 sm:px-12 py-6 sm:py-8 space-y-5 ${extra}`}>
+    <div className={`max-w-[1180px] mx-auto px-5 sm:px-12 py-6 sm:py-8 space-y-5 ${extra}`}>
       {children}
     </div>
   );
@@ -228,7 +227,6 @@ export default function App() {
           onSelect={addDrug}
           selectedDrugs={selectedDrugs}
           maxDrugs={MAX_DRUGS}
-          chipQuery={chipQuery}
           onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
         />
       );
@@ -238,7 +236,7 @@ export default function App() {
       if (showHero) {
         return (
           <>
-            <Hero stats={stats} onPopularSearch={(name) => setChipQuery({ q: name, at: Date.now() })}>
+            <Hero onConditionMode={() => handleNavigate('condition')}>
               {searchBar}
             </Hero>
             {boxed(
@@ -253,7 +251,9 @@ export default function App() {
       return boxed(
         <>
           {errorBanner}
-          {searchBar}
+          <div className="bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] p-5 sm:p-[26px]">
+            {searchBar}
+          </div>
           {workspace}
           <LegalWarning />
         </>
