@@ -39,26 +39,28 @@ export default function Hero({ onConditionMode, children }) {
           }}
         />
 
-        <div className="relative z-[2] max-w-[900px] mx-auto text-center px-5 sm:px-8 pt-12 sm:pt-[60px] pb-12">
+        <div className="relative z-[2] max-w-[900px] mx-auto text-center px-5 sm:px-8 pt-8 sm:pt-10 pb-10">
           <div className="font-mono text-[12px] tracking-[.2em] uppercase text-accent">
             İlaç Etkileşim &amp; Arama Sistemi
           </div>
-          <h1 className="font-display font-extrabold text-4xl sm:text-[58px] sm:leading-[1.06] tracking-[-0.02em] text-text-primary mx-auto mt-5 max-w-[720px] [text-wrap:balance]">
-            İlacınızı aratın, etkileşimleri{' '}
+          {/* Masaüstünde tam 2 satır: kırılım virgülden sonra sabitlenir */}
+          <h1 className="font-display font-extrabold text-4xl sm:text-[52px] sm:leading-[1.08] tracking-[-0.02em] text-text-primary mx-auto mt-4 max-w-[860px]">
+            İlacınızı aratın,
+            <br className="hidden sm:block" /> etkileşimleri{' '}
             <span className="text-accent">anında</span> görün.
           </h1>
-          <p className="text-[16px] sm:text-[18px] leading-relaxed text-text-secondary max-w-[540px] mx-auto mt-5">
+          <p className="text-[15px] sm:text-[17px] leading-relaxed text-text-secondary max-w-[540px] mx-auto mt-3.5">
             Tek bir arama çubuğu: ilaç bulun, listenize ekleyin, aralarındaki
             etkileşimleri risk seviyeleriyle kontrol edin.
           </p>
-          <div className="flex justify-center gap-[22px] mt-5 text-[12.5px] font-medium text-text-muted">
+          <div className="flex justify-center gap-[22px] mt-3.5 text-[12.5px] font-medium text-text-muted">
             <span><span className="font-mono text-accent">1</span> Ara</span>
             <span><span className="font-mono text-accent">2</span> Ekle</span>
             <span><span className="font-mono text-accent">3</span> Kontrol Et</span>
           </div>
 
           {/* Odak kart — arama buraya gömülür */}
-          <div className="max-w-[740px] mx-auto mt-[34px] bg-card border border-ink/10 rounded-[20px] shadow-[0_40px_80px_-34px_rgba(20,32,46,.4)] text-left p-5 sm:p-[26px]">
+          <div className="max-w-[740px] mx-auto mt-6 bg-card border border-ink/10 rounded-[20px] shadow-[0_40px_80px_-34px_rgba(20,32,46,.4)] text-left p-5 sm:p-[26px]">
             {children}
           </div>
         </div>
@@ -96,18 +98,20 @@ export default function Hero({ onConditionMode, children }) {
 
       {/* KOYU BANT — gerçek özelliğe bağlanır: hastalığa göre arama */}
       <section className="max-w-[1180px] mx-auto px-5 sm:px-12 pb-12 sm:pb-[52px]">
-        <div className="bg-ink text-bg-primary rounded-[20px] p-7 sm:p-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+        {/* Bant her iki temada da koyu; metin/buton renkleri token değil SABİT
+            açık tonlardır — koyu modda "koyu üstüne koyu" okunmazlığı yaşanmaz. */}
+        <div className="bg-ink rounded-[20px] p-7 sm:p-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 dark:border dark:border-border">
           <div>
             <div className="font-mono text-[12px] tracking-[.15em] uppercase" style={{ color: '#7FA8D6' }}>
               Hastalığa göre arama
             </div>
-            <div className="font-display font-bold text-[22px] sm:text-[27px] leading-tight mt-2.5 max-w-[540px]">
+            <div className="font-display font-bold text-[22px] sm:text-[27px] leading-tight mt-2.5 max-w-[540px] text-[#F1F4F9]">
               Şikâyetinizi yazın; uygun etken maddeleri ve ilaçları görün
             </div>
           </div>
           <button
             onClick={onConditionMode}
-            className="flex-none px-6 py-3.5 bg-bg-primary text-ink rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity cursor-pointer"
+            className="flex-none px-6 py-3.5 bg-[#F1F4F9] text-[#122438] rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity cursor-pointer"
           >
             Hastalığa Göre Ara →
           </button>

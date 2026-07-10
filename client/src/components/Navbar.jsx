@@ -69,7 +69,7 @@ export default function Navbar({ currentView, searchMode, onNavigate, onLogoClic
         <div className="flex items-center gap-3 order-2 sm:order-3">
           <button
             onClick={() => onNavigate('drug')}
-            className="hidden sm:inline-block px-[19px] py-2.5 bg-ink text-bg-primary rounded-[10px] text-[13.5px] font-semibold hover:opacity-90 transition-opacity cursor-pointer"
+            className="hidden sm:inline-block px-[19px] py-2.5 bg-ink text-white dark:bg-accent-soft dark:text-text-primary dark:border dark:border-border rounded-[10px] text-[13.5px] font-semibold hover:opacity-90 transition-opacity cursor-pointer"
           >
             Kontrole Başla
           </button>
