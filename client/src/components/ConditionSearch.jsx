@@ -129,7 +129,7 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
       {!searched && conditions.length > 0 && (
         <div className="bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] p-5 sm:p-6">
           <div className="flex items-baseline justify-between mb-5">
-            <h3 className="font-serif text-xl sm:text-[24px] font-medium tracking-tight text-text-primary m-0">
+            <h3 className="font-display text-xl sm:text-[24px] font-bold tracking-tight text-text-primary m-0">
               Sık aranan durumlar
             </h3>
             <span className="text-sm text-text-muted">{conditions.length} başlık</span>
