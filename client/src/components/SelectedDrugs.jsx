@@ -2,9 +2,17 @@ import { Loader2 } from 'lucide-react';
 
 // 3A: seçili ilaçlar odak kart dilinde — açık mavi hap çipleri (mavi nokta + ×)
 // ve tam genişlik "Etkileşimleri Kontrol Et" düğmesi.
-export default function SelectedDrugs({ drugs, onRemove, onSelect, activeDrugId, onAnalyze, analysisLoading, onClearAll }) {
+// `embedded`: hero'daki odak kartın İÇİNDE düz blok olarak render edilir
+// (kart içinde kart görünümü oluşmaz); aksi halde kendi kartını çizer.
+export default function SelectedDrugs({ drugs, onRemove, onSelect, activeDrugId, onAnalyze, analysisLoading, onClearAll, embedded = false }) {
   return (
-    <div className="bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] p-5 sm:p-[26px] animate-fade-in">
+    <div
+      className={
+        embedded
+          ? 'mt-4 pt-4 border-t border-border-light animate-fade-in'
+          : 'bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] p-5 sm:p-[26px] animate-fade-in'
+      }
+    >
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-[15px] font-semibold text-text-primary">
           Seçili İlaçlar

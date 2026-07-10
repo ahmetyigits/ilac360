@@ -162,23 +162,10 @@ export default function App() {
           </div>
     );
 
-    // Sepet + ilaç detayı + analiz sonuçları her iki arama modunda da
-    // arama listesinin ÜSTÜNDE durur; hastalık aramasının uzun sonuç
-    // listesi bu blokları ekran dışına itemez.
-    const workspace = (
+    // İlaç detayı + analiz sonuçları: her iki modda da aramanın hemen
+    // altında, AYNI sayfada gösterilir.
+    const resultsBlock = (
             <>
-              {selectedDrugs.length > 0 && (
-                <SelectedDrugs
-                  drugs={selectedDrugs}
-                  onRemove={removeDrug}
-                  onSelect={setActiveDrug}
-                  activeDrugId={activeDrug?.id}
-                  onAnalyze={analyzeInteractions}
-                  analysisLoading={analysisLoading}
-                  onClearAll={clearAllDrugs}
-                />
-              )}
-
               {activeDrug && (
                 <div ref={drugCardRef}>
                   <DrugCard key={activeDrug.id} drug={activeDrug} onClose={() => setActiveDrug(null)} />
@@ -221,41 +208,42 @@ export default function App() {
             </>
           );
 
+    const sepet = selectedDrugs.length > 0 && (
+      <SelectedDrugs
+        drugs={selectedDrugs}
+        onRemove={removeDrug}
+        onSelect={setActiveDrug}
+        activeDrugId={activeDrug?.id}
+        onAnalyze={analyzeInteractions}
+        analysisLoading={analysisLoading}
+        onClearAll={clearAllDrugs}
+        embedded={searchMode === 'drug'}
+      />
+    );
+
     if (searchMode === 'drug') {
-      const searchBar = (
-        <DrugSearch
-          onSelect={addDrug}
-          selectedDrugs={selectedDrugs}
-          maxDrugs={MAX_DRUGS}
-          onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
-        />
-      );
-      // Boş durumda arama, tam genişlik hero'nun içinde büyük merkezi çubuk
-      // olarak durur; çalışma alanı doluyken kutulu kolonda sade çubuğa döner.
-      const showHero = selectedDrugs.length === 0 && !interactions && !activeDrug;
-      if (showHero) {
-        return (
-          <>
-            <Hero onConditionMode={() => handleNavigate('condition')}>
-              {searchBar}
-            </Hero>
-            {boxed(
+      // Tek sayfa akışı: hero hep görünür; seçilen ilaçlar odak kartın içine
+      // eklenir, sonuçlar kartın hemen altında aynı sayfada gösterilir.
+      return (
+        <>
+          <Hero
+            onConditionMode={() => handleNavigate('condition')}
+            workspace={(errorBanner || activeDrug || analysisLoading || interactions) ? (
               <>
                 {errorBanner}
-                <LegalWarning />
+                {resultsBlock}
               </>
-            )}
-          </>
-        );
-      }
-      return boxed(
-        <>
-          {errorBanner}
-          <div className="bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] p-5 sm:p-[26px]">
-            {searchBar}
-          </div>
-          {workspace}
-          <LegalWarning />
+            ) : null}
+          >
+            <DrugSearch
+              onSelect={addDrug}
+              selectedDrugs={selectedDrugs}
+              maxDrugs={MAX_DRUGS}
+              onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
+            />
+            {sepet}
+          </Hero>
+          {boxed(<LegalWarning />)}
         </>
       );
     }
@@ -268,7 +256,7 @@ export default function App() {
           selectedDrugs={selectedDrugs}
           maxDrugs={MAX_DRUGS}
           onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
-          renderBeforeResults={workspace}
+          renderBeforeResults={<>{sepet}{resultsBlock}</>}
         />
         <LegalWarning />
       </>
