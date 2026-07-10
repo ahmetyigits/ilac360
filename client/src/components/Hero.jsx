@@ -1,6 +1,6 @@
 import { Search, Scan, FileText, Database, Lock, Github, BadgeCheck } from 'lucide-react';
 
-// 3A landing: yüzen cam şekiller + Newsreader başlık + odak arama kartı,
+// 3A landing: yüzen cam şekiller + güçlü display sans başlık + odak arama kartı,
 // altında özellik kolonları, koyu "Hastalığa Göre" bandı ve sayısız güven şeridi.
 // Arama bileşeni (children) odak kartın içine gömülür.
 
@@ -43,9 +43,9 @@ export default function Hero({ onConditionMode, children }) {
           <div className="font-mono text-[12px] tracking-[.2em] uppercase text-accent">
             İlaç Etkileşim &amp; Arama Sistemi
           </div>
-          <h1 className="font-serif font-medium text-4xl sm:text-[60px] sm:leading-[1.05] tracking-tight text-text-primary mx-auto mt-5 max-w-[720px] [text-wrap:balance]">
+          <h1 className="font-display font-extrabold text-4xl sm:text-[58px] sm:leading-[1.06] tracking-[-0.02em] text-text-primary mx-auto mt-5 max-w-[720px] [text-wrap:balance]">
             İlacınızı aratın, etkileşimleri{' '}
-            <span className="italic text-accent">anında</span> görün.
+            <span className="text-accent">anında</span> görün.
           </h1>
           <p className="text-[16px] sm:text-[18px] leading-relaxed text-text-secondary max-w-[540px] mx-auto mt-5">
             Tek bir arama çubuğu: ilaç bulun, listenize ekleyin, aralarındaki
@@ -101,7 +101,7 @@ export default function Hero({ onConditionMode, children }) {
             <div className="font-mono text-[12px] tracking-[.15em] uppercase" style={{ color: '#7FA8D6' }}>
               Hastalığa göre arama
             </div>
-            <div className="font-serif font-medium text-[22px] sm:text-[27px] leading-tight mt-2.5 max-w-[540px]">
+            <div className="font-display font-bold text-[22px] sm:text-[27px] leading-tight mt-2.5 max-w-[540px]">
               Şikâyetinizi yazın; uygun etken maddeleri ve ilaçları görün
             </div>
           </div>
@@ -120,7 +120,7 @@ export default function Hero({ onConditionMode, children }) {
 function TrustCell({ title, sub, last }) {
   return (
     <div className={`px-6 sm:px-[30px] py-6 border-border ${last ? '' : 'lg:border-r'} border-b lg:border-b-0`}>
-      <div className="font-serif font-medium text-2xl sm:text-[32px] tracking-tight text-text-primary flex items-center gap-2">
+      <div className="font-display font-bold text-2xl sm:text-[28px] tracking-tight text-text-primary flex items-center gap-2">
         {title === 'TİTCK' && <BadgeCheck className="w-5 h-5 text-accent" aria-hidden="true" />}
         {title === 'Cihazında' && <Lock className="w-5 h-5 text-accent" aria-hidden="true" />}
         {title === 'Açık kaynak' && <Github className="w-5 h-5 text-accent" aria-hidden="true" />}

@@ -26,7 +26,7 @@ export default function Footer({ onNavigate }) {
             <Github className="w-4 h-4" />
           </a>
         </span>
-        <span className="font-serif italic text-[12.5px] leading-normal text-text-muted max-w-[430px] text-center sm:text-right">
+        <span className="text-[12.5px] leading-normal text-text-muted max-w-[430px] text-center sm:text-right">
           Bu araç yalnızca bilgilendirme amaçlıdır ve hekim veya eczacı tavsiyesinin
           yerine geçmez.
         </span>

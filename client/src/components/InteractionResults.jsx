@@ -347,7 +347,7 @@ function InteractionCard({ interaction }) {
       <div className="flex items-start gap-3.5">
         {/* 3A: soldaki renkli ikon karesi */}
         <div className={`flex-none w-[42px] h-[42px] rounded-[13px] text-white flex items-center justify-center ${config.iconBox}`}>
-          <span className="font-serif font-bold text-[22px] leading-none" aria-hidden="true">{config.glyph}</span>
+          <span className="font-display font-bold text-[20px] leading-none" aria-hidden="true">{config.glyph}</span>
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2.5 flex-wrap">
