@@ -16,8 +16,10 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
   const [explainingDrug, setExplainingDrug] = useState(null);
+  const [activeRow, setActiveRow] = useState(-1);
   const inputRef = useRef(null);
   const resultsRef = useRef(null);
+  const listRef = useRef(null);
   const requestIdRef = useRef(0);
 
   useEffect(() => {
@@ -195,6 +197,19 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
         </div>
       )}
 
+      {/* Ekran okuyucular için sonuç duyurusu (DrugSearch paritesi) */}
+      <div aria-live="polite" className="sr-only">
+        {searched && !loading
+          ? loadError
+            ? 'Arama verileri yüklenemedi'
+            : results
+              ? results.drugs.length > 0
+                ? `${results.totalFound} sonuç bulundu`
+                : 'Sonuç bulunamadı'
+              : ''
+          : ''}
+      </div>
+
       {/* Sonuçlar */}
       {searched && !loading && results && (
         <div ref={resultsRef} className="space-y-5">
@@ -212,8 +227,20 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
                 Detay için satıra tıklayın · Etkileşim için <span className="inline-flex items-center gap-0.5 mx-0.5"><Plus className="w-2.5 h-2.5 text-accent" /></span> ile ekleyin
               </div>
 
-              {/* İlaç listesi */}
-              <div className="divide-y divide-border">
+              {/* İlaç listesi — ok tuşlarıyla satırlar arasında gezilebilir */}
+              <div
+                ref={listRef}
+                className="divide-y divide-border"
+                onKeyDown={(e) => {
+                  if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+                  e.preventDefault();
+                  const next = e.key === 'ArrowDown'
+                    ? Math.min(activeRow + 1, results.drugs.length - 1)
+                    : Math.max(activeRow - 1, 0);
+                  setActiveRow(next);
+                  listRef.current?.children[next]?.focus();
+                }}
+              >
                 {results.drugs.map((drug, idx) => {
                   const selected = isSelected(drug);
                   return (
@@ -221,9 +248,11 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
                       key={drug.id}
                       role="button"
                       tabIndex={0}
+                      aria-label={`${drug.name} — detayı aç`}
+                      onFocus={() => setActiveRow(idx)}
                       onClick={() => onViewDrug?.(drug)}
                       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onViewDrug?.(drug); } }}
-                      className={`flex items-center gap-3 px-5 py-3.5 transition-colors cursor-pointer ${
+                      className={`flex items-center gap-3 px-5 py-3.5 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:ring-inset ${
                         selected ? 'bg-accent/5' : 'hover:bg-bg-primary'
                       }`}
                       title="Detayını görmek için tıklayın"

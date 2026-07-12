@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Tag, Layers, Barcode, FolderTree, FileText, Loader2, X, ChevronDown, ChevronUp, AlertTriangle } from 'lucide-react';
-import { getDrugDetail } from '../data/api';
+import { getDrugDetail, getEquivalents } from '../data/api';
 import { reportError } from '../data/telemetry.js';
 
 function parseDescription(raw) {
@@ -70,8 +70,9 @@ function parseDescription(raw) {
 
 // Not: App bu bileşeni key={drug.id} ile render eder; ilaç değişince bileşen
 // sıfır state ile yeniden kurulur, effect içinde senkron state sıfırlamaya gerek kalmaz.
-export default function DrugCard({ drug, onClose }) {
+export default function DrugCard({ drug, onClose, onSelectDrug }) {
   const [detail, setDetail] = useState(null);
+  const [equivalents, setEquivalents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [showFullDesc, setShowFullDesc] = useState(false);
@@ -87,6 +88,10 @@ export default function DrugCard({ drug, onClose }) {
         if (!data) throw new Error('Not found');
         setDetail(data);
         setLoading(false);
+        // Eşdeğerler ayrı yüklenir; hata detay ekranını engellemez.
+        getEquivalents(drug.id)
+          .then((eq) => { if (!stale) setEquivalents(eq); })
+          .catch(() => {});
       })
       .catch((err) => {
         reportError(err, 'drugDetail');
@@ -216,6 +221,35 @@ export default function DrugCard({ drug, onClose }) {
                 </span>
               ))}
             </div>
+          </div>
+        )}
+
+        {equivalents.length > 0 && (
+          <div>
+            <p className="font-mono text-[10.5px] tracking-[.12em] uppercase text-text-muted mb-2.5">
+              Eşdeğer İlaçlar <span className="normal-case tracking-normal">({equivalents.length})</span>
+            </p>
+            <div className="bg-card-inset rounded-[14px] overflow-hidden divide-y divide-border-light">
+              {equivalents.map((eq) => (
+                <button
+                  key={eq.id}
+                  onClick={() => onSelectDrug?.(eq)}
+                  disabled={!onSelectDrug}
+                  className="w-full flex items-center justify-between gap-3 px-4 py-3 text-left hover:bg-accent-soft/50 transition-colors cursor-pointer disabled:cursor-default"
+                >
+                  <span className="text-[13.5px] font-semibold text-text-primary truncate">{eq.name}</span>
+                  {eq.atcCode && (
+                    <span className="flex-none font-mono text-[11px] text-accent bg-accent-soft rounded px-1.5 py-px">
+                      {eq.atcCode}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+            <p className="text-[11px] text-text-muted mt-2 leading-relaxed">
+              Eşdeğerlik etkin madde ve ATC kodu eşleşmesine göre hesaplanmıştır; doz ve
+              form farklı olabilir. Resmî SGK eşdeğer listesi değildir.
+            </p>
           </div>
         )}
 
