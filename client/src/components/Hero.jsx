@@ -7,37 +7,38 @@ import { Search, Scan, FileText, Database, Lock, Github, BadgeCheck } from 'luci
 export default function Hero({ onConditionMode, workspace, children }) {
   return (
     <>
-      {/* HERO */}
-      <section className="relative w-full overflow-hidden">
-        {/* Cam görünümlü yüzen şekiller (dekoratif) */}
-        <div
-          aria-hidden="true"
-          className="hidden md:block absolute top-[60px] left-[6%] w-24 h-24 rounded-full animate-floaty-slow pointer-events-none"
-          style={{
-            background: 'radial-gradient(circle at 32% 28%,#C6DAF2,#7FA6D6 60%,#3E6BA8)',
-            boxShadow: '0 30px 50px -20px rgba(37,99,168,.55), inset -10px -14px 26px rgba(20,45,80,.4), inset 8px 8px 18px rgba(255,255,255,.6)',
-          }}
-        />
-        <div aria-hidden="true" className="hidden md:block absolute top-[120px] right-[7%] animate-floaty pointer-events-none">
+      {/* HERO — DİKKAT: section'a overflow-hidden KOYMA; arama açılır listesi
+          bölüm sınırını aşar ve kırpılır. Kırpma yalnız dekor katmanındadır. */}
+      <section className="relative w-full">
+        {/* Cam görünümlü yüzen şekiller — kendi kırpılan katmanında */}
+        <div aria-hidden="true" className="absolute inset-0 overflow-hidden pointer-events-none">
           <div
-            className="relative w-[132px] h-[50px] rounded-[25px] -rotate-[22deg]"
+            className="hidden md:block absolute top-[60px] left-[6%] w-24 h-24 rounded-full animate-floaty-slow"
             style={{
-              background:
-                'linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,0) 46%,rgba(0,0,0,.12)), linear-gradient(90deg,#2563A8 0 50%,#E7EEF8 50% 100%)',
-              boxShadow: '0 26px 42px -18px rgba(37,99,168,.55), inset 0 2px 3px rgba(255,255,255,.6)',
+              background: 'radial-gradient(circle at 32% 28%,#C6DAF2,#7FA6D6 60%,#3E6BA8)',
+              boxShadow: '0 30px 50px -20px rgba(37,99,168,.55), inset -10px -14px 26px rgba(20,45,80,.4), inset 8px 8px 18px rgba(255,255,255,.6)',
             }}
-          >
-            <div className="absolute left-1/2 top-[12%] w-[2px] h-[76%] bg-black/10 -translate-x-px" />
+          />
+          <div className="hidden md:block absolute top-[120px] right-[7%] animate-floaty">
+            <div
+              className="relative w-[132px] h-[50px] rounded-[25px] -rotate-[22deg]"
+              style={{
+                background:
+                  'linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,0) 46%,rgba(0,0,0,.12)), linear-gradient(90deg,#2563A8 0 50%,#E7EEF8 50% 100%)',
+                boxShadow: '0 26px 42px -18px rgba(37,99,168,.55), inset 0 2px 3px rgba(255,255,255,.6)',
+              }}
+            >
+              <div className="absolute left-1/2 top-[12%] w-[2px] h-[76%] bg-black/10 -translate-x-px" />
+            </div>
           </div>
+          <div
+            className="hidden md:block absolute bottom-[60px] right-[12%] w-[60px] h-[60px] rounded-full animate-floaty"
+            style={{
+              background: 'radial-gradient(circle at 34% 30%,#D6EDF7,#8FCBE6 62%,#4E9AC0)',
+              boxShadow: '0 22px 36px -16px rgba(78,154,192,.5), inset -8px -10px 18px rgba(30,80,110,.35), inset 6px 6px 14px rgba(255,255,255,.6)',
+            }}
+          />
         </div>
-        <div
-          aria-hidden="true"
-          className="hidden md:block absolute bottom-[60px] right-[12%] w-[60px] h-[60px] rounded-full animate-floaty pointer-events-none"
-          style={{
-            background: 'radial-gradient(circle at 34% 30%,#D6EDF7,#8FCBE6 62%,#4E9AC0)',
-            boxShadow: '0 22px 36px -16px rgba(78,154,192,.5), inset -8px -10px 18px rgba(30,80,110,.35), inset 6px 6px 14px rgba(255,255,255,.6)',
-          }}
-        />
 
         <div className="relative z-[2] max-w-[900px] mx-auto text-center px-5 sm:px-8 pt-8 sm:pt-10 pb-10">
           <div className="font-mono text-[12px] tracking-[.2em] uppercase text-accent">
