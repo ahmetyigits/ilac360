@@ -31,8 +31,11 @@ jobs:
       - name: Smoke test (data integrity)
         run: node scripts/smoke-test.mjs
 
-      - name: Rules coverage report
-        run: node scripts/rules-coverage.mjs
+      - name: Lint rules
+        run: node scripts/lint-rules.mjs
+
+      - name: Rules coverage gate
+        run: node scripts/rules-coverage.mjs --min 95
 
       - name: Unit tests
         run: npm --prefix client run test

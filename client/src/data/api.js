@@ -23,7 +23,13 @@ let bootPromise = null;
 
 export function bootData() {
   if (bootPromise) return bootPromise;
-  bootPromise = Promise.all([loadDrugs(), loadInteractions(), loadConditions()]);
+  bootPromise = Promise.all([loadDrugs(), loadInteractions(), loadConditions()])
+    .catch((err) => {
+      // Alt yükleyiciler başarılarını kendileri memoize eder; burada yalnız
+      // başarısız birleşimi sıfırla ki "Tekrar dene" eksik olanı yeniden çeksin.
+      bootPromise = null;
+      throw err;
+    });
   return bootPromise;
 }
 

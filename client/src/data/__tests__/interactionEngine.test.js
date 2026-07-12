@@ -3,6 +3,7 @@ import { setDrugsForTest } from '../drugStore.js';
 import { setInteractionsForTest, analyzeInteractions } from '../interactionEngine.js';
 import interactions from '../../../../data/interactions.json';
 import synonyms from '../../../../data/ingredient-synonyms.json';
+import adjuvants from '../../../../data/adjuvant-components.json';
 
 // Gerçek kural seti + gerçek sinonim tablosu, sabit ilaç fikstürleriyle.
 const FIXTURE_DRUGS = [
@@ -21,7 +22,20 @@ const FIXTURE_DRUGS = [
   { ID: '13', Product_Name: 'LUSTRAL 50 MG TABLET', Active_Ingredient: 'Sertralin Hidroklorür', ATC_code: 'N06AB06' },
   { ID: '14', Product_Name: 'CONTRAMAL 50 MG KAPSUL', Active_Ingredient: 'Tramadol Hidroklorür', ATC_code: 'N02AX02' },
   { ID: '15', Product_Name: 'XVITAMIN TABLET', Active_Ingredient: 'Kolekalsiferol', ATC_code: 'A11CC05' },
+  { ID: '16', Product_Name: 'DOLOREX %1 JEL (50 G)', Active_Ingredient: 'Diklofenak Potasyum', ATC_code: 'M02AA15' },
+  { ID: '17', Product_Name: 'DOLOREX 50 MG KAPLI TABLET', Active_Ingredient: 'Diklofenak Potasyum', ATC_code: 'M01AB05' },
+  { ID: '18', Product_Name: 'NITRODERM TTS 5 TRANSDERMAL FLASTER', Active_Ingredient: 'Nitrogliserin', ATC_code: 'C01DA02' },
+  { ID: '19', Product_Name: 'KAFEDOL TABLET', Active_Ingredient: 'Askorbik Asit, Kafein', ATC_code: 'N06BC51' },
+  { ID: '20', Product_Name: 'KAFEVIT TABLET', Active_Ingredient: 'Tiamin, Kafein', ATC_code: 'A11DA51' },
 ];
+
+// Bileşen→ATC geri doldurma haritası (gerçek build çıktısının küçük örneği):
+// diklofenak'ın en yaygın ATC'si sistemik M01AB05'tir — topikal bastırma
+// testleri tam da bu enjeksiyonun jel formunda atlanmasını doğrular.
+const COMPONENT_ATC = {
+  'diklofenak': 'M01AB05',
+  'warfarin': 'B01AA03',
+};
 
 function analyze(...names) {
   const { interactions: results } = analyzeInteractions(names);
@@ -30,7 +44,7 @@ function analyze(...names) {
 
 beforeAll(() => {
   setDrugsForTest(FIXTURE_DRUGS);
-  setInteractionsForTest(interactions, synonyms);
+  setInteractionsForTest(interactions, synonyms, COMPONENT_ATC, adjuvants);
 });
 
 describe('bilinen kural eşleşmesi', () => {
@@ -99,6 +113,48 @@ describe('kategori (ATC sınıfı) kuralları', () => {
     const [r] = analyze('LUSTRAL 50 MG TABLET', 'CONTRAMAL 50 MG KAPSUL');
     expect(['high', 'medium']).toContain(r.risk);
     expect(r.message).toContain('serotonin');
+  });
+});
+
+describe('topikal form farkındalığı', () => {
+  it('REGRESYON: diklofenak JEL + warfarin kritik uyarı ÜRETMEZ (topikal bastırma)', () => {
+    const [r] = analyze('DOLOREX %1 JEL (50 G)', 'COUMADIN 5 MG TABLET');
+    expect(r.risk).not.toBe('critical');
+    expect(r.risk).not.toBe('high');
+    // Sessizce yutulmaz: düşük seviyeli topikal bilgilendirmesi verilir.
+    expect(r.risk).toBe('low');
+    expect(r.message).toContain('topikal');
+  });
+
+  it('diklofenak TABLET + warfarin hâlâ kritik verir (bastırma sistemiği etkilemez)', () => {
+    const [r] = analyze('DOLOREX 50 MG KAPLI TABLET', 'COUMADIN 5 MG TABLET');
+    expect(r.risk).toBe('critical');
+  });
+
+  it('transdermal nitrogliserin + sildenafil hâlâ kritik (bant sistemiktir, bastırılmaz)', () => {
+    const [r] = analyze('NITRODERM TTS 5 TRANSDERMAL FLASTER', 'VIAGRA 50 MG TABLET');
+    expect(r.risk).toBe('critical');
+  });
+
+  it('aynı etken madde jel + tablet → critical değil, medium + topikal notu', () => {
+    const [r] = analyze('DOLOREX %1 JEL (50 G)', 'DOLOREX 50 MG KAPLI TABLET');
+    expect(r.risk).toBe('medium');
+    expect(r.message).toContain('topikal');
+  });
+});
+
+describe('adjuvan bileşen hariç tutma', () => {
+  it('yalnızca kafein paylaşan iki ürün doz aşımı uyarısı ÜRETMEZ; düşük bilgilendirme verir', () => {
+    const [r] = analyze('KAFEDOL TABLET', 'KAFEVIT TABLET');
+    expect(r.risk).toBe('low');
+    expect(r.message).toContain('yardımcı');
+  });
+
+  it('adjuvan paylaşımı güçlü kuralları engellemez (Gripin ASA × warfarin kritik kalır)', () => {
+    // Gripin (parasetamol+ASA+kafein) × Coumadin: kafein adjuvan ama
+    // warfarin×aspirin kuralı yine de tetiklenmeli.
+    const [r] = analyze('GRIPIN TABLET', 'COUMADIN 5 MG TABLET');
+    expect(r.risk).toBe('critical');
   });
 });
 

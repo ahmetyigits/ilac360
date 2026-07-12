@@ -4,7 +4,7 @@ import {
   cleanDrugResponse,
   dataUrl,
 } from './drugStore.js';
-import { turkishLower, searchFold } from './turkishText.js';
+import { searchFold } from './turkishText.js';
 
 let conditions = [];
 // Durum id → { usage: {drugId: keyword}, full: {drugId: keyword} }
@@ -32,6 +32,10 @@ export function loadConditions() {
     conditions = list;
     descMatches = matches || {};
     return conditions;
+  }).catch((err) => {
+    // Geçici hata memoize edilmesin; sonraki arama yeniden denesin.
+    loadPromise = null;
+    throw err;
   });
   return loadPromise;
 }
@@ -45,14 +49,15 @@ export function getConditionList() {
 }
 
 function findMatchingCondition(query) {
-  const normalizedQuery = turkishLower(query).trim();
+  // searchFold: ilaç aramasıyla aynı ı/i katlaması — "KABIZLIK" da "kabızlık" da eşleşir.
+  const normalizedQuery = searchFold(query).trim();
   let exact = null;
   let prefix = null;
   let substring = null;
 
   for (const condition of conditions) {
     for (const name of condition.names) {
-      const n = turkishLower(name).trim();
+      const n = searchFold(name).trim();
       if (n === normalizedQuery) { exact = condition; break; }
       if (!prefix && (n.startsWith(normalizedQuery) || normalizedQuery.startsWith(n))) prefix = condition;
       if (!substring && (n.includes(normalizedQuery) || normalizedQuery.includes(n))) substring = condition;
@@ -277,12 +282,9 @@ async function fallbackSearch(query) {
   const cached = cachedResults.get(cacheKey);
   if (cached) return cached;
 
-  let entries;
-  try {
-    entries = await loadUsageSections();
-  } catch {
-    return [];
-  }
+  // Yükleme hatası "sonuç yok"la KARIŞTIRILMAZ: hata yukarı fırlar,
+  // UI ayrı bir "veriler yüklenemedi — tekrar dene" paneli gösterir.
+  const entries = await loadUsageSections();
 
   const q = searchFold(query);
   const results = [];
@@ -322,6 +324,8 @@ export async function searchByCondition(query, { page = 1, limit = 25 } = {}) {
 
     const totalFound = fullList.length;
     const totalPages = Math.ceil(totalFound / limit);
+    // Aralık dışı sayfa isteği son geçerli sayfaya sabitlenir
+    page = Math.min(Math.max(1, page), Math.max(1, totalPages));
     const start = (page - 1) * limit;
     const paged = fullList.slice(start, start + limit).map(cleanItem);
 
@@ -340,6 +344,7 @@ export async function searchByCondition(query, { page = 1, limit = 25 } = {}) {
 
   const totalFound = fallbackResults.length;
   const totalPages = Math.ceil(totalFound / limit);
+  page = Math.min(Math.max(1, page), Math.max(1, totalPages));
   const start = (page - 1) * limit;
   const paged = fallbackResults.slice(start, start + limit);
 

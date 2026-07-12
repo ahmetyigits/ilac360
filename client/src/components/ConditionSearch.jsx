@@ -3,6 +3,7 @@ import { Search, Plus, Loader2, SearchX, Stethoscope, Check } from 'lucide-react
 import Pagination from './Pagination';
 import MatchSourceModal from './MatchSourceModal';
 import { getConditionList, searchCondition } from '../data/api';
+import { reportError } from '../data/telemetry.js';
 
 export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, maxDrugs = 10, onMaxReached, renderBeforeResults }) {
   const [query, setQuery] = useState('');
@@ -11,6 +12,7 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
   const [conditions, setConditions] = useState([]);
+  const [loadError, setLoadError] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
   const [explainingDrug, setExplainingDrug] = useState(null);
@@ -26,17 +28,21 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
   const doSearch = useCallback(async (searchQuery, searchPage = 1, limit = pageSize) => {
     if (!searchQuery || searchQuery.length < 2) return;
     setLoading(true);
+    setLoadError(false);
     // Geç dönen eski bir arama, yeni aramanın sonuçlarını ezmesin.
     const requestId = ++requestIdRef.current;
     try {
       const data = await searchCondition(searchQuery, { page: searchPage, limit });
       if (requestId !== requestIdRef.current) return;
       setResults(data);
-      setPage(searchPage);
+      setPage(data.page ?? searchPage);
       setSubmittedQuery(searchQuery);
-    } catch {
+    } catch (err) {
+      // Veri yükleme hatası "sonuç bulunamadı"dan AYRI gösterilir.
+      reportError(err, 'conditionSearch');
       if (requestId !== requestIdRef.current) return;
       setResults(null);
+      setLoadError(true);
     } finally {
       if (requestId === requestIdRef.current) {
         setLoading(false);
@@ -170,6 +176,22 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Veri yükleme hatası — "sonuç bulunamadı"dan ayrı, yeniden denenebilir */}
+      {searched && !loading && loadError && (
+        <div className="bg-card rounded-[20px] border border-ink/10 p-8 text-center">
+          <p className="text-[15px] font-semibold text-text-primary">Arama verileri yüklenemedi</p>
+          <p className="text-[13px] text-text-muted mt-1">
+            Bağlantınızı kontrol edin; sorun geçiciyse yeniden deneme işe yarar.
+          </p>
+          <button
+            onClick={() => doSearch(query || submittedQuery, 1)}
+            className="mt-4 px-5 py-2.5 bg-accent text-white rounded-[11px] text-sm font-semibold hover:bg-accent-deep transition-colors cursor-pointer"
+          >
+            Tekrar dene
+          </button>
         </div>
       )}
 

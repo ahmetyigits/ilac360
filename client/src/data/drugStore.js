@@ -27,8 +27,19 @@ let manifestPromise = null;
 export function loadManifest() {
   if (manifestPromise) return manifestPromise;
   manifestPromise = fetch(`${DATA_BASE}/manifest.json`, { cache: 'no-cache' })
-    .then((r) => (r.ok ? r.json() : null))
-    .catch(() => null);
+    .then((r) => {
+      if (r.ok) return r.json();
+      if (r.status === 404) return null; // manifest'siz eski dağıtım: hash'siz adlara düş (kalıcı)
+      // Sunucu hatası geçici olabilir: cache'leme, sonraki çağrı yeniden denesin.
+      manifestPromise = null;
+      return null;
+    })
+    .catch(() => {
+      // Ağ hatası geçicidir: null'u KALICI cache'lemek uygulamayı sayfa
+      // yenilenene dek kilitler (hash'li dosyalar 404 verir). Sıfırla.
+      manifestPromise = null;
+      return null;
+    });
   return manifestPromise;
 }
 
@@ -54,6 +65,7 @@ function expand(entry) {
     Category_3: cats[2] || '',
     Category_4: cats[3] || '',
     Category_5: cats[4] || '',
+    Form: entry.f || null,
     _hasDescription: !!entry.h,
   };
 }
@@ -84,6 +96,11 @@ export function loadDrugs() {
       }
       cachedStats = computeStats();
       return drugs;
+    })
+    .catch((err) => {
+      // Geçici hata memoize edilmesin; "Tekrar dene" gerçekten yeniden denesin.
+      loadPromise = null;
+      throw err;
     });
   return loadPromise;
 }
@@ -182,6 +199,13 @@ export function searchDrugs(query, { limit = 25 } = {}) {
   }
 
   const q = searchFold(trimmed);
+  // Çok kelimeli sorguda tokenlar bitişik olmak zorunda değildir:
+  // "parol tablet" → her token adın herhangi bir yerinde geçsin yeter.
+  const tokens = q.split(/\s+/).filter(Boolean);
+  const multiToken = tokens.length > 1;
+  const matchesAllTokens = (haystack) =>
+    haystack ? tokens.every((t) => haystack.includes(t)) : false;
+
   const exact = [];
   const startsWith = [];
   const contains = [];
@@ -196,7 +220,7 @@ export function searchDrugs(query, { limit = 25 } = {}) {
     } else if (nameL.startsWith(q)) {
       startsWith.push(drug);
       seen.add(drug.ID);
-    } else if (nameL.includes(q)) {
+    } else if (multiToken ? matchesAllTokens(nameL) : nameL.includes(q)) {
       contains.push(drug);
       seen.add(drug.ID);
     }
@@ -207,7 +231,7 @@ export function searchDrugs(query, { limit = 25 } = {}) {
   if (nameTotal < limit) {
     for (const drug of drugs) {
       if (seen.has(drug.ID)) continue;
-      if (drug._ingL && drug._ingL.includes(q)) {
+      if (multiToken ? matchesAllTokens(drug._ingL) : drug._ingL && drug._ingL.includes(q)) {
         ingredient.push(drug);
         seen.add(drug.ID);
         if (nameTotal + ingredient.length >= limit) break;
