@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { bootData, getStats, analyzeInteractions as analyzeInteractionsApi } from './data/api';
 import DisclaimerGate from './components/DisclaimerGate';
 import { hasAcknowledgedDisclaimer } from './data/disclaimer.js';
+import { reportError } from './data/telemetry.js';
 import { AlertTriangle } from 'lucide-react';
 import Navbar from './components/Navbar';
 import DrugSearch from './components/DrugSearch';
@@ -53,7 +54,10 @@ export default function App() {
     bootData()
       .then(() => getStats())
       .then(setStats)
-      .catch(() => setDataError(true));
+      .catch((err) => {
+        reportError(err, 'bootData');
+        setDataError(true);
+      });
   }, []);
 
   useEffect(() => {
@@ -124,7 +128,8 @@ export default function App() {
       if (data.unknownDrugs?.length > 0) {
         showToast(`Veritabanında bulunamayan ilaç: ${data.unknownDrugs.join(', ')}`, 'warning');
       }
-    } catch {
+    } catch (err) {
+      reportError(err, 'analyze');
       setInteractions(null);
       showToast('Analiz sırasında bir hata oluştu. Lütfen tekrar deneyin.', 'error');
     } finally {

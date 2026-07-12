@@ -18,6 +18,7 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import {
   turkishLower,
+  searchFold,
   isValidIngredient,
   isValidDescription,
   cleanCategories,
@@ -26,6 +27,7 @@ import {
 } from '../client/src/data/turkishText.js';
 import { BUCKET_COUNT, bucketOf } from '../client/src/data/buckets.js';
 import { getComponents, buildSynonymLookup } from '../client/src/data/ingredientMatcher.js';
+import { detectForm } from '../client/src/data/formDetect.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -130,6 +132,9 @@ for (const d of drugs) {
     b: d.barcode || null,
     c: cleanCategories(d),
     h: !!desc,
+    // Farmasötik form ('topikal'/'oftalmik'/...) — motor sistemik uyarıları
+    // düşük emilimli formlarda bastırmak için kullanır.
+    f: detectForm(searchFold(d.Product_Name), atc),
   });
 
   if (desc) {
@@ -239,6 +244,13 @@ emit('interactions.json', interactions);
 emit('condition-mapping.json', conditions);
 emit('ingredient-synonyms.json', synonyms);
 emit('component-atc.json', componentAtc);
+let adjuvants = { adjuvants: [] };
+try {
+  adjuvants = JSON.parse(readFileSync(join(SRC, 'adjuvant-components.json'), 'utf-8'));
+} catch {
+  console.warn('adjuvant-components.json bulunamadı; adjuvan listesi boş.');
+}
+emit('adjuvant-components.json', adjuvants);
 
 const manifest = {
   version: 1,

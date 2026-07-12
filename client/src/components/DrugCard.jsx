@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Tag, Layers, Barcode, FolderTree, FileText, Loader2, X, ChevronDown, ChevronUp, AlertTriangle } from 'lucide-react';
 import { getDrugDetail } from '../data/api';
+import { reportError } from '../data/telemetry.js';
 
 function parseDescription(raw) {
   if (!raw || raw.trim().length === 0) return null;
@@ -87,7 +88,8 @@ export default function DrugCard({ drug, onClose }) {
         setDetail(data);
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
+        reportError(err, 'drugDetail');
         if (stale) return;
         setError(true);
         setLoading(false);

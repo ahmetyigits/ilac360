@@ -42,15 +42,46 @@ for (const rule of rules) {
   if (!bOk) unmatchedSides.set(rule.ingredientB, (unmatchedSides.get(rule.ingredientB) || 0) + 1);
 }
 
+const coveragePct = (bothMatched / rules.length) * 100;
 console.log(`Toplam çift kuralı        : ${rules.length}`);
-console.log(`İki tarafı da eşleşen     : ${bothMatched} (%${((bothMatched / rules.length) * 100).toFixed(1)})`);
+console.log(`İki tarafı da eşleşen     : ${bothMatched} (%${coveragePct.toFixed(1)})`);
 console.log(`Veri setindeki kanonik bileşen sayısı: ${componentCounts.size}`);
 
+// İzin listesi: piyasada bilinçli olarak olmayan maddeler kapıyı düşürmez.
+let allowlist = new Set();
+try {
+  const raw = JSON.parse(readFileSync(join(ROOT, 'data', 'coverage-allowlist.json'), 'utf-8'));
+  allowlist = new Set((raw.allowed || []).map((n) => normalizeRuleIngredient(n, lookup)).filter(Boolean));
+} catch {
+  // allowlist yoksa boş kabul edilir
+}
+
+const unexpectedUnmatched = [];
 if (unmatchedSides.size > 0) {
   console.log(`\nVeri setinde karşılığı BULUNAMAYAN kural tarafları (${unmatchedSides.size}):`);
   const sorted = [...unmatchedSides.entries()].sort((x, y) => y[1] - x[1]);
   for (const [name, count] of sorted) {
-    console.log(`  - "${name}" (${count} kuralda)`);
+    const normalized = normalizeRuleIngredient(name, lookup);
+    const allowed = normalized && allowlist.has(normalized);
+    console.log(`  - "${name}" (${count} kuralda)${allowed ? ' [izin listesinde]' : ''}`);
+    if (!allowed) unexpectedUnmatched.push(name);
   }
-  console.log('\nBu maddeler ya piyasada yok (zararsız) ya da yazım farkı var (sinonim ekleyin).');
+  console.log('\nBu maddeler ya piyasada yok (izin listesine ekleyin) ya da yazım farkı var (sinonim ekleyin).');
+}
+
+// --- CI kapısı: --min <yüzde> ---
+const minArg = process.argv.find((a) => a.startsWith('--min'));
+if (minArg) {
+  const threshold = parseFloat(minArg.includes('=') ? minArg.split('=')[1] : process.argv[process.argv.indexOf(minArg) + 1]);
+  let failed = false;
+  if (Number.isFinite(threshold) && coveragePct < threshold) {
+    console.error(`\nKAPI BAŞARISIZ: kapsam %${coveragePct.toFixed(1)} < eşik %${threshold}`);
+    failed = true;
+  }
+  if (unexpectedUnmatched.length > 0) {
+    console.error(`\nKAPI BAŞARISIZ: izin listesinde olmayan eşleşmemiş taraflar: ${unexpectedUnmatched.join(', ')}`);
+    failed = true;
+  }
+  if (failed) process.exit(1);
+  console.log(`\nKapsam kapısı geçti (%${coveragePct.toFixed(1)} ≥ %${threshold}).`);
 }

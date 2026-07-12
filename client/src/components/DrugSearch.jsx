@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Search, Loader2, SearchX } from 'lucide-react';
 import { searchDrugs } from '../data/api';
+import { reportError } from '../data/telemetry.js';
 
 export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onMaxReached }) {
   const [query, setQuery] = useState('');
@@ -51,7 +52,8 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
         const data = await searchDrugs(query);
         if (requestId !== requestIdRef.current) return;
         setResults(data);
-      } catch {
+      } catch (err) {
+        reportError(err, 'drugSearch');
         if (requestId !== requestIdRef.current) return;
         setResults([]);
       } finally {

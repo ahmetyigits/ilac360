@@ -1,0 +1,8 @@
+{
+  "note": "Bu maddeler Türkiye piyasa verisinde bilinçli olarak bulunmuyor; kuralları ileriye dönük tutulur ve kapsam kapısında hata sayılmaz.",
+  "allowed": [
+    "alkol",
+    "probenesid",
+    "azatiyoprin"
+  ]
+}

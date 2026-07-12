@@ -51,6 +51,13 @@ describe('searchDrugs', () => {
     expect(results.some((r) => r.name.includes('İBUFEN'))).toBe(true);
   });
 
+  it('çok kelimeli sorguda tokenlar bitişik olmak zorunda değil (parol tablet)', () => {
+    const results = searchDrugs('parol tablet');
+    expect(results.some((r) => r.name === 'PAROL 500 MG TABLET')).toBe(true);
+    // Şurup formu 'tablet' tokenını içermediği için gelmez
+    expect(results.some((r) => r.name.includes('SURUP'))).toBe(false);
+  });
+
   it('etken madde araması isim eşleşmesi yoksa devreye girer', () => {
     const results = searchDrugs('flurbiprofen');
     expect(results.some((r) => r.name.includes('MAJEZIK'))).toBe(true);

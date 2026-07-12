@@ -1,0 +1,24 @@
+{
+  "note": "Bu bileşenler YALNIZCA ortak-etken-madde (doz aşımı) kontrolünden hariç tutulur; kural eşleştirmesini (ör. kafein × MAOI gibi açık kurallar) ETKİLEMEZ. İki kombinasyon ürününün yalnızca kafein/lidokain gibi yardımcı bileşenleri paylaşması klinik olarak anlamlı bir doz aşımı riski oluşturmaz.",
+  "adjuvants": [
+    "kafein",
+    "lidokain",
+    "benzokain",
+    "prilokain",
+    "mentol",
+    "kamfor",
+    "ökaliptus yağı",
+    "askorbik asit",
+    "tiamin",
+    "riboflavin",
+    "piridoksin",
+    "siyanokobalamin",
+    "nikotinamid",
+    "dekspantenol",
+    "panthenol",
+    "çinko oksit",
+    "gliserin",
+    "vazelin",
+    "titanyum dioksit"
+  ]
+}

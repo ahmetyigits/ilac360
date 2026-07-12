@@ -28,7 +28,7 @@ const SALT_TOKENS = new Set([
   // (kandesartan sileksetil ≡ kandesartan, sefuroksim aksetil ≡ sefuroksim)
   'sileksetil', 'medoksomil', 'aksetil', 'proksetil', 'mofetil', 'pivoksil',
   'sodyum', 'disodyum', 'potasyum', 'kalsiyum', 'magnezyum', 'trometamol', 'meglumin',
-  'hbr',
+  'hbr', 'dietilamonyum', 'dietilamin', 'epolamin',
 ]);
 
 // Adı katyonla BAŞLAYAN bileşikler inorganik tuzlardır ("kalsiyum karbonat",
