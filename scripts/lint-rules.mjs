@@ -15,14 +15,33 @@ const rules = JSON.parse(readFileSync(join(ROOT, 'data', 'interactions.json'), '
 const synonyms = JSON.parse(readFileSync(join(ROOT, 'data', 'ingredient-synonyms.json'), 'utf-8'));
 const lookup = buildSynonymLookup(synonyms);
 
+// component-classes.json: SNRI gibi ATC'den türetilmeyen sınıflar + QT etiketleri
+let componentClasses = { components: {} };
+try {
+  componentClasses = JSON.parse(readFileSync(join(ROOT, 'data', 'component-classes.json'), 'utf-8'));
+} catch {
+  // dosya yoksa boş kabul
+}
+
 const VALID_RISKS = new Set(['critical', 'high', 'medium', 'low']);
 const errors = [];
 const warnings = [];
 
 // --- Çift kuralları ---
 const seenPairs = new Map();
+const seenIds = new Set();
 rules.forEach((rule, i) => {
   const where = `interactions.json[${i}]`;
+  if (!rule.id || !/^R-\d{4}$/.test(rule.id)) {
+    errors.push(`${where}: geçerli id yok (R-0000 biçimi)`);
+  } else if (seenIds.has(rule.id)) {
+    errors.push(`${where}: mükerrer id ${rule.id}`);
+  } else {
+    seenIds.add(rule.id);
+  }
+  if (rule.evidence && !['label', 'guideline', 'review', 'expert'].includes(rule.evidence)) {
+    errors.push(`${where}: geçersiz evidence '${rule.evidence}'`);
+  }
   for (const field of ['ingredientA', 'ingredientB', 'risk', 'message', 'source']) {
     if (!rule[field] || String(rule[field]).trim() === '') {
       errors.push(`${where}: zorunlu alan eksik: ${field}`);
@@ -50,8 +69,23 @@ rules.forEach((rule, i) => {
   }
 });
 
+// --- component-classes.json doğrulaması ---
+const classTagCategories = new Set();
+for (const [name, meta] of Object.entries(componentClasses.components || {})) {
+  if (!meta.source || String(meta.source).trim() === '') {
+    errors.push(`component-classes.json['${name}']: source alanı zorunludur (FDA/EMA etiketi vb.)`);
+  }
+  if (meta.qt && !['known', 'possible'].includes(meta.qt)) {
+    errors.push(`component-classes.json['${name}']: geçersiz qt '${meta.qt}' (known|possible)`);
+  }
+  for (const cls of meta.classes || []) classTagCategories.add(cls);
+}
+
 // --- Sınıf kuralları ---
-const mappedCategories = new Set(ATC_CATEGORY_MAP.map((e) => e.category));
+const mappedCategories = new Set([
+  ...ATC_CATEGORY_MAP.map((e) => e.category),
+  ...classTagCategories,
+]);
 const referencedCategories = new Set();
 const seenClassPairs = new Map();
 CATEGORY_INTERACTIONS.forEach((rule, i) => {

@@ -347,8 +347,17 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
   );
 }
 
+// "Ne yapmalı?" satırı: kuralda özel action varsa o, yoksa risk seviyesine
+// göre güvenli varsayılan. unknown/info/low kendi mesajını taşır.
+const DEFAULT_ACTIONS = {
+  critical: 'Bu kombinasyondan kaçının; kullanmadan önce mutlaka doktorunuza danışın.',
+  high: 'Doktorunuza danışmadan birlikte kullanmayın.',
+  medium: 'Birlikte kullanım gerekiyorsa doktor veya eczacı takibi önerilir.',
+};
+
 function InteractionCard({ interaction }) {
   const config = riskConfig[interaction.risk] || riskConfig.unknown;
+  const action = interaction.action || DEFAULT_ACTIONS[interaction.risk] || null;
 
   return (
     <div className={`rounded-[14px] border p-4 transition-all ${config.card}`}>
@@ -374,6 +383,12 @@ function InteractionCard({ interaction }) {
           <p className="text-[13.5px] text-text-secondary mt-1 leading-[1.5]">{interaction.message}</p>
           {interaction.details && (
             <p className="text-[12px] text-text-muted mt-0.5">{interaction.details}</p>
+          )}
+          {action && (
+            <p className="text-[12.5px] mt-1.5">
+              <span className="font-semibold text-text-primary">Ne yapmalı: </span>
+              <span className="text-text-secondary">{action}</span>
+            </p>
           )}
         </div>
       </div>

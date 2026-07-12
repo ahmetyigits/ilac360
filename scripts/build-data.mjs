@@ -251,6 +251,13 @@ try {
   console.warn('adjuvant-components.json bulunamadı; adjuvan listesi boş.');
 }
 emit('adjuvant-components.json', adjuvants);
+let componentClasses = { components: {} };
+try {
+  componentClasses = JSON.parse(readFileSync(join(SRC, 'component-classes.json'), 'utf-8'));
+} catch {
+  console.warn('component-classes.json bulunamadı; sınıf etiketleri boş.');
+}
+emit('component-classes.json', componentClasses);
 
 const manifest = {
   version: 1,

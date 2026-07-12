@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Search, Loader2, SearchX } from 'lucide-react';
 import { searchDrugs } from '../data/api';
+import { getSuggestions } from '../data/fuzzySearch.js';
 import { reportError } from '../data/telemetry.js';
 
 export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onMaxReached }) {
@@ -9,6 +10,7 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
   const [loading, setLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
   const [activeIndex, setActiveIndex] = useState(-1);
   const wrapperRef = useRef(null);
   const debounceRef = useRef(null);
@@ -38,6 +40,7 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
     if (query.length < 2) {
       requestIdRef.current++;
       setResults([]);
+      setSuggestions([]);
       setSearched(false);
       setLoading(false);
       return;
@@ -52,6 +55,8 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
         const data = await searchDrugs(query);
         if (requestId !== requestIdRef.current) return;
         setResults(data);
+        // Yazım hatası toleransı: tam arama boş dönerse marka önerisi üret
+        setSuggestions(data.length === 0 ? getSuggestions(query) : []);
       } catch (err) {
         reportError(err, 'drugSearch');
         if (requestId !== requestIdRef.current) return;
@@ -197,6 +202,24 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
                   <SearchX className="w-6 h-6 text-text-muted mx-auto mb-2" />
                   <p className="text-sm text-text-muted font-medium">Sonuç bulunamadı</p>
                   <p className="text-[11px] text-text-muted mt-0.5">"{query}" ile eşleşen ilaç yok.</p>
+                  {suggestions.length > 0 && (
+                    <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
+                      <span className="text-[12px] text-text-secondary">Şunu mu demek istediniz:</span>
+                      {suggestions.map((s) => (
+                        <button
+                          key={s}
+                          onClick={() => {
+                            setQuery(s);
+                            setShowResults(true);
+                            inputRef.current?.focus();
+                          }}
+                          className="text-[12.5px] font-semibold text-accent bg-accent-soft rounded-full px-3 py-1 hover:bg-accent-light/60 transition-colors cursor-pointer uppercase"
+                        >
+                          {s}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             )

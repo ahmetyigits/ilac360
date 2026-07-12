@@ -16,33 +16,52 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 
+// Yeniden kullanılabilir çekirdek: ingest-dataset.mjs kapsam DELTASI için de çağırır.
+export function computeCoverage(drugs, rules, synonyms) {
+  const lookup = buildSynonymLookup(synonyms);
+  const componentCounts = new Map();
+  for (const d of drugs) {
+    for (const c of getComponents(d.Active_Ingredient, lookup)) {
+      componentCounts.set(c, (componentCounts.get(c) || 0) + 1);
+    }
+  }
+  let bothMatched = 0;
+  const unmatchedSides = new Map();
+  for (const rule of rules) {
+    const a = normalizeRuleIngredient(rule.ingredientA, lookup);
+    const b = normalizeRuleIngredient(rule.ingredientB, lookup);
+    const aOk = a && componentCounts.has(a);
+    const bOk = b && componentCounts.has(b);
+    if (aOk && bOk) bothMatched++;
+    if (!aOk) unmatchedSides.set(rule.ingredientA, (unmatchedSides.get(rule.ingredientA) || 0) + 1);
+    if (!bOk) unmatchedSides.set(rule.ingredientB, (unmatchedSides.get(rule.ingredientB) || 0) + 1);
+  }
+  return {
+    coveragePct: (bothMatched / rules.length) * 100,
+    bothMatched,
+    componentCount: componentCounts.size,
+    unmatchedSides,
+    lookup,
+  };
+}
+
+// Aşağısı CLI raporu: yalnız doğrudan çalıştırıldığında koşar
+// (ingest-dataset.mjs computeCoverage'ı import ederken rapor basılmaz).
+import { pathToFileURL } from 'url';
+const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (!isMain) {
+  // modül olarak import edildi — CLI kısmına girme
+} else {
+  runCli();
+}
+
+function runCli() {
 const raw = JSON.parse(readFileSync(join(ROOT, 'data', 'ilaclar-dataset.json'), 'utf-8'));
 const drugs = raw[2].data;
 const rules = JSON.parse(readFileSync(join(ROOT, 'data', 'interactions.json'), 'utf-8'));
 const synonyms = JSON.parse(readFileSync(join(ROOT, 'data', 'ingredient-synonyms.json'), 'utf-8'));
-const lookup = buildSynonymLookup(synonyms);
-
-// Veri setindeki tüm kanonik bileşenler + kaç üründe geçtiği
-const componentCounts = new Map();
-for (const d of drugs) {
-  for (const c of getComponents(d.Active_Ingredient, lookup)) {
-    componentCounts.set(c, (componentCounts.get(c) || 0) + 1);
-  }
-}
-
-let bothMatched = 0;
-const unmatchedSides = new Map(); // taraf → kural sayısı
-for (const rule of rules) {
-  const a = normalizeRuleIngredient(rule.ingredientA, lookup);
-  const b = normalizeRuleIngredient(rule.ingredientB, lookup);
-  const aOk = a && componentCounts.has(a);
-  const bOk = b && componentCounts.has(b);
-  if (aOk && bOk) bothMatched++;
-  if (!aOk) unmatchedSides.set(rule.ingredientA, (unmatchedSides.get(rule.ingredientA) || 0) + 1);
-  if (!bOk) unmatchedSides.set(rule.ingredientB, (unmatchedSides.get(rule.ingredientB) || 0) + 1);
-}
-
-const coveragePct = (bothMatched / rules.length) * 100;
+const { coveragePct, bothMatched, componentCount, unmatchedSides, lookup } = computeCoverage(drugs, rules, synonyms);
+const componentCounts = { size: componentCount };
 console.log(`Toplam çift kuralı        : ${rules.length}`);
 console.log(`İki tarafı da eşleşen     : ${bothMatched} (%${coveragePct.toFixed(1)})`);
 console.log(`Veri setindeki kanonik bileşen sayısı: ${componentCounts.size}`);
@@ -84,4 +103,5 @@ if (minArg) {
   }
   if (failed) process.exit(1);
   console.log(`\nKapsam kapısı geçti (%${coveragePct.toFixed(1)} ≥ %${threshold}).`);
+}
 }

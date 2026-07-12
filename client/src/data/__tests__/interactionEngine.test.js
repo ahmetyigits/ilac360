@@ -4,6 +4,7 @@ import { setInteractionsForTest, analyzeInteractions } from '../interactionEngin
 import interactions from '../../../../data/interactions.json';
 import synonyms from '../../../../data/ingredient-synonyms.json';
 import adjuvants from '../../../../data/adjuvant-components.json';
+import componentClasses from '../../../../data/component-classes.json';
 
 // Gerçek kural seti + gerçek sinonim tablosu, sabit ilaç fikstürleriyle.
 const FIXTURE_DRUGS = [
@@ -27,6 +28,13 @@ const FIXTURE_DRUGS = [
   { ID: '18', Product_Name: 'NITRODERM TTS 5 TRANSDERMAL FLASTER', Active_Ingredient: 'Nitrogliserin', ATC_code: 'C01DA02' },
   { ID: '19', Product_Name: 'KAFEDOL TABLET', Active_Ingredient: 'Askorbik Asit, Kafein', ATC_code: 'N06BC51' },
   { ID: '20', Product_Name: 'KAFEVIT TABLET', Active_Ingredient: 'Tiamin, Kafein', ATC_code: 'A11DA51' },
+  { ID: '21', Product_Name: 'LITHURIL 300 MG KAPSUL', Active_Ingredient: 'Lityum Karbonat', ATC_code: 'N05AN01' },
+  { ID: '22', Product_Name: 'ESIDREX 25 MG TABLET', Active_Ingredient: 'Hidroklorotiyazid', ATC_code: 'C03AA03' },
+  { ID: '23', Product_Name: 'EFEXOR 75 MG KAPSUL', Active_Ingredient: 'Venlafaksin Hidroklorür', ATC_code: 'N06AX16' },
+  { ID: '24', Product_Name: 'CIPRALEX 10 MG TABLET', Active_Ingredient: 'Essitalopram', ATC_code: 'N06AB10' },
+  { ID: '25', Product_Name: 'AVELOX 400 MG TABLET', Active_Ingredient: 'Moksifloksasin', ATC_code: 'J01MA14' },
+  { ID: '26', Product_Name: 'CORDARONE 200 MG TABLET', Active_Ingredient: 'Amiodaron Hidroklorür', ATC_code: 'C01BD01' },
+  { ID: '27', Product_Name: 'ZOFRAN 8 MG TABLET', Active_Ingredient: 'Ondansetron', ATC_code: 'A04AA01' },
 ];
 
 // Bileşen→ATC geri doldurma haritası (gerçek build çıktısının küçük örneği):
@@ -44,7 +52,7 @@ function analyze(...names) {
 
 beforeAll(() => {
   setDrugsForTest(FIXTURE_DRUGS);
-  setInteractionsForTest(interactions, synonyms, COMPONENT_ATC, adjuvants);
+  setInteractionsForTest(interactions, synonyms, COMPONENT_ATC, adjuvants, componentClasses);
 });
 
 describe('bilinen kural eşleşmesi', () => {
@@ -155,6 +163,49 @@ describe('adjuvan bileşen hariç tutma', () => {
     // warfarin×aspirin kuralı yine de tetiklenmeli.
     const [r] = analyze('GRIPIN TABLET', 'COUMADIN 5 MG TABLET');
     expect(r.risk).toBe('critical');
+  });
+});
+
+describe('yeni sınıf kuralları (lityum, SNRI)', () => {
+  it('lityum + tiazid diüretik → high (atılım azalması)', () => {
+    const [r] = analyze('LITHURIL 300 MG KAPSUL', 'ESIDREX 25 MG TABLET');
+    expect(r.risk).toBe('high');
+    expect(r.message).toContain('ityum');
+  });
+
+  it('lityum ANTIPSYCHOTIC sayılmaz (antipsikotik×antipsikotik kuralı tetiklenmez)', () => {
+    // Haloperidol N05AD? — fikstürde antipsikotik yok; lityum + parasetamol
+    // antipsikotik kuralı ÜRETMEMELİ (unknown/info kabul).
+    const [r] = analyze('LITHURIL 300 MG KAPSUL', 'PAROL 500 MG TABLET');
+    expect(['unknown', 'info', 'medium']).toContain(r.risk);
+    expect(r.message).not.toContain('antipsikotik');
+  });
+
+  it('SSRI + SNRI → high serotonin sendromu (SNRI etiketi component-classes\'tan)', () => {
+    const [r] = analyze('CIPRALEX 10 MG TABLET', 'EFEXOR 75 MG KAPSUL');
+    expect(r.risk).toBe('high');
+    expect(r.message).toContain('serotonin');
+  });
+});
+
+describe('additive-QT modeli', () => {
+  it('iki bilinen QT ajanı (moksifloksasin + amiodaron) → yüksek risk, spesifik kural yoksa QT uyarısı', () => {
+    const [r] = analyze('AVELOX 400 MG TABLET', 'CORDARONE 200 MG TABLET');
+    // Spesifik sınıf kuralı (FLUOROQUINOLONE×ANTIARRHYTHMIC_III critical) ÖNCE gelir
+    expect(['critical', 'high']).toContain(r.risk);
+  });
+
+  it('QT çifti spesifik kuralla kapsanmıyorsa QT modeli devreye girer (ondansetron + essitalopram)', () => {
+    const [r] = analyze('ZOFRAN 8 MG TABLET', 'CIPRALEX 10 MG TABLET');
+    expect(['high', 'medium']).toContain(r.risk);
+    expect(r.message).toContain('QT');
+  });
+
+  it('3+ QT ajanında risk bir seviye yükselir ve mesaj toplam sayıyı söyler', () => {
+    const results = analyze('ZOFRAN 8 MG TABLET', 'CIPRALEX 10 MG TABLET', 'AVELOX 400 MG TABLET');
+    const qtResults = results.filter((r) => r.message.includes('QT'));
+    expect(qtResults.length).toBeGreaterThan(0);
+    expect(qtResults.some((r) => r.message.includes('3 ilaç'))).toBe(true);
   });
 });
 

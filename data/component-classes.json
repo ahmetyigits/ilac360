@@ -1,0 +1,38 @@
+{
+  "note": "Bileşen → farmakolojik sınıf etiketi ve QT uzatma durumu. Kaynak alanı ZORUNLUDUR ve yalnız serbestçe kullanılabilir kaynaklar (FDA/EMA ürün etiketi, resmi kılavuz) yazılır — CredibleMeds vb. lisanslı listeler KULLANILMAZ. 'qt': 'known' = etikette bilinen QT uzaması/TdP uyarısı; 'possible' = koşullu/olası uzama.",
+  "components": {
+    "venlafaksin": { "classes": ["SNRI", "SEROTONERGIC"], "qt": "possible", "source": "FDA etiketi (Effexor XR)" },
+    "duloksetin": { "classes": ["SNRI", "SEROTONERGIC"], "source": "FDA etiketi (Cymbalta)" },
+    "milnasipran": { "classes": ["SNRI", "SEROTONERGIC"], "source": "FDA etiketi (Savella)" },
+    "desvenlafaksin": { "classes": ["SNRI", "SEROTONERGIC"], "source": "FDA etiketi (Pristiq)" },
+    "tramadol": { "classes": ["SEROTONERGIC"], "source": "FDA etiketi (Ultram) — serotonin sendromu uyarısı" },
+    "fentanil": { "classes": ["SEROTONERGIC"], "source": "FDA etiketi (Duragesic) — serotonin sendromu uyarısı" },
+
+    "amiodaron": { "qt": "known", "source": "FDA etiketi (Cordarone) — TdP kara kutu" },
+    "sotalol": { "qt": "known", "source": "FDA etiketi (Betapace) — TdP kara kutu" },
+    "sitalopram": { "qt": "known", "source": "FDA 2012 Güvenlik Bildirimi (Celexa) — doz bağımlı QT" },
+    "essitalopram": { "qt": "possible", "source": "EMA etiketi (Cipralex) — QT uzaması" },
+    "haloperidol": { "qt": "known", "source": "FDA etiketi (Haldol) — QT/TdP uyarısı" },
+    "domperidon": { "qt": "known", "source": "EMA 2014 PRAC değerlendirmesi — kardiyak risk" },
+    "ondansetron": { "qt": "known", "source": "FDA 2011 Güvenlik Bildirimi (Zofran)" },
+    "granisetron": { "qt": "possible", "source": "FDA etiketi (Kytril)" },
+    "metadon": { "qt": "known", "source": "FDA etiketi (Dolophine) — QT/TdP kara kutu" },
+    "moksifloksasin": { "qt": "known", "source": "FDA etiketi (Avelox) — QT uzaması" },
+    "levofloksasin": { "qt": "possible", "source": "FDA etiketi (Levaquin)" },
+    "siprofloksasin": { "qt": "possible", "source": "FDA etiketi (Cipro)" },
+    "eritromisin": { "qt": "known", "source": "FDA etiketi — QT/TdP uyarısı" },
+    "klaritromisin": { "qt": "known", "source": "FDA etiketi (Biaxin) — QT uzaması" },
+    "azitromisin": { "qt": "possible", "source": "FDA 2013 Güvenlik Bildirimi (Zithromax)" },
+    "flukonazol": { "qt": "possible", "source": "FDA etiketi (Diflucan) — QT/TdP bildirimleri" },
+    "hidroksizin": { "qt": "known", "source": "EMA 2015 PRAC kısıtlaması — QT uzaması" },
+    "ketiapin": { "qt": "possible", "source": "FDA etiketi (Seroquel)" },
+    "risperidon": { "qt": "possible", "source": "FDA etiketi (Risperdal)" },
+    "klorpromazin": { "qt": "known", "source": "FDA etiketi (Thorazine)" },
+    "amitriptilin": { "qt": "possible", "source": "FDA etiketi — TCA doz aşımında QT" },
+    "klomipramin": { "qt": "possible", "source": "FDA etiketi (Anafranil)" },
+    "tamoksifen": { "qt": "possible", "source": "EMA etiketi (Nolvadex)" },
+    "donepezil": { "qt": "possible", "source": "FDA etiketi (Aricept) — pazarlama sonrası QT/TdP" },
+    "propafenon": { "qt": "possible", "source": "FDA etiketi (Rythmol)" },
+    "flekainid": { "qt": "possible", "source": "FDA etiketi (Tambocor)" }
+  }
+}

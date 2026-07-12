@@ -1,10 +1,28 @@
-import { Loader2 } from 'lucide-react';
+import { Loader2, Share2 } from 'lucide-react';
+import { buildShareUrl } from '../data/basketStore.js';
 
 // 3A: seçili ilaçlar odak kart dilinde — açık mavi hap çipleri (mavi nokta + ×)
 // ve tam genişlik "Etkileşimleri Kontrol Et" düğmesi.
 // `embedded`: hero'daki odak kartın İÇİNDE düz blok olarak render edilir
 // (kart içinde kart görünümü oluşmaz); aksi halde kendi kartını çizer.
-export default function SelectedDrugs({ drugs, onRemove, onSelect, activeDrugId, onAnalyze, analysisLoading, onClearAll, embedded = false }) {
+export default function SelectedDrugs({ drugs, onRemove, onSelect, activeDrugId, onAnalyze, analysisLoading, onClearAll, onToast, embedded = false }) {
+  const handleShare = async () => {
+    const url = buildShareUrl(drugs);
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'İlaç listem — ilaç360', url });
+        return;
+      }
+      await navigator.clipboard.writeText(url);
+      onToast?.('Bağlantı kopyalandı. Not: bağlantı listenizdeki ilaç kimliklerini içerir; kiminle paylaştığınıza dikkat edin.', 'info');
+    } catch (err) {
+      // Kullanıcının paylaşım penceresini iptal etmesi hata değildir.
+      if (err?.name !== 'AbortError') {
+        onToast?.('Bağlantı kopyalanamadı. Adres çubuğundan elle kopyalayabilirsiniz.', 'warning');
+      }
+    }
+  };
+
   return (
     <div
       className={
@@ -18,14 +36,26 @@ export default function SelectedDrugs({ drugs, onRemove, onSelect, activeDrugId,
           Seçili İlaçlar
           <span className="font-mono text-[11px] text-text-muted ml-2">{drugs.length}/10</span>
         </h2>
-        {drugs.length >= 2 && (
-          <button
-            onClick={onClearAll}
-            className="text-[13px] text-text-muted hover:text-risk-high transition-colors cursor-pointer"
-          >
-            Tümünü temizle
-          </button>
-        )}
+        <div className="flex items-center gap-3">
+          {drugs.length >= 1 && (
+            <button
+              onClick={handleShare}
+              title="Listeyi bağlantı olarak paylaş"
+              className="flex items-center gap-1.5 text-[13px] font-medium text-accent hover:text-accent-deep transition-colors cursor-pointer"
+            >
+              <Share2 className="w-3.5 h-3.5" />
+              Paylaş
+            </button>
+          )}
+          {drugs.length >= 2 && (
+            <button
+              onClick={onClearAll}
+              className="text-[13px] text-text-muted hover:text-risk-high transition-colors cursor-pointer"
+            >
+              Tümünü temizle
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-[9px]">

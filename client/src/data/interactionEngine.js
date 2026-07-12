@@ -22,7 +22,19 @@ let componentAtcMap = {};
 // Yalnızca ortak-etken-madde (doz aşımı) kontrolünden hariç tutulan yardımcı
 // bileşenler (kafein, lidokain...). Kural eşleştirmesini etkilemez.
 let adjuvantSet = new Set();
+// Bileşen → {classes:[...], qt:'known'|'possible'} — SNRI/serotonerjik sınıf
+// etiketleri ve additive-QT modeli için (data/component-classes.json).
+let componentClassMap = new Map();
 let loadPromise = null;
+
+function buildComponentClassMap(raw) {
+  const map = new Map();
+  for (const [name, meta] of Object.entries(raw?.components || {})) {
+    const normalized = normalizeRuleIngredient(name, synonymLookup);
+    if (normalized) map.set(normalized, meta);
+  }
+  return map;
+}
 
 function buildAdjuvantSet(raw) {
   const set = new Set();
@@ -68,10 +80,15 @@ export function loadInteractions() {
       .then((url) => fetch(url))
       .then((r) => (r.ok ? r.json() : {}))
       .catch(() => ({})),
-  ]).then(([rules, synonyms, compAtc, adjuvants]) => {
+    dataUrl('component-classes.json')
+      .then((url) => fetch(url))
+      .then((r) => (r.ok ? r.json() : {}))
+      .catch(() => ({})),
+  ]).then(([rules, synonyms, compAtc, adjuvants, compClasses]) => {
     synonymLookup = buildSynonymLookup(synonyms);
     componentAtcMap = compAtc || {};
     adjuvantSet = buildAdjuvantSet(adjuvants);
+    componentClassMap = buildComponentClassMap(compClasses);
     knownInteractions = rules;
     compiledRules = compileRules(rules);
     return knownInteractions;
@@ -83,11 +100,17 @@ export function loadInteractions() {
   return loadPromise;
 }
 
+// Eşdeğer ilaç hesaplaması motorla aynı sinonim tablosunu kullanır.
+export function getSynonymLookup() {
+  return synonymLookup;
+}
+
 // Test kancası: fetch olmadan kural/sinonim enjekte etmek için.
-export function setInteractionsForTest(rules, synonyms = {}, compAtc = {}, adjuvants = {}) {
+export function setInteractionsForTest(rules, synonyms = {}, compAtc = {}, adjuvants = {}, compClasses = {}) {
   synonymLookup = buildSynonymLookup(synonyms);
   componentAtcMap = compAtc || {};
   adjuvantSet = buildAdjuvantSet(adjuvants);
+  componentClassMap = buildComponentClassMap(compClasses);
   knownInteractions = rules;
   compiledRules = compileRules(rules);
   loadPromise = Promise.resolve(knownInteractions);
@@ -146,6 +169,17 @@ export function analyzeInteractions(drugRefs) {
       if (!compAtc) continue;
       for (const cat of getAllCategories(compAtc)) componentCats.add(cat);
     }
+    // component-classes.json etiketleri: SNRI gibi ATC'den türetilemeyen
+    // sınıflar + QT uzatma durumu ('known' > 'possible').
+    let qtLevel = null;
+    for (const comp of components) {
+      const meta = componentClassMap.get(comp);
+      if (!meta) continue;
+      for (const cls of meta.classes || []) componentCats.add(cls);
+      if (meta.qt === 'known') qtLevel = 'known';
+      else if (meta.qt === 'possible' && qtLevel !== 'known') qtLevel = 'possible';
+    }
+
     const activeCats = new Set(ownCats);
     if (!lowSystemic) {
       for (const cat of componentCats) activeCats.add(cat);
@@ -157,6 +191,8 @@ export function analyzeInteractions(drugRefs) {
       drug,
       form,
       lowSystemic,
+      // Topikal/oftalmik formda QT katkısı sayılmaz
+      qtLevel: lowSystemic ? null : qtLevel,
       components: new Set(components),
       atcCode: drug?.ATC_code || null,
       categories: [...activeCats],
@@ -165,6 +201,10 @@ export function analyzeInteractions(drugRefs) {
       atcGroup: drug ? getAtcGroup(drug.ATC_code) : null,
     };
   });
+
+  // Additive-QT modeli: analizdeki QT uzatan ajan sayısı — ≥3 ajanda çift
+  // bazlı uyarılar bir seviye yükselir (toplam yük artar).
+  const qtAgentCount = drugData.filter((d) => d.qtLevel).length;
 
   for (let i = 0; i < drugData.length; i++) {
     for (let j = i + 1; j < drugData.length; j++) {
@@ -225,6 +265,10 @@ export function analyzeInteractions(drugRefs) {
             risk: knownRule.risk || 'high',
             message: knownRule.message,
             details: knownRule.details || null,
+            action: knownRule.action || null,
+            ruleId: knownRule.id || null,
+            evidence: knownRule.evidence || null,
+            source: knownRule.source || null,
           });
           continue;
         }
@@ -242,6 +286,25 @@ export function analyzeInteractions(drugRefs) {
           });
           continue;
         }
+      }
+
+      // Additive-QT: her iki ilaç da QT uzatan ajan içeriyorsa (ve daha
+      // spesifik bir kural yukarıda eşleşmediyse) toplam yük uyarısı üret.
+      // Kaynaklar component-classes.json'da FDA/EMA etiketleriyle kayıtlıdır.
+      if (a.qtLevel && b.qtLevel) {
+        const bothKnown = a.qtLevel === 'known' && b.qtLevel === 'known';
+        let risk = bothKnown ? 'high' : 'medium';
+        if (qtAgentCount >= 3) risk = risk === 'high' ? 'critical' : 'high';
+        results.push({
+          drug1: a.name,
+          drug2: b.name,
+          risk,
+          message: qtAgentCount >= 3
+            ? `Listenizde QT aralığını uzatabilen ${qtAgentCount} ilaç var. Birlikte kullanım ciddi kalp ritim bozukluğu (Torsades de Pointes) riskini artırır.`
+            : 'Her iki ilaç da QT aralığını uzatabilir. Birlikte kullanım kalp ritim bozukluğu riskini artırabilir; EKG takibi gerekebilir.',
+          details: `${a.drug.Active_Ingredient?.trim() || '—'} (QT: ${a.qtLevel === 'known' ? 'bilinen' : 'olası'}) ↔ ${b.drug.Active_Ingredient?.trim() || '—'} (QT: ${b.qtLevel === 'known' ? 'bilinen' : 'olası'})`,
+        });
+        continue;
       }
 
       // Sınıf kuralı yalnız topikal tarafın BASTIRILMIŞ bileşen sınıfları

@@ -67,6 +67,45 @@ export async function getDrugDetail(id) {
   };
 }
 
+// Eşdeğer ilaçlar (aynı kanonik bileşen kümesi + aynı 7 haneli ATC).
+export async function getEquivalents(id, opts) {
+  await Promise.all([loadDrugs(), loadInteractions()]);
+  const { getEquivalentDrugs } = await import('./equivalents.js');
+  return getEquivalentDrugs(id, opts).map((drug) => ({
+    id: drug.ID,
+    name: drug.Product_Name,
+    activeIngredient: isValidIngredient(drug.Active_Ingredient) ? drug.Active_Ingredient.trim() : null,
+    atcCode: drug.ATC_code && drug.ATC_code !== '0' ? drug.ATC_code.trim() : null,
+    barcode: drug.barcode || null,
+    categories: cleanCategories(drug),
+    hasDescription: !!drug._hasDescription,
+  }));
+}
+
+// Kayıtlı/paylaşılan sepetin id'lerini güncel veriye çözer.
+export async function getDrugsByIds(ids) {
+  await loadDrugs();
+  const drugs = [];
+  const invalidIds = [];
+  for (const id of ids) {
+    const drug = getDrugByIdLocal(id);
+    if (drug) {
+      drugs.push({
+        id: drug.ID,
+        name: drug.Product_Name,
+        activeIngredient: isValidIngredient(drug.Active_Ingredient) ? drug.Active_Ingredient.trim() : null,
+        atcCode: drug.ATC_code && drug.ATC_code !== '0' ? drug.ATC_code.trim() : null,
+        barcode: drug.barcode || null,
+        categories: cleanCategories(drug),
+        hasDescription: !!drug._hasDescription,
+      });
+    } else {
+      invalidIds.push(id);
+    }
+  }
+  return { drugs, invalidIds };
+}
+
 export async function getStats() {
   await Promise.all([loadDrugs(), loadInteractions()]);
   const stats = await getStatsLocal();

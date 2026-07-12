@@ -1,5 +1,12 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { bootData, getStats, analyzeInteractions as analyzeInteractionsApi } from './data/api';
+import { bootData, getStats, getDrugsByIds, analyzeInteractions as analyzeInteractionsApi } from './data/api';
+import {
+  saveBasket,
+  loadBasketIds,
+  parseSharedIds,
+  parseSharedDrugId,
+  clearShareParams,
+} from './data/basketStore.js';
 import DisclaimerGate from './components/DisclaimerGate';
 import { hasAcknowledgedDisclaimer } from './data/disclaimer.js';
 import { reportError } from './data/telemetry.js';
@@ -34,6 +41,7 @@ export default function App() {
   const toastIdRef = useRef(0);
   const analysisRef = useRef(null);
   const drugCardRef = useRef(null);
+  const restoredRef = useRef(false);
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('darkMode');
@@ -53,12 +61,53 @@ export default function App() {
     // bootData üç veri setini birden ısıtır; istatistikler ilaç+kural verisinden gelir.
     bootData()
       .then(() => getStats())
-      .then(setStats)
+      .then((s) => {
+        setStats(s);
+        restoreBasket();
+      })
       .catch((err) => {
         reportError(err, 'bootData');
         setDataError(true);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Sepeti geri yükle: paylaşım URL'si (?d=) localStorage'a göre önceliklidir.
+  // ?drug= tek ilaç detay deep-link'idir (SEO sayfalarından gelir).
+  const restoreBasket = useCallback(async () => {
+    if (restoredRef.current) return;
+    restoredRef.current = true;
+    try {
+      const sharedIds = parseSharedIds(location.search);
+      const singleDrugId = parseSharedDrugId(location.search);
+      const ids = sharedIds.length > 0 ? sharedIds : loadBasketIds();
+      if (ids.length > 0) {
+        const { drugs, invalidIds } = await getDrugsByIds(ids);
+        if (drugs.length > 0) {
+          setSelectedDrugs(drugs.slice(0, MAX_DRUGS));
+          if (sharedIds.length > 0) {
+            showToast(`Paylaşılan liste yüklendi — ${drugs.length} ilaç.`, 'info');
+          }
+        }
+        if (invalidIds.length > 0) {
+          showToast(`${invalidIds.length} ilaç artık veritabanında bulunamadı.`, 'warning');
+        }
+      }
+      if (singleDrugId) {
+        const { drugs } = await getDrugsByIds([singleDrugId]);
+        if (drugs[0]) setActiveDrug(drugs[0]);
+      }
+      if (sharedIds.length > 0 || singleDrugId) clearShareParams();
+    } catch (err) {
+      reportError(err, 'restoreBasket');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Sepet her değiştiğinde cihaza kaydedilir (yenilemede kaybolmaz).
+  useEffect(() => {
+    if (restoredRef.current) saveBasket(selectedDrugs);
+  }, [selectedDrugs]);
 
   useEffect(() => {
     loadInitialData();
@@ -173,7 +222,7 @@ export default function App() {
             <>
               {activeDrug && (
                 <div ref={drugCardRef}>
-                  <DrugCard key={activeDrug.id} drug={activeDrug} onClose={() => setActiveDrug(null)} />
+                  <DrugCard key={activeDrug.id} drug={activeDrug} onClose={() => setActiveDrug(null)} onSelectDrug={setActiveDrug} />
                 </div>
               )}
 
@@ -222,6 +271,7 @@ export default function App() {
         onAnalyze={analyzeInteractions}
         analysisLoading={analysisLoading}
         onClearAll={clearAllDrugs}
+        onToast={showToast}
         embedded={searchMode === 'drug'}
       />
     );

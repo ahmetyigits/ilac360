@@ -77,6 +77,12 @@ export const ATC_CATEGORY_MAP = [
   { prefix: 'A04AA', category: 'SETRON' },
   { prefix: 'M05BA', category: 'BISPHOSPHONATE' },
   { prefix: 'A03FA', category: 'PROKINETIC' },
+  // N05AN (lityum) N05A prefiksine de uyar ama antipsikotik DEĞİLDİR;
+  // getAllCategories LITHIUM görünce ANTIPSYCHOTIC'i eler.
+  { prefix: 'N05AN', category: 'LITHIUM' },
+  { prefix: 'L01BA01', category: 'METHOTREXATE' },
+  { prefix: 'L04AX03', category: 'METHOTREXATE' },
+  { prefix: 'V08A', category: 'IODINATED_CONTRAST' },
 ];
 
 export function getCategory(atcCode) {
@@ -92,6 +98,11 @@ export function getAllCategories(atcCode) {
   const cats = [];
   for (const entry of ATC_CATEGORY_MAP) {
     if (atcCode.startsWith(entry.prefix)) cats.push(entry.category);
+  }
+  // Lityum antipsikotik değildir: ANTIPSYCHOTIC kuralları (antipsikotik ×
+  // antipsikotik gibi) lityuma uygulanmamalı.
+  if (cats.includes('LITHIUM')) {
+    return cats.filter((c) => c !== 'ANTIPSYCHOTIC');
   }
   return cats;
 }
@@ -261,6 +272,29 @@ export const CATEGORY_INTERACTIONS = [
   { catA: 'SALICYLATE', catB: 'ANTIPLATELET', risk: 'medium', message: 'Aspirin ve antiplatelet birlikte kanama riskini artırır; bazı durumlarda bilinçli ikili tedavi olabilir.' },
   { catA: 'SALICYLATE', catB: 'SSRI', risk: 'medium', message: 'SSRI ve aspirin birlikte GI kanama riskini artırır.' },
   { catA: 'SALICYLATE', catB: 'CORTICOSTEROID', risk: 'high', message: 'Aspirin ve kortikosteroid birlikte GI kanama ve ülser riskini artırır.' },
+  // --- Lityum (dar terapötik pencere; atılımı böbrekten) ---
+  { catA: 'LITHIUM', catB: 'NSAID', risk: 'high', message: 'NSAID ilaçlar lityumun böbrekten atılımını azaltarak toksik düzeye çıkarabilir.' },
+  { catA: 'LITHIUM', catB: 'SALICYLATE', risk: 'medium', message: 'Yüksek doz salisilatlar lityum düzeylerini etkileyebilir.' },
+  { catA: 'LITHIUM', catB: 'THIAZIDE_DIURETIC', risk: 'high', message: 'Tiazid diüretikler lityum atılımını azaltarak toksisiteye yol açabilir. Düzey takibi şarttır.' },
+  { catA: 'LITHIUM', catB: 'LOOP_DIURETIC', risk: 'medium', message: 'Kıvrım diüretikleri lityum düzeylerini etkileyebilir; izlem önerilir.' },
+  { catA: 'LITHIUM', catB: 'ACE_INHIBITOR', risk: 'high', message: 'ACE inhibitörleri lityum düzeylerini artırarak toksisiteye neden olabilir.' },
+  { catA: 'LITHIUM', catB: 'ACE_INHIBITOR_COMBO', risk: 'high', message: 'ACE inhibitörleri lityum düzeylerini artırarak toksisiteye neden olabilir.' },
+  { catA: 'LITHIUM', catB: 'ARB', risk: 'high', message: 'ARB ilaçlar lityum düzeylerini artırabilir. Düzey takibi gereklidir.' },
+  { catA: 'LITHIUM', catB: 'ARB_COMBO', risk: 'high', message: 'ARB ilaçlar lityum düzeylerini artırabilir. Düzey takibi gereklidir.' },
+  { catA: 'LITHIUM', catB: 'SSRI', risk: 'medium', message: 'Lityum ve SSRI birlikte serotonerjik etkileri artırabilir; nörolojik belirtiler izlenmelidir.' },
+  // --- Metotreksat ---
+  { catA: 'METHOTREXATE', catB: 'NSAID', risk: 'high', message: 'NSAID ilaçlar metotreksat atılımını azaltarak kemik iliği ve böbrek toksisitesini artırır.' },
+  { catA: 'METHOTREXATE', catB: 'SALICYLATE', risk: 'high', message: 'Salisilatlar metotreksat atılımını azaltarak toksisiteyi artırır.' },
+  { catA: 'METHOTREXATE', catB: 'TMP_SULFA', risk: 'critical', message: 'Kotrimoksazol/trimetoprim metotreksat toksisitesini ciddi artırır; pansitopeni riski. Bu kombinasyondan kaçının.' },
+  { catA: 'METHOTREXATE', catB: 'PPI', risk: 'medium', message: 'PPI ilaçlar (özellikle yüksek doz metotreksatta) atılımı azaltabilir.' },
+  // --- İyotlu kontrast madde ---
+  { catA: 'IODINATED_CONTRAST', catB: 'BIGUANIDE', risk: 'high', message: 'İyotlu kontrast madde sonrası metformine ara verilmesi gerekebilir; laktik asidoz riski. Görüntüleme öncesi doktorunuzu bilgilendirin.' },
+  // --- Serotonerjik antidepresan kombinasyonları ---
+  { catA: 'SSRI', catB: 'SNRI', risk: 'high', message: 'İki serotonerjik antidepresan (SSRI + SNRI) birlikte serotonin sendromu riskini artırır.' },
+  { catA: 'SNRI', catB: 'MAOI', risk: 'critical', message: 'SNRI ve MAO inhibitörü birlikte kullanımı kontrendikedir; serotonin sendromu riski.' },
+  { catA: 'SNRI', catB: 'MAOI_A', risk: 'critical', message: 'SNRI ve MAO-A inhibitörü birlikte serotonin sendromu riski taşır.' },
+  { catA: 'SNRI', catB: 'TRIPTAN', risk: 'high', message: 'SNRI ve triptan birlikte serotonin sendromu riskini artırır.' },
+  { catA: 'SNRI', catB: 'LINEZOLID', risk: 'high', message: 'Linezolid ve SNRI birlikte serotonin sendromu riskini artırır.' },
 ];
 
 export function checkCategoryInteraction(cats1, cats2) {

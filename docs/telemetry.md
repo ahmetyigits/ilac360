@@ -52,6 +52,33 @@ VITE_ANALYTICS_ENDPOINT=https://telemetry.<hesabınız>.workers.dev/
 
 4. `npm run build` — hepsi bu. Endpoint'ler tanımlı olmadan yapılan build'lerde telemetri kodu devre dışıdır.
 
+## Okuma tarafı: mini operatör panosu
+
+Aynı worker'a bir `GET` dalı ekleyin — gizli token ile günlük ziyaret sayaçları
+ve son hataları tek HTML tabloda gösterir (SPA'ya dokunmadan):
+
+```js
+// fetch() içinde, POST kontrolünden ÖNCE:
+if (request.method === 'GET') {
+  const url = new URL(request.url);
+  if (url.searchParams.get('token') !== env.DASH_TOKEN) return new Response('yok', { status: 404 });
+  const pv = await env.TELEMETRY.list({ prefix: 'pv:' });
+  const errs = await env.TELEMETRY.list({ prefix: 'err:', limit: 50 });
+  let html = '<meta charset="utf-8"><h2>Günlük ziyaret</h2><table border=1 cellpadding=6>';
+  for (const k of pv.keys.sort((a, b) => b.name.localeCompare(a.name)).slice(0, 30)) {
+    html += `<tr><td>${k.name.slice(3)}</td><td>${await env.TELEMETRY.get(k.name)}</td></tr>`;
+  }
+  html += '</table><h2>Son hatalar</h2><pre>';
+  for (const k of errs.keys.slice(-20)) {
+    html += (await env.TELEMETRY.get(k.name)) + '\n\n';
+  }
+  return new Response(html + '</pre>', { headers: { 'Content-Type': 'text/html;charset=utf-8' } });
+}
+```
+
+Worker ayarlarında `DASH_TOKEN` adında gizli bir değişken tanımlayın; panoya
+`https://telemetry.<hesap>.workers.dev/?token=<gizli>` ile erişin.
+
 ## Alternatifler
 
 - **Sentry**: daha zengin hata izleme isterseniz `@sentry/react` ekleyip `main.jsx`'te init edin (DSN'i env'den okuyun). Paket boyutu ~25 KB gzip artar.
