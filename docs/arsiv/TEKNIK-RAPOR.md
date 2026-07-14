@@ -1,3 +1,5 @@
+> **Arşiv** — Bu belge Mayıs 2026 durumunu yansıtır ve güncel değildir; güncel bilgi için kök README ve docs/ altına bakın.
+
 # ilac360 — Teknik Rapor
 
 **Proje:** ilac360 — Türkiye İlaç Etkileşim Kontrol Sistemi

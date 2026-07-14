@@ -1,1 +1,4 @@
+# Satır sonu normalizasyonu — çok-OS ortamda CRLF/LF karışmasını önler
+* text=auto eol=lf
+
 data/ilaclar-dataset.json filter=lfs diff=lfs merge=lfs -text

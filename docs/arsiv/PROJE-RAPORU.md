@@ -1,3 +1,5 @@
+> **Arşiv** — Bu belge Mayıs 2026 durumunu yansıtır ve güncel değildir; güncel bilgi için kök README ve docs/ altına bakın.
+
 # Proje Analiz ve Tasarım Raporu
 ## ilac360 — Türkiye için İlaç Etkileşim Kontrol Sistemi
 
