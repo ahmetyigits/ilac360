@@ -17,7 +17,7 @@ The app runs entirely in the browser. No backend, no accounts, no tracking. The 
 - Search across ~20,000 drug products in the Turkish market (by brand name, active ingredient, or barcode)
 - Condition-based search with 80+ mapped indications and prospectus fallback
 - Interaction analysis with clear risk levels (critical, high, medium, low, unknown, info) and a severity legend
-- Rule engine: 219 sourced ingredient-pair rules + 130+ ATC-class rules, matched on salt-stripped ingredient components with a synonym table (no substring false positives)
+- Rule engine: ~220 sourced ingredient-pair rules + 170+ ATC-class rules, matched on salt-stripped ingredient components with a synonym table (no substring false positives); exact counts live in `data/manifest.json` after a build
 - Printable interaction report
 - Installable PWA with offline caching of previously viewed data
 - Optional cookie-free error reporting and analytics (off by default — see [docs/telemetry.md](docs/telemetry.md))
@@ -40,7 +40,7 @@ Source data lives in `data/`:
 | File                       | Content                                                            |
 |----------------------------|--------------------------------------------------------------------|
 | `ilaclar-dataset.json`     | ~20.000 drug records from the Turkish drug database (Git LFS)      |
-| `interactions.json`        | 219 curated ingredient-pair rules, each with a `source` field      |
+| `interactions.json`        | Curated ingredient-pair rules (~220), each with a `source` field   |
 | `ingredient-synonyms.json` | Canonical ingredient names ↔ real-world dataset spellings          |
 | `condition-mapping.json`   | Condition → drug-class mapping for indication search               |
 
@@ -52,13 +52,13 @@ Source data lives in `data/`:
 - `condition-desc-matches.<hash>.json` — precomputed condition ↔ leaflet matches
 - `interactions.<hash>.json`, `condition-mapping.<hash>.json`, `ingredient-synonyms.<hash>.json`
 
-The build also backfills missing ATC codes by mapping each drug's active ingredient to the most common ATC seen elsewhere in the dataset. `npm run rules-coverage` reports which rule ingredients actually match dataset components (currently 98.6%).
+The build also backfills missing ATC codes by mapping each drug's active ingredient to the most common ATC seen elsewhere in the dataset. `npm run rules-coverage` reports which rule ingredients actually match dataset components (CI enforces ≥95%).
 
 ---
 
 ## Local Development
 
-Requires Node.js 20+ and [Git LFS](https://git-lfs.com) (the 55 MB source dataset `data/ilaclar-dataset.json` is stored in LFS — run `git lfs install` before cloning/pulling).
+Requires Node.js 22 (`.nvmrc`) and [Git LFS](https://git-lfs.com) (the 55 MB source dataset `data/ilaclar-dataset.json` is stored in LFS — run `git lfs install` before cloning/pulling).
 
 ```bash
 npm run setup                  # npm ci in client/
@@ -113,4 +113,11 @@ This tool is for informational purposes only. It is not medical advice and not a
 
 ## License
 
-[MIT](LICENSE) © 2026 Ahmet Yiğit
+Code: [MIT](LICENSE) © 2026 Ahmet Yiğit
+
+**The MIT license covers the code only, not the bundled data.**
+`data/ilaclar-dataset.json` is derived from TİTCK (Turkish Medicines and
+Medical Devices Agency) public product data and is subject to TİTCK's own
+terms — verify them before redistributing or using the data commercially.
+See [data/LICENSE-DATA.md](data/LICENSE-DATA.md) for details, including the
+sourcing policy for interaction rules (no CC-BY-NC sources).

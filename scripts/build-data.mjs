@@ -262,6 +262,8 @@ emit('component-classes.json', componentClasses);
 const manifest = {
   version: 1,
   generatedAt: new Date().toISOString(),
+  // İnsan-okur veri sürümü: git tag (data-YYYY-MM) ve runbook ile hizalı
+  dataVersion: new Date().toISOString().slice(0, 7),
   bucketCount: BUCKET_COUNT,
   drugCount: index.length,
   descriptionCount,

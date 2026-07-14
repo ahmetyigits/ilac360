@@ -9,9 +9,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # LFS bant genişliği koruması: 55 MB dataset her koşuda GitHub LFS'ten
+      # İNDİRİLMEZ (aylık 1 GB kota ~18 koşuda biterdi). Obje önce cache'ten
+      # gelir; yalnız dataset değiştiğinde (OID değişince) LFS'e gidilir.
       - uses: actions/checkout@v4
         with:
-          lfs: true
+          lfs: false
+
+      - name: LFS dosya kimliklerini çıkar
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: LFS cache
+        uses: actions/cache@v4
+        with:
+          path: .git/lfs
+          key: lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: LFS pull (cache miss'te indirir, hit'te checkout eder)
+        run: git lfs pull
 
       - uses: actions/setup-node@v4
         with:
@@ -21,6 +36,11 @@ jobs:
 
       - name: Install dependencies
         run: npm ci --prefix client
+
+      # Bilgi amaçlı güvenlik denetimi — kapı değil (continue-on-error).
+      - name: npm audit (bilgilendirme)
+        run: npm audit --prefix client --omit=dev --audit-level=high
+        continue-on-error: true
 
       - name: Lint
         run: npm --prefix client run lint
