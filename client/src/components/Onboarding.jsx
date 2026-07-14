@@ -10,7 +10,7 @@ const steps = [
   {
     icon: Stethoscope,
     title: 'Hastalığa Göre Bulun',
-    desc: '"Hastalığa Göre Ara" sekmesinde "baş ağrısı", "mide ülseri", "vertigo" gibi şikayetinizi yazarak o duruma uygun ilaçları görün.',
+    desc: '"Hastalığa Göre" sekmesinde "baş ağrısı", "mide ülseri", "vertigo" gibi şikayetinizi yazarak o duruma uygun ilaçları görün.',
   },
   {
     icon: Barcode,
@@ -20,7 +20,7 @@ const steps = [
   {
     icon: FlaskConical,
     title: 'Etkileşim Analizi',
-    desc: 'En az 2 ilaç seçtikten sonra "Analiz Et" butonuna tıklayın. Etkin madde çakışması, ATC grup eşleşmesi ve bilinen kuralları tarar.',
+    desc: 'En az 2 ilaç seçtikten sonra "Etkileşimleri Kontrol Et" butonuna tıklayın. Etkin madde çakışması, ATC grup eşleşmesi ve bilinen kuralları tarar.',
   },
 ];
 

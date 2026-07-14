@@ -119,7 +119,7 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
     }
     win.document.write(`
       <html><head><title>Etkileşim Raporu</title>
-      <style>body{font-family:Inter,sans-serif;padding:24px;color:#0F172A}
+      <style>body{font-family:'Hanken Grotesk',system-ui,sans-serif;padding:24px;color:#0F172A}
       h1{font-size:18px;margin-bottom:4px}
       .sub{color:#64748B;font-size:12px;margin-bottom:16px}
       .card{border:1px solid #E2E8F0;border-radius:8px;padding:12px;margin-bottom:8px}

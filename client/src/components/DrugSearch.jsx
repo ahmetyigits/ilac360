@@ -141,7 +141,9 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
         {loading ? (
           <Loader2 className="w-4 h-4 text-text-muted animate-spin flex-none" />
         ) : (
-          <span className="hidden sm:inline font-mono text-[11px] text-text-muted flex-none">⌘K</span>
+          <span className="hidden sm:inline font-mono text-[11px] text-text-muted flex-none">
+            {/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent || '') ? '⌘K' : 'Ctrl K'}
+          </span>
         )}
       </div>
       {/* Ekran okuyucular için sonuç sayısı duyurusu */}

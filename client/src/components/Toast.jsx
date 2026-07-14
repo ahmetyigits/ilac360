@@ -12,12 +12,17 @@ export default function Toast({ message, type = 'info', onClose }) {
   const Icon = config.icon;
 
   return (
-    <div className={`max-w-sm rounded-xl border px-4 py-3 shadow-lg animate-toast-in ${config.bg}`}>
+    // Hata/uyarı ekran okuyucuya anında (alert), bilgi türleri nazikçe duyurulur.
+    <div
+      role={type === 'error' || type === 'warning' ? 'alert' : 'status'}
+      className={`max-w-sm rounded-xl border px-4 py-3 shadow-lg animate-toast-in ${config.bg}`}
+    >
       <div className="flex items-start gap-2.5">
         <Icon className={`w-4 h-4 shrink-0 mt-0.5 ${config.iconColor}`} />
         <p className={`text-[13px] leading-relaxed flex-1 ${config.text}`}>{message}</p>
         <button
           onClick={onClose}
+          aria-label="Bildirimi kapat"
           className="shrink-0 p-0.5 rounded hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
         >
           <X className={`w-3.5 h-3.5 ${config.text}`} />

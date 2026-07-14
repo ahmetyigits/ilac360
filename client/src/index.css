@@ -28,7 +28,8 @@
   --color-accent-soft: #E7EEF8;
   --color-text-primary: #14202E;
   --color-text-secondary: #566072;
-  --color-text-muted: #8792A2;
+  /* 10-13px etiketlerde her yerde kullanılıyor: açık zeminde ≥4.5:1 (AA) şart */
+  --color-text-muted: #5F6B7C;
   --color-risk-critical: #991B1B;
   --color-risk-high: #C2410C;
   --color-risk-medium: #B5761E;
@@ -39,6 +40,13 @@
 }
 
 * { box-sizing: border-box; }
+
+/* Klavye erişilebilirliği: tüm etkileşimli öğelerde görünür odak halkası.
+   Yalnız :focus-visible — fare tıklamasında halka çıkmaz. */
+:where(button, [role="button"], a, input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
 
 body {
   margin: 0;
@@ -61,7 +69,7 @@ body {
   --color-accent-soft: #1A2A40;
   --color-text-primary: #E9EEF5;
   --color-text-secondary: #97A5B8;
-  --color-text-muted: #64748B;
+  --color-text-muted: #7C8BA1;
   --color-border: #223349;
   --color-border-light: #16233A;
   --color-risk-critical: #FCA5A5;

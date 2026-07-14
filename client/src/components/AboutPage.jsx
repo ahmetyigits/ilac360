@@ -11,9 +11,10 @@ export default function AboutPage({ stats }) {
 
   return (
     <div className="max-w-3xl mx-auto space-y-5">
-      <div className="bg-card rounded-xl border border-border overflow-hidden">
-        <div className="px-6 py-4 border-b border-border">
-          <h2 className="text-base font-semibold text-text-primary flex items-center gap-2.5">
+      {/* 3A kart dili: rounded-[20px] + derin yumuşak gölge + display başlık */}
+      <div className="bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] overflow-hidden">
+        <div className="px-6 py-4 border-b border-border-light">
+          <h2 className="font-display font-bold text-[19px] text-text-primary flex items-center gap-2.5">
             <Info className="w-4 h-4 text-accent" />
             Hakkında
           </h2>
@@ -32,7 +33,7 @@ export default function AboutPage({ stats }) {
           </p>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-3">
+            <h3 className="font-mono text-[11px] uppercase tracking-[.15em] text-accent mb-3">
               Veri Seti
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -48,7 +49,7 @@ export default function AboutPage({ stats }) {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-3">
+            <h3 className="font-mono text-[11px] uppercase tracking-[.15em] text-accent mb-3">
               Nasıl Çalışır
             </h3>
             <ul className="space-y-2.5 text-sm text-text-secondary leading-relaxed">
@@ -78,7 +79,7 @@ export default function AboutPage({ stats }) {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-3">
+            <h3 className="font-mono text-[11px] uppercase tracking-[.15em] text-accent mb-3">
               Sınırlamalar
             </h3>
             <ul className="space-y-2 text-[13px] text-text-secondary leading-relaxed list-disc pl-5">
@@ -142,9 +143,9 @@ export default function AboutPage({ stats }) {
 
 function Stat({ label, value }) {
   return (
-    <div className="rounded-lg border border-border bg-bg-primary px-3 py-2.5">
-      <p className="text-base font-semibold text-text-primary">{value}</p>
-      <p className="text-[11px] text-text-muted mt-0.5">{label}</p>
+    <div className="rounded-xl border border-border bg-card-inset px-3 py-2.5">
+      <p className="font-display font-bold text-[19px] text-text-primary">{value}</p>
+      <p className="font-mono text-[10.5px] uppercase tracking-[.08em] text-text-muted mt-0.5">{label}</p>
     </div>
   );
 }
