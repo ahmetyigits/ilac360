@@ -1,15 +1,5 @@
 [
   {
-    "ingredientA": "parasetamol",
-    "ingredientB": "parasetamol",
-    "risk": "critical",
-    "message": "Aynı etkin madde! Parasetamol doz aşımı karaciğer yetmezliğine neden olabilir.",
-    "details": "Günlük toplam parasetamol dozu 4g'ı geçmemelidir.",
-    "source": "manuel kürasyon",
-    "id": "R-0001",
-    "evidence": "expert"
-  },
-  {
     "ingredientA": "warfarin",
     "ingredientB": "aspirin",
     "risk": "critical",

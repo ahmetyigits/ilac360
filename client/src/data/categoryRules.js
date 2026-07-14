@@ -87,10 +87,17 @@ export const ATC_CATEGORY_MAP = [
 
 export function getCategory(atcCode) {
   if (!atcCode || atcCode === '0') return null;
+  // En SPESİFİK (en uzun) prefiks kazanır: N05AN → LITHIUM (N05A/ANTIPSYCHOTIC
+  // değil), J01AA → TETRACYCLINE (J01/ANTIBIOTIC değil). Map sırasına güvenilmez.
+  let best = null;
+  let bestLen = 0;
   for (const entry of ATC_CATEGORY_MAP) {
-    if (atcCode.startsWith(entry.prefix)) return entry.category;
+    if (atcCode.startsWith(entry.prefix) && entry.prefix.length > bestLen) {
+      best = entry.category;
+      bestLen = entry.prefix.length;
+    }
   }
-  return null;
+  return best;
 }
 
 export function getAllCategories(atcCode) {
@@ -290,6 +297,11 @@ export const CATEGORY_INTERACTIONS = [
   // --- İyotlu kontrast madde ---
   { catA: 'IODINATED_CONTRAST', catB: 'BIGUANIDE', risk: 'high', message: 'İyotlu kontrast madde sonrası metformine ara verilmesi gerekebilir; laktik asidoz riski. Görüntüleme öncesi doktorunuzu bilgilendirin.' },
   // --- Serotonerjik antidepresan kombinasyonları ---
+  // Aynı sınıftan iki antidepresan: additif serotonin sendromu riski; motorda
+  // "aynı ATC grubu" info dalına düşmeden önce bu kurallar yakalar.
+  { catA: 'SSRI', catB: 'SSRI', risk: 'high', message: 'İki farklı SSRI birlikte kullanımı serotonin sendromu riskini artırır; genellikle birlikte kullanılmaz, mutlaka doktorunuza danışın.' },
+  { catA: 'SNRI', catB: 'SNRI', risk: 'high', message: 'İki farklı SNRI birlikte kullanımı serotonin sendromu riskini artırır; genellikle birlikte kullanılmaz, mutlaka doktorunuza danışın.' },
+  { catA: 'TCA', catB: 'TCA', risk: 'high', message: 'İki trisiklik antidepresan birlikte kullanımı yan etkileri (kardiyak, antikolinerjik) ve serotonin sendromu riskini artırır.' },
   { catA: 'SSRI', catB: 'SNRI', risk: 'high', message: 'İki serotonerjik antidepresan (SSRI + SNRI) birlikte serotonin sendromu riskini artırır.' },
   { catA: 'SNRI', catB: 'MAOI', risk: 'critical', message: 'SNRI ve MAO inhibitörü birlikte kullanımı kontrendikedir; serotonin sendromu riski.' },
   { catA: 'SNRI', catB: 'MAOI_A', risk: 'critical', message: 'SNRI ve MAO-A inhibitörü birlikte serotonin sendromu riski taşır.' },
@@ -297,15 +309,23 @@ export const CATEGORY_INTERACTIONS = [
   { catA: 'SNRI', catB: 'LINEZOLID', risk: 'high', message: 'Linezolid ve SNRI birlikte serotonin sendromu riskini artırır.' },
 ];
 
+// Çok-kategorili ürünlerde (kombinasyonlar) birden çok kural eşleşebilir;
+// İLK eşleşen değil, EN YÜKSEK riskli olan raporlanır (kolşisin × [KKB+statin]
+// kombosunda medium'un high'ı maskelemesini önler).
+const CATEGORY_RISK_ORDER = { critical: 0, high: 1, medium: 2, low: 3, unknown: 4, info: 5 };
+
 export function checkCategoryInteraction(cats1, cats2) {
+  let best = null;
   for (const cat1 of cats1) {
     for (const cat2 of cats2) {
       for (const rule of CATEGORY_INTERACTIONS) {
         if ((cat1 === rule.catA && cat2 === rule.catB) || (cat1 === rule.catB && cat2 === rule.catA)) {
-          return { ...rule, matchedCat1: cat1, matchedCat2: cat2 };
+          if (!best || CATEGORY_RISK_ORDER[rule.risk] < CATEGORY_RISK_ORDER[best.risk]) {
+            best = { ...rule, matchedCat1: cat1, matchedCat2: cat2 };
+          }
         }
       }
     }
   }
-  return null;
+  return best;
 }

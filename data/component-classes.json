@@ -33,6 +33,13 @@
     "tamoksifen": { "qt": "possible", "source": "EMA etiketi (Nolvadex)" },
     "donepezil": { "qt": "possible", "source": "FDA etiketi (Aricept) — pazarlama sonrası QT/TdP" },
     "propafenon": { "qt": "possible", "source": "FDA etiketi (Rythmol)" },
-    "flekainid": { "qt": "possible", "source": "FDA etiketi (Tambocor)" }
+    "flekainid": { "qt": "possible", "source": "FDA etiketi (Tambocor)" },
+
+    "hidroksiklorokin": { "qt": "known", "source": "FDA etiketi (Plaquenil) — QT uzaması/TdP uyarısı" },
+    "klorokin": { "qt": "known", "source": "FDA etiketi (Aralen) — QT uzaması uyarısı" },
+    "metronidazol": { "qt": "possible", "source": "FDA etiketi (Flagyl) — pazarlama sonrası QT bildirimleri" },
+    "amisülpirid": { "qt": "known", "source": "EMA etiketi (Solian) — doz bağımlı QT uzaması" },
+    "sülpirid": { "qt": "possible", "source": "EMA üye ülke etiketleri (Dogmatil) — QT uzaması" },
+    "pimozid": { "qt": "known", "source": "FDA etiketi (Orap) — TdP uyarısı, CYP3A4 inhibitörleriyle kontrendike" }
   }
 }

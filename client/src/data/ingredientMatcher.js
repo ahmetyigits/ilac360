@@ -102,7 +102,12 @@ export function getComponents(ingredient, synonymLookup) {
   const bases = new Set();
   for (const part of splitComponents(normalized)) {
     const base = stripSalt(part);
-    if (base && base.length >= 2) bases.add(canonicalize(base, synonymLookup));
+    // Harf içermeyen token'lar bileşen değildir: aşı serotip numaraları
+    // ("tip 6, 11, 16, 18") bileşen sayılırsa iki farklı aşı "ortak etkin
+    // madde" yanlış pozitifi üretir.
+    if (base && base.length >= 2 && /[a-z]/.test(base)) {
+      bases.add(canonicalize(base, synonymLookup));
+    }
   }
   return [...bases];
 }

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 import { setDrugsForTest } from '../drugStore.js';
-import { setInteractionsForTest, analyzeInteractions } from '../interactionEngine.js';
+import { setInteractionsForTest, analyzeInteractions, analyzeWithEnrichment } from '../interactionEngine.js';
 import interactions from '../../../../data/interactions.json';
 import synonyms from '../../../../data/ingredient-synonyms.json';
 import adjuvants from '../../../../data/adjuvant-components.json';
@@ -35,6 +35,12 @@ const FIXTURE_DRUGS = [
   { ID: '25', Product_Name: 'AVELOX 400 MG TABLET', Active_Ingredient: 'Moksifloksasin', ATC_code: 'J01MA14' },
   { ID: '26', Product_Name: 'CORDARONE 200 MG TABLET', Active_Ingredient: 'Amiodaron Hidroklorür', ATC_code: 'C01BD01' },
   { ID: '27', Product_Name: 'ZOFRAN 8 MG TABLET', Active_Ingredient: 'Ondansetron', ATC_code: 'A04AA01' },
+  { ID: '28', Product_Name: 'GARDAVAX ENJEKSIYON', Active_Ingredient: 'Papillomavirüs Aşısı Tip 6, 11, 16, 18', ATC_code: 'J07BM01' },
+  { ID: '29', Product_Name: 'PNOMOVAX ENJEKSIYON', Active_Ingredient: 'Pnömokok Konjuge Aşı Serotip 4, 9, 11, 16, 18', ATC_code: 'J07AL02' },
+  // Ad çakışması fikstürü: aynı görünen ad, farklı etken madde (id 30/31) —
+  // zenginleştirmenin ada değil id'ye göre çözdüğünü doğrular.
+  { ID: '30', Product_Name: 'DUPLIK TABLET', Active_Ingredient: 'Parasetamol', ATC_code: 'N02BE01' },
+  { ID: '31', Product_Name: 'DUPLIK TABLET', Active_Ingredient: 'İbuprofen', ATC_code: 'M01AE01' },
 ];
 
 // Bileşen→ATC geri doldurma haritası (gerçek build çıktısının küçük örneği):
@@ -230,5 +236,59 @@ describe('bilinmeyen çiftler ve sıralama', () => {
   it('bilinmeyen ilaç adı unknownDrugs listesine düşer', () => {
     const { unknownDrugs } = analyzeInteractions(['BÖYLE BİR İLAÇ YOK 123']);
     expect(unknownDrugs).toContain('BÖYLE BİR İLAÇ YOK 123');
+  });
+});
+
+describe('finalizasyon regresyonları', () => {
+  it('sayısal aşı serotipleri ortak bileşen sayılmaz (iki aşı → doz aşımı YOK)', () => {
+    // "11, 16, 18" serotip numaraları bileşen sanılırsa iki farklı aşı
+    // "ortak etkin madde — doz aşımı" high/critical üretirdi.
+    const [r] = analyze('GARDAVAX ENJEKSIYON', 'PNOMOVAX ENJEKSIYON');
+    expect(r.risk).not.toBe('critical');
+    expect(r.risk).not.toBe('high');
+    expect(r.risk).toBe('unknown');
+  });
+
+  it('geçersiz id ada DÜŞMEZ: ilaç unknownDrugs listesine girer', () => {
+    // Bayat ?d= linki: id yok, ad kısa. Eski substring fallback "PAROL"u
+    // ilk içeren ürüne sessizce çözüp yanlış analiz üretiyordu.
+    const { unknownDrugs } = analyzeInteractions([{ id: '99999', name: 'PAROL' }]);
+    expect(unknownDrugs).toContain('PAROL');
+  });
+
+  it('yalnız kısmi ad (substring) artık ürüne çözülmez', () => {
+    const { unknownDrugs } = analyzeInteractions(['PAROL']);
+    expect(unknownDrugs).toContain('PAROL');
+  });
+
+  it('aynı ilaç iki kez eklenirse teklenir; sahte "doz aşımı" üretmez', () => {
+    const { interactions: results } = analyzeInteractions([
+      { id: '3', name: 'PAROL 500 MG TABLET' },
+      { id: '3', name: 'PAROL 500 MG TABLET' },
+    ]);
+    expect(results).toHaveLength(0);
+  });
+
+  it('aynı QT ajanı iki kez sayılmaz (3-ajan yükseltmesi yanlış tetiklenmez)', () => {
+    const results = analyze('ZOFRAN 8 MG TABLET', 'ZOFRAN 8 MG TABLET', 'CIPRALEX 10 MG TABLET');
+    // Dedup sonrası 2 ilaç kalır → tek çift, iki-ajan QT mesajı.
+    expect(results).toHaveLength(1);
+    expect(results[0].message).not.toContain('3 ilaç');
+  });
+
+  it('iki farklı SSRI → high serotonin sendromu (info değil)', () => {
+    const [r] = analyze('CIPRALEX 10 MG TABLET', 'LUSTRAL 50 MG TABLET');
+    expect(r.risk).toBe('high');
+    expect(r.message).toContain('serotonin');
+  });
+
+  it('zenginleştirme ad çakışmasında id ile DOĞRU ürünü çözer', () => {
+    // 'DUPLIK TABLET' adı iki üründe var (id 30 parasetamol, id 31 ibuprofen);
+    // ada göre çözüm son kaydı (ibuprofen) verirdi.
+    const { interactions: enriched } = analyzeWithEnrichment([
+      { id: '30', name: 'DUPLIK TABLET' },
+      { id: '5', name: 'VIAGRA 50 MG TABLET' },
+    ]);
+    expect(enriched[0].ingredientA).toBe('Parasetamol');
   });
 });
