@@ -151,14 +151,11 @@ export async function getStats() {
 }
 
 export function getDrugByName(name) {
+  // YALNIZ tam eşleşme: substring fallback "NUROFEN" gibi kısa bir adı
+  // bambaşka bir ürüne çözüp analizi sessizce yanlış ilaç üzerinden
+  // yürütebilir. Kısmi arama searchDrugs'un işidir.
   if (!name) return null;
-  const q = searchFold(name);
-  const exact = drugsByNameLower.get(q);
-  if (exact) return exact;
-  for (const d of drugs) {
-    if (d._nameL.includes(q)) return d;
-  }
-  return null;
+  return drugsByNameLower.get(searchFold(name)) || null;
 }
 
 export function getDrugById(id) {

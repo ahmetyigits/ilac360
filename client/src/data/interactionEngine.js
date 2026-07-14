@@ -1,5 +1,5 @@
 import { getDrugByName, getDrugById, dataUrl } from './drugStore.js';
-import { isValidIngredient } from './turkishText.js';
+import { isValidIngredient, searchFold } from './turkishText.js';
 import {
   getComponents,
   normalizeRuleIngredient,
@@ -144,10 +144,26 @@ const RISK_ORDER = { critical: 0, high: 1, medium: 2, low: 3, unknown: 4, info: 
 export function analyzeInteractions(drugRefs) {
   const results = [];
   const unknownDrugs = [];
-  const drugData = drugRefs.map((ref) => {
+
+  // Aynı ilacın iki kez analize girmesi sahte "aynı etkin madde — doz aşımı"
+  // (critical) üretir ve QT ajan sayacını şişirir; id'ye (yoksa fold'lanmış
+  // ada) göre teklenir.
+  const seenRefs = new Set();
+  const uniqueRefs = drugRefs.filter((ref) => {
     const id = typeof ref === 'object' && ref !== null ? ref.id : null;
     const name = typeof ref === 'object' && ref !== null ? ref.name : ref;
-    const drug = (id != null ? getDrugById(id) : null) || getDrugByName(name);
+    const key = id != null ? `id:${id}` : `ad:${searchFold(name || '')}`;
+    if (seenRefs.has(key)) return false;
+    seenRefs.add(key);
+    return true;
+  });
+
+  const drugData = uniqueRefs.map((ref) => {
+    const id = typeof ref === 'object' && ref !== null ? ref.id : null;
+    const name = typeof ref === 'object' && ref !== null ? ref.name : ref;
+    // id verildiyse ada DÜŞÜLMEZ: bayat bir ?d= linkindeki geçersiz id,
+    // ad benzerliğiyle yanlış ürüne çözülüp sessizce yanlış analiz üretmesin.
+    const drug = id != null ? getDrugById(id) : getDrugByName(name);
     if (!drug) unknownDrugs.push(name);
     const components = drug ? getComponents(drug.Active_Ingredient, synonymLookup) : [];
 
@@ -231,6 +247,8 @@ export function analyzeInteractions(drugRefs) {
             results.push({
               drug1: a.name,
               drug2: b.name,
+              id1: a.drug.ID,
+              id2: b.drug.ID,
               risk: 'medium',
               message: `Her iki üründe ortak etkin madde var (${meaningful.join(', ')}), ancak ${a.lowSystemic && b.lowSystemic ? 'ikisi de' : 'biri'} topikal/lokal formdadır. Toplam sistemik doz riski düşüktür; yine de aynı bölgeye birlikte uygulamaktan kaçının.`,
               details: `${a.drug.Active_Ingredient.trim()} ↔ ${b.drug.Active_Ingredient.trim()}`,
@@ -239,6 +257,8 @@ export function analyzeInteractions(drugRefs) {
             results.push({
               drug1: a.name,
               drug2: b.name,
+              id1: a.drug.ID,
+              id2: b.drug.ID,
               risk: identical ? 'critical' : 'high',
               message: identical
                 ? `Her iki ilaç da aynı etkin maddeyi (${a.drug.Active_Ingredient.trim()}) içermektedir. Doz aşımı riski!`
@@ -262,6 +282,8 @@ export function analyzeInteractions(drugRefs) {
           results.push({
             drug1: a.name,
             drug2: b.name,
+            id1: a.drug.ID,
+            id2: b.drug.ID,
             risk: knownRule.risk || 'high',
             message: knownRule.message,
             details: knownRule.details || null,
@@ -280,6 +302,8 @@ export function analyzeInteractions(drugRefs) {
           results.push({
             drug1: a.name,
             drug2: b.name,
+            id1: a.drug.ID,
+            id2: b.drug.ID,
             risk: catRule.risk,
             message: catRule.message,
             details: `${a.drug.Active_Ingredient?.trim() || 'Bilinmiyor'} (${catRule.matchedCat1}) ↔ ${b.drug.Active_Ingredient?.trim() || 'Bilinmiyor'} (${catRule.matchedCat2})`,
@@ -298,6 +322,8 @@ export function analyzeInteractions(drugRefs) {
         results.push({
           drug1: a.name,
           drug2: b.name,
+          id1: a.drug.ID,
+          id2: b.drug.ID,
           risk,
           message: qtAgentCount >= 3
             ? `Listenizde QT aralığını uzatabilen ${qtAgentCount} ilaç var. Birlikte kullanım ciddi kalp ritim bozukluğu (Torsades de Pointes) riskini artırır.`
@@ -316,6 +342,8 @@ export function analyzeInteractions(drugRefs) {
           results.push({
             drug1: a.name,
             drug2: b.name,
+            id1: a.drug.ID,
+            id2: b.drug.ID,
             risk: 'low',
             message: `${topikalSide.name} topikal/lokal (cilt-göz üzerine uygulanan) formdur; sistemik etkileşim riski düşüktür. Geniş yüzeye veya uzun süre uygulamada sınırlı emilim olabilir.`,
             details: `Sistemik formda geçerli olacak uyarı: ${suppressedRule.message}`,
@@ -331,6 +359,8 @@ export function analyzeInteractions(drugRefs) {
         results.push({
           drug1: a.name,
           drug2: b.name,
+          id1: a.drug.ID,
+          id2: b.drug.ID,
           risk: 'info',
           message: `Her iki ilaç da aynı farmakolojik alt gruba (${a.atcGroup}) aittir. Bu bir etkileşim değil, bilgilendirmedir.`,
           details: `${a.drug.Active_Ingredient?.trim() || 'Bilinmiyor'} ↔ ${b.drug.Active_Ingredient?.trim() || 'Bilinmiyor'}`,
@@ -342,6 +372,8 @@ export function analyzeInteractions(drugRefs) {
         results.push({
           drug1: a.name,
           drug2: b.name,
+          id1: a.drug.ID,
+          id2: b.drug.ID,
           risk: 'low',
           message: `Ortak bileşen yalnızca yardımcı/destek maddesidir (${adjuvantOnlyShared.join(', ')}). Bu genellikle klinik olarak önemli bir doz aşımı riski oluşturmaz.`,
           details: `${a.drug.Active_Ingredient?.trim() || '—'} ↔ ${b.drug.Active_Ingredient?.trim() || '—'}`,
@@ -352,6 +384,8 @@ export function analyzeInteractions(drugRefs) {
       results.push({
         drug1: a.name,
         drug2: b.name,
+        id1: a.drug.ID,
+        id2: b.drug.ID,
         risk: 'unknown',
         message: 'Bu ilaç çifti için veritabanımızda bilinen bir etkileşim kuralı yok. Bu, etkileşim olmadığı anlamına gelmez; klinik değerlendirme önerilir.',
         details: null,
@@ -366,18 +400,13 @@ export function analyzeInteractions(drugRefs) {
 
 export function analyzeWithEnrichment(drugRefs) {
   const { interactions, unknownDrugs } = analyzeInteractions(drugRefs);
-  // Zenginleştirmede de ada değil, analiz girdisindeki id'lere göre çözümle.
-  const byName = new Map();
-  for (const ref of drugRefs) {
-    const id = typeof ref === 'object' && ref !== null ? ref.id : null;
-    const name = typeof ref === 'object' && ref !== null ? ref.name : ref;
-    const drug = (id != null ? getDrugById(id) : null) || getDrugByName(name);
-    if (drug && name) byName.set(name, drug);
-  }
-  const resolve = (n) => byName.get(n) || getDrugByName(n);
+  // Ada göre değil, çift sonucundaki id'lere göre çözümle: 135 üründe ürün
+  // adı çakıştığından ad haritası yanlış ATC/etken gösterebilir.
+  const resolve = (id, name) =>
+    (id != null ? getDrugById(id) : null) || getDrugByName(name);
   const enriched = interactions.map((interaction) => {
-    const d1 = resolve(interaction.drug1);
-    const d2 = resolve(interaction.drug2);
+    const d1 = resolve(interaction.id1, interaction.drug1);
+    const d2 = resolve(interaction.id2, interaction.drug2);
     return {
       ...interaction,
       ingredientA: d1 && isValidIngredient(d1.Active_Ingredient) ? d1.Active_Ingredient.trim() : null,

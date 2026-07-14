@@ -80,6 +80,10 @@ describe('getDrugByName', () => {
     expect(getDrugByName('parol 500 mg tablet')?.ID).toBe('1');
     expect(getDrugByName('PAROL 500 MG TABLET')?.ID).toBe('1');
   });
+
+  it('kısmi ad (substring) ÇÖZÜLMEZ — yanlış ürüne sessiz çözülme riski', () => {
+    expect(getDrugByName('parol')).toBeNull();
+  });
 });
 
 describe('isValidIngredient (Türkçe locale regresyonu)', () => {
