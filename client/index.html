@@ -3,8 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/pwa-192.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#2563A8" />
+    <meta name="theme-color" content="#2563A8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0C1622" media="(prefers-color-scheme: dark)" />
 
     <title>ilac360 — İlaç Etkileşim Kontrolü</title>
     <meta name="description" content="Türkiye'de ruhsatlı 20.000'den fazla ilaç için ücretsiz etkileşim kontrolü. Hastalığa göre ilaç arama ve prospektüs bilgisi; tüm analiz tarayıcınızda çalışır." />
@@ -55,7 +57,29 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- JS yüklenene kadar boş beyaz ekran yerine minimal yer tutucu;
+           React mount olunca otomatik silinir. Stiller inline: CSS beklenmez. -->
+      <style>
+        #ilk-yukleme {
+          min-height: 100vh; display: flex; flex-direction: column;
+          align-items: center; justify-content: center; gap: 14px;
+          background: #F1F4F9; color: #5F6B7C;
+          font-family: system-ui, -apple-system, sans-serif; font-size: 14px;
+        }
+        #ilk-yukleme .logo {
+          width: 44px; height: 44px; border-radius: 12px;
+          background: linear-gradient(145deg, #2E6FB8, #1E4E86);
+        }
+        @media (prefers-color-scheme: dark) {
+          #ilk-yukleme { background: #0C1622; color: #7C8BA1; }
+        }
+      </style>
+      <div id="ilk-yukleme">
+        <div class="logo"></div>
+        <div>ilaç360 yükleniyor…</div>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

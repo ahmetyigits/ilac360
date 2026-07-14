@@ -24,7 +24,8 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
 
   useEffect(() => {
     inputRef.current?.focus();
-    getConditionList().then(setConditions).catch(() => {});
+    // Liste yüklenemezse bölüm görünmez; en azından telemetriye iz bırak.
+    getConditionList().then(setConditions).catch((err) => reportError(err, 'conditionList'));
   }, []);
 
   const doSearch = useCallback(async (searchQuery, searchPage = 1, limit = pageSize) => {

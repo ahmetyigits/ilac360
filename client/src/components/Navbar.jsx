@@ -57,7 +57,7 @@ export default function Navbar({ currentView, searchMode, onNavigate, onLogoClic
             <button
               key={link.id}
               onClick={() => onNavigate(link.id)}
-              className={`px-2.5 py-1.5 text-[14px] font-medium transition-colors cursor-pointer ${
+              className={`px-3 py-2.5 min-h-[44px] text-[14px] font-medium transition-colors cursor-pointer ${
                 link.active ? 'text-accent' : 'text-text-secondary hover:text-text-primary'
               }`}
             >
@@ -77,7 +77,7 @@ export default function Navbar({ currentView, searchMode, onNavigate, onLogoClic
             onClick={onToggleDark}
             title={darkMode ? 'Açık tema' : 'Koyu tema'}
             aria-label={darkMode ? 'Açık temaya geç' : 'Koyu temaya geç'}
-            className="w-9 h-9 rounded-[10px] border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-card transition-colors cursor-pointer"
+            className="w-11 h-11 rounded-[10px] border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-card transition-colors cursor-pointer"
           >
             {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>

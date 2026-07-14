@@ -118,6 +118,9 @@ export default function App() {
   useEffect(() => {
     if (interactions) {
       analysisRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Klavye/ekran okuyucu için odak sonuçlara taşınır; kaydırmayı
+      // scrollIntoView yönettiğinden focus kaydırma yapmaz.
+      analysisRef.current?.focus({ preventScroll: true });
     }
   }, [interactions]);
 
@@ -130,7 +133,10 @@ export default function App() {
   const showToast = useCallback((message, type = 'info') => {
     const id = ++toastIdRef.current;
     setToasts(prev => [...prev, { id, message, type }].slice(-4));
-    setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 4000);
+    // Uzun mesajlar (paylaşım gizlilik notu gibi) okunmadan kaybolmasın:
+    // süre mesaj uzunluğuyla ölçeklenir.
+    const duration = Math.max(4000, message.length * 55);
+    setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), duration);
   }, []);
 
   const addDrug = useCallback((drug) => {
@@ -199,11 +205,11 @@ export default function App() {
     }
 
     const errorBanner = dataError && (
-          <div className="rounded-xl border border-red-200 bg-red-50/60 p-4 flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+          <div className="rounded-[20px] border border-red-200 bg-red-50/60 dark:bg-red-950/30 dark:border-red-900/50 p-4 flex items-start gap-3" role="alert">
+            <AlertTriangle className="w-5 h-5 text-red-500 dark:text-red-400 shrink-0 mt-0.5" />
             <div className="flex-1">
-              <p className="text-sm font-semibold text-red-800">İlaç verileri yüklenemedi</p>
-              <p className="text-[12px] text-red-700 mt-0.5">
+              <p className="text-sm font-semibold text-red-800 dark:text-red-300">İlaç verileri yüklenemedi</p>
+              <p className="text-[12px] text-red-700 dark:text-red-400/90 mt-0.5">
                 Bağlantınızı kontrol edin ve tekrar deneyin. Veri yüklenmeden arama ve analiz çalışmaz.
               </p>
             </div>
@@ -251,7 +257,7 @@ export default function App() {
               )}
 
               {interactions && (
-                <div ref={analysisRef} className="scroll-mt-5">
+                <div ref={analysisRef} tabIndex={-1} className="scroll-mt-5 outline-none">
                   <InteractionResults
                     interactions={interactions}
                     unknownDrugs={unknownDrugs}
@@ -338,6 +344,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-bg-primary">
+      {/* Klavye kullanıcısı için gezinmeyi atlama bağlantısı */}
+      <a
+        href="#icerik"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:rounded-lg focus:text-sm"
+      >
+        İçeriğe atla
+      </a>
       <Navbar
         currentView={currentView}
         searchMode={searchMode}
@@ -346,12 +359,13 @@ export default function App() {
         darkMode={darkMode}
         onToggleDark={() => setDarkMode(p => !p)}
       />
-      <main className="flex-1 w-full">
+      <main id="icerik" className="flex-1 w-full">
         {renderContent()}
       </main>
       <Footer onNavigate={handleNavigate} />
       {toasts.length > 0 && (
-        <div className="fixed top-5 right-5 z-[100] space-y-2">
+        // aria-live: hata/uyarı toast'ları ekran okuyucuya da duyurulur
+        <div className="fixed top-5 right-5 z-[100] space-y-2" role="status" aria-live="polite">
           {toasts.map((t) => (
             <Toast key={t.id} message={t.message} type={t.type} onClose={() => setToasts(prev => prev.filter(x => x.id !== t.id))} />
           ))}

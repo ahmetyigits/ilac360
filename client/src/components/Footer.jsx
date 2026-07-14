@@ -1,6 +1,6 @@
 import { Github } from 'lucide-react';
 
-// 3A footer: üst çizgili tek satır — solda marka, sağda italik serif uyarı.
+// 3A footer: üst çizgili tek satır — solda marka + bağlantılar, sağda düz uyarı metni.
 export default function Footer({ onNavigate }) {
   return (
     <footer className="w-full border-t border-border mt-10">

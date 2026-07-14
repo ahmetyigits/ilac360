@@ -58,34 +58,36 @@ export default function SelectedDrugs({ drugs, onRemove, onSelect, activeDrugId,
         </div>
       </div>
 
+      {/* Çip = iki AYRI gerçek buton (ad → detay, × → kaldır). Button içinde
+          role="button" span geçersiz HTML'di ve klavyeyle silinemiyordu. */}
       <div className="flex flex-wrap gap-[9px]">
         {drugs.map((drug) => (
-          <button
+          <div
             key={drug.id}
-            onClick={() => onSelect(drug)}
-            title={drug.activeIngredient ? `Etkin Madde: ${drug.activeIngredient}` : 'Detayı gör'}
-            className={`flex items-center gap-[9px] px-[13px] py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+            className={`flex items-center rounded-xl text-sm font-medium transition-all ${
               activeDrugId === drug.id
                 ? 'bg-accent text-white'
                 : 'bg-accent-soft text-text-primary hover:bg-accent-light/60'
             }`}
           >
-            <span className={`w-[7px] h-[7px] rounded-full flex-none ${activeDrugId === drug.id ? 'bg-white' : 'bg-accent'}`} />
-            <span className="truncate max-w-48">{drug.name}</span>
-            <span
-              role="button"
-              aria-label={`${drug.name} kaldır`}
-              onClick={(e) => {
-                e.stopPropagation();
-                onRemove(drug.id);
-              }}
-              className={`text-[16px] leading-none transition-colors ${
+            <button
+              onClick={() => onSelect(drug)}
+              title={drug.activeIngredient ? `Etkin Madde: ${drug.activeIngredient}` : 'Detayı gör'}
+              className="flex items-center gap-[9px] pl-[13px] py-2.5 rounded-l-xl cursor-pointer"
+            >
+              <span className={`w-[7px] h-[7px] rounded-full flex-none ${activeDrugId === drug.id ? 'bg-white' : 'bg-accent'}`} />
+              <span className="truncate max-w-48">{drug.name}</span>
+            </button>
+            <button
+              aria-label={`${drug.name} listeden çıkar`}
+              onClick={() => onRemove(drug.id)}
+              className={`px-[11px] py-2.5 rounded-r-xl text-[16px] leading-none transition-colors cursor-pointer ${
                 activeDrugId === drug.id ? 'text-white/70 hover:text-white' : 'text-text-muted hover:text-risk-high'
               }`}
             >
               ×
-            </span>
-          </button>
+            </button>
+          </div>
         ))}
       </div>
 
