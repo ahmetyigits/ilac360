@@ -12,7 +12,7 @@ jobs:
       # LFS bant genişliği koruması: 55 MB dataset her koşuda GitHub LFS'ten
       # İNDİRİLMEZ (aylık 1 GB kota ~18 koşuda biterdi). Obje önce cache'ten
       # gelir; yalnız dataset değiştiğinde (OID değişince) LFS'e gidilir.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           lfs: false
 
