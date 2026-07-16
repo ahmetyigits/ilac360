@@ -41,9 +41,12 @@
 
 * { box-sizing: border-box; }
 
-/* Klavye erişilebilirliği: tüm etkileşimli öğelerde görünür odak halkası.
-   Yalnız :focus-visible — fare tıklamasında halka çıkmaz. */
-:where(button, [role="button"], a, input, select, textarea, summary):focus-visible {
+/* Klavye erişilebilirliği: buton/bağlantılarda görünür odak halkası.
+   Yalnız :focus-visible — fare tıklamasında halka çıkmaz.
+   Metin girişleri BİLEREK hariç: tarayıcı text input'u her odakta
+   focus-visible sayar, arama kutusunda çift çerçeve çiziyordu; girişlerin
+   kendi odak stili (kapsayıcı kenarlık + imleç) zaten görünür. */
+:where(button, [role="button"], a, summary):focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
