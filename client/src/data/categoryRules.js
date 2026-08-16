@@ -203,6 +203,9 @@ export const CATEGORY_INTERACTIONS = [
   { catA: 'MAOI', catB: 'TRIPTAN', risk: 'high', message: 'MAO inhibitörü triptan düzeylerini artırabilir; serotonin sendromu riski vardır.' },
   { catA: 'MAOI_A', catB: 'OPIOID', risk: 'high', message: 'Moklobemid ve serotonerjik opioid (tramadol) birlikte serotonin sendromu riskini artırır.' },
   { catA: 'MAOI_A', catB: 'OTHER_ANTIDEPRESSANT', risk: 'high', message: 'Moklobemid ve SNRI/diğer antidepresan birlikte serotonin sendromu riskini artırır.' },
+  // ONC yüksek öncelikli listesi: triptan × MAO-A (moklobemid) ve MAO-B × opioid
+  { catA: 'MAOI_A', catB: 'TRIPTAN', risk: 'high', message: 'Moklobemid triptan düzeylerini artırabilir; serotonin sendromu riski vardır. Birlikte kullanımdan kaçının.' },
+  { catA: 'MAOI_B', catB: 'OPIOID', risk: 'high', message: 'MAO-B inhibitörü (selejilin/rasajilin) ve serotonerjik opioid (tramadol, petidin) birlikte serotonin sendromu riskini artırır; birlikte kullanımdan kaçının.' },
   { catA: 'MAOI_B', catB: 'SSRI', risk: 'high', message: 'MAO-B inhibitörü (selejilin/rasajilin) ve SSRI birlikte serotonin sendromu riskini artırır.' },
   { catA: 'MAOI_B', catB: 'OTHER_ANTIDEPRESSANT', risk: 'high', message: 'MAO-B inhibitörü ve SNRI birlikte serotonin sendromu riskini artırır.' },
   { catA: 'LINEZOLID', catB: 'SSRI', risk: 'critical', message: 'Linezolid zayıf MAO inhibitörüdür; SSRI ile birlikte serotonin sendromu riski taşır.' },
