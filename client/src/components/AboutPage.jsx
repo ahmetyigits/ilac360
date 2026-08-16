@@ -85,6 +85,15 @@ export default function AboutPage({ stats }) {
                   talimatlarından derlenmiştir.
                 </span>
               </li>
+              <li className="flex gap-2.5">
+                <Database className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                <span>
+                  Greyfurt, alkol, süt, kafein ve sarı kantaron gibi besin/içecekler
+                  sepete eklenerek ilaçlarla etkileşimi sorgulanabilir; kutu barkodu
+                  telefon kamerasıyla taranarak ilaç aramadan bulunabilir. İkisi de
+                  üyelik gerektirmez ve tamamen cihazınızda çalışır.
+                </span>
+              </li>
             </ul>
           </div>
 
