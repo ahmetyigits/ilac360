@@ -14,6 +14,12 @@ const ROOT = join(__dirname, '..');
 const warningsData = JSON.parse(readFileSync(join(ROOT, 'data', 'drug-warnings.json'), 'utf-8'));
 const synonyms = JSON.parse(readFileSync(join(ROOT, 'data', 'ingredient-synonyms.json'), 'utf-8'));
 const lookup = buildSynonymLookup(synonyms);
+let foodItems = [];
+try {
+  foodItems = JSON.parse(readFileSync(join(ROOT, 'data', 'food-items.json'), 'utf-8'));
+} catch {
+  // dosya yoksa besin kontrolleri atlanır
+}
 
 const VALID_TYPES = new Set(['allergy', 'food', 'supplement', 'pregnancy', 'driving', 'age', 'general']);
 const VALID_SEVERITIES = new Set(['critical', 'high', 'medium', 'info']);
@@ -72,6 +78,35 @@ warningsData.forEach((w, i) => {
     }
   }
 });
+
+// --- Besin katalogu + foodKeys doğrulaması ---
+const FOOD_KEY_RE = /^[a-z0-9-]{1,40}$/;
+const foodKeySet = new Set();
+foodItems.forEach((f, i) => {
+  const where = `food-items.json[${i}]`;
+  if (!f.key || !FOOD_KEY_RE.test(f.key)) errors.push(`${where}: geçersiz key '${f.key}'`);
+  else if (foodKeySet.has(f.key)) errors.push(`${where}: mükerrer key ${f.key}`);
+  else foodKeySet.add(f.key);
+  for (const field of ['name', 'emoji', 'blurb']) {
+    if (!f[field]) errors.push(`${where}: zorunlu alan eksik: ${field}`);
+  }
+});
+const referencedFoodKeys = new Set();
+warningsData.forEach((w) => {
+  if (!w.foodKeys) return;
+  const where = `drug-warnings.json (${w.id})`;
+  if (!['food', 'supplement'].includes(w.type)) {
+    errors.push(`${where}: foodKeys yalnız food|supplement tipinde olabilir (tip: ${w.type})`);
+  }
+  for (const key of w.foodKeys) {
+    if (!foodKeySet.has(key)) errors.push(`${where}: katalogda olmayan foodKey '${key}'`);
+    referencedFoodKeys.add(key);
+  }
+});
+// Ölü besin: hiçbir kayıtla etiketlenmemiş katalog ögesi analizde hep "bilinmiyor" üretir
+for (const key of foodKeySet) {
+  if (!referencedFoodKeys.has(key)) errors.push(`food-items.json: '${key}' hiçbir uyarı kaydıyla etiketlenmemiş`);
+}
 
 const byType = new Map();
 for (const w of warningsData) byType.set(w.type, (byType.get(w.type) || 0) + 1);

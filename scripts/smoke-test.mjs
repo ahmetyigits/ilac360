@@ -92,6 +92,11 @@ assert(dupCats.length === 0, `hiçbir kayıtta yinelenen kategori yok (${dupCats
 const mig = conditions.find((c) => c.id === 'bas-agrisi');
 assert((mig?.ingredients?.length || 0) > 0, `bas-agrisi durumunda ${mig?.ingredients?.length} etken madde var`);
 
+// Besin katalogu: İlaç-Besin sorgusunun veri ayağı
+assert(!!manifest.files['food-items.json'], "manifest'te food-items.json var");
+const foodItemsSmoke = JSON.parse(readFileSync(file('food-items.json'), 'utf-8'));
+assert(foodItemsSmoke.length >= 6, `besin katalogu >= 6 öge (${foodItemsSmoke.length})`);
+
 // Tekil ilaç uyarıları: manifest + motorla birebir aynı eşleşme hattıyla spot-check
 assert(!!manifest.files['drug-warnings.json'], "manifest'te drug-warnings.json var");
 assert(manifest.warningRuleCount >= 50, `uyarı kaydı >= 50 (${manifest.warningRuleCount})`);

@@ -1,0 +1,66 @@
+[
+  {
+    "key": "greyfurt",
+    "name": "Greyfurt",
+    "longName": "Greyfurt / greyfurt suyu",
+    "emoji": "🍊",
+    "aliases": ["greyfurt suyu", "grapefruit", "altıntop"],
+    "blurb": "Bazı ilaçların kandaki düzeyini yükseltebilir (CYP3A4 baskılanması)."
+  },
+  {
+    "key": "alkol",
+    "name": "Alkol",
+    "longName": "Alkollü içecekler",
+    "emoji": "🍷",
+    "aliases": ["alkollü içecek", "bira", "şarap", "rakı", "etanol"],
+    "blurb": "Birçok ilaçla sersemlik, karaciğer yükü veya ciddi reaksiyon riski."
+  },
+  {
+    "key": "sut-kalsiyum",
+    "name": "Süt / kalsiyum",
+    "longName": "Süt ürünleri ve kalsiyumlu gıdalar",
+    "emoji": "🥛",
+    "aliases": ["süt", "yoğurt", "peynir", "kalsiyum", "ayran"],
+    "blurb": "Bazı antibiyotiklerin ve ilaçların emilimini azaltır."
+  },
+  {
+    "key": "kafein",
+    "name": "Kafein",
+    "longName": "Kahve, çay, enerji içecekleri",
+    "emoji": "☕",
+    "aliases": ["kahve", "çay", "enerji içeceği", "kola"],
+    "blurb": "Bazı ilaçlar kafeinin atılımını yavaşlatır; çarpıntı ve huzursuzluk artabilir."
+  },
+  {
+    "key": "sari-kantaron",
+    "name": "Sarı kantaron",
+    "longName": "Sarı kantaron (St John's Wort)",
+    "emoji": "🌼",
+    "aliases": ["st john's wort", "kantaron yağı", "hypericum", "binbirdelik otu"],
+    "blurb": "Birçok ilacın etkisini azaltan güçlü bir bitkisel enzim uyarıcı."
+  },
+  {
+    "key": "k-vitamini",
+    "name": "K vitamini",
+    "longName": "K vitamini içeren besinler (yeşil yapraklılar)",
+    "emoji": "🥬",
+    "aliases": ["ıspanak", "brokoli", "lahana", "yeşil yapraklı sebze"],
+    "blurb": "Warfarin gibi kan sulandırıcıların etkisini değiştirir."
+  },
+  {
+    "key": "tiramin",
+    "name": "Tiramin",
+    "longName": "Tiramin içeren besinler (olgun peynir, fermente ürünler)",
+    "emoji": "🧀",
+    "aliases": ["olgun peynir", "fermente", "salam", "sucuk", "turşu"],
+    "blurb": "MAO inhibitörleriyle tehlikeli tansiyon yükselmesine yol açabilir."
+  },
+  {
+    "key": "potasyum",
+    "name": "Potasyum",
+    "longName": "Potasyumdan zengin gıda ve tuz ikameleri",
+    "emoji": "🍌",
+    "aliases": ["muz", "potasyumlu tuz", "tuz ikamesi", "kuru kayısı"],
+    "blurb": "Bazı tansiyon ilaçlarıyla birlikte potasyum yüksekliği riski."
+  }
+]

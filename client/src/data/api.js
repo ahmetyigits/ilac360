@@ -19,6 +19,7 @@ import {
   searchByCondition as searchByConditionLocal,
 } from './conditionSearch.js';
 import { loadWarnings, getWarningsForDrug } from './warningEngine.js';
+import { loadFoods, getFoodList as getFoodListLocal, getFoodsByKeys as getFoodsByKeysLocal, toBasketItem } from './foodStore.js';
 
 let bootPromise = null;
 
@@ -37,6 +38,18 @@ export function bootData() {
 export async function searchDrugs(query) {
   await loadDrugs();
   return searchDrugsLocal(query);
+}
+
+// Besin/içecek katalogu — FoodPicker çipleri ve paylaşım linki çözümü.
+export async function getFoodItems() {
+  await loadFoods();
+  return getFoodListLocal().map(toBasketItem);
+}
+
+export async function getFoodsByKeys(keys) {
+  await loadFoods();
+  const { foods, invalidKeys } = getFoodsByKeysLocal(keys);
+  return { foods: foods.map(toBasketItem), invalidKeys };
 }
 
 export async function getDrugDetail(id) {

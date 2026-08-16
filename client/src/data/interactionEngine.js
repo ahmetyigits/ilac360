@@ -5,6 +5,8 @@ import {
   normalizeRuleIngredient,
   buildSynonymLookup,
 } from './ingredientMatcher.js';
+import { compileWarnings, matchFoodWarnings } from './warningMatcher.js';
+import { loadFoods, getFoodByKey, setFoodsForTest } from './foodStore.js';
 import { detectForm, isLowSystemicForm } from './formDetect.js';
 import {
   CATEGORY_INTERACTIONS,
@@ -25,6 +27,9 @@ let adjuvantSet = new Set();
 // Bileşen → {classes:[...], qt:'known'|'possible'} — SNRI/serotonerjik sınıf
 // etiketleri ve additive-QT modeli için (data/component-classes.json).
 let componentClassMap = new Map();
+// İlaç-Besin sorgusu: drug-warnings.json'daki foodKeys etiketli kayıtlar
+// (warningMatcher ile derlenir). interactions.json'a dokunulmaz.
+let foodWarningsCompiled = { byComponent: new Map(), byAtcPrefix: [], count: 0 };
 let loadPromise = null;
 
 function buildComponentClassMap(raw) {
@@ -84,11 +89,22 @@ export function loadInteractions() {
       .then((url) => fetch(url))
       .then((r) => (r.ok ? r.json() : {}))
       .catch(() => ({})),
-  ]).then(([rules, synonyms, compAtc, adjuvants, compClasses]) => {
+    // Besin kuralları: warningEngine ile aynı hash'li dosya — tarayıcı cache'i
+    dataUrl('drug-warnings.json')
+      .then((url) => fetch(url))
+      .then((r) => (r.ok ? r.json() : []))
+      .catch(() => []),
+    // Katalog yüklenemezse besin sorgusu sessizce devre dışı kalır
+    loadFoods().catch(() => []),
+  ]).then(([rules, synonyms, compAtc, adjuvants, compClasses, drugWarnings]) => {
     synonymLookup = buildSynonymLookup(synonyms);
     componentAtcMap = compAtc || {};
     adjuvantSet = buildAdjuvantSet(adjuvants);
     componentClassMap = buildComponentClassMap(compClasses);
+    foodWarningsCompiled = compileWarnings(
+      (Array.isArray(drugWarnings) ? drugWarnings : []).filter((w) => w.foodKeys),
+      synonymLookup
+    );
     knownInteractions = rules;
     compiledRules = compileRules(rules);
     return knownInteractions;
@@ -116,6 +132,16 @@ export function setInteractionsForTest(rules, synonyms = {}, compAtc = {}, adjuv
   loadPromise = Promise.resolve(knownInteractions);
 }
 
+// Test kancası: besin katalogu + foodKeys etiketli uyarı kayıtları.
+// setInteractionsForTest'ten SONRA çağrılmalı (synonymLookup'ı kullanır).
+export function setFoodDataForTest(foodItems, drugWarnings) {
+  setFoodsForTest(foodItems);
+  foodWarningsCompiled = compileWarnings(
+    (drugWarnings || []).filter((w) => w.foodKeys),
+    synonymLookup
+  );
+}
+
 const getAtcGroup = (a) => (a && a.length >= 4 ? a.substring(0, 4) : null);
 
 function checkKnownInteraction(componentsA, componentsB) {
@@ -139,6 +165,9 @@ export function getRuleCount() {
 
 const RISK_ORDER = { critical: 0, high: 1, medium: 2, low: 3, unknown: 4, info: 5, safe: 6 };
 
+// Besin uyarı kayıtlarının severity alanı risk kartlarına birebir eşlenir.
+const SEVERITY_TO_RISK = { critical: 'critical', high: 'high', medium: 'medium', info: 'info' };
+
 // Girdi: {id, name} nesneleri (tercih edilen — 135 üründe ürün adı çakışması
 // olduğundan yalnızca ada güvenilmez) veya geriye dönük uyumluluk için ad stringleri.
 export function analyzeInteractions(drugRefs) {
@@ -150,15 +179,39 @@ export function analyzeInteractions(drugRefs) {
   // ada) göre teklenir.
   const seenRefs = new Set();
   const uniqueRefs = drugRefs.filter((ref) => {
+    const food = typeof ref === 'object' && ref !== null ? ref.food : null;
     const id = typeof ref === 'object' && ref !== null ? ref.id : null;
     const name = typeof ref === 'object' && ref !== null ? ref.name : ref;
-    const key = id != null ? `id:${id}` : `ad:${searchFold(name || '')}`;
+    const key = food ? `food:${food}` : id != null ? `id:${id}` : `ad:${searchFold(name || '')}`;
     if (seenRefs.has(key)) return false;
     seenRefs.add(key);
     return true;
   });
 
-  const drugData = uniqueRefs.map((ref) => {
+  const drugData = uniqueRefs.flatMap((ref) => {
+    // Besin girdisi: ilaç çözümlemesi yapılmaz, unknownDrugs'a düşmez.
+    // Katalogda olmayan anahtar (bozuk link) sessizce analiz dışı kalır.
+    const foodKey = typeof ref === 'object' && ref !== null ? ref.food : null;
+    if (foodKey) {
+      const food = getFoodByKey(foodKey);
+      if (!food) return [];
+      return [{
+        isFood: true,
+        foodKey,
+        name: food.name,
+        emoji: food.emoji || null,
+        drug: null,
+        form: null,
+        lowSystemic: false,
+        qtLevel: null,
+        components: new Set(),
+        atcCode: null,
+        categories: [],
+        fullCategories: [],
+        primaryCategory: null,
+        atcGroup: null,
+      }];
+    }
     const id = typeof ref === 'object' && ref !== null ? ref.id : null;
     const name = typeof ref === 'object' && ref !== null ? ref.name : ref;
     // id verildiyse ada DÜŞÜLMEZ: bayat bir ?d= linkindeki geçersiz id,
@@ -226,6 +279,49 @@ export function analyzeInteractions(drugRefs) {
     for (let j = i + 1; j < drugData.length; j++) {
       const a = drugData[i];
       const b = drugData[j];
+
+      // --- İlaç-Besin dalı: mevcut ilaç×ilaç yollarından ÖNCE koşar; ilaç×ilaç
+      // mantığı değişmez ve besinler ortak-etken/kural/QT yollarına asla girmez.
+      if (a.isFood && b.isFood) continue; // besin×besin kapsam dışı — kart üretme
+      if (a.isFood || b.isFood) {
+        const food = a.isFood ? a : b;
+        const other = a.isFood ? b : a;
+        if (!other.drug) continue; // bilinmeyen ilaç × besin: ilaç zaten unknownDrugs'ta
+        const hits = matchFoodWarnings(foodWarningsCompiled, food.foodKey, {
+          activeIngredient: other.drug.Active_Ingredient,
+          atcCode: other.drug.ATC_code,
+          form: other.form,
+        }, synonymLookup);
+        const base = {
+          drug1: a.name,
+          drug2: b.name,
+          id1: a.isFood ? null : a.drug.ID,
+          id2: b.isFood ? null : b.drug.ID,
+          food1: a.isFood ? a.foodKey : null,
+          food2: b.isFood ? b.foodKey : null,
+        };
+        if (hits.length > 0) {
+          const top = hits[0]; // en şiddetli kayıt
+          results.push({
+            ...base,
+            risk: SEVERITY_TO_RISK[top.severity] || 'medium',
+            message: top.message,
+            details: top.details || null,
+            ruleId: top.id,
+            evidence: 'label',
+            source: top.source,
+          });
+        } else {
+          results.push({
+            ...base,
+            risk: 'unknown',
+            message: `${other.name} ile ${food.name} arasında veritabanımızda bilinen bir besin etkileşimi kuralı yok. Bu, etkileşim olmadığı anlamına gelmez; emin değilseniz doktorunuza veya eczacınıza danışın.`,
+            details: null,
+          });
+        }
+        continue;
+      }
+
       if (!a.drug || !b.drug) continue;
 
       const bothHaveComponents = a.components.size > 0 && b.components.size > 0;
@@ -405,8 +501,10 @@ export function analyzeWithEnrichment(drugRefs) {
   const resolve = (id, name) =>
     (id != null ? getDrugById(id) : null) || getDrugByName(name);
   const enriched = interactions.map((interaction) => {
-    const d1 = resolve(interaction.id1, interaction.drug1);
-    const d2 = resolve(interaction.id2, interaction.drug2);
+    // Besin tarafı ada göre çözümlenmez (ör. "Kafein" adlı gerçek bir ürünle
+    // eşleşip yanlış etken/ATC göstermesin) — o taraf null kalır.
+    const d1 = interaction.food1 ? null : resolve(interaction.id1, interaction.drug1);
+    const d2 = interaction.food2 ? null : resolve(interaction.id2, interaction.drug2);
     return {
       ...interaction,
       ingredientA: d1 && isValidIngredient(d1.Active_Ingredient) ? d1.Active_Ingredient.trim() : null,

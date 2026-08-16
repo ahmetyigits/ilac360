@@ -290,6 +290,14 @@ try {
   console.warn('drug-warnings.json bulunamadı; tekil ilaç uyarıları boş.');
 }
 emit('drug-warnings.json', drugWarnings);
+// Besin/içecek katalogu — İlaç-Besin etkileşim sorgusu (FoodPicker çipleri)
+let foodItemsData = [];
+try {
+  foodItemsData = JSON.parse(readFileSync(join(SRC, 'food-items.json'), 'utf-8'));
+} catch {
+  console.warn('food-items.json bulunamadı; besin sorgusu devre dışı.');
+}
+emit('food-items.json', foodItemsData);
 
 const manifest = {
   version: 1,
