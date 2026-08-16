@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-import { Search, Loader2, SearchX } from 'lucide-react';
+import { Search, Loader2, SearchX, ScanBarcode } from 'lucide-react';
 import { searchDrugs } from '../data/api';
 import { getSuggestions } from '../data/fuzzySearch.js';
+import { isScanSupported } from '../data/barcodeDetector.js';
+import BarcodeScanner from './BarcodeScanner.jsx';
 import { reportError } from '../data/telemetry.js';
 
 export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onMaxReached }) {
@@ -12,6 +14,7 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
   const [searched, setSearched] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [scannerOpen, setScannerOpen] = useState(false);
   const wrapperRef = useRef(null);
   const debounceRef = useRef(null);
   const inputRef = useRef(null);
@@ -96,6 +99,23 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
     setSearched(false);
   };
 
+  // Kameradan çözülen rakamlar: mevcut barkod arama hattına verilir.
+  // Tek eşleşme → otomatik ekle; çoklu (30 mükerrer barkod grubu var) →
+  // normal sonuç listesi; sıfır → rakamlar input'ta, "bulunamadı" paneli.
+  const handleDetected = async (digits) => {
+    setScannerOpen(false);
+    setQuery(digits);
+    setShowResults(true);
+    try {
+      const data = await searchDrugs(digits);
+      if (data.length === 1 && !selectedDrugs.some((d) => d.id === data[0].id)) {
+        selectDrug(data[0]);
+      }
+    } catch {
+      // arama hattı zaten debounce ile tekrar deneyecek; sessiz geç
+    }
+  };
+
   return (
     <div ref={wrapperRef} className="relative">
       {/* 3A odak arama girişi */}
@@ -145,7 +165,21 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
             {/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent || '') ? '⌘K' : 'Ctrl K'}
           </span>
         )}
+        {isScanSupported() && (
+          <button
+            onClick={() => setScannerOpen(true)}
+            disabled={isMaxReached}
+            aria-label="Barkod tara (kamera ile)"
+            title="Kutu barkodunu kamerayla tara"
+            className="flex-none w-9 h-9 -my-1 rounded-[10px] text-accent hover:bg-accent-soft flex items-center justify-center transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            <ScanBarcode className="w-5 h-5" />
+          </button>
+        )}
       </div>
+      {scannerOpen && (
+        <BarcodeScanner onDetected={handleDetected} onClose={() => setScannerOpen(false)} />
+      )}
       {/* Ekran okuyucular için sonuç sayısı duyurusu */}
       <div aria-live="polite" className="sr-only">
         {searched && !loading

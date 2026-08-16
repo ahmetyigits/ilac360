@@ -26,12 +26,22 @@ export default defineConfig({
         ],
       },
       workbox: {
-        // Veri dosyaları (50+ MB) precache EDİLMEZ; app shell + ikonlar yeterli.
-        // Veri, aşağıdaki runtime stratejileriyle ilk kullanımda cache'lenir.
+        // Veri dosyaları (50+ MB) ve barkod WASM'ı (~1.3 MB) precache EDİLMEZ;
+        // app shell + ikonlar yeterli. Veri ve WASM, aşağıdaki runtime
+        // stratejileriyle ilk kullanımda cache'lenir.
         globPatterns: ['**/*.{js,css,html,svg}', 'pwa-*.png'],
-        globIgnores: ['data/**', 'screenshot.png', 'og-image.png'],
+        globIgnores: ['data/**', 'assets/*.wasm', 'screenshot.png', 'og-image.png'],
         navigateFallback: '/index.html',
         runtimeCaching: [
+          {
+            // Barkod çözücü WASM'ı içerik-hash'li → ilk taramada iner, sonra cache
+            urlPattern: /\/assets\/.*\.wasm$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'ilac360-wasm',
+              expiration: { maxEntries: 2 },
+            },
+          },
           {
             // İçerik-hash'li veri dosyaları değişmez → önce cache
             urlPattern: /\/data\/.*\.[0-9a-f]{8}\.json$/,
