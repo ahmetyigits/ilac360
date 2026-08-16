@@ -20,3 +20,21 @@ Etkileşim kuralları ve sınıf etiketleri; FDA/EMA ürün etiketleri, ONC yük
 kapsamındadır; ancak CC-BY-NC gibi ticari kullanımı kısıtlayan kaynaklardan
 (örn. DDInter, CredibleMeds) bilinçli olarak **hiç veri alınmamıştır** ve
 alınmamalıdır — katkı verirken bu kurala uyun.
+
+## `data/titck-kt-texts.json` + `data/titck-kt-map.json` (TİTCK KT metinleri)
+
+TİTCK'nın kamuya açık KÜB/KT arşivinden (titck.gov.tr/kubkt) indirilen Kullanma
+Talimatı PDF'lerinden çıkarılmış metinlerdir (`scripts/titck-sync.mjs` +
+`scripts/titck-merge-desc.mjs`). `ilaclar-dataset.json` ile aynı koşullara
+tabidir: kamu kurumu verisidir; yeniden dağıtım/ticari kullanım öncesi güncel
+TİTCK koşullarını doğrulayın. Metinler tekildir (KT başına bir kopya), ürün
+eşlemesi barkod anahtarlıdır.
+
+## `data/drug-warnings.json` (tekil ilaç uyarıları)
+
+İlaç detayında gösterilen alerji / besin / takviye / gebelik / araç kullanımı /
+yaş uyarıları; FDA/EMA ürün etiketleri (kamu malı) ve TİTCK kullanma
+talimatlarından **elle derlenmiştir**. Her kayıtta `source` alanı zorunludur.
+Yukarıdaki kural burada da geçerlidir: drugs.com, UpToDate gibi telifli
+içeriklerden ve CC-BY-NC lisanslı kaynaklardan veri **alınmaz**; yalnızca
+serbestçe kullanılabilir resmi kaynaklar kullanılır.

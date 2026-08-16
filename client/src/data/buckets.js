@@ -1,7 +1,9 @@
 // Prospektüs bucket'lama — build (scripts/build-data.mjs) ve runtime (drugStore)
 // aynı fonksiyonu kullanmak ZORUNDA; ayrışırlarsa ilaç kartı yanlış dosyaya bakar.
 
-export const BUCKET_COUNT = 64;
+// 64 → 512: TİTCK KT genişlemesiyle (~12 bin prospektüs) 64 bucket'ta tek
+// bucket ~3 MB'a çıkıyordu; 512 ile kart başına indirme ~350 KB'ta kalır.
+export const BUCKET_COUNT = 512;
 
 export function bucketOf(id) {
   const n = parseInt(id, 10);
