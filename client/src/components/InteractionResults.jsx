@@ -1,5 +1,17 @@
 import { useState, useRef } from 'react';
 import { AlertTriangle, AlertCircle, CheckCircle, ShieldAlert, ChevronDown, ChevronUp, Info, HelpCircle, Printer } from 'lucide-react';
+import { getWarningsForDrugs } from '../data/api';
+
+// Yazdırılan rapordaki tekil ilaç uyarı tipleri (drug-warnings.json `type`)
+const WARNING_TYPE_LABELS = {
+  pregnancy: 'Gebelik',
+  allergy: 'Alerji',
+  age: 'Yaş Sınırı',
+  driving: 'Araç Kullanımı',
+  food: 'Besin',
+  supplement: 'Takviye',
+  general: 'Genel',
+};
 
 // 3A panel dili: solda renkli ikon karesi, başlık satırında mono RİSK rozeti.
 const riskConfig = {
@@ -109,7 +121,9 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
 
   if (!interactions) return null;
 
-  const handlePrint = () => {
+  const handlePrint = async () => {
+    // Pencere SENKRON açılmalı (popup engelleyici, await sonrası açılışı engeller);
+    // içerik uyarılar çözüldükten sonra yazılır.
     const win = window.open('', '_blank');
     if (!win) {
       // Popup engelleyici: sessiz crash yerine kullanıcıya haber ver.
@@ -117,6 +131,26 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
       else window.alert('Yazdırma penceresi tarayıcı tarafından engellendi. Lütfen açılır pencerelere izin verin.');
       return;
     }
+
+    // Tekil ilaç uyarıları analizdeki id'lerden çözülür (sepet sonradan
+    // değişmiş olsa bile rapor, analiz anındaki ilaç setiyle tutarlı kalır).
+    const seenIds = new Set();
+    const refs = [];
+    for (const i of interactions) {
+      for (const id of [i.id1, i.id2]) {
+        if (id != null && !seenIds.has(id)) {
+          seenIds.add(id);
+          refs.push({ id });
+        }
+      }
+    }
+    let drugWarnings = [];
+    try {
+      drugWarnings = await getWarningsForDrugs(refs);
+    } catch {
+      // Uyarılar yüklenemezse rapor uyarı bölümü olmadan basılır.
+    }
+
     win.document.write(`
       <html><head><title>Etkileşim Raporu</title>
       <style>body{font-family:'Hanken Grotesk',system-ui,sans-serif;padding:24px;color:#0F172A}
@@ -155,6 +189,14 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
           ${i.ingredientA || i.ingredientB ? `<div class="msg">${escapeHtml(i.ingredientA || '—')} ↔ ${escapeHtml(i.ingredientB || '—')}</div>` : ''}
         </div>`;
       }).join('')}
+      ${drugWarnings.length > 0 ? `
+        <h1 style="font-size:15px;margin:20px 0 8px">Tekil İlaç Uyarıları</h1>
+        <p class="sub">Seçili ilaçların ürün etiketlerinden derlenmiş genel uyarılar (alerji, gebelik, besin vb.). Liste kapsayıcı değildir.</p>
+        ${drugWarnings.map((d) => `<div class="card">
+          <div class="pair">${escapeHtml(d.name)}</div>
+          ${d.warnings.map((w) => `<div class="msg"><strong>${escapeHtml(WARNING_TYPE_LABELS[w.type] || w.type)} — ${escapeHtml(w.title)}:</strong> ${escapeHtml(w.message)} <em>(Kaynak: ${escapeHtml(w.source)})</em></div>`).join('')}
+        </div>`).join('')}
+      ` : ''}
       <div class="footer">Bu rapor yalnızca bilgilendirme amaçlıdır ve doz, yaş, gebelik, böbrek/karaciğer fonksiyonu gibi hasta faktörlerini dikkate almaz. Herhangi bir ilaç kullanmadan önce mutlaka bir sağlık uzmanına danışınız.</div>
       </body></html>
     `);

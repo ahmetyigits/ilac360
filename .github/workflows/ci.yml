@@ -54,8 +54,15 @@ jobs:
       - name: Lint rules
         run: node scripts/lint-rules.mjs
 
+      - name: Lint warnings
+        run: node scripts/lint-warnings.mjs
+
       - name: Rules coverage gate
         run: node scripts/rules-coverage.mjs --min 95
+
+      # Bilgi amaçlı: uyarı kapsamı + aşırı geniş ATC prefix kontrolü (kapı değil)
+      - name: Warnings coverage (bilgilendirme)
+        run: node scripts/warnings-coverage.mjs
 
       - name: Unit tests
         run: npm --prefix client run test

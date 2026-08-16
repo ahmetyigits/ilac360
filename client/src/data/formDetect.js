@@ -12,7 +12,10 @@ const TRANSDERMAL_TOKENS = ['transdermal', 'flaster', 'patch', ' tts'];
 
 // Ad tokenları (searchFold sonrası biçim: ı→i katlanmış küçük harf)
 const TOPICAL_TOKENS = [
-  'krem', 'jel', 'merhem', 'pomad', 'losyon', 'şampuan', 'ovül', 'ovul',
+  // 'jel' iki yandan boşluklu: "YUMUŞAK JELATİN KAPSÜL" (oral izotretinoin vb.)
+  // substring eşleşmesiyle topikal sayılmasın. Ad ' ' ile pad'lendiğinden
+  // baştaki/sondaki 'jel' de yakalanır. 'emulsiyojel' bitişik yazıldığı için ayrıca listede.
+  'krem', ' jel ', 'emulsiyojel', 'merhem', 'pomad', 'losyon', 'şampuan', 'ovül', 'ovul',
   'vajinal', 'rektal', 'gargara', 'sprey deri', 'deri spreyi', 'oje', 'topikal',
 ];
 const OPHTHALMIC_TOKENS = ['göz damla', 'göz merhem', 'göz jel', 'oftalmik', 'kulak damla', 'nazal'];
@@ -48,6 +51,9 @@ export function detectForm(nameL, atcCode) {
 
   if (OPHTHALMIC_TOKENS.some((t) => name.includes(t))) return 'oftalmik';
   if (INHALE_TOKENS.some((t) => name.includes(t))) return 'inhale';
+  // "ORAL JEL" (saşe içinde ağızdan alınan jel, ör. sildenafil oral jel)
+  // sistemik emilir; topikal 'jel' token'ından ÖNCE ele alınmalıdır.
+  if (name.includes('oral jel')) return 'sistemik';
   if (TOPICAL_TOKENS.some((t) => name.includes(t))) return 'topikal';
   if (ORAL_PARENTERAL_TOKENS.some((t) => name.includes(t))) return 'sistemik';
 

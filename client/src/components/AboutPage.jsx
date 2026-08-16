@@ -75,6 +75,16 @@ export default function AboutPage({ stats }) {
                   bulunamayan çiftler "güvenli" olarak değil, "bilinmiyor" olarak işaretlenir.
                 </span>
               </li>
+              <li className="flex gap-2.5">
+                <ShieldAlert className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                <span>
+                  Ayrıca ilaç detayında, iki ilaç seçmeye gerek kalmadan alerji (örneğin
+                  penisilin), gebelik, yaş sınırı, araç kullanımı ve besin/takviye
+                  etkileşimi (örneğin warfarin ↔ K vitamini) konularında tekil uyarılar
+                  gösterilir. Bu uyarılar FDA/EMA ürün etiketleri ve TİTCK kullanma
+                  talimatlarından derlenmiştir.
+                </span>
+              </li>
             </ul>
           </div>
 
@@ -85,15 +95,19 @@ export default function AboutPage({ stats }) {
             <ul className="space-y-2 text-[13px] text-text-secondary leading-relaxed list-disc pl-5">
               <li>
                 Analiz; doz, kullanım süresi, yaş, gebelik, böbrek/karaciğer fonksiyonu gibi
-                kişisel faktörleri <strong>dikkate almaz</strong>.
+                kişisel faktörleri <strong>dikkate almaz</strong>. İlaç detayındaki gebelik,
+                yaş ve araç kullanımı uyarıları da kişiselleştirilmiş değerlendirme değil,
+                ürün etiketinden derlenen genel uyarılardır.
               </li>
               <li>
                 Kural veritabanı en yaygın ve klinik olarak önemli etkileşimlere odaklanır;
                 literatürdeki her etkileşimi kapsamaz. "Bilinmiyor" sonucu güvenli demek değildir.
               </li>
               <li>
-                Bitkisel ürünler, takviyeler ve besinlerle (örneğin greyfurt) olan etkileşimler
-                kapsam dışıdır.
+                Besin ve takviye etkileşimleri (örneğin greyfurt, K vitamini) yalnızca ilaç
+                detayındaki tekil uyarılar kadarıyla kapsanır; bu liste kapsayıcı değildir ve
+                bir uyarının görünmemesi risk olmadığı anlamına gelmez. Bitkisel ürünlerin
+                kendi aralarındaki ve ilaçlarla diğer etkileşimleri kapsam dışıdır.
               </li>
               <li>
                 Veriler TİTCK listesinin belirli bir tarihteki kopyasıdır; piyasaya yeni çıkan

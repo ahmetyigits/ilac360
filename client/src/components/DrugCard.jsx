@@ -1,72 +1,39 @@
 import { useState, useEffect, useRef } from 'react';
-import { Tag, Layers, Barcode, FolderTree, FileText, Loader2, X, ChevronDown, ChevronUp, AlertTriangle } from 'lucide-react';
+import { Tag, Layers, Barcode, FolderTree, FileText, Loader2, X, ChevronDown, ChevronUp, AlertTriangle, Baby, ShieldAlert, Users, Car, Citrus, Pill, Info } from 'lucide-react';
 import { getDrugDetail, getEquivalents } from '../data/api';
+import { parseDescription, normalizeDescription } from '../data/descriptionFormat.js';
 import { reportError } from '../data/telemetry.js';
 
-function parseDescription(raw) {
-  if (!raw || raw.trim().length === 0) return null;
-  if (raw.includes('İkinci siteye ait içerik bulunamadı')) return null;
+// Tekil ilaç statik uyarıları — kutu piktogramı dili: tip ikonu + kısa başlık.
+// Renkler InteractionResults'taki riskConfig tonlarıyla hizalıdır.
+const WARNING_TYPE_CONFIG = {
+  pregnancy: { icon: Baby, label: 'Gebelik' },
+  allergy: { icon: ShieldAlert, label: 'Alerji' },
+  age: { icon: Users, label: 'Yaş Sınırı' },
+  driving: { icon: Car, label: 'Araç Kullanımı' },
+  food: { icon: Citrus, label: 'Besin' },
+  supplement: { icon: Pill, label: 'Takviye' },
+  general: { icon: Info, label: 'Genel' },
+};
 
-  const text = raw
-    .replace(/\r\n/g, '\n')
-    .replace(/\r/g, '\n')
-    // Yapışık cümleleri ayır: "KULLANMAYINIZ.Eğer" → "KULLANMAYINIZ. Eğer"
-    .replace(/([.!?])([A-ZÇĞİÖŞÜa-zçğıöşü])/g, '$1 $2')
-    // Küçük harften büyük harfe geçişlerde ayır: "tabletDOLARIT" → "tablet DOLARIT"
-    .replace(/([a-zçğıöşü])([A-ZÇĞİÖŞÜ])/g, '$1 $2')
-    // Sayfa numaralarını temizle
-    .replace(/\d+\s*\/\s*\d+/g, '')
-    .replace(/\n{3,}/g, '\n\n')
-    .trim();
-
-  const sectionRegex = /([1-5])\.\s+([A-ZÇĞİÖŞÜ][^\n]{5,})/g;
-  const allMatches = [...text.matchAll(sectionRegex)];
-
-  const withGap = allMatches.map((m, i) => {
-    const nextMatch = allMatches[i + 1];
-    const gap = nextMatch
-      ? nextMatch.index - (m.index + m[0].length)
-      : text.length - (m.index + m[0].length);
-    return { match: m, gap };
-  });
-
-  const contentSections = withGap.filter((item) => item.gap > 50);
-
-  const uniqueSections = [];
-  const seenNumbers = new Set();
-  for (const item of contentSections) {
-    const num = item.match[1];
-    if (!seenNumbers.has(num)) {
-      seenNumbers.add(num);
-      uniqueSections.push(item.match);
-    }
-  }
-
-  if (uniqueSections.length < 2) {
-    return [{ title: null, content: text }];
-  }
-
-  const sections = [];
-
-  const beforeFirst = text.slice(0, uniqueSections[0].index).trim();
-  if (beforeFirst.length > 20) {
-    sections.push({ title: null, content: beforeFirst });
-  }
-
-  for (let i = 0; i < uniqueSections.length; i++) {
-    const start = uniqueSections[i].index;
-    const end = i + 1 < uniqueSections.length ? uniqueSections[i + 1].index : text.length;
-    const fullText = text.slice(start, end).trim();
-
-    const titleEnd = fullText.indexOf('\n');
-    const title = titleEnd > 0 ? fullText.slice(0, titleEnd).trim() : fullText.slice(0, 100).trim();
-    const content = titleEnd > 0 ? fullText.slice(titleEnd + 1).trim() : '';
-
-    sections.push({ title, content });
-  }
-
-  return sections;
-}
+const WARNING_SEVERITY_CONFIG = {
+  critical: {
+    card: 'border-red-200/70 bg-red-50/50 dark-risk-critical',
+    iconBox: 'bg-red-700',
+  },
+  high: {
+    card: 'border-[#EAD9B8] bg-[#FBF3E2]/80 dark-warn',
+    iconBox: 'bg-[#B5761E]',
+  },
+  medium: {
+    card: 'border-amber-100 bg-amber-50/50 dark-risk-medium',
+    iconBox: 'bg-amber-500',
+  },
+  info: {
+    card: 'border-accent-light bg-accent-soft/60',
+    iconBox: 'bg-accent',
+  },
+};
 
 // Not: App bu bileşeni key={drug.id} ile render eder; ilaç değişince bileşen
 // sıfır state ile yeniden kurulur, effect içinde senkron state sıfırlamaya gerek kalmaz.
@@ -193,6 +160,33 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
           <InfoCard icon={FolderTree} label="Ana Kategori" value={categories[0] || '—'} missing={!categories[0]} />
         </div>
 
+        {detail.warnings && detail.warnings.length > 0 ? (
+          <div>
+            <p className="font-mono text-[10.5px] tracking-[.12em] uppercase text-text-muted mb-2.5">
+              Önemli Uyarılar <span className="normal-case tracking-normal">({detail.warnings.length})</span>
+            </p>
+            <div className="space-y-2">
+              {detail.warnings.map((w) => (
+                <WarningCallout key={w.id} warning={w} defaultOpen={w.severity === 'critical'} />
+              ))}
+            </div>
+            <p className="text-[11px] text-text-muted mt-2 leading-relaxed">
+              Bu uyarılar ürün etiketlerinden derlenmiş genel bilgilerdir ve kapsayıcı değildir;
+              kişisel durumunuz için doktorunuza veya eczacınıza danışın.
+            </p>
+          </div>
+        ) : (
+          /* Uyarı yokluğu güvenli demek DEĞİLDİR — sessiz kalmak yerine dürüst not */
+          <div className="bg-card-inset rounded-[14px] p-4 flex items-start gap-3">
+            <Info className="w-4 h-4 text-text-muted flex-none mt-0.5" />
+            <p className="text-[12.5px] leading-relaxed text-text-muted">
+              Bu ilaç için veritabanımızda derlenmiş özel bir uyarı bulunmuyor. Bu, risk
+              olmadığı anlamına gelmez; prospektüsü inceleyin ve doktorunuza veya
+              eczacınıza danışın.
+            </p>
+          </div>
+        )}
+
         {!detail.activeIngredient && (
           <div className="flex items-start gap-3.5 rounded-[14px] border border-[#EAD9B8] bg-[#FBF3E2]/80 dark-warn p-4">
             <div className="flex-none w-[38px] h-[38px] rounded-[11px] bg-[#B5761E] text-white flex items-center justify-center">
@@ -272,7 +266,7 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
             {!showFullDesc ? (
               <div className="bg-card-inset rounded-[14px] p-4 sm:p-5">
                 <p className="text-[13.5px] text-text-secondary leading-[1.6]">
-                  {(detail.description || '').slice(0, 400).trim()}
+                  {normalizeDescription(detail.description || '').replace(/\n+/g, ' ').slice(0, 400).trim()}
                   {(detail.description || '').length > 400 && '...'}
                 </p>
               </div>
@@ -312,6 +306,49 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
   );
 }
 
+function WarningCallout({ warning, defaultOpen }) {
+  const [open, setOpen] = useState(!!defaultOpen);
+  const typeCfg = WARNING_TYPE_CONFIG[warning.type] || WARNING_TYPE_CONFIG.allergy;
+  const sevCfg = WARNING_SEVERITY_CONFIG[warning.severity] || WARNING_SEVERITY_CONFIG.info;
+  const Icon = typeCfg.icon;
+
+  return (
+    <div className={`rounded-[14px] border overflow-hidden ${sevCfg.card}`}>
+      <button
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        className="w-full flex items-center gap-3.5 p-3.5 text-left cursor-pointer"
+      >
+        <div className={`flex-none w-[38px] h-[38px] rounded-[11px] text-white flex items-center justify-center ${sevCfg.iconBox}`}>
+          <Icon className="w-4 h-4" />
+        </div>
+        <div className="flex-1 min-w-0 flex items-center gap-2.5 flex-wrap">
+          <span className="text-[13.5px] font-semibold text-text-primary">{warning.title}</span>
+          <span className="font-mono text-[10px] font-bold uppercase tracking-[.08em] text-text-muted bg-card-inset border border-border rounded-md px-2 py-[2px]">
+            {typeCfg.label}
+          </span>
+        </div>
+        <span className="shrink-0">
+          {open ? (
+            <ChevronUp className="w-4 h-4 text-text-muted" />
+          ) : (
+            <ChevronDown className="w-4 h-4 text-text-muted" />
+          )}
+        </span>
+      </button>
+      {open && (
+        <div className="px-3.5 pb-3.5 pl-[66px]">
+          <p className="text-[12.5px] leading-relaxed text-text-secondary">{warning.message}</p>
+          {warning.details && (
+            <p className="text-[12px] leading-relaxed text-text-muted mt-1.5">{warning.details}</p>
+          )}
+          <p className="font-mono text-[10.5px] text-text-muted mt-2">Kaynak: {warning.source}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function InfoCard({ icon: Icon, label, value, missing, mono }) {
   return (
     <div className="bg-card-inset rounded-[13px] p-3.5">
@@ -328,13 +365,35 @@ function InfoCard({ icon: Icon, label, value, missing, mono }) {
   );
 }
 
+// Bölüm gövdesi: KT şablonundaki alt başlıklar ("KULLANMAYINIZ", "Hamilelik",
+// "Araç ve makine kullanımı"...) yarı kalın paragraf başlığı olarak ayrılır.
+function SectionBody({ section }) {
+  const parts = section.parts && section.parts.length > 0
+    ? section.parts
+    : [{ subheading: null, text: section.content }];
+  return (
+    <div className="space-y-3">
+      {parts.map((part, i) => (
+        <div key={i}>
+          {part.subheading && (
+            <p className="text-[13px] font-semibold text-text-primary mb-1">{part.subheading}</p>
+          )}
+          {part.text && (
+            <p className="text-[13.5px] text-text-secondary leading-[1.6] whitespace-pre-line">
+              {part.text}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function DescriptionSection({ section, expanded, onToggle }) {
   if (!section.title) {
     return (
       <div className="bg-card-inset rounded-[14px] p-4 sm:p-5">
-        <p className="text-[13.5px] text-text-secondary leading-[1.6] whitespace-pre-line">
-          {section.content}
-        </p>
+        <SectionBody section={section} />
       </div>
     );
   }
@@ -365,9 +424,9 @@ function DescriptionSection({ section, expanded, onToggle }) {
       </button>
       {expanded && section.content && (
         <div className="px-4 sm:px-5 pb-4 border-t border-border-light">
-          <p className="text-[13.5px] text-text-secondary leading-[1.6] whitespace-pre-line pt-3.5">
-            {section.content}
-          </p>
+          <div className="pt-3.5">
+            <SectionBody section={section} />
+          </div>
         </div>
       )}
     </div>

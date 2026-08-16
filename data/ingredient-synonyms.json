@@ -29,5 +29,12 @@
   "klopidogrel": ["clopidogrel"],
   "klaritromisin": ["clarithromycin", "klaritromycin"],
   "digoksin": ["digoxin"],
-  "teofilin": ["theophylline", "teofilin anhidrat", "teofilin monohidrat"]
+  "teofilin": ["theophylline", "teofilin anhidrat", "teofilin monohidrat"],
+  "izotretinoin": ["isotretinoin", "izotretionin"],
+  "mizoprostol": ["misoprostol"],
+  "setirizin": ["cetirizin", "cetirizine", "setirizin dihidroklorür"],
+  "levosetirizin": ["levocetirizin", "levocetirizine"],
+  "eltrombopag": ["eltrombopag olamin", "eltrombopag seskietanolamin"],
+  "sodyum fosfat": ["monobazik sodyum fosfat", "dibazik sodyum fosfat", "monobazik sodyum fosfat dihidrat", "dibazik sodyum fosfat dodekahidrat", "dibazik sodyum fosfat heptahidrat", "monobazik sodyum fosfat anhidroz", "dibazik sodyum fosfat anhidroz", "monobazik sodyum fosfat monohidrat"],
+  "psödoefedrin": ["pseudoefedrin", "psodoefedrin", "pseudoephedrine", "psödoefedrin"]
 }
