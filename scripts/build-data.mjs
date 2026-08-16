@@ -37,6 +37,23 @@ const OUT = join(ROOT, 'client', 'public', 'data');
 const raw = JSON.parse(readFileSync(join(SRC, 'ilaclar-dataset.json'), 'utf-8'));
 const drugs = raw[2].data;
 
+// TİTCK KT ekleri (scripts/titck-sync.mjs + titck-merge-desc.mjs üretir):
+// metinler TEKİL saklanır (titck-kt-texts.json, LFS), ürün eşlemesi barkod/ad
+// anahtarlıdır (titck-kt-map.json). Kendi Description'ı olmayan ürünlere build
+// sırasında bağlanır — kaynak veri seti şişirilmez.
+let titckTexts = {};
+let titckMap = {};
+try {
+  titckTexts = JSON.parse(readFileSync(join(SRC, 'titck-kt-texts.json'), 'utf-8'));
+  titckMap = JSON.parse(readFileSync(join(SRC, 'titck-kt-map.json'), 'utf-8'));
+} catch {
+  // opsiyonel: dosyalar yoksa yalnız veri setindeki Description kullanılır
+}
+const titckKeyOf = (d) => d.barcode && String(d.barcode).trim()
+  ? `b:${String(d.barcode).trim()}`
+  : `n:${searchFold(d.Product_Name || '')}`;
+let titckDescCount = 0;
+
 // 1. geçiş: etkin madde → en sık görülen ATC kodu eşlemesini kur.
 // Kaynak veride 4940 ilaçta ATC eksik; çoğunda etkin madde dolu ve aynı etkin
 // maddenin ATC'si başka kayıtlarda biliniyor. 2. geçişte bu eksikleri dolduruyoruz.
@@ -121,7 +138,14 @@ for (const d of drugs) {
       ingredientBackfilled++;
     }
   }
-  const desc = isValidDescription(d.Description) ? d.Description.trim() : null;
+  let desc = isValidDescription(d.Description) ? d.Description.trim() : null;
+  if (!desc) {
+    const pdfKey = titckMap[titckKeyOf(d)];
+    if (pdfKey && titckTexts[pdfKey]) {
+      desc = titckTexts[pdfKey];
+      titckDescCount++;
+    }
+  }
   const id = String(d.ID);
 
   index.push({
@@ -258,6 +282,14 @@ try {
   console.warn('component-classes.json bulunamadı; sınıf etiketleri boş.');
 }
 emit('component-classes.json', componentClasses);
+// Tekil ilaç statik uyarıları (alerji/besin/gebelik/araç/yaş) — İlaç Detayı paneli
+let drugWarnings = [];
+try {
+  drugWarnings = JSON.parse(readFileSync(join(SRC, 'drug-warnings.json'), 'utf-8'));
+} catch {
+  console.warn('drug-warnings.json bulunamadı; tekil ilaç uyarıları boş.');
+}
+emit('drug-warnings.json', drugWarnings);
 
 const manifest = {
   version: 1,
@@ -269,6 +301,7 @@ const manifest = {
   descriptionCount,
   usageSectionCount: Object.keys(usageSections).length,
   interactionRuleCount: interactions.length,
+  warningRuleCount: drugWarnings.length,
   conditionCount: conditions.length,
   files: manifestFiles,
 };
@@ -285,10 +318,11 @@ const totalBucket = bucketSizes.reduce((a, b) => a + b, 0);
 
 console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled})`);
 console.log('component-atc           ', kb(join(OUT, manifestFiles['component-atc.json'])), `(${Object.keys(componentAtc).length} components)`);
-console.log('desc buckets            ', `${BUCKET_COUNT} adet, toplam ${(totalBucket / 1024 / 1024).toFixed(2)} MB, en büyük ${(maxBucket / 1024).toFixed(0)} KB (${descriptionCount} descriptions)`);
+console.log('desc buckets            ', `${BUCKET_COUNT} adet, toplam ${(totalBucket / 1024 / 1024).toFixed(2)} MB, en büyük ${(maxBucket / 1024).toFixed(0)} KB (${descriptionCount} descriptions, ${titckDescCount} tanesi TİTCK KT)`);
 console.log('usage-sections          ', kb(join(OUT, manifestFiles['usage-sections.json'])), `(${Object.keys(usageSections).length} entries)`);
 console.log('condition-desc-matches  ', kb(join(OUT, manifestFiles['condition-desc-matches.json'])), `(${conditions.length} conditions)`);
 console.log('interactions            ', kb(join(OUT, manifestFiles['interactions.json'])), `(${interactions.length} rules)`);
+console.log('drug-warnings           ', kb(join(OUT, manifestFiles['drug-warnings.json'])), `(${drugWarnings.length} warnings)`);
 console.log('condition-mapping       ', kb(join(OUT, manifestFiles['condition-mapping.json'])), `(${conditions.length} conditions)`);
 if (dupBarcodes.length || dupNames.length) {
   console.log(`UYARI: kaynak veride ${dupBarcodes.length} yinelenen barkod grubu, ${dupNames.length} yinelenen ürün adı grubu var (otomatik silinmedi).`);

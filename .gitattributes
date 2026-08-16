@@ -2,3 +2,4 @@
 * text=auto eol=lf
 
 data/ilaclar-dataset.json filter=lfs diff=lfs merge=lfs -text
+data/titck-kt-texts.json filter=lfs diff=lfs merge=lfs -text
