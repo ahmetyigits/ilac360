@@ -52,13 +52,9 @@ function toPublic(w) {
   };
 }
 
-/**
- * @param {{byComponent: Map, byAtcPrefix: Array}} compiled  compileWarnings çıktısı
- * @param {{activeIngredient?: string|null, atcCode?: string|null, form?: string|null}} drug
- * @param {Map} synonymLookup
- * @returns {Array} tip (gebelik→takviye) + şiddet sırasına dizilmiş uyarılar
- */
-export function matchWarnings(compiled, { activeIngredient, atcCode, form } = {}, synonymLookup) {
+// Eşleşen HAM kayıtlar (tip+şiddet sıralı) — hem genel uyarı listesi hem
+// besin filtresi bu çekirdeği kullanır.
+function matchRaw(compiled, { activeIngredient, atcCode, form } = {}, synonymLookup) {
   const matched = new Map(); // id → warning (dedupe)
 
   for (const comp of getComponents(activeIngredient, synonymLookup)) {
@@ -84,5 +80,27 @@ export function matchWarnings(compiled, { activeIngredient, atcCode, form } = {}
     if (t !== 0) return t;
     return (SEVERITY_ORDER[a.severity] ?? 9) - (SEVERITY_ORDER[b.severity] ?? 9);
   });
-  return list.map(toPublic);
+  return list;
+}
+
+/**
+ * @param {{byComponent: Map, byAtcPrefix: Array}} compiled  compileWarnings çıktısı
+ * @param {{activeIngredient?: string|null, atcCode?: string|null, form?: string|null}} drug
+ * @param {Map} synonymLookup
+ * @returns {Array} tip (gebelik→takviye) + şiddet sırasına dizilmiş uyarılar
+ */
+export function matchWarnings(compiled, drug, synonymLookup) {
+  return matchRaw(compiled, drug, synonymLookup).map(toPublic);
+}
+
+// Bir ilacın, verilen besin anahtarıyla (food-items.json `key`) etiketli
+// uyarılarını döndürür — İlaç-Besin etkileşim sorgusunun çekirdeği.
+// En şiddetli kayıt listenin başındadır (SEVERITY_ORDER food tipi içinde
+// zaten uygulanır; farklı tipler — food/supplement — karışırsa da severity
+// tek başına belirleyici olsun diye yeniden sıralanır).
+export function matchFoodWarnings(compiled, foodKey, drug, synonymLookup) {
+  const hits = matchRaw(compiled, drug, synonymLookup)
+    .filter((w) => Array.isArray(w.foodKeys) && w.foodKeys.includes(foodKey));
+  hits.sort((a, b) => (SEVERITY_ORDER[a.severity] ?? 9) - (SEVERITY_ORDER[b.severity] ?? 9));
+  return hits.map(toPublic);
 }

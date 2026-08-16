@@ -1,9 +1,10 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { bootData, getStats, getDrugsByIds, analyzeInteractions as analyzeInteractionsApi } from './data/api';
+import { bootData, getStats, getDrugsByIds, getFoodsByKeys, analyzeInteractions as analyzeInteractionsApi } from './data/api';
 import {
   saveBasket,
-  loadBasketIds,
+  loadBasket,
   parseSharedIds,
+  parseSharedFoodKeys,
   parseSharedDrugId,
   clearShareParams,
 } from './data/basketStore.js';
@@ -21,6 +22,7 @@ import AboutPage from './components/AboutPage';
 import Toast from './components/Toast';
 import Onboarding from './components/Onboarding';
 import ConditionSearch from './components/ConditionSearch';
+import FoodPicker from './components/FoodPicker';
 import Hero from './components/Hero';
 import Footer from './components/Footer';
 
@@ -79,25 +81,33 @@ export default function App() {
     restoredRef.current = true;
     try {
       const sharedIds = parseSharedIds(location.search);
+      const sharedFoodKeys = parseSharedFoodKeys(location.search);
       const singleDrugId = parseSharedDrugId(location.search);
-      const ids = sharedIds.length > 0 ? sharedIds : loadBasketIds();
-      if (ids.length > 0) {
-        const { drugs, invalidIds } = await getDrugsByIds(ids);
-        if (drugs.length > 0) {
-          setSelectedDrugs(drugs.slice(0, MAX_DRUGS));
-          if (sharedIds.length > 0) {
-            showToast(`Paylaşılan liste yüklendi — ${drugs.length} ilaç.`, 'info');
-          }
-        }
+      const isShared = sharedIds.length > 0 || sharedFoodKeys.length > 0;
+      const stored = isShared ? { drugIds: sharedIds, foodKeys: sharedFoodKeys } : loadBasket();
+      const items = [];
+      if (stored.drugIds.length > 0) {
+        const { drugs, invalidIds } = await getDrugsByIds(stored.drugIds);
+        items.push(...drugs);
         if (invalidIds.length > 0) {
           showToast(`${invalidIds.length} ilaç artık veritabanında bulunamadı.`, 'warning');
+        }
+      }
+      if (stored.foodKeys.length > 0) {
+        const { foods } = await getFoodsByKeys(stored.foodKeys);
+        items.push(...foods);
+      }
+      if (items.length > 0) {
+        setSelectedDrugs(items.slice(0, MAX_DRUGS));
+        if (isShared) {
+          showToast(`Paylaşılan liste yüklendi — ${items.length} öge.`, 'info');
         }
       }
       if (singleDrugId) {
         const { drugs } = await getDrugsByIds([singleDrugId]);
         if (drugs[0]) setActiveDrug(drugs[0]);
       }
-      if (sharedIds.length > 0 || singleDrugId) clearShareParams();
+      if (isShared || singleDrugId) clearShareParams();
     } catch (err) {
       reportError(err, 'restoreBasket');
     }
@@ -169,6 +179,11 @@ export default function App() {
       showToast(`En fazla ${MAX_DRUGS} ilaç analiz edilebilir.`, 'warning');
       return;
     }
+    // Besinler ancak bir ilaçla karşılaştırılabilir; besin×besin kapsam dışı.
+    if (!selectedDrugs.some((d) => !d.isFood)) {
+      showToast('Besin etkileşimi analizi için listeye en az 1 ilaç ekleyin.', 'warning');
+      return;
+    }
     if (!hasAcknowledgedDisclaimer()) {
       setShowDisclaimerGate(true);
       return;
@@ -177,7 +192,8 @@ export default function App() {
     setUnknownDrugs([]);
     try {
       // Ad yerine id ile analiz: veri setinde 135 üründe ad çakışması var.
-      const data = await analyzeInteractionsApi(selectedDrugs.map((d) => ({ id: d.id, name: d.name })));
+      const data = await analyzeInteractionsApi(selectedDrugs.map((d) =>
+        d.isFood ? { food: d.foodKey, name: d.name } : { id: d.id, name: d.name }));
       setInteractions(data.interactions);
       setUnknownDrugs(data.unknownDrugs || []);
       if (data.unknownDrugs?.length > 0) {
@@ -301,6 +317,12 @@ export default function App() {
               selectedDrugs={selectedDrugs}
               maxDrugs={MAX_DRUGS}
               onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
+            />
+            <FoodPicker
+              selectedItems={selectedDrugs}
+              onAdd={addDrug}
+              maxItems={MAX_DRUGS}
+              onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} öge seçilebilir.`, 'warning')}
             />
             {sepet}
           </Hero>

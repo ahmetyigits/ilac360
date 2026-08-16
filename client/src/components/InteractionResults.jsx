@@ -1,6 +1,14 @@
 import { useState, useRef } from 'react';
 import { AlertTriangle, AlertCircle, CheckCircle, ShieldAlert, ChevronDown, ChevronUp, Info, HelpCircle, Printer } from 'lucide-react';
 import { getWarningsForDrugs } from '../data/api';
+import { getFoodByKey } from '../data/foodStore.js';
+
+// Besin tarafı adının önüne katalog emojisi eklenir ("🍊 Greyfurt")
+function displayName(name, foodKey) {
+  if (!foodKey) return name;
+  const emoji = getFoodByKey(foodKey)?.emoji;
+  return emoji ? `${emoji} ${name}` : name;
+}
 
 // Yazdırılan rapordaki tekil ilaç uyarı tipleri (drug-warnings.json `type`)
 const WARNING_TYPE_LABELS = {
@@ -184,7 +192,7 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
       ${interactions.map(i => {
         const cfg = riskConfig[i.risk] || riskConfig.unknown;
         return `<div class="card risk-${escapeHtml(i.risk)}">
-          <div class="pair">${escapeHtml(i.drug1)} ↔ ${escapeHtml(i.drug2)} <span class="badge">${escapeHtml(cfg.label)}</span></div>
+          <div class="pair">${escapeHtml(displayName(i.drug1, i.food1))} ↔ ${escapeHtml(displayName(i.drug2, i.food2))} <span class="badge">${escapeHtml(cfg.label)}</span></div>
           <div class="msg">${escapeHtml(i.message || '')}</div>
           ${i.ingredientA || i.ingredientB ? `<div class="msg">${escapeHtml(i.ingredientA || '—')} ↔ ${escapeHtml(i.ingredientB || '—')}</div>` : ''}
         </div>`;
@@ -410,9 +418,9 @@ function InteractionCard({ interaction }) {
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2.5 flex-wrap">
-            <span className="font-semibold text-[15px] text-text-primary">{interaction.drug1}</span>
+            <span className="font-semibold text-[15px] text-text-primary">{displayName(interaction.drug1, interaction.food1)}</span>
             <span className="text-text-muted text-[11px]">&harr;</span>
-            <span className="font-semibold text-[15px] text-text-primary">{interaction.drug2}</span>
+            <span className="font-semibold text-[15px] text-text-primary">{displayName(interaction.drug2, interaction.food2)}</span>
             <span className={`font-mono text-[10.5px] font-bold px-[9px] py-[2px] rounded-md uppercase ${config.badgeSolid}`}>
               {config.label}
             </span>

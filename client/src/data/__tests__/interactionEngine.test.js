@@ -1,6 +1,8 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 import { setDrugsForTest } from '../drugStore.js';
-import { setInteractionsForTest, analyzeInteractions, analyzeWithEnrichment } from '../interactionEngine.js';
+import { setInteractionsForTest, setFoodDataForTest, analyzeInteractions, analyzeWithEnrichment } from '../interactionEngine.js';
+import foodItems from '../../../../data/food-items.json';
+import drugWarnings from '../../../../data/drug-warnings.json';
 import interactions from '../../../../data/interactions.json';
 import synonyms from '../../../../data/ingredient-synonyms.json';
 import adjuvants from '../../../../data/adjuvant-components.json';
@@ -59,6 +61,8 @@ function analyze(...names) {
 beforeAll(() => {
   setDrugsForTest(FIXTURE_DRUGS);
   setInteractionsForTest(interactions, synonyms, COMPONENT_ATC, adjuvants, componentClasses);
+  // Gerçek katalog + gerçek foodKeys etiketli kayıtlar (kürasyon bozulursa test de kırılır)
+  setFoodDataForTest(foodItems, drugWarnings);
 });
 
 describe('bilinen kural eşleşmesi', () => {
@@ -290,5 +294,88 @@ describe('finalizasyon regresyonları', () => {
       { id: '5', name: 'VIAGRA 50 MG TABLET' },
     ]);
     expect(enriched[0].ingredientA).toBe('Parasetamol');
+  });
+});
+
+describe('İlaç-Besin sorgusu', () => {
+  const food = (key, name) => ({ food: key, name });
+
+  it('warfarin + K vitamini → high besin kartı (W-0020, ingredient yolu)', () => {
+    const results = analyze({ id: '1', name: 'COUMADIN 5 MG TABLET' }, food('k-vitamini', 'K vitamini'));
+    expect(results).toHaveLength(1);
+    expect(results[0].risk).toBe('high');
+    expect(results[0].ruleId).toBe('W-0020');
+    expect(results[0].food2).toBe('k-vitamini');
+    expect(results[0].id2).toBeNull();
+    expect(results[0].source).toBeTruthy();
+  });
+
+  it('warfarin + alkol → yeni W-0243 kartı; uyuyan R-0005 çift kuralı TETİKLENMEZ', () => {
+    const results = analyze({ id: '1', name: 'COUMADIN 5 MG TABLET' }, food('alkol', 'Alkol'));
+    expect(results[0].ruleId).toBe('W-0243');
+    expect(results[0].risk).toBe('high');
+  });
+
+  it('siprofloksasin + kafein → medium (W-0248)', () => {
+    const results = analyze({ id: '12', name: 'CIPRO 500 MG TABLET' }, food('kafein', 'Kafein'));
+    expect(results[0].risk).toBe('medium');
+    expect(results[0].ruleId).toBe('W-0248');
+  });
+
+  it('parasetamol + alkol → medium (W-0116, düzenli alkol uyarısı)', () => {
+    const results = analyze({ id: '3', name: 'PAROL 500 MG TABLET' }, food('alkol', 'Alkol'));
+    expect(results[0].ruleId).toBe('W-0116');
+  });
+
+  it('topikal NSAİİ jel + alkol → systemicOnly bastırılır, katlanabilir unknown kartı', () => {
+    const results = analyze({ id: '16', name: 'DOLOREX %1 JEL (50 G)' }, food('alkol', 'Alkol'));
+    expect(results).toHaveLength(1);
+    expect(results[0].risk).toBe('unknown');
+  });
+
+  it('eşleşme olmayan ilaç + besin → dürüst unknown kartı (güvenli DEĞİL)', () => {
+    const results = analyze({ id: '15', name: 'XVITAMIN TABLET' }, food('greyfurt', 'Greyfurt'));
+    expect(results[0].risk).toBe('unknown');
+    expect(results[0].message).toContain('besin etkileşimi');
+  });
+
+  it('besin×besin kart üretmez; besinler unknownDrugs listesine düşmez', () => {
+    const { interactions: results, unknownDrugs } = analyzeInteractions([
+      food('greyfurt', 'Greyfurt'), food('alkol', 'Alkol'),
+    ]);
+    expect(results).toHaveLength(0);
+    expect(unknownDrugs).toHaveLength(0);
+  });
+
+  it('katalogda olmayan besin anahtarı sessizce atılır', () => {
+    const { interactions: results, unknownDrugs } = analyzeInteractions([
+      { id: '1', name: 'COUMADIN 5 MG TABLET' }, food('olmayan-besin', 'X'),
+    ]);
+    expect(results).toHaveLength(0);
+    expect(unknownDrugs).toHaveLength(0);
+  });
+
+  it('aynı besin iki kez eklense de tek sayılır', () => {
+    const results = analyze(
+      { id: '1', name: 'COUMADIN 5 MG TABLET' },
+      food('k-vitamini', 'K vitamini'), food('k-vitamini', 'K vitamini'),
+    );
+    expect(results).toHaveLength(1);
+  });
+
+  it('besin varken ilaç×ilaç sonuçları değişmez', () => {
+    const only = analyze('COUMADIN 5 MG TABLET', 'ASPIRIN 100 MG TABLET');
+    const withFood = analyze('COUMADIN 5 MG TABLET', 'ASPIRIN 100 MG TABLET', food('kafein', 'Kafein'))
+      .filter((r) => !r.food1 && !r.food2);
+    expect(withFood).toEqual(only);
+  });
+
+  it('zenginleştirme besin tarafını ada göre ÇÖZMEZ (ingredient/atc null)', () => {
+    const { interactions: enriched } = analyzeWithEnrichment([
+      { id: '1', name: 'COUMADIN 5 MG TABLET' }, food('k-vitamini', 'K vitamini'),
+    ]);
+    expect(enriched[0].ingredientA).toBe('Warfarin Sodyum');
+    expect(enriched[0].ingredientB).toBeNull();
+    expect(enriched[0].atcB).toBeNull();
   });
 });

@@ -61,7 +61,25 @@ export default function SelectedDrugs({ drugs, onRemove, onSelect, activeDrugId,
       {/* Çip = iki AYRI gerçek buton (ad → detay, × → kaldır). Button içinde
           role="button" span geçersiz HTML'di ve klavyeyle silinemiyordu. */}
       <div className="flex flex-wrap gap-[9px]">
-        {drugs.map((drug) => (
+        {drugs.map((drug) => drug.isFood ? (
+          // Besin çipi: detay tıklaması yok, emoji + soft amber ayrımı
+          <div
+            key={drug.id}
+            className="flex items-center rounded-xl text-sm font-medium bg-[#FBF3E2]/80 dark-warn border border-[#EAD9B8] text-text-primary"
+          >
+            <span className="flex items-center gap-[7px] pl-[13px] py-2.5" title={drug.longName || 'Besin/içecek'}>
+              <span aria-hidden="true" className="text-[15px] leading-none">{drug.emoji}</span>
+              <span className="truncate max-w-48">{drug.name}</span>
+            </span>
+            <button
+              aria-label={`${drug.name} listeden çıkar`}
+              onClick={() => onRemove(drug.id)}
+              className="px-[11px] py-2.5 rounded-r-xl text-[16px] leading-none text-text-muted hover:text-risk-high transition-colors cursor-pointer"
+            >
+              ×
+            </button>
+          </div>
+        ) : (
           <div
             key={drug.id}
             className={`flex items-center rounded-xl text-sm font-medium transition-all ${
@@ -93,7 +111,11 @@ export default function SelectedDrugs({ drugs, onRemove, onSelect, activeDrugId,
 
       {drugs.length < 2 ? (
         <p className="text-[13px] text-text-muted mt-4">
-          Etkileşim analizi için en az 2 ilaç seçin.
+          Etkileşim analizi için en az 2 öge (ilaç veya besin) seçin.
+        </p>
+      ) : !drugs.some((d) => !d.isFood) ? (
+        <p className="text-[13px] text-text-muted mt-4">
+          Besin etkileşimi analizi için listeye en az 1 ilaç ekleyin.
         </p>
       ) : (
         <button
