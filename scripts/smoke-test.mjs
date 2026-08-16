@@ -5,8 +5,11 @@
 import { readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { turkishLower, flexibleIncludes } from '../client/src/data/turkishText.js';
+import { turkishLower, flexibleIncludes, searchFold } from '../client/src/data/turkishText.js';
 import { bucketOf } from '../client/src/data/buckets.js';
+import { compileWarnings, matchWarnings } from '../client/src/data/warningMatcher.js';
+import { buildSynonymLookup } from '../client/src/data/ingredientMatcher.js';
+import { detectForm } from '../client/src/data/formDetect.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA = join(__dirname, '..', 'client', 'public', 'data');
@@ -88,6 +91,35 @@ assert(dupCats.length === 0, `hiçbir kayıtta yinelenen kategori yok (${dupCats
 
 const mig = conditions.find((c) => c.id === 'bas-agrisi');
 assert((mig?.ingredients?.length || 0) > 0, `bas-agrisi durumunda ${mig?.ingredients?.length} etken madde var`);
+
+// Tekil ilaç uyarıları: manifest + motorla birebir aynı eşleşme hattıyla spot-check
+assert(!!manifest.files['drug-warnings.json'], "manifest'te drug-warnings.json var");
+assert(manifest.warningRuleCount >= 50, `uyarı kaydı >= 50 (${manifest.warningRuleCount})`);
+const drugWarnings = JSON.parse(readFileSync(file('drug-warnings.json'), 'utf-8'));
+assert(drugWarnings.length === manifest.warningRuleCount, 'drug-warnings manifest ile tutarlı');
+const warnSynonyms = JSON.parse(readFileSync(file('ingredient-synonyms.json'), 'utf-8'));
+const warnLookup = buildSynonymLookup(warnSynonyms);
+const warnCompiled = compileWarnings(drugWarnings, warnLookup);
+const warningsFor = (entry) => matchWarnings(warnCompiled, {
+  activeIngredient: entry.a,
+  atcCode: entry.t,
+  form: entry.f ?? detectForm(searchFold(entry.n), entry.t),
+}, warnLookup);
+
+const j01c = index.find((e) => e.t && e.t.startsWith('J01C'));
+assert(!!j01c && warningsFor(j01c).some((w) => w.type === 'allergy'),
+  `J01C ürünü penisilin alerji uyarısı alıyor (${j01c?.n})`);
+const warfarinEntry = index.find((e) => e.a && flexibleIncludes(e.a, 'varfarin') || e.a && flexibleIncludes(e.a, 'warfarin'));
+assert(!!warfarinEntry && warningsFor(warfarinEntry).some((w) => w.type === 'food'),
+  `warfarin ürünü besin (K vitamini) uyarısı alıyor (${warfarinEntry?.n})`);
+const topikal = index.find((e) => e.f === 'topikal' && e.t && e.t.startsWith('M02AA'));
+if (topikal) {
+  // Topikale özgü kayıtlar (W-0222 NSAİİ alerji, systemicOnly=false) görünebilir;
+  // sistemik uyarılar (araç/besin, M01A sınıf alerjisi W-0004) görünmemeli.
+  const wl = warningsFor(topikal);
+  assert(!wl.some((w) => w.type === 'driving' || w.type === 'food' || w.id === 'W-0004'),
+    `topikal ürün sistemik uyarı ALMIYOR (${topikal.n})`);
+}
 
 if (failures > 0) {
   console.error(`\nSMOKE TEST BAŞARISIZ: ${failures} kontrol geçemedi.`);

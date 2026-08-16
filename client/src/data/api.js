@@ -18,6 +18,7 @@ import {
   getConditionList as getConditionListLocal,
   searchByCondition as searchByConditionLocal,
 } from './conditionSearch.js';
+import { loadWarnings, getWarningsForDrug } from './warningEngine.js';
 
 let bootPromise = null;
 
@@ -39,7 +40,8 @@ export async function searchDrugs(query) {
 }
 
 export async function getDrugDetail(id) {
-  await loadDrugs();
+  // Uyarı seti başarısız yüklenirse detay ekranı engellenmez; uyarılar boş kalır.
+  await Promise.all([loadDrugs(), loadWarnings().catch(() => {})]);
   const drug = getDrugByIdLocal(id);
   if (!drug) return null;
 
@@ -64,7 +66,33 @@ export async function getDrugDetail(id) {
     barcode: drug.barcode || null,
     categories: cleanCategories(drug),
     description,
+    warnings: getWarningsForDrug({
+      activeIngredient: drug.Active_Ingredient,
+      atcCode,
+      form: drug.Form ?? null,
+    }),
   };
+}
+
+// Yazdırılabilir rapor için: seçili ilaçların tekil uyarıları (id → uyarı listesi).
+// Uyarısı olmayan ilaçlar sonuca girmez.
+export async function getWarningsForDrugs(refs) {
+  await Promise.all([loadDrugs(), loadWarnings().catch(() => {})]);
+  const result = [];
+  for (const ref of refs) {
+    const drug = getDrugByIdLocal(ref.id);
+    if (!drug) continue;
+    const atcCode = drug.ATC_code && drug.ATC_code !== '0' ? drug.ATC_code.trim() : null;
+    const warnings = getWarningsForDrug({
+      activeIngredient: drug.Active_Ingredient,
+      atcCode,
+      form: drug.Form ?? null,
+    });
+    if (warnings.length > 0) {
+      result.push({ id: drug.ID, name: drug.Product_Name, warnings });
+    }
+  }
+  return result;
 }
 
 // Eşdeğer ilaçlar (aynı kanonik bileşen kümesi + aynı 7 haneli ATC).

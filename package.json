@@ -11,6 +11,8 @@
     "test": "npm --prefix client run test",
     "smoke-test": "node scripts/smoke-test.mjs",
     "rules-coverage": "node scripts/rules-coverage.mjs",
+    "lint-warnings": "node scripts/lint-warnings.mjs",
+    "warnings-coverage": "node scripts/warnings-coverage.mjs",
     "build:data": "node scripts/build-data.mjs",
     "build": "npm run build:data && npm --prefix client run build && node scripts/copy-dist.mjs"
   }

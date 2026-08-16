@@ -36,6 +36,19 @@ describe('detectForm', () => {
     expect(detectForm('roaccutane 10 mg kapsul', 'D10BA01')).toBe('sistemik');
   });
 
+  it("'JELATİN kapsül' jel SANILMAZ (regresyon: ' jel ' kelime sınırlı)", () => {
+    expect(detectForm('roaccutane roche 20 mg yumuşak jelatin kapsül, 100 adet', 'D10BA01')).toBe('sistemik');
+    expect(detectForm('zoretanin 20 mg yumuşak jelatin kapsül, 90 adet', 'D10BA01')).toBe('sistemik');
+  });
+
+  it('bitişik yazılan emulsiyojel topikal kalır', () => {
+    expect(detectForm('triakne %10 emulsiyojel 50 g', 'D10AE01')).toBe('topikal');
+  });
+
+  it('ORAL JEL sistemik sayılır (saşe içi jel, ör. sildenafil oral jel)', () => {
+    expect(detectForm('jeligra 50 mg oral jel içeren saşe, 4 adet', null)).toBe('sistemik');
+  });
+
   it('belirlenemeyen form null döner (çağıran sistemik varsayar — güvenli taraf)', () => {
     expect(detectForm('acayip urun x', null)).toBeNull();
     expect(isLowSystemicForm(null)).toBe(false);
