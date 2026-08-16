@@ -2179,5 +2179,254 @@
     "source": "klasik literatür",
     "id": "R-0219",
     "evidence": "expert"
+  },
+  {
+    "ingredientA": "febuksostat",
+    "ingredientB": "azatiyoprin",
+    "risk": "critical",
+    "message": "Febuksostat, azatiyoprinin yıkımını bloke ederek ciddi kemik iliği baskılanmasına yol açabilir. Birlikte kullanımı kontrendikedir.",
+    "details": "Febuksostat ksantin oksidazı inhibe eder; azatiyoprin metaboliti birikir. ONC yüksek öncelikli listesindedir.",
+    "source": "FDA etiketi (Uloric); ONC yüksek öncelikli listesi",
+    "id": "R-0220",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "febuksostat",
+    "ingredientB": "merkaptopurin",
+    "risk": "critical",
+    "message": "Febuksostat, merkaptopurinin yıkımını bloke ederek ciddi kemik iliği baskılanmasına yol açabilir. Birlikte kullanımı kontrendikedir.",
+    "details": "Febuksostat ksantin oksidazı inhibe eder; merkaptopurin düzeyi toksik seviyeye çıkar. ONC yüksek öncelikli listesindedir.",
+    "source": "FDA etiketi (Uloric); ONC yüksek öncelikli listesi",
+    "id": "R-0221",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "metilfenidat",
+    "ingredientB": "moklobemid",
+    "risk": "critical",
+    "message": "Metilfenidat ve MAO inhibitörü birlikte hipertansif kriz (ani ve tehlikeli tansiyon yükselmesi) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
+    "source": "FDA etiketi (Ritalin); ONC yüksek öncelikli listesi",
+    "id": "R-0222",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "metilfenidat",
+    "ingredientB": "selejilin",
+    "risk": "critical",
+    "message": "Metilfenidat ve MAO inhibitörü birlikte hipertansif kriz (ani ve tehlikeli tansiyon yükselmesi) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
+    "source": "FDA etiketi (Ritalin); ONC yüksek öncelikli listesi",
+    "id": "R-0223",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "metilfenidat",
+    "ingredientB": "rasajilin",
+    "risk": "critical",
+    "message": "Metilfenidat ve MAO inhibitörü birlikte hipertansif kriz (ani ve tehlikeli tansiyon yükselmesi) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
+    "source": "FDA etiketi (Azilect); ONC yüksek öncelikli listesi",
+    "id": "R-0224",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "atomoksetin",
+    "ingredientB": "moklobemid",
+    "risk": "critical",
+    "message": "Atomoksetin ve MAO inhibitörü birlikte serotonin sendromu (huzursuzluk, titreme, ateş, çarpıntı) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
+    "source": "FDA etiketi (Strattera); ONC yüksek öncelikli listesi",
+    "id": "R-0225",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "atomoksetin",
+    "ingredientB": "selejilin",
+    "risk": "critical",
+    "message": "Atomoksetin ve MAO inhibitörü birlikte serotonin sendromu (huzursuzluk, titreme, ateş, çarpıntı) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
+    "source": "FDA etiketi (Strattera); ONC yüksek öncelikli listesi",
+    "id": "R-0226",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "atomoksetin",
+    "ingredientB": "rasajilin",
+    "risk": "critical",
+    "message": "Atomoksetin ve MAO inhibitörü birlikte serotonin sendromu (huzursuzluk, titreme, ateş, çarpıntı) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
+    "source": "FDA etiketi (Strattera); ONC yüksek öncelikli listesi",
+    "id": "R-0227",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "psödoefedrin",
+    "ingredientB": "moklobemid",
+    "risk": "critical",
+    "message": "Psödoefedrin (burun açıcı soğuk algınlığı bileşeni) ve MAO inhibitörü birlikte hipertansif kriz (ani ve tehlikeli tansiyon yükselmesi) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
+    "details": "Birçok soğuk algınlığı ilacı psödoefedrin içerir; MAO inhibitörü kullananlar içeriği mutlaka kontrol etmelidir.",
+    "source": "FDA etiketi (Sudafed); ONC yüksek öncelikli listesi",
+    "id": "R-0228",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "psödoefedrin",
+    "ingredientB": "selejilin",
+    "risk": "critical",
+    "message": "Psödoefedrin (burun açıcı soğuk algınlığı bileşeni) ve MAO inhibitörü birlikte hipertansif kriz (ani ve tehlikeli tansiyon yükselmesi) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
+    "source": "FDA etiketi (Eldepryl); ONC yüksek öncelikli listesi",
+    "id": "R-0229",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "psödoefedrin",
+    "ingredientB": "rasajilin",
+    "risk": "critical",
+    "message": "Psödoefedrin (burun açıcı soğuk algınlığı bileşeni) ve MAO inhibitörü birlikte hipertansif kriz (ani ve tehlikeli tansiyon yükselmesi) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
+    "source": "FDA etiketi (Azilect); ONC yüksek öncelikli listesi",
+    "id": "R-0230",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "dekstrometorfan",
+    "ingredientB": "moklobemid",
+    "risk": "critical",
+    "message": "Dekstrometorfan (öksürük kesici) ve MAO inhibitörü birlikte serotonin sendromu (huzursuzluk, titreme, ateş, çarpıntı) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
+    "source": "FDA etiketi; ONC yüksek öncelikli listesi",
+    "id": "R-0231",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "dekstrometorfan",
+    "ingredientB": "selejilin",
+    "risk": "critical",
+    "message": "Dekstrometorfan (öksürük kesici) ve MAO inhibitörü birlikte serotonin sendromu (huzursuzluk, titreme, ateş, çarpıntı) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
+    "source": "FDA etiketi (Eldepryl); ONC yüksek öncelikli listesi",
+    "id": "R-0232",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "dekstrometorfan",
+    "ingredientB": "rasajilin",
+    "risk": "critical",
+    "message": "Dekstrometorfan (öksürük kesici) ve MAO inhibitörü birlikte serotonin sendromu (huzursuzluk, titreme, ateş, çarpıntı) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
+    "source": "FDA etiketi (Azilect); ONC yüksek öncelikli listesi",
+    "id": "R-0233",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "irinotekan",
+    "ingredientB": "klaritromisin",
+    "risk": "high",
+    "message": "Klaritromisin irinotekan düzeylerini artırarak ağır ishal ve kemik iliği baskılanması riskini yükseltir; birlikte kullanımdan kaçınılmalıdır.",
+    "details": "CYP3A4 inhibisyonu aktif metabolit (SN-38) maruziyetini artırır. ONC yüksek öncelikli listesindedir.",
+    "source": "FDA etiketi (Camptosar); ONC yüksek öncelikli listesi",
+    "id": "R-0234",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "irinotekan",
+    "ingredientB": "itrakonazol",
+    "risk": "high",
+    "message": "İtrakonazol (azol antifungal) irinotekan toksisitesini artırır; birlikte kullanımdan kaçınılmalı, azol tedavisi irinotekandan en az 1 hafta önce kesilmelidir.",
+    "source": "FDA etiketi (Camptosar); ONC yüksek öncelikli listesi",
+    "id": "R-0235",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "irinotekan",
+    "ingredientB": "ketokonazol",
+    "risk": "high",
+    "message": "Ketokonazol irinotekan toksisitesini (ağır ishal, nötropeni) belirgin artırır; birlikte kullanılmamalıdır.",
+    "source": "FDA etiketi (Camptosar); ONC yüksek öncelikli listesi",
+    "id": "R-0236",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "simvastatin",
+    "ingredientB": "klaritromisin",
+    "risk": "critical",
+    "message": "Klaritromisin simvastatin düzeylerini çok yükselterek rabdomiyoliz (kas yıkımı) riskini ciddi artırır. Birlikte kullanımı kontrendikedir; kısa antibiyotik kürlerinde statine ara verilir.",
+    "source": "FDA etiketi (Zocor); ONC yüksek öncelikli listesi",
+    "id": "R-0237",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "simvastatin",
+    "ingredientB": "ketokonazol",
+    "risk": "critical",
+    "message": "Ketokonazol simvastatin düzeylerini çok yükselterek rabdomiyoliz riskini ciddi artırır. Birlikte kullanımı kontrendikedir.",
+    "source": "FDA etiketi (Zocor); ONC yüksek öncelikli listesi",
+    "id": "R-0238",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "lovastatin",
+    "ingredientB": "klaritromisin",
+    "risk": "critical",
+    "message": "Klaritromisin lovastatin düzeylerini çok yükselterek rabdomiyoliz riskini ciddi artırır. Birlikte kullanımı kontrendikedir.",
+    "source": "FDA etiketi (Mevacor); ONC yüksek öncelikli listesi",
+    "id": "R-0239",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "simvastatin",
+    "ingredientB": "ritonavir",
+    "risk": "critical",
+    "message": "Ritonavir içeren tedaviler simvastatin düzeylerini çok yükselterek rabdomiyoliz riskini ciddi artırır. Birlikte kullanımı kontrendikedir.",
+    "details": "Ritonavir içeren antiviral kombinasyonlar (HIV tedavileri) için geçerlidir.",
+    "source": "FDA etiketi (Norvir); ONC yüksek öncelikli listesi",
+    "id": "R-0240",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "ergotamin",
+    "ingredientB": "itrakonazol",
+    "risk": "critical",
+    "message": "İtrakonazol ergotamin düzeylerini artırarak ergotizme (uzuvlarda damar spazmı, kangren riski) yol açabilir. Birlikte kullanımı kontrendikedir.",
+    "source": "FDA etiketi (Sporanox); ONC yüksek öncelikli listesi",
+    "id": "R-0241",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "ergotamin",
+    "ingredientB": "ketokonazol",
+    "risk": "critical",
+    "message": "Ketokonazol ergotamin düzeylerini artırarak ergotizme yol açabilir. Birlikte kullanımı kontrendikedir.",
+    "source": "FDA etiketi (Nizoral); ONC yüksek öncelikli listesi",
+    "id": "R-0242",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "ergotamin",
+    "ingredientB": "vorikonazol",
+    "risk": "critical",
+    "message": "Vorikonazol ergotamin düzeylerini artırarak ergotizme yol açabilir. Birlikte kullanımı kontrendikedir.",
+    "source": "FDA etiketi (Vfend); ONC yüksek öncelikli listesi",
+    "id": "R-0243",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "ergotamin",
+    "ingredientB": "ritonavir",
+    "risk": "critical",
+    "message": "Ritonavir içeren tedaviler ergotamin düzeylerini çok yükselterek yaşamı tehdit eden ergotizme yol açabilir. Birlikte kullanımı kontrendikedir.",
+    "source": "FDA etiketi (Norvir); ONC yüksek öncelikli listesi",
+    "id": "R-0244",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "karbamazepin",
+    "ingredientB": "ritonavir",
+    "risk": "high",
+    "message": "Karbamazepin ritonavirin etkinliğini azaltabilir; ritonavir de karbamazepin düzeyini yükselterek toksisiteye yol açabilir. Birlikte kullanımda doz ayarı ve düzey takibi gerekir.",
+    "source": "FDA etiketi (Norvir)",
+    "id": "R-0245",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "ramelteon",
+    "ingredientB": "fluvoksamin",
+    "risk": "critical",
+    "message": "Fluvoksamin, ramelteon düzeylerini çok yüksek katlarda artırır. Birlikte kullanımı kontrendikedir.",
+    "details": "Fluvoksamin güçlü CYP1A2 inhibitörüdür. ONC yüksek öncelikli listesindedir.",
+    "source": "FDA etiketi (Rozerem); ONC yüksek öncelikli listesi",
+    "id": "R-0246",
+    "evidence": "label"
   }
 ]
