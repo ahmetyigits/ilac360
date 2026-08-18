@@ -9,7 +9,7 @@
 import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { compileWarnings, matchWarnings } from '../client/src/data/warningMatcher.js';
+import { compileWarnings, matchWarnings, matchFoodWarnings } from '../client/src/data/warningMatcher.js';
 import { buildSynonymLookup } from '../client/src/data/ingredientMatcher.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -73,4 +73,36 @@ if (unmatched.length > 0) {
   for (const r of unmatched) console.log(`  - ${r.id} [${r.type}] ${r.title}`);
 } else {
   console.log('\nTüm uyarı kayıtları en az bir ürünle eşleşiyor.');
+}
+
+// --- Besin-başına kapsam (İlaç-Besin sorgusu) ---
+// "sertralin+alkol neden uyarmıyor?" sınıfı sessiz boşluklara karşı gösterge:
+// her besin için kapsanan ürün sayısı + kapsanmayan EN BÜYÜK ATC3 sınıfları.
+// DİKKAT: kapsanmayan sınıf listesi ham veridir, klinik gözle okunmalıdır —
+// bir sınıfın listede olması etkileşim VARDIR demek değildir (ör. serumların
+// K vitaminiyle işi yoktur); büyük ve bilinen bir sınıf görürseniz kürasyonu
+// kontrol edin.
+let foodItemsCov = [];
+try {
+  foodItemsCov = JSON.parse(readFileSync(join(ROOT, 'data', 'food-items.json'), 'utf-8'));
+} catch {
+  // katalog yoksa bölüm atlanır
+}
+if (foodItemsCov.length > 0) {
+  console.log('\nBesin-başına kapsam (kapsanmayanlar klinik gözle okunmalı):');
+  for (const f of foodItemsCov) {
+    let foodCovered = 0;
+    const uncoveredByAtc3 = new Map();
+    for (const e of index) {
+      const hits = matchFoodWarnings(compiled, f.key, { activeIngredient: e.a, atcCode: e.t, form: e.f }, lookup);
+      if (hits.length > 0) { foodCovered++; continue; }
+      if (e.t) {
+        const g = e.t.slice(0, 4);
+        uncoveredByAtc3.set(g, (uncoveredByAtc3.get(g) || 0) + 1);
+      }
+    }
+    const top = [...uncoveredByAtc3.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6)
+      .map(([g, c]) => `${g}:${c}`).join(' ');
+    console.log(`  ${f.emoji} ${f.key.padEnd(14)} kapsanan: ${String(foodCovered).padStart(5)} · kapsanmayan ilk sınıflar: ${top}`);
+  }
 }

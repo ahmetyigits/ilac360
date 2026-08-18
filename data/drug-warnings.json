@@ -2816,5 +2816,466 @@
     "foodKeys": [
       "sari-kantaron"
     ]
+  },
+  {
+    "id": "W-0260",
+    "type": "food",
+    "severity": "high",
+    "match": {
+      "atcPrefixes": [
+        "N06A"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Alkol ile birlikte önerilmez",
+    "message": "Antidepresan kullanırken alkol almak sersemliği, koordinasyon ve yargı bozulmasını belirgin artırır; birlikte kullanım önerilmez.",
+    "details": "Bupropionda alkol nöbet riskini, duloksetinde karaciğer hasarı riskini ayrıca artırır. Alkolü ani bırakmak da bupropionda nöbet riskini yükseltir.",
+    "source": "FDA sınıf etiketi (Zoloft, Cymbalta); NIAAA Harmful Interactions",
+    "evidence": "label",
+    "foodKeys": [
+      "alkol"
+    ]
+  },
+  {
+    "id": "W-0261",
+    "type": "food",
+    "severity": "high",
+    "match": {
+      "atcPrefixes": [
+        "N05A"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Alkol ile birlikte önerilmez",
+    "message": "Antipsikotik/duygudurum ilaçlarıyla alkol; ağır sersemlik, tansiyon düşmesi ve solunum baskılanması riskini artırır. Tedavi süresince alkolden kaçının.",
+    "source": "FDA sınıf etiketi (Seroquel, Zyprexa); NIAAA Harmful Interactions",
+    "evidence": "label",
+    "foodKeys": [
+      "alkol"
+    ]
+  },
+  {
+    "id": "W-0262",
+    "type": "food",
+    "severity": "high",
+    "match": {
+      "atcPrefixes": [
+        "N03A"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Alkol nöbet kontrolünü bozar",
+    "message": "Nöbet ilaçlarıyla alkol; sersemliği artırır ve nöbet kontrolünü bozabilir (aşırı/ani bırakılan alkol nöbeti tetikleyebilir). Doktorunuza danışmadan alkol almayın.",
+    "source": "FDA sınıf etiketi (Dilantin, Depakene); NIAAA Harmful Interactions",
+    "evidence": "label",
+    "foodKeys": [
+      "alkol"
+    ]
+  },
+  {
+    "id": "W-0263",
+    "type": "food",
+    "severity": "high",
+    "match": {
+      "ingredients": [
+        "metotreksat"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Alkol karaciğer hasarı riskini artırır",
+    "message": "Metotreksat kullanırken alkol almak karaciğer hasarı (fibroz, siroz) riskini belirgin artırır; tedavi süresince alkolden kaçının.",
+    "source": "FDA etiketi (metotreksat)",
+    "evidence": "label",
+    "foodKeys": [
+      "alkol"
+    ]
+  },
+  {
+    "id": "W-0264",
+    "type": "food",
+    "severity": "high",
+    "match": {
+      "ingredients": [
+        "tizanidin",
+        "baklofen",
+        "klorzoksazon",
+        "siklobenzaprin",
+        "tiyokolşikosid"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Alkol sersemliği şiddetlendirir",
+    "message": "Kas gevşeticilerle alkol; ağır sersemlik ve solunum baskılanması riskini artırır. Birlikte kullanmayın.",
+    "source": "FDA etiketi (Zanaflex, Lioresal); NIAAA Harmful Interactions",
+    "evidence": "label",
+    "foodKeys": [
+      "alkol"
+    ]
+  },
+  {
+    "id": "W-0265",
+    "type": "food",
+    "severity": "high",
+    "match": {
+      "atcPrefixes": [
+        "C01DA"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Alkol ile ani tansiyon düşmesi",
+    "message": "Nitrat grubu kalp ilaçlarıyla alkol; ani tansiyon düşmesi, baş dönmesi, bayılma ve çarpıntıya yol açabilir. Birlikte kullanmaktan kaçının.",
+    "source": "FDA etiketi (Isordil); NIAAA Harmful Interactions",
+    "evidence": "label",
+    "foodKeys": [
+      "alkol"
+    ]
+  },
+  {
+    "id": "W-0266",
+    "type": "food",
+    "severity": "high",
+    "match": {
+      "ingredients": [
+        "dekstrometorfan"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Alkol ile birlikte kullanılmaz",
+    "message": "Öksürük kesici dekstrometorfan ile alkol; sersemliği ve doz aşımı riskini belirgin artırır. Birlikte kullanmayın.",
+    "source": "FDA OTC etiketi (Delsym); NIAAA Harmful Interactions",
+    "evidence": "label",
+    "foodKeys": [
+      "alkol"
+    ]
+  },
+  {
+    "id": "W-0267",
+    "type": "food",
+    "severity": "medium",
+    "match": {
+      "atcPrefixes": [
+        "N06BA"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Alkol ile dikkat",
+    "message": "Dikkat eksikliği ilaçlarıyla alkol; baş dönmesi ve kalp üzerindeki yükü artırabilir, ilacın uyarıcı etkisi alkolün etkisini maskeleyerek fazla içmeye yol açabilir.",
+    "source": "FDA etiketi (Concerta); NIAAA Harmful Interactions",
+    "evidence": "label",
+    "foodKeys": [
+      "alkol"
+    ]
+  },
+  {
+    "id": "W-0268",
+    "type": "food",
+    "severity": "medium",
+    "match": {
+      "atcPrefixes": [
+        "G04CA"
+      ],
+      "ingredients": [
+        "doksazosin",
+        "terazosin",
+        "alfuzosin",
+        "tamsulosin"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Alkol baş dönmesini artırır",
+    "message": "Alfa-bloker (prostat/tansiyon) ilaçlarıyla alkol; baş dönmesi ve ayağa kalkarken tansiyon düşmesini şiddetlendirebilir.",
+    "source": "FDA etiketi (Cardura); NIAAA Harmful Interactions",
+    "evidence": "label",
+    "foodKeys": [
+      "alkol"
+    ]
+  },
+  {
+    "id": "W-0269",
+    "type": "food",
+    "severity": "medium",
+    "match": {
+      "atcPrefixes": [
+        "C10AA"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Düzenli alkol karaciğer yükünü artırır",
+    "message": "Statin kullanırken düzenli/yüksek miktarda alkol tüketimi karaciğer üzerindeki yükü artırır; alkol alışkanlığınızı doktorunuza bildirin.",
+    "source": "FDA etiketi (Lipitor); NIAAA Harmful Interactions",
+    "evidence": "label",
+    "foodKeys": [
+      "alkol"
+    ]
+  },
+  {
+    "id": "W-0270",
+    "type": "food",
+    "severity": "info",
+    "match": {
+      "atcPrefixes": [
+        "C02",
+        "C03",
+        "C07",
+        "C08",
+        "C09"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Alkol tansiyonu etkiler",
+    "message": "Tansiyon ilaçlarıyla alkol; baş dönmesi ve tansiyon dalgalanmasına yol açabilir, düzenli alkol tansiyon kontrolünü zorlaştırır.",
+    "source": "NIAAA Harmful Interactions; FDA sınıf etiketleri",
+    "evidence": "label",
+    "foodKeys": [
+      "alkol"
+    ]
+  },
+  {
+    "id": "W-0271",
+    "type": "food",
+    "severity": "high",
+    "match": {
+      "ingredients": [
+        "fluvoksamin"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Kafeini çok yavaş atarsınız",
+    "message": "Fluvoksamin kafeinin atılımını ciddi şekilde yavaşlatır; olağan miktarda kahve/çay bile çarpıntı, uykusuzluk ve huzursuzluğa yol açabilir. Kafeini belirgin azaltın.",
+    "source": "FDA etiketi (Luvox — CYP1A2 inhibisyonu)",
+    "evidence": "label",
+    "foodKeys": [
+      "kafein"
+    ]
+  },
+  {
+    "id": "W-0272",
+    "type": "food",
+    "severity": "medium",
+    "match": {
+      "ingredients": [
+        "lityum"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Kafein alışkanlığını ani değiştirmeyin",
+    "message": "Düzenli kafein alımını aniden bırakmak lityumun kan düzeyini yükseltebilir; kafein tüketiminizi ani değiştirmeyin, değişikliği doktorunuza bildirin.",
+    "source": "FDA etiketi (lityum); klinik farmakoloji literatürü",
+    "evidence": "label",
+    "foodKeys": [
+      "kafein"
+    ]
+  },
+  {
+    "id": "W-0273",
+    "type": "food",
+    "severity": "medium",
+    "match": {
+      "atcPrefixes": [
+        "N06BA"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Kafein çarpıntıyı artırır",
+    "message": "Dikkat eksikliği ilaçları uyarıcıdır; üzerine yüksek kafein (kahve, enerji içeceği) çarpıntı, tansiyon yükselmesi ve uykusuzluğu artırır. Kafeini sınırlayın.",
+    "source": "FDA etiketi (Ritalin, Adderall)",
+    "evidence": "label",
+    "foodKeys": [
+      "kafein"
+    ]
+  },
+  {
+    "id": "W-0274",
+    "type": "food",
+    "severity": "medium",
+    "match": {
+      "ingredients": [
+        "buspiron"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Greyfurt düzeyi yükseltir",
+    "message": "Greyfurt suyu buspironun kan düzeyini kat kat artırarak sersemlik ve yan etkileri şiddetlendirebilir; birlikte almaktan kaçının.",
+    "source": "FDA etiketi (BuSpar)",
+    "evidence": "label",
+    "foodKeys": [
+      "greyfurt"
+    ]
+  },
+  {
+    "id": "W-0275",
+    "type": "food",
+    "severity": "high",
+    "match": {
+      "ingredients": [
+        "everolimus",
+        "sirolimus"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Greyfurt ile birlikte alınmaz",
+    "message": "Greyfurt bu ilacın kan düzeyini öngörülemez şekilde yükseltir; ciddi yan etki riski nedeniyle birlikte tüketilmemelidir.",
+    "source": "FDA etiketi (Afinitor, Rapamune)",
+    "evidence": "label",
+    "foodKeys": [
+      "greyfurt"
+    ]
+  },
+  {
+    "id": "W-0276",
+    "type": "food",
+    "severity": "medium",
+    "match": {
+      "ingredients": [
+        "domperidon"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Greyfurt kalp riski",
+    "message": "Greyfurt domperidonun kan düzeyini artırarak kalp ritmi (QT uzaması) riskini yükseltebilir; birlikte tüketmekten kaçının.",
+    "source": "EMA SmPC (Motilium)",
+    "evidence": "label",
+    "foodKeys": [
+      "greyfurt"
+    ]
+  },
+  {
+    "id": "W-0277",
+    "type": "food",
+    "severity": "high",
+    "match": {
+      "ingredients": [
+        "karbamazepin",
+        "fenitoin",
+        "fenobarbital",
+        "okskarbazepin",
+        "lamotrijin",
+        "levetirasetam",
+        "valproat",
+        "topiramat"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Sarı kantaron nöbet ilacını etkiler",
+    "message": "Sarı kantaron bazı nöbet ilaçlarının kan düzeyini düşürerek nöbet kontrolünün bozulmasına yol açabilir; birlikte kullanmayın.",
+    "source": "EMA bitkisel monografı (Hypericum); FDA etiketi (Tegretol)",
+    "evidence": "label",
+    "foodKeys": [
+      "sari-kantaron"
+    ]
+  },
+  {
+    "id": "W-0278",
+    "type": "food",
+    "severity": "medium",
+    "match": {
+      "atcPrefixes": [
+        "N02CC"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Sarı kantaron + triptan",
+    "message": "Migren ilacı (triptan) ile sarı kantaron birlikte serotonin sendromu (huzursuzluk, titreme, çarpıntı) riskini artırabilir; birlikte kullanmaktan kaçının.",
+    "source": "FDA etiketi (Imitrex)",
+    "evidence": "label",
+    "foodKeys": [
+      "sari-kantaron"
+    ]
+  },
+  {
+    "id": "W-0279",
+    "type": "food",
+    "severity": "medium",
+    "match": {
+      "ingredients": [
+        "teofilin"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Sarı kantaron etkisini azaltır",
+    "message": "Sarı kantaron teofilinin kan düzeyini düşürerek nefes darlığı kontrolünün bozulmasına yol açabilir; birlikte kullanmayın.",
+    "source": "FDA etiketi (teofilin)",
+    "evidence": "label",
+    "foodKeys": [
+      "sari-kantaron"
+    ]
+  },
+  {
+    "id": "W-0280",
+    "type": "food",
+    "severity": "medium",
+    "match": {
+      "ingredients": [
+        "izoniazid"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Tiramin içeren besinlere dikkat",
+    "message": "İzoniazid zayıf MAO inhibisyonu yapar; olgun peynir ve fermente besinlerle kızarma, çarpıntı ve tansiyon yükselmesi görülebilir. Bu besinleri sınırlayın.",
+    "source": "FDA etiketi (izoniazid)",
+    "evidence": "label",
+    "foodKeys": [
+      "tiramin"
+    ]
+  },
+  {
+    "id": "W-0281",
+    "type": "food",
+    "severity": "high",
+    "match": {
+      "atcPrefixes": [
+        "C03D"
+      ],
+      "ingredients": [
+        "trimetoprim"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Potasyum takviyesi/tuzu ile dikkat",
+    "message": "Bu ilaç kan potasyumunu yükseltebilir; potasyum takviyeleri ve potasyumlu diyet tuzlarıyla birlikte tehlikeli potasyum yüksekliği (kalp ritim bozukluğu) gelişebilir.",
+    "source": "FDA etiketi (Dyrenium, Bactrim)",
+    "evidence": "label",
+    "foodKeys": [
+      "potasyum"
+    ]
+  },
+  {
+    "id": "W-0282",
+    "type": "food",
+    "severity": "high",
+    "match": {
+      "ingredients": [
+        "sefoperazon"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Alkol ile ciddi reaksiyon",
+    "message": "Sefoperazon ile tedavi sırasında ve sonrasındaki birkaç gün alkol almak disülfiram benzeri reaksiyona (yüz kızarması, çarpıntı, bulantı, tansiyon düşmesi) yol açabilir. Alkolden uzak durun.",
+    "source": "FDA etiketi (Cefobid)",
+    "evidence": "label",
+    "foodKeys": [
+      "alkol"
+    ]
+  },
+  {
+    "id": "W-0283",
+    "type": "food",
+    "severity": "medium",
+    "match": {
+      "ingredients": [
+        "sildenafil",
+        "tadalafil",
+        "vardenafil",
+        "avanafil"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Aşırı alkol tansiyonu düşürür",
+    "message": "Bu ilaçla birlikte fazla alkol almak baş dönmesi, çarpıntı ve ayağa kalkarken tansiyon düşmesine yol açabilir; alkolü sınırlayın.",
+    "source": "FDA etiketi (Cialis)",
+    "evidence": "label",
+    "foodKeys": [
+      "alkol"
+    ]
   }
 ]
