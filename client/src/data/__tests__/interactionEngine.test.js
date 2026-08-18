@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setDrugsForTest } from '../drugStore.js';
 import { setInteractionsForTest, setFoodDataForTest, analyzeInteractions, analyzeWithEnrichment } from '../interactionEngine.js';
 import foodItems from '../../../../data/food-items.json';
@@ -378,4 +378,49 @@ describe('İlaç-Besin sorgusu', () => {
     expect(enriched[0].ingredientB).toBeNull();
     expect(enriched[0].atcB).toBeNull();
   });
+});
+
+describe('İlaç-Besin kanonik çiftler — bu liste HER ZAMAN uyarı vermeli', () => {
+  // "sertralin+alkol neden uyarmıyor?" sınıfı sessiz kürasyon boşluklarına
+  // karşı sabitlenmiş kontrol listesi. Buradaki bir çift "unknown"a düşerse
+  // foodKeys etiketi kaybolmuş/bozulmuş demektir — testi değil KÜRASYONU düzelt.
+  const CANONICAL = [
+    // [etken madde, ATC, besin anahtarı, en az beklenen risk]
+    ['Sertralin Hidroklorür', 'N06AB06', 'alkol', 'high'],       // antidepresan (NIAAA)
+    ['Ketiapin Fumarat', 'N05AH04', 'alkol', 'high'],            // antipsikotik
+    ['Karbamazepin', 'N03AF01', 'alkol', 'high'],                // antiepileptik
+    ['Diazepam', 'N05BA01', 'alkol', 'critical'],                // benzodiazepin (boxed)
+    ['Metronidazol', 'J01XD01', 'alkol', 'high'],                // disülfiram benzeri
+    ['Metotreksat', 'L04AX03', 'alkol', 'high'],                 // hepatotoksisite
+    ['Warfarin Sodyum', 'B01AA03', 'k-vitamini', 'high'],        // klasik VKA↔K vit
+    ['Warfarin Sodyum', 'B01AA03', 'alkol', 'high'],
+    ['Atorvastatin Kalsiyum', 'C10AA05', 'greyfurt', 'high'],    // CYP3A4
+    ['Amlodipin Besilat', 'C08CA01', 'greyfurt', 'medium'],
+    ['Moklobemid', 'N06AG02', 'tiramin', 'high'],                // MAOİ hipertansif kriz
+    ['Teofilin Anhidrat', 'R03DA04', 'kafein', 'medium'],
+    ['Fluvoksamin Maleat', 'N06AB08', 'kafein', 'high'],         // CYP1A2
+    ['Sertralin Hidroklorür', 'N06AB06', 'sari-kantaron', 'high'], // serotonin sendromu
+    ['Karbamazepin', 'N03AF01', 'sari-kantaron', 'high'],        // düzey düşürme→nöbet
+    ['Spironolakton', 'C03DA01', 'potasyum', 'high'],            // hiperkalemi
+    ['Levotiroksin Sodyum', 'H03AA01', 'sut-kalsiyum', 'medium'],
+    ['Doksisiklin', 'J01AA02', 'sut-kalsiyum', 'medium'],
+  ];
+  const RISK_AT_LEAST = { critical: 0, high: 1, medium: 2 };
+
+  for (const [ingredient, atc, foodKey, minRisk] of CANONICAL) {
+    it(`${ingredient} + ${foodKey} → en az ${minRisk}`, () => {
+      setDrugsForTest([{ ID: '900', Product_Name: 'KANONIK TEST ÜRÜNÜ', Active_Ingredient: ingredient, ATC_code: atc }]);
+      const { interactions: results } = analyzeInteractions([
+        { id: '900', name: 'KANONIK TEST ÜRÜNÜ' },
+        { food: foodKey, name: foodKey },
+      ]);
+      expect(results).toHaveLength(1);
+      expect(results[0].risk).not.toBe('unknown');
+      expect(RISK_AT_LEAST[results[0].risk]).toBeLessThanOrEqual(RISK_AT_LEAST[minRisk]);
+      expect(results[0].source).toBeTruthy();
+    });
+  }
+
+  // Fikstürleri diğer describe'lar için geri yükle
+  afterAll(() => setDrugsForTest(FIXTURE_DRUGS));
 });
