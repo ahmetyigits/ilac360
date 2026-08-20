@@ -33,6 +33,9 @@ export default function App() {
   const [searchMode, setSearchMode] = useState('drug');
   const [selectedDrugs, setSelectedDrugs] = useState([]);
   const [activeDrug, setActiveDrug] = useState(null);
+  // Son eylem üste: analiz mi detay açma mı daha tazeyse onun cevabı üstte
+  // durur. Sabit sıralamada hangisi üstteyse diğerinin cevabı dipte kalıyordu.
+  const [detailOnTop, setDetailOnTop] = useState(false);
   const [interactions, setInteractions] = useState(null);
   const [unknownDrugs, setUnknownDrugs] = useState([]);
   const [analysisLoading, setAnalysisLoading] = useState(false);
@@ -149,6 +152,12 @@ export default function App() {
     setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), duration);
   }, []);
 
+  // Kullanıcı eylemiyle detay açma: çip/sonuç tıklaması detayı üste taşır.
+  const openDrugDetail = useCallback((drug) => {
+    setActiveDrug(drug);
+    if (drug) setDetailOnTop(true);
+  }, []);
+
   const addDrug = useCallback((drug) => {
     setSelectedDrugs((prev) => {
       if (prev.some((d) => d.id === drug.id)) return prev;
@@ -189,6 +198,7 @@ export default function App() {
       return;
     }
     setAnalysisLoading(true);
+    setDetailOnTop(false); // en taze eylem analiz — iskelet ve sonuçlar üste
     setUnknownDrugs([]);
     try {
       // Ad yerine id ile analiz: veri setinde 135 üründe ad çakışması var.
@@ -239,11 +249,17 @@ export default function App() {
     );
 
     // Analiz sonuçları + ilaç detayı: her iki modda da aramanın hemen
-    // altında, AYNI sayfada gösterilir. SONUÇLAR ÜSTTE: "Etkileşimleri
-    // Kontrol Et" en taze kullanıcı eylemidir ve cevabı butona en yakın
-    // yerde durmalıdır; tek ilaçlık referans bilgisi (detay kartı) altta
-    // kalır — mobilde uzun detay kartının sonucu ekran dışına itmesi önlenir.
-    const resultsBlock = (
+    // altında, AYNI sayfada gösterilir. SON EYLEM ÜSTTE: "Etkileşimleri
+    // Kontrol Et"e basınca sonuçlar, sonrasında bir ilaca tıklanınca detay
+    // kartı üste gelir — iki eylem de cevabını tetiklendiği yerin (sepet
+    // kartının) hemen altında bulur.
+    const detailCard = activeDrug && (
+      <div ref={drugCardRef}>
+        <DrugCard key={activeDrug.id} drug={activeDrug} onClose={() => setActiveDrug(null)} onSelectDrug={openDrugDetail} />
+      </div>
+    );
+
+    const analysisBlock = (
             <>
               {analysisLoading && (
                 <div className="bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] overflow-hidden animate-fade-in">
@@ -278,20 +294,18 @@ export default function App() {
                   />
                 </div>
               )}
-
-              {activeDrug && (
-                <div ref={drugCardRef}>
-                  <DrugCard key={activeDrug.id} drug={activeDrug} onClose={() => setActiveDrug(null)} onSelectDrug={setActiveDrug} />
-                </div>
-              )}
             </>
           );
+
+    const resultsBlock = detailOnTop
+      ? <>{detailCard}{analysisBlock}</>
+      : <>{analysisBlock}{detailCard}</>;
 
     const sepet = selectedDrugs.length > 0 && (
       <SelectedDrugs
         drugs={selectedDrugs}
         onRemove={removeDrug}
-        onSelect={setActiveDrug}
+        onSelect={openDrugDetail}
         activeDrugId={activeDrug?.id}
         onAnalyze={analyzeInteractions}
         analysisLoading={analysisLoading}
@@ -338,7 +352,7 @@ export default function App() {
         {errorBanner}
         <ConditionSearch
           onSelect={addDrug}
-          onViewDrug={setActiveDrug}
+          onViewDrug={openDrugDetail}
           selectedDrugs={selectedDrugs}
           maxDrugs={MAX_DRUGS}
           onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
