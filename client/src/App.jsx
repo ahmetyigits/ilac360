@@ -238,16 +238,13 @@ export default function App() {
           </div>
     );
 
-    // İlaç detayı + analiz sonuçları: her iki modda da aramanın hemen
-    // altında, AYNI sayfada gösterilir.
+    // Analiz sonuçları + ilaç detayı: her iki modda da aramanın hemen
+    // altında, AYNI sayfada gösterilir. SONUÇLAR ÜSTTE: "Etkileşimleri
+    // Kontrol Et" en taze kullanıcı eylemidir ve cevabı butona en yakın
+    // yerde durmalıdır; tek ilaçlık referans bilgisi (detay kartı) altta
+    // kalır — mobilde uzun detay kartının sonucu ekran dışına itmesi önlenir.
     const resultsBlock = (
             <>
-              {activeDrug && (
-                <div ref={drugCardRef}>
-                  <DrugCard key={activeDrug.id} drug={activeDrug} onClose={() => setActiveDrug(null)} onSelectDrug={setActiveDrug} />
-                </div>
-              )}
-
               {analysisLoading && (
                 <div className="bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] overflow-hidden animate-fade-in">
                   <div className="px-5 py-3.5 border-b border-border-light flex items-center gap-2.5">
@@ -279,6 +276,12 @@ export default function App() {
                     unknownDrugs={unknownDrugs}
                     onPrintBlocked={() => showToast('Yazdırma penceresi tarayıcı tarafından engellendi. Açılır pencerelere izin verin.', 'warning')}
                   />
+                </div>
+              )}
+
+              {activeDrug && (
+                <div ref={drugCardRef}>
+                  <DrugCard key={activeDrug.id} drug={activeDrug} onClose={() => setActiveDrug(null)} onSelectDrug={setActiveDrug} />
                 </div>
               )}
             </>
