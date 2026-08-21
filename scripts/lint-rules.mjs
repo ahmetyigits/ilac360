@@ -53,6 +53,11 @@ rules.forEach((rule, i) => {
   if (rule.message && rule.message.length < 20) {
     errors.push(`${where}: mesaj çok kısa (<20 karakter)`);
   }
+  // Mekanizma zorunlu (2026-08 zenginleştirme sonrası kapı): details "neyi
+  // hangi yolla artırıp azaltıyor" sorusuna cevap veren metindir.
+  if (!rule.details || rule.details.trim().length < 30) {
+    errors.push(`${where}: details (mekanizma) eksik veya çok kısa (<30 karakter)`);
+  }
 
   const a = normalizeRuleIngredient(rule.ingredientA, lookup);
   const b = normalizeRuleIngredient(rule.ingredientB, lookup);

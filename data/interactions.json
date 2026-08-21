@@ -4,2201 +4,2420 @@
     "ingredientB": "aspirin",
     "risk": "critical",
     "message": "Warfarin ve aspirin birlikte kullanımı ciddi kanama riskini çok artırır.",
-    "details": "Her iki ilaç da kan pıhtılaşmasını etkileyerek kanama riskini ciddi şekilde artırır.",
+    "details": "Warfarin pıhtılaşma faktörlerinin üretimini engeller; aspirin trombositleri geri dönüşsüz baskılar ve mide mukozasını tahriş eder. Üç mekanizma birleşince hem kanama eğilimi hem kanayacak yer (mide) riski katlanır.",
     "source": "manuel kürasyon",
     "id": "R-0002",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Bu kombinasyon yalnız belirli kalp hastalıklarında bilinçli olarak ve doktor kontrolünde kullanılır; kendi kendinize aspirin eklemeyin. Olağan dışı morarma, dişeti/burun kanaması veya koyu idrar-dışkı görürseniz hemen başvurun."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "ibuprofen",
     "risk": "high",
     "message": "Warfarin ve ibuprofen birlikte kullanımı kanama riskini artırır.",
-    "details": "NSAID ilaçlar, warfarinin antikoagülan etkisini potansiyalize edebilir.",
+    "details": "İbuprofen trombosit işlevini baskılar, mide mukozasını tahriş eder ve warfarini protein bağından ayırabilir; kanama riski birden çok yoldan artar.",
     "source": "manuel kürasyon",
     "id": "R-0003",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Ağrı kesici gerekiyorsa warfarinle en güvenli seçenek genellikle parasetamoldür — doktorunuza danışın. Olağan dışı morarma, dişeti/burun kanaması veya koyu idrar-dışkı görürseniz hemen başvurun."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "parasetamol",
     "risk": "medium",
     "message": "Yüksek doz parasetamol warfarinin etkisini artırabilir.",
-    "details": "Düşük doz ve kısa süreli kullanım genellikle güvenlidir, ancak INR takibi önerilir.",
+    "details": "Yüksek doz veya sürekli parasetamol, warfarinin etkisini K vitamini döngüsüne müdahale ederek artırabilir; INR yükselmesi bildirilmiştir. Düşük doz, kısa süreli kullanım genellikle güvenlidir.",
     "source": "manuel kürasyon",
     "id": "R-0004",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Düzenli parasetamol kullanımı gerekiyorsa INR takibi önerilir."
   },
   {
     "ingredientA": "metformin",
     "ingredientB": "alkol",
     "risk": "high",
     "message": "Metformin ve alkol birlikte kullanımı laktik asidoz riskini artırır.",
-    "details": "Alkol, metforminin laktik asidoz yan etkisini potansiyalize eder.",
+    "details": "Metformin laktat metabolizmasını etkiler; alkol de karaciğerde laktat birikimini artırır ve uzamış açlıkla birleşince nadir ama ölümcül olabilen laktik asidoz riski yükselir. Alkol ayrıca hipoglisemi riskini artırır.",
     "source": "manuel kürasyon",
     "id": "R-0005",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Aşırı ve düzenli alkolden kaçının; halsizlik, hızlı nefes alma, karın ağrısı gelişirse acile başvurun."
   },
   {
     "ingredientA": "metotreksat",
     "ingredientB": "ibuprofen",
     "risk": "critical",
     "message": "NSAID ilaçlar metotreksatın atılımını azaltarak toksisiteyi artırır.",
-    "details": "Bu kombinasyon kemik iliği baskılanması ve böbrek yetmezliğine neden olabilir.",
+    "details": "NSAİİ'ler böbrekte prostaglandinleri baskılayarak metotreksatın atılımını azaltır; biriken metotreksat kemik iliğini baskılar ve böbrek yetmezliğine yol açabilir.",
     "source": "manuel kürasyon",
     "id": "R-0006",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Metotreksat kullanırken (özellikle yüksek dozda) NSAİİ almadan önce mutlaka doktorunuza danışın; ateş, boğaz ağrısı, morarma gelişirse başvurun."
   },
   {
     "ingredientA": "metotreksat",
     "ingredientB": "trimetoprim",
     "risk": "critical",
     "message": "Trimetoprim, metotreksatın folat metabolizması üzerindeki etkisini artırır.",
-    "details": "Ciddi kemik iliği baskılanması riski vardır.",
+    "details": "Trimetoprim de metotreksat gibi folat metabolizmasını (dihidrofolat redüktaz) bloke eder; etkiler toplanır ve metotreksatın böbrekten atılımı da azalır. Ağır kemik iliği baskılanması (pansitopeni) bildirilmiştir.",
     "source": "manuel kürasyon",
     "id": "R-0007",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Bu kombinasyondan kaçınılmalıdır; zorunluysa kan sayımı yakın izlenir. Ateş, boğaz ağrısı, morarma gelişirse hemen başvurun."
   },
   {
     "ingredientA": "digoksin",
     "ingredientB": "amiodaron",
     "risk": "high",
     "message": "Amiodaron, digoksin plazma düzeylerini önemli ölçüde artırır.",
-    "details": "Digoksin dozu %50 azaltılmalı ve düzey takibi yapılmalıdır.",
+    "details": "Amiodaron, digoksinin taşıyıcısı P-glikoproteini ve böbrek atılımını baskılayarak digoksin düzeyini yaklaşık iki katına çıkarır; dar terapötik pencere nedeniyle toksisite (aritmi, bulantı, görme bozukluğu) gelişebilir.",
     "source": "manuel kürasyon",
     "id": "R-0008",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Digoksin dozu genellikle %30-50 azaltılır; düzey ve EKG takibi yapılmalıdır."
   },
   {
     "ingredientA": "digoksin",
     "ingredientB": "verapamil",
     "risk": "high",
     "message": "Verapamil, digoksin düzeylerini artırır ve AV blok riskini yükseltir.",
-    "details": "Kalp ritim bozuklukları açısından yakın takip gerekir.",
+    "details": "Verapamil/diltiazem P-glikoproteini inhibe ederek digoksin atılımını azaltır ve düzeyini yükseltir; ayrıca AV düğüm iletimini baskılayıcı etkileri toplanarak bradikardi ve blok riski artar.",
     "source": "manuel kürasyon",
     "id": "R-0009",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Digoksin düzeyi izlenmeli; bulantı, iştahsızlık, görme değişiklikleri (sarı-yeşil halkalar) veya düzensiz nabız gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "simvastatin",
     "ingredientB": "eritromisin",
     "risk": "high",
     "message": "Eritromisin, simvastatinin plazma düzeylerini artırarak rabdomiyoliz riskini yükseltir.",
-    "details": "CYP3A4 inhibisyonu nedeniyle statin toksisitesi gelişebilir.",
+    "details": "Eritromisin CYP3A4'ü inhibe ederek simvastatinin yıkımını engeller; kas dokusunda statin birikimi rabdomiyolize (kas yıkımı, böbrek hasarı) yol açabilir.",
     "source": "manuel kürasyon",
     "id": "R-0010",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Antibiyotik kürü süresince statine ara verilmesi değerlendirilebilir — doktorunuza danışın. Kas ağrısı/koyu idrar gelişirse başvurun."
   },
   {
     "ingredientA": "simvastatin",
     "ingredientB": "itrakonazol",
     "risk": "critical",
     "message": "İtrakonazol, simvastatinin metabolizmasını ciddi şekilde engeller.",
-    "details": "Bu kombinasyon kontrendikedir. Rabdomiyoliz riski çok yüksektir.",
+    "details": "İtrakonazol güçlü CYP3A4 inhibitörüdür; simvastatin düzeyini ~10 kat artırır. Rabdomiyoliz riski nedeniyle birlikte kullanım kontrendikedir.",
     "source": "manuel kürasyon",
     "id": "R-0011",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Azol tedavisi süresince simvastatine ara verilmesi gerekir — doktorunuza danışın."
   },
   {
     "ingredientA": "atorvastatin",
     "ingredientB": "klaritromisin",
     "risk": "high",
     "message": "Klaritromisin, atorvastatinin düzeylerini artırarak kas toksisitesi riskini yükseltir.",
-    "details": "Statin dozu azaltılmalı veya alternatif antibiyotik seçilmelidir.",
+    "details": "Klaritromisin CYP3A4 inhibisyonuyla atorvastatin düzeyini artırır; kas toksisitesi riski yükselir (simvastatin/lovastatine göre daha az belirgin ama anlamlı).",
     "source": "manuel kürasyon",
     "id": "R-0012",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Statin dozu azaltılmalı veya etkileşimsiz antibiyotik (ör. azitromisin) tercih edilmelidir."
   },
   {
     "ingredientA": "sildenafil",
     "ingredientB": "izosorbid dinitrat",
     "risk": "critical",
     "message": "Sildenafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
-    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "details": "PDE5 inhibitörü damar düz kasında cGMP yıkımını engeller, nitrat ise cGMP üretimini artırır; iki etki birleşince damarlar aşırı genişler ve yaşamı tehdit eden, tedaviye dirençli kan basıncı düşüşü gelişir. Birlikte kullanım KONTRENDİKEDİR.",
     "source": "manuel kürasyon",
     "id": "R-0013",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Bu iki ilaç birlikte KULLANILMAZ. Göğüs ağrısı nedeniyle nitrat verilecekse son PDE5 inhibitörü dozunu mutlaka sağlık ekibine söyleyin (sildenafil/vardenafil için 24 saat, tadalafil için 48 saat geçmeden nitrat verilmez)."
   },
   {
     "ingredientA": "sildenafil",
     "ingredientB": "izosorbid mononitrat",
     "risk": "critical",
     "message": "Sildenafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
-    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "details": "PDE5 inhibitörü damar düz kasında cGMP yıkımını engeller, nitrat ise cGMP üretimini artırır; iki etki birleşince damarlar aşırı genişler ve yaşamı tehdit eden, tedaviye dirençli kan basıncı düşüşü gelişir. Birlikte kullanım KONTRENDİKEDİR.",
     "source": "manuel kürasyon",
     "id": "R-0014",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Bu iki ilaç birlikte KULLANILMAZ. Göğüs ağrısı nedeniyle nitrat verilecekse son PDE5 inhibitörü dozunu mutlaka sağlık ekibine söyleyin (sildenafil/vardenafil için 24 saat, tadalafil için 48 saat geçmeden nitrat verilmez)."
   },
   {
     "ingredientA": "sildenafil",
     "ingredientB": "gliseril trinitrat",
     "risk": "critical",
     "message": "Sildenafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
-    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "details": "PDE5 inhibitörü damar düz kasında cGMP yıkımını engeller, nitrat ise cGMP üretimini artırır; iki etki birleşince damarlar aşırı genişler ve yaşamı tehdit eden, tedaviye dirençli kan basıncı düşüşü gelişir. Birlikte kullanım KONTRENDİKEDİR.",
     "source": "manuel kürasyon",
     "id": "R-0015",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Bu iki ilaç birlikte KULLANILMAZ. Göğüs ağrısı nedeniyle nitrat verilecekse son PDE5 inhibitörü dozunu mutlaka sağlık ekibine söyleyin (sildenafil/vardenafil için 24 saat, tadalafil için 48 saat geçmeden nitrat verilmez)."
   },
   {
     "ingredientA": "tadalafil",
     "ingredientB": "izosorbid dinitrat",
     "risk": "critical",
     "message": "Tadalafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
-    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "details": "PDE5 inhibitörü damar düz kasında cGMP yıkımını engeller, nitrat ise cGMP üretimini artırır; iki etki birleşince damarlar aşırı genişler ve yaşamı tehdit eden, tedaviye dirençli kan basıncı düşüşü gelişir. Birlikte kullanım KONTRENDİKEDİR.",
     "source": "manuel kürasyon",
     "id": "R-0016",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Bu iki ilaç birlikte KULLANILMAZ. Göğüs ağrısı nedeniyle nitrat verilecekse son PDE5 inhibitörü dozunu mutlaka sağlık ekibine söyleyin (sildenafil/vardenafil için 24 saat, tadalafil için 48 saat geçmeden nitrat verilmez)."
   },
   {
     "ingredientA": "tadalafil",
     "ingredientB": "izosorbid mononitrat",
     "risk": "critical",
     "message": "Tadalafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
-    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "details": "PDE5 inhibitörü damar düz kasında cGMP yıkımını engeller, nitrat ise cGMP üretimini artırır; iki etki birleşince damarlar aşırı genişler ve yaşamı tehdit eden, tedaviye dirençli kan basıncı düşüşü gelişir. Birlikte kullanım KONTRENDİKEDİR.",
     "source": "manuel kürasyon",
     "id": "R-0017",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Bu iki ilaç birlikte KULLANILMAZ. Göğüs ağrısı nedeniyle nitrat verilecekse son PDE5 inhibitörü dozunu mutlaka sağlık ekibine söyleyin (sildenafil/vardenafil için 24 saat, tadalafil için 48 saat geçmeden nitrat verilmez)."
   },
   {
     "ingredientA": "tadalafil",
     "ingredientB": "gliseril trinitrat",
     "risk": "critical",
     "message": "Tadalafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
-    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "details": "PDE5 inhibitörü damar düz kasında cGMP yıkımını engeller, nitrat ise cGMP üretimini artırır; iki etki birleşince damarlar aşırı genişler ve yaşamı tehdit eden, tedaviye dirençli kan basıncı düşüşü gelişir. Birlikte kullanım KONTRENDİKEDİR.",
     "source": "manuel kürasyon",
     "id": "R-0018",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Bu iki ilaç birlikte KULLANILMAZ. Göğüs ağrısı nedeniyle nitrat verilecekse son PDE5 inhibitörü dozunu mutlaka sağlık ekibine söyleyin (sildenafil/vardenafil için 24 saat, tadalafil için 48 saat geçmeden nitrat verilmez)."
   },
   {
     "ingredientA": "vardenafil",
     "ingredientB": "izosorbid dinitrat",
     "risk": "critical",
     "message": "Vardenafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
-    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "details": "PDE5 inhibitörü damar düz kasında cGMP yıkımını engeller, nitrat ise cGMP üretimini artırır; iki etki birleşince damarlar aşırı genişler ve yaşamı tehdit eden, tedaviye dirençli kan basıncı düşüşü gelişir. Birlikte kullanım KONTRENDİKEDİR.",
     "source": "manuel kürasyon",
     "id": "R-0019",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Bu iki ilaç birlikte KULLANILMAZ. Göğüs ağrısı nedeniyle nitrat verilecekse son PDE5 inhibitörü dozunu mutlaka sağlık ekibine söyleyin (sildenafil/vardenafil için 24 saat, tadalafil için 48 saat geçmeden nitrat verilmez)."
   },
   {
     "ingredientA": "vardenafil",
     "ingredientB": "izosorbid mononitrat",
     "risk": "critical",
     "message": "Vardenafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
-    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "details": "PDE5 inhibitörü damar düz kasında cGMP yıkımını engeller, nitrat ise cGMP üretimini artırır; iki etki birleşince damarlar aşırı genişler ve yaşamı tehdit eden, tedaviye dirençli kan basıncı düşüşü gelişir. Birlikte kullanım KONTRENDİKEDİR.",
     "source": "manuel kürasyon",
     "id": "R-0020",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Bu iki ilaç birlikte KULLANILMAZ. Göğüs ağrısı nedeniyle nitrat verilecekse son PDE5 inhibitörü dozunu mutlaka sağlık ekibine söyleyin (sildenafil/vardenafil için 24 saat, tadalafil için 48 saat geçmeden nitrat verilmez)."
   },
   {
     "ingredientA": "vardenafil",
     "ingredientB": "gliseril trinitrat",
     "risk": "critical",
     "message": "Vardenafil ve nitratlar birlikte ciddi hipotansiyona neden olabilir.",
-    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden kan basıncı düşüşü olabilir.",
+    "details": "PDE5 inhibitörü damar düz kasında cGMP yıkımını engeller, nitrat ise cGMP üretimini artırır; iki etki birleşince damarlar aşırı genişler ve yaşamı tehdit eden, tedaviye dirençli kan basıncı düşüşü gelişir. Birlikte kullanım KONTRENDİKEDİR.",
     "source": "manuel kürasyon",
     "id": "R-0021",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Bu iki ilaç birlikte KULLANILMAZ. Göğüs ağrısı nedeniyle nitrat verilecekse son PDE5 inhibitörü dozunu mutlaka sağlık ekibine söyleyin (sildenafil/vardenafil için 24 saat, tadalafil için 48 saat geçmeden nitrat verilmez)."
   },
   {
     "ingredientA": "lityum",
     "ingredientB": "ibuprofen",
     "risk": "high",
     "message": "NSAID ilaçlar lityumun böbrekten atılımını azaltarak toksik düzeylere çıkmasına neden olabilir.",
-    "details": "Lityum düzeyi yakın takip edilmelidir.",
+    "details": "NSAİİ'ler böbrekte prostaglandin sentezini baskılayarak böbrek kan akımını ve lityumun idrarla atılımını azaltır; lityum düzeyi 1-2 hafta içinde toksik aralığa yükselebilir.",
     "source": "manuel kürasyon",
     "id": "R-0022",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "lityum",
     "ingredientB": "enalapril",
     "risk": "high",
     "message": "ACE inhibitörleri lityum düzeylerini artırabilir.",
-    "details": "Lityum toksisitesi açısından düzey takibi gereklidir.",
+    "details": "ACE inhibitörleri böbrek süzme basıncını ve sodyum dengesini değiştirerek lityumun atılımını azaltır; lityum düzeyi haftalar içinde sinsice yükselebilir.",
     "source": "manuel kürasyon",
     "id": "R-0023",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "fluoksetin",
     "ingredientB": "tramadol",
     "risk": "high",
     "message": "SSRI ve tramadol birlikte serotonin sendromu riskini artırır.",
-    "details": "Ateş, ajitasyon, tremor ve kas sertliği gibi belirtiler açısından dikkatli olunmalıdır.",
+    "details": "Fluoksetin serotonin geri alımını engeller ve CYP2D6 inhibisyonuyla tramadol metabolizmasını değiştirir; serotonerjik etkiler toplanır — serotonin sendromu ve nöbet riski artar.",
     "source": "manuel kürasyon",
     "id": "R-0024",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Ateş, ajitasyon, tremor, kas sertliği gelişirse acile başvurun; mümkünse serotonerjik olmayan analjezik tercih edilir."
   },
   {
     "ingredientA": "sertralin",
     "ingredientB": "tramadol",
     "risk": "high",
     "message": "SSRI ve tramadol birlikte serotonin sendromu riskini artırır.",
-    "details": "Alternatif analjezik tercih edilmelidir.",
+    "details": "Sertralin ve tramadolün serotonerjik etkileri toplanır (tramadol serotonin geri alımını da inhibe eder); serotonin sendromu riski vardır, tramadol ayrıca nöbet eşiğini düşürür.",
     "source": "manuel kürasyon",
     "id": "R-0025",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Mümkünse serotonerjik olmayan alternatif analjezik tercih edilmelidir; huzursuzluk, terleme, kas seğirmesi gelişirse başvurun."
   },
   {
     "ingredientA": "fluoksetin",
     "ingredientB": "moklobemid",
     "risk": "critical",
     "message": "SSRI ve MAO inhibitörü birlikte kullanımı serotonin sendromuna neden olabilir.",
-    "details": "Bu kombinasyon kontrendikedir. Hayatı tehdit eden bir durumdur.",
+    "details": "Fluoksetin serotonin geri alımını engellerken moklobemid serotonin yıkımını durdurur; sinapsta serotonin birikimi yaşamı tehdit eden serotonin sendromuna yol açar. Birlikte kullanım kontrendikedir.",
     "source": "manuel kürasyon",
     "id": "R-0026",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Birlikte KULLANILMAZ. Fluoksetin kesildikten sonra moklobemid başlamadan önce en az 5 hafta beklenmelidir."
   },
   {
     "ingredientA": "siprofloksasin",
     "ingredientB": "teofilin",
     "risk": "high",
     "message": "Siprofloksasin, teofilinin metabolizmasını yavaşlatarak toksik düzeylere çıkmasına neden olabilir.",
-    "details": "Teofilin düzeyleri yakın takip edilmeli, doz ayarlanmalıdır.",
+    "details": "Siprofloksasin güçlü CYP1A2 inhibitörüdür; teofilinin yıkımını durdurarak düzeyini toksik aralığa çıkarabilir (bulantı, çarpıntı, nöbet).",
     "source": "manuel kürasyon",
     "id": "R-0027",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Teofilin düzeyi yakın izlenmeli, doz ayarlanmalı veya alternatif antibiyotik seçilmelidir."
   },
   {
     "ingredientA": "klaritromisin",
     "ingredientB": "kolşisin",
     "risk": "critical",
     "message": "Klaritromisin kolşisin toksisitesini ciddi şekilde artırabilir.",
-    "details": "Özellikle böbrek veya karaciğer yetmezliği olan hastalarda ölümcül olabilir.",
+    "details": "Klaritromisin, kolşisinin hem CYP3A4 ile yıkımını hem P-glikoprotein ile atılımını bloke eder; kolşisin birikimi çoklu organ toksisitesine yol açar. Böbrek/karaciğer yetmezliğinde ölümcül olgular bildirilmiştir.",
     "source": "manuel kürasyon",
     "id": "R-0028",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Bu kombinasyondan kaçınılmalıdır; ishal, kusma, kas güçsüzlüğü gelişirse hemen başvurun."
   },
   {
     "ingredientA": "metoklopramid",
     "ingredientB": "haloperidol",
     "risk": "high",
     "message": "Her iki ilaç da ekstrapiramidal yan etki riskini artırır.",
-    "details": "Birlikte kullanımda parkinsonizm, distoni ve akatizi riski artar.",
+    "details": "Metoklopramid ve haloperidolün her ikisi de dopamin reseptörlerini bloke eder; etkiler toplanınca parkinsonizm, distoni ve akatizi gibi ekstrapiramidal yan etkiler belirgin artar.",
     "source": "manuel kürasyon",
     "id": "R-0029",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "İstemsiz hareketler, huzursuzluk veya kas kasılması gelişirse doktora bildirin."
   },
   {
     "ingredientA": "aspirin",
     "ingredientB": "ibuprofen",
     "risk": "high",
     "message": "İbuprofen, aspirinin antiplatelet etkisini azaltabilir.",
-    "details": "İbuprofen aspirinden en az 30 dakika sonra veya 8 saat önce alınmalıdır.",
+    "details": "İbuprofen, aspirinin trombosit üzerindeki bağlanma bölgesini geçici olarak işgal eder; düzenli birlikte kullanımda aspirinin kalp koruyucu (pıhtı önleyici) etkisi bloke olabilir.",
     "source": "manuel kürasyon",
     "id": "R-0030",
     "evidence": "expert",
-    "action": "İbuprofeni aspirinden en az 8 saat önce veya 30 dakika sonra alın."
+    "action": "İbuprofen, aspirinden en az 8 saat önce veya 30 dakika sonra alınmalıdır; düzenli NSAİİ gerekiyorsa doktorunuza danışın."
   },
   {
     "ingredientA": "omeprazol",
     "ingredientB": "klopidogrel",
     "risk": "high",
     "message": "Omeprazol, klopidogrelin aktif metabolite dönüşümünü azaltır.",
-    "details": "Klopidogrelin antiplatelet etkinliği azalabilir. Pantoprazol tercih edilmelidir.",
+    "details": "Klopidogrel ön ilaçtır; etkisi için CYP2C19 ile aktifleşmesi gerekir. Omeprazol bu enzimi inhibe ederek aktif metaboliti azaltır ve pıhtı önleyici etkiyi zayıflatabilir.",
     "source": "manuel kürasyon",
     "id": "R-0031",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "PPI gerekiyorsa CYP2C19'u etkilemeyen pantoprazol tercih edilmelidir."
   },
   {
     "ingredientA": "amiodaron",
     "ingredientB": "simvastatin",
     "risk": "high",
     "message": "Amiodaron, simvastatinin düzeylerini artırarak rabdomiyoliz riskini yükseltir.",
-    "details": "Simvastatin dozu günlük 20 mg'ı geçmemelidir.",
+    "details": "Amiodaron, simvastatinin CYP3A4 ile yıkımını yavaşlatarak kas dokusuna toksik düzeyde statin birikmesine yol açabilir; rabdomiyoliz riski doz arttıkça artar.",
     "source": "manuel kürasyon",
     "id": "R-0032",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Amiodaron kullananlarda simvastatin günlük 20 mg'ı aşmamalıdır. Açıklanamayan kas ağrısı, güçsüzlük veya koyu (çay rengi) idrar gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "spironolakton",
     "ingredientB": "enalapril",
     "risk": "high",
     "message": "Spironolakton ve ACE inhibitörü birlikte hiperkalemi riskini artırır.",
-    "details": "Potasyum düzeyleri yakın takip edilmelidir.",
+    "details": "Spironolakton potasyum atılımını azaltır, ACE inhibitörü aldosteron üzerinden potasyumu yükseltir; etkiler toplanınca tehlikeli hiperkalemi (kalp ritmi bozukluğu) gelişebilir.",
     "source": "manuel kürasyon",
     "id": "R-0033",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Potasyum ve böbrek işlevi düzenli izlenmelidir; kas güçsüzlüğü, çarpıntı gelişirse başvurun."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "eritromisin",
     "risk": "high",
     "message": "Eritromisin, karbamazepinin düzeylerini artırarak toksisiteye neden olabilir.",
-    "details": "Baş dönmesi, çift görme, ataksi gibi belirtiler açısından takip edilmelidir.",
+    "details": "Eritromisin CYP3A4 inhibisyonuyla karbamazepin düzeyini toksik aralığa yükseltebilir.",
     "source": "manuel kürasyon",
     "id": "R-0034",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Baş dönmesi, çift görme, dengesizlik gelişirse başvurun; mümkünse etkileşimsiz antibiyotik seçilir."
   },
   {
     "ingredientA": "fenitoin",
     "ingredientB": "flukonazol",
     "risk": "high",
     "message": "Flukonazol, fenitoinin metabolizmasını inhibe ederek düzeylerini artırır.",
-    "details": "Fenitoin toksisitesi açısından düzey takibi gereklidir.",
+    "details": "Flukonazol, fenitoinin ana yıkım enzimi CYP2C9'u inhibe eder; fenitoin birikerek nistagmus, ataksi ve konfüzyonla seyreden toksisiteye yol açabilir.",
     "source": "manuel kürasyon",
     "id": "R-0035",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Fenitoin düzeyi izlenmeli; denge/görme bozukluğu gelişirse başvurun."
   },
   {
     "ingredientA": "teofilin",
     "ingredientB": "eritromisin",
     "risk": "high",
     "message": "Eritromisin, teofilinin metabolizmasını azaltarak toksik düzeylere çıkmasına neden olabilir.",
-    "details": "Teofilin düzeyleri izlenmeli ve doz ayarlanmalıdır.",
+    "details": "Eritromisin CYP3A4/CYP1A2 üzerinden teofilin yıkımını azaltır; teofilin dar terapötik pencereli olduğundan bulantı, çarpıntı ve nöbetle seyreden toksisite gelişebilir.",
     "source": "manuel kürasyon",
     "id": "R-0036",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Teofilin düzeyi izlenmeli ve doz gerekirse azaltılmalıdır."
   },
   {
     "ingredientA": "diklofenak",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "Diklofenak, lityumun renal klirensini azaltarak toksisiteye neden olabilir.",
-    "details": "Lityum serum düzeyleri yakın takip edilmelidir.",
+    "details": "NSAİİ'ler böbrekte prostaglandin sentezini baskılayarak böbrek kan akımını ve lityumun idrarla atılımını azaltır; lityum düzeyi 1-2 hafta içinde toksik aralığa yükselebilir.",
     "source": "manuel kürasyon",
     "id": "R-0037",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "amoksisilin",
     "ingredientB": "metotreksat",
     "risk": "high",
     "message": "Amoksisilin, metotreksatın renal eliminasyonunu azaltarak toksisiteyi artırabilir.",
-    "details": "Hematolojik takip yapılmalıdır.",
+    "details": "Penisilinler (amoksisilin) metotreksatın böbrek tübüllerinden atılımını yarışmalı olarak azaltır; metotreksat birikimi kemik iliği ve mukoza toksisitesine yol açabilir.",
     "source": "manuel kürasyon",
     "id": "R-0038",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Birlikte kullanımda kan sayımı izlenmeli; ağız yaraları, ateş veya morarma gelişirse başvurun."
   },
   {
     "ingredientA": "flukonazol",
     "ingredientB": "warfarin",
     "risk": "high",
     "message": "Flukonazol, warfarinin metabolizmasını inhibe ederek kanama riskini artırır.",
-    "details": "INR yakın takip edilmeli, warfarin dozu ayarlanmalıdır.",
+    "details": "Flukonazol, warfarinin ana yıkım enzimi CYP2C9'u güçlü inhibe eder; warfarin birikir, INR belirgin yükselir ve kanama riski artar.",
     "source": "manuel kürasyon",
     "id": "R-0039",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "INR yakın izlenmeli, warfarin dozu gerekirse ayarlanmalıdır. Olağan dışı morarma, dişeti/burun kanaması veya koyu idrar-dışkı görürseniz hemen başvurun."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "metronidazol",
     "risk": "high",
     "message": "Metronidazol warfarinin metabolizmasını inhibe ederek kanama riskini artırır.",
-    "details": "INR yakın takip edilmeli, warfarin dozu azaltılabilir.",
+    "details": "Metronidazol CYP2C9 inhibisyonuyla warfarinin (özellikle daha etkin S-enantiomerinin) yıkımını azaltır; INR yükselir.",
     "source": "klasik literatür",
     "id": "R-0040",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "INR yakın izlenmeli, warfarin dozu gerekirse ayarlanmalıdır. Olağan dışı morarma, dişeti/burun kanaması veya koyu idrar-dışkı görürseniz hemen başvurun."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "mikonazol",
     "risk": "high",
     "message": "Mikonazol (oral jel dahil) warfarinin etkisini belirgin artırır.",
-    "details": "Topikal/oral jel formlarında bile INR yükselmesi bildirilmiştir.",
+    "details": "Mikonazol güçlü CYP2C9 inhibitörüdür; ağız jeli gibi lokal formlarda bile emilen miktar warfarin yıkımını durdurup INR'yi tehlikeli yükseltebilir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0041",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Warfarin kullanırken mikonazol (oral jel dahil) başlamadan önce doktorunuza danışın; birlikte kullanımda INR sık izlenir."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "amiodaron",
     "risk": "high",
     "message": "Amiodaron warfarinin metabolizmasını inhibe ederek kanama riskini ciddi artırır.",
-    "details": "Warfarin dozu genellikle %30-50 azaltılır; INR sık takip edilmelidir.",
+    "details": "Amiodaron, warfarinin daha etkin S-enantiomerinin yıkım enzimi CYP2C9'u inhibe eder; etki haftalar içinde yerleşir ve amiodaronun uzun yarı ömrü nedeniyle kesildikten sonra da sürer.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0042",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Warfarin dozu genellikle %30-50 azaltılır; INR haftalarca sık izlenmelidir. Olağan dışı morarma, dişeti/burun kanaması veya koyu idrar-dışkı görürseniz hemen başvurun."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "kapesitabin",
     "risk": "critical",
     "message": "Kapesitabin warfarinin etkisini belirgin artırır; ciddi kanama bildirilmiştir.",
-    "details": "Bu kombinasyondan kaçınılmalı veya INR çok yakın izlenmelidir.",
+    "details": "Kapesitabin CYP2C9 üzerinden warfarin yıkımını baskılar; INR'de öngörülemez ve ciddi yükselmeler, ölümcül kanamalar bildirilmiştir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0043",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Bu kombinasyondan kaçınılmalı; zorunluysa INR çok sık izlenmelidir."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "tamoksifen",
     "risk": "high",
     "message": "Tamoksifen warfarinin antikoagülan etkisini artırır.",
-    "details": "Kombinasyondan kaçınılmalı; gerekiyorsa INR yakın izlenmelidir.",
+    "details": "Tamoksifen CYP2C9 inhibisyonuyla warfarin düzeyini artırır; belirgin INR yükselmesi ve kanama bildirilmiştir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0044",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kombinasyondan kaçınılmalı; gerekiyorsa INR yakın izlenmelidir."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "gemfibrozil",
     "risk": "high",
     "message": "Gemfibrozil warfarinin etkisini artırarak kanama riskini yükseltir.",
-    "details": "INR takibi ve doz ayarı gerekir.",
+    "details": "Gemfibrozil warfarini plazma protein bağından ayırır ve yıkımını etkiler; serbest warfarin artarak kanama riskini yükseltir.",
     "source": "klasik literatür",
     "id": "R-0045",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "INR yakın izlenmeli, warfarin dozu gerekirse ayarlanmalıdır. Olağan dışı morarma, dişeti/burun kanaması veya koyu idrar-dışkı görürseniz hemen başvurun."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "fenofibrat",
     "risk": "high",
     "message": "Fenofibrat warfarinin etkisini artırarak kanama riskini yükseltir.",
-    "details": "INR takibi ve doz ayarı gerekir.",
+    "details": "Fenofibrat warfarinin etkisini artırabilir (protein bağından ayırma ve CYP2C9 etkileşimi); INR yükselmesi bildirilmiştir.",
     "source": "klasik literatür",
     "id": "R-0046",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "INR yakın izlenmeli, warfarin dozu gerekirse ayarlanmalıdır. Olağan dışı morarma, dişeti/burun kanaması veya koyu idrar-dışkı görürseniz hemen başvurun."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "levotiroksin",
     "risk": "medium",
     "message": "Levotiroksin warfarinin etkisini artırabilir.",
-    "details": "Tiroid dozu değişikliklerinde INR kontrol edilmelidir.",
+    "details": "Tiroid hormonu, K vitaminine bağımlı pıhtılaşma faktörlerinin yıkımını hızlandırır; warfarinin etkisi güçlenir. Tiroid dozu değiştiğinde INR de değişir.",
     "source": "klasik literatür",
     "id": "R-0047",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Levotiroksin dozu her değiştiğinde INR kontrol edilmelidir."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "rifampisin",
     "risk": "high",
     "message": "Rifampisin warfarinin etkisini belirgin AZALTIR; pıhtı riski doğar.",
-    "details": "Warfarin dozunun artırılması ve kesildiğinde tekrar azaltılması gerekebilir.",
+    "details": "Rifampisin çok güçlü enzim indükleyicisidir; warfarin yıkımını hızlandırarak etkisini belirgin AZALTIR — pıhtı (tromboz) riski doğar. Rifampisin kesildiğinde indüksiyon haftalar içinde çözülür ve INR bu kez aşırı yükselebilir.",
     "source": "klasik literatür",
     "id": "R-0048",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Başlama ve kesilme dönemlerinde INR sık izlenmeli; warfarin dozu önce artırılıp sonra kademeli azaltılabilir."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "karbamazepin",
     "risk": "high",
     "message": "Karbamazepin warfarinin etkisini azaltarak tromboz riskine yol açabilir.",
-    "details": "INR takibiyle doz ayarı gerekir.",
+    "details": "Karbamazepin güçlü CYP enzim indükleyicisidir; warfarinin yıkımını hızlandırarak etkisini AZALTIR — pıhtı (tromboz) riski doğar. Karbamazepin kesilirse bu kez INR aşırı yükselebilir.",
     "source": "klasik literatür",
     "id": "R-0049",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Karbamazepin başlanırken ve kesilirken INR yakın izlenmeli, warfarin dozu ayarlanmalıdır."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "fenitoin",
     "risk": "high",
     "message": "Fenitoin ve warfarin karşılıklı olarak birbirinin düzeylerini etkiler.",
-    "details": "Hem INR hem fenitoin düzeyi izlenmelidir.",
+    "details": "Etkileşim çift yönlüdür: fenitoin başlangıçta warfarini protein bağından ayırıp INR'yi yükseltebilir, sürek kullanımda enzim indüksiyonuyla warfarin etkisini azaltır; warfarin de fenitoin düzeyini artırabilir.",
     "source": "klasik literatür",
     "id": "R-0050",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Hem INR hem fenitoin düzeyi izlenmelidir."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "fenobarbital",
     "risk": "high",
     "message": "Fenobarbital warfarinin etkisini azaltır.",
-    "details": "INR takibiyle doz ayarı gerekir.",
+    "details": "Fenobarbital güçlü enzim indükleyicisidir; warfarin yıkımını hızlandırarak antikoagülan etkiyi azaltır — tromboz riski. Kesildiğinde INR aşırı yükselebilir.",
     "source": "klasik literatür",
     "id": "R-0051",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Başlama ve kesilmede INR yakın izlenmelidir."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "simetidin",
     "risk": "medium",
     "message": "Simetidin warfarinin metabolizmasını yavaşlatarak etkisini artırabilir.",
-    "details": "Alternatif olarak famotidin tercih edilebilir.",
+    "details": "Simetidin karaciğer CYP enzimlerini (CYP2C9 dahil) inhibe ederek warfarin yıkımını azaltır; INR yükselebilir.",
     "source": "klasik literatür",
     "id": "R-0052",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Mide ilacı gerekiyorsa CYP etkileşimi olmayan famotidin tercih edilebilir; birlikte kullanımda INR izlenir."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "tramadol",
     "risk": "medium",
     "message": "Tramadol warfarinin etkisini artırabilir; INR yükselmesi bildirilmiştir.",
-    "details": "Birlikte kullanımda INR izlenmelidir.",
+    "details": "Tramadolün warfarinle INR yükselmesine yol açtığı bildirilmiştir; mekanizma tam aydınlatılmamıştır (olası CYP ve serotonerjik katkı).",
     "source": "klasik literatür",
     "id": "R-0053",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Birlikte kullanımda INR izlenmelidir."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "allopurinol",
     "risk": "medium",
     "message": "Allopurinol warfarinin etkisini artırabilir.",
-    "details": "INR takibi önerilir.",
+    "details": "Allopurinolün warfarin yıkımını azaltarak etkisini artırabildiği bildirilmiştir.",
     "source": "klasik literatür",
     "id": "R-0054",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Birlikte kullanımda INR takibi önerilir."
   },
   {
     "ingredientA": "warfarin",
     "ingredientB": "kolestiramin",
     "risk": "medium",
     "message": "Kolestiramin warfarin emilimini azaltır.",
-    "details": "En az 4-6 saat arayla alınmalıdır.",
+    "details": "Kolestiramin bağırsakta warfarini bağlayarak emilimini azaltır; antikoagülan etki zayıflar.",
     "source": "klasik literatür",
     "id": "R-0055",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Warfarin, kolestiraminden en az 1 saat önce veya 4-6 saat sonra alınmalı; INR izlenmelidir."
   },
   {
     "ingredientA": "digoksin",
     "ingredientB": "diltiazem",
     "risk": "high",
     "message": "Diltiazem digoksin düzeylerini artırarak toksisite riskini yükseltir.",
-    "details": "Digoksin düzeyi izlenmeli, doz azaltılabilir.",
+    "details": "Verapamil/diltiazem P-glikoproteini inhibe ederek digoksin atılımını azaltır ve düzeyini yükseltir; ayrıca AV düğüm iletimini baskılayıcı etkileri toplanarak bradikardi ve blok riski artar.",
     "source": "klasik literatür",
     "id": "R-0056",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Digoksin düzeyi izlenmeli; bulantı, iştahsızlık, görme değişiklikleri (sarı-yeşil halkalar) veya düzensiz nabız gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "digoksin",
     "ingredientB": "kinidin",
     "risk": "high",
     "message": "Kinidin digoksin düzeylerini iki katına kadar çıkarabilir.",
-    "details": "Digoksin dozu azaltılmalı ve düzey izlenmelidir.",
+    "details": "Kinidin, digoksini hem doku bağlarından ayırır hem P-glikoprotein aracılı atılımını bloke eder; digoksin düzeyi tipik olarak iki katına çıkar.",
     "source": "klasik literatür",
     "id": "R-0057",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Digoksin dozu yaklaşık yarıya indirilir; düzey ve EKG izlenir."
   },
   {
     "ingredientA": "digoksin",
     "ingredientB": "propafenon",
     "risk": "high",
     "message": "Propafenon digoksin düzeylerini artırır.",
-    "details": "Digoksin düzeyi izlenmelidir.",
+    "details": "Propafenon P-glikoproteini inhibe ederek digoksin düzeyini %35-85 artırabilir; iki ilacın iletim baskılayıcı etkileri de toplanır.",
     "source": "klasik literatür",
     "id": "R-0058",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Digoksin düzeyi izlenmeli; bulantı, iştahsızlık, görme değişiklikleri (sarı-yeşil halkalar) veya düzensiz nabız gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "digoksin",
     "ingredientB": "klaritromisin",
     "risk": "high",
     "message": "Klaritromisin digoksin düzeylerini belirgin artırır (P-gp inhibisyonu).",
-    "details": "Digoksin toksisitesi (bulantı, aritmi, görme bozukluğu) açısından izlenmelidir.",
+    "details": "Klaritromisin P-glikoproteini inhibe ederek digoksin atılımını azaltır ve bağırsak florasını değiştirerek yıkımını azaltır; digoksin düzeyi belirgin yükselir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0059",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Digoksin düzeyi izlenmeli; bulantı, görme değişikliği, düzensiz nabız gelişirse hemen başvurun."
   },
   {
     "ingredientA": "digoksin",
     "ingredientB": "eritromisin",
     "risk": "high",
     "message": "Eritromisin digoksin düzeylerini artırır.",
-    "details": "Digoksin toksisitesi açısından izlenmelidir.",
+    "details": "Makrolidler (eritromisin) hem bağırsak florasını değiştirerek digoksin yıkımını azaltır hem P-glikoproteini inhibe eder; digoksin düzeyi belirgin yükselebilir.",
     "source": "klasik literatür",
     "id": "R-0060",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Digoksin düzeyi izlenmeli; bulantı, iştahsızlık, görme değişiklikleri (sarı-yeşil halkalar) veya düzensiz nabız gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "digoksin",
     "ingredientB": "itrakonazol",
     "risk": "high",
     "message": "İtrakonazol digoksin düzeylerini artırır.",
-    "details": "Digoksin dozu azaltılabilir; düzey takibi gerekir.",
+    "details": "Azol antifungaller P-glikoproteini inhibe ederek digoksinin emilimini artırır ve atılımını azaltır; düzey toksik aralığa çıkabilir.",
     "source": "klasik literatür",
     "id": "R-0061",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Digoksin düzeyi izlenmeli; bulantı, iştahsızlık, görme değişiklikleri (sarı-yeşil halkalar) veya düzensiz nabız gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "digoksin",
     "ingredientB": "ketokonazol",
     "risk": "high",
     "message": "Ketokonazol digoksin düzeylerini artırır.",
-    "details": "Digoksin düzeyi izlenmelidir.",
+    "details": "Azol antifungaller P-glikoproteini inhibe ederek digoksinin emilimini artırır ve atılımını azaltır; düzey toksik aralığa çıkabilir.",
     "source": "klasik literatür",
     "id": "R-0062",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Digoksin düzeyi izlenmeli; bulantı, iştahsızlık, görme değişiklikleri (sarı-yeşil halkalar) veya düzensiz nabız gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "digoksin",
     "ingredientB": "siklosporin",
     "risk": "high",
     "message": "Siklosporin digoksin düzeylerini artırır.",
-    "details": "Digoksin düzeyi izlenmelidir.",
+    "details": "Siklosporin P-glikoprotein ve böbrek atılımı üzerinden digoksin birikimine yol açar.",
     "source": "klasik literatür",
     "id": "R-0063",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Digoksin düzeyi izlenmeli; bulantı, iştahsızlık, görme değişiklikleri (sarı-yeşil halkalar) veya düzensiz nabız gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "digoksin",
     "ingredientB": "spironolakton",
     "risk": "medium",
     "message": "Spironolakton digoksin düzeylerini ve ölçüm sonuçlarını etkileyebilir.",
-    "details": "Digoksin düzeyi ve potasyum izlenmelidir.",
+    "details": "Spironolakton digoksinin böbrek atılımını azaltabilir ve bazı digoksin ölçüm yöntemlerinde yalancı yüksek/karışık sonuçlara yol açar; potasyum yükselmesi de dijital etkisini değiştirir.",
     "source": "klasik literatür",
     "id": "R-0064",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Digoksin düzeyi ve potasyum birlikte izlenmelidir."
   },
   {
     "ingredientA": "simvastatin",
     "ingredientB": "gemfibrozil",
     "risk": "critical",
     "message": "Simvastatin ve gemfibrozil birlikte kullanımı kontrendikedir. Rabdomiyoliz riski çok yüksektir.",
-    "details": "Fibrat gerekiyorsa fenofibrat tercih edilmelidir.",
+    "details": "Gemfibrozil, simvastatinin hem taşıyıcı (OATP1B1) alımını hem glukuronidasyonla yıkımını bloke eder; aktif statin düzeyi katlanarak artar ve rabdomiyoliz riski belirgin yükselir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0065",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Bu kombinasyondan kaçınılmalıdır; fibrat gerekiyorsa fenofibrat tercih edilir. Açıklanamayan kas ağrısı, güçsüzlük veya koyu (çay rengi) idrar gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "atorvastatin",
     "ingredientB": "gemfibrozil",
     "risk": "high",
     "message": "Gemfibrozil atorvastatin düzeylerini artırarak rabdomiyoliz riskini yükseltir.",
-    "details": "Mümkünse fenofibrat tercih edilmelidir.",
+    "details": "Gemfibrozil, atorvastatinin taşıyıcı aracılı alımını ve yıkımını baskılayarak kas toksisitesi riskini artırır.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0066",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Mümkünse fenofibrat tercih edilmelidir. Açıklanamayan kas ağrısı, güçsüzlük veya koyu (çay rengi) idrar gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "rosuvastatin",
     "ingredientB": "gemfibrozil",
     "risk": "high",
     "message": "Gemfibrozil rosuvastatin düzeylerini artırır; rosuvastatin dozu 10 mg/gün ile sınırlanmalıdır.",
-    "details": "Kas ağrısı/güçsüzlüğü açısından izlenmelidir.",
+    "details": "Gemfibrozil, rosuvastatin düzeyini yaklaşık iki katına çıkarır (OATP1B1 inhibisyonu); miyopati/rabdomiyoliz riski artar.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0067",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kombinasyon gerekiyorsa rosuvastatin dozu sınırlanır. Açıklanamayan kas ağrısı, güçsüzlük veya koyu (çay rengi) idrar gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "simvastatin",
     "ingredientB": "diltiazem",
     "risk": "high",
     "message": "Diltiazem simvastatin düzeylerini artırır; simvastatin dozu 10 mg/gün ile sınırlanmalıdır.",
-    "details": "Miyopati belirtileri izlenmelidir.",
+    "details": "Diltiazem/verapamil orta güçte CYP3A4 inhibitörüdür; simvastatin düzeyini birkaç kat artırarak miyopati riskini yükseltir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0068",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Simvastatin dozu sınırlanmalıdır (verapamil/diltiazem ile genellikle ≤10 mg). Açıklanamayan kas ağrısı, güçsüzlük veya koyu (çay rengi) idrar gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "simvastatin",
     "ingredientB": "verapamil",
     "risk": "high",
     "message": "Verapamil simvastatin düzeylerini artırır; simvastatin dozu 10 mg/gün ile sınırlanmalıdır.",
-    "details": "Miyopati belirtileri izlenmelidir.",
+    "details": "Diltiazem/verapamil orta güçte CYP3A4 inhibitörüdür; simvastatin düzeyini birkaç kat artırarak miyopati riskini yükseltir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0069",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Simvastatin dozu sınırlanmalıdır (verapamil/diltiazem ile genellikle ≤10 mg). Açıklanamayan kas ağrısı, güçsüzlük veya koyu (çay rengi) idrar gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "simvastatin",
     "ingredientB": "amlodipin",
     "risk": "medium",
     "message": "Amlodipin simvastatin düzeylerini artırır; simvastatin dozu 20 mg/gün ile sınırlanmalıdır.",
-    "details": "Kas ağrısı gelişirse doktora başvurulmalıdır.",
+    "details": "Amlodipin zayıf CYP3A4 inhibisyonuyla simvastatin düzeyini artırır; FDA bu kombinasyonda simvastatin doz sınırı önerir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0070",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Amlodipin ile simvastatin günlük 20 mg'ı aşmamalıdır. Açıklanamayan kas ağrısı, güçsüzlük veya koyu (çay rengi) idrar gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "simvastatin",
     "ingredientB": "siklosporin",
     "risk": "critical",
     "message": "Siklosporin ile simvastatin kullanımı kontrendikedir. Rabdomiyoliz riski çok yüksektir.",
-    "details": "Alternatif statinler de en düşük dozda ve dikkatle kullanılmalıdır.",
+    "details": "Siklosporin OATP1B1 taşıyıcısını ve CYP3A4'ü bloke ederek simvastatin düzeyini katlar; rabdomiyoliz riski nedeniyle birlikte kullanım kontrendikedir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0071",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Statin gerekiyorsa en düşük dozda ve siklosporinle etkileşimi en az olan seçenek doktor kontrolünde kullanılır. Kas ağrısı/koyu idrar gelişirse başvurun."
   },
   {
     "ingredientA": "atorvastatin",
     "ingredientB": "siklosporin",
     "risk": "high",
     "message": "Siklosporin atorvastatin düzeylerini belirgin artırır.",
-    "details": "Mümkünse kombinasyondan kaçınılmalıdır.",
+    "details": "Siklosporin, atorvastatinin karaciğere alımını sağlayan OATP1B1 taşıyıcısını güçlü biçimde bloke eder; statin düzeyi 7-8 kat artabilir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0072",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Mümkünse kombinasyondan kaçınılmalı, gerekiyorsa en düşük statin dozu kullanılmalıdır. Açıklanamayan kas ağrısı, güçsüzlük veya koyu (çay rengi) idrar gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "rosuvastatin",
     "ingredientB": "siklosporin",
     "risk": "high",
     "message": "Siklosporin rosuvastatin düzeylerini 7 kata kadar artırır; doz 5 mg/gün ile sınırlanmalıdır.",
-    "details": "Kas belirtileri izlenmelidir.",
+    "details": "Siklosporin OATP1B1 inhibisyonuyla rosuvastatin düzeyini ~7 kat artırır.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0073",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Birlikte kullanımda rosuvastatin günlük 5 mg'ı aşmamalıdır. Açıklanamayan kas ağrısı, güçsüzlük veya koyu (çay rengi) idrar gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "simvastatin",
     "ingredientB": "danazol",
     "risk": "high",
     "message": "Danazol simvastatin düzeylerini artırarak rabdomiyoliz riskini yükseltir.",
-    "details": "Simvastatin dozu sınırlanmalıdır.",
+    "details": "Danazol CYP3A4 yolağı üzerinden simvastatin yıkımını azaltır; rabdomiyoliz olguları bildirilmiştir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0074",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Simvastatin dozu sınırlanmalıdır. Açıklanamayan kas ağrısı, güçsüzlük veya koyu (çay rengi) idrar gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "kolşisin",
     "ingredientB": "eritromisin",
     "risk": "critical",
     "message": "Eritromisin kolşisin toksisitesini ciddi artırabilir.",
-    "details": "Böbrek/karaciğer yetmezliğinde ölümcül olabilir.",
+    "details": "Eritromisin, kolşisinin hem CYP3A4 ile yıkımını hem P-glikoprotein ile atılımını bloke eder; kolşisin dokularda birikerek çoklu organ toksisitesine yol açabilir. Böbrek/karaciğer yetmezliğinde ölümcül olgular bildirilmiştir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0075",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Bu kombinasyondan kaçınılmalı; zorunluysa kolşisin dozu belirgin azaltılmalıdır. İshal, kusma, kas ağrısı/güçsüzlüğü veya uyuşma gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "kolşisin",
     "ingredientB": "itrakonazol",
     "risk": "high",
     "message": "İtrakonazol kolşisin düzeylerini artırarak toksisiteye yol açabilir.",
-    "details": "Kolşisin dozu azaltılmalıdır.",
+    "details": "Azol antifungaller CYP3A4 ve P-glikoproteini inhibe ederek kolşisin birikimine yol açar; kemik iliği baskılanması ve kas-sinir toksisitesi görülebilir.",
     "source": "klasik literatür",
     "id": "R-0076",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Kolşisin dozu azaltılmalıdır. İshal, kusma, kas ağrısı/güçsüzlüğü veya uyuşma gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "kolşisin",
     "ingredientB": "ketokonazol",
     "risk": "high",
     "message": "Ketokonazol kolşisin düzeylerini artırır.",
-    "details": "Kolşisin dozu azaltılmalıdır.",
+    "details": "Azol antifungaller CYP3A4 ve P-glikoproteini inhibe ederek kolşisin birikimine yol açar; kemik iliği baskılanması ve kas-sinir toksisitesi görülebilir.",
     "source": "klasik literatür",
     "id": "R-0077",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Kolşisin dozu azaltılmalıdır. İshal, kusma, kas ağrısı/güçsüzlüğü veya uyuşma gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "kolşisin",
     "ingredientB": "flukonazol",
     "risk": "medium",
     "message": "Flukonazol kolşisin düzeylerini artırabilir.",
-    "details": "Toksisite belirtileri (ishal, kas ağrısı) izlenmelidir.",
+    "details": "Flukonazol orta güçte CYP3A4 inhibisyonuyla kolşisin düzeyini artırabilir.",
     "source": "klasik literatür",
     "id": "R-0078",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Toksisite belirtileri izlenmelidir. İshal, kusma, kas ağrısı/güçsüzlüğü veya uyuşma gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "kolşisin",
     "ingredientB": "siklosporin",
     "risk": "high",
     "message": "Siklosporin kolşisin toksisitesini artırır; miyopati ve nöropati riski vardır.",
-    "details": "Doz azaltılmalı, belirtiler izlenmelidir.",
+    "details": "Siklosporin P-glikoproteini güçlü inhibe ederek kolşisin atılımını azaltır; kas ve kemik iliği toksisitesi bildirilmiştir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0079",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kolşisin dozu azaltılmalı, belirtiler izlenmelidir. İshal, kusma, kas ağrısı/güçsüzlüğü veya uyuşma gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "kolşisin",
     "ingredientB": "verapamil",
     "risk": "high",
     "message": "Verapamil kolşisin düzeylerini artırır.",
-    "details": "Kolşisin dozu azaltılmalıdır.",
+    "details": "Verapamil/diltiazem CYP3A4 ve P-glikoprotein inhibisyonuyla kolşisin düzeyini yükseltir; toksik birikim bildirimleri vardır.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0080",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kolşisin dozu azaltılmalıdır. İshal, kusma, kas ağrısı/güçsüzlüğü veya uyuşma gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "kolşisin",
     "ingredientB": "diltiazem",
     "risk": "high",
     "message": "Diltiazem kolşisin düzeylerini artırır.",
-    "details": "Kolşisin dozu azaltılmalıdır.",
+    "details": "Verapamil/diltiazem CYP3A4 ve P-glikoprotein inhibisyonuyla kolşisin düzeyini yükseltir; toksik birikim bildirimleri vardır.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0081",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kolşisin dozu azaltılmalıdır. İshal, kusma, kas ağrısı/güçsüzlüğü veya uyuşma gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "kolşisin",
     "ingredientB": "atorvastatin",
     "risk": "medium",
     "message": "Kolşisin ve atorvastatin birlikte miyopati riskini artırır.",
-    "details": "Kas ağrısı/güçsüzlüğü izlenmelidir.",
+    "details": "Kolşisin ve statinlerin kas toksisitesi etkileri toplanır; birlikte kullanımda miyopati/rabdomiyoliz olguları bildirilmiştir.",
     "source": "klasik literatür",
     "id": "R-0082",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Kas ağrısı/güçsüzlüğü gelişirse iki ilacı da değerlendirmek üzere doktora başvurun."
   },
   {
     "ingredientA": "kolşisin",
     "ingredientB": "simvastatin",
     "risk": "medium",
     "message": "Kolşisin ve simvastatin birlikte miyopati riskini artırır.",
-    "details": "Kas ağrısı/güçsüzlüğü izlenmelidir.",
+    "details": "Kolşisin ve statinlerin kas toksisitesi etkileri toplanır; birlikte kullanımda miyopati/rabdomiyoliz olguları bildirilmiştir.",
     "source": "klasik literatür",
     "id": "R-0083",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Kas ağrısı/güçsüzlüğü gelişirse iki ilacı da değerlendirmek üzere doktora başvurun."
   },
   {
     "ingredientA": "metotreksat",
     "ingredientB": "kotrimoksazol",
     "risk": "critical",
     "message": "Kotrimoksazol metotreksat toksisitesini ciddi artırır; pansitopeni bildirilmiştir.",
-    "details": "Bu kombinasyondan kaçınılmalıdır.",
+    "details": "Kotrimoksazolün trimetoprim bileşeni metotreksatla aynı folat yolağını bloke eder ve böbrek atılımını azaltır; ölümcül pansitopeni olguları bildirilmiştir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0084",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Bu kombinasyondan kaçınılmalıdır. Metotreksat kullanırken antibiyotik başlanacaksa mutlaka hatırlatın."
   },
   {
     "ingredientA": "diklofenak",
     "ingredientB": "metotreksat",
     "risk": "high",
     "message": "NSAID/salisilat metotreksatın atılımını azaltarak toksisiteyi artırır.",
-    "details": "Özellikle yüksek doz metotreksatta kombinasyondan kaçınılmalıdır.",
+    "details": "NSAİİ'ler böbrek prostaglandinlerini baskılayarak metotreksatın atılımını azaltır; metotreksat birikimi kemik iliği ve böbrek toksisitesine yol açabilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0085",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Özellikle yüksek doz metotreksatta bu kombinasyondan kaçınılmalıdır; düşük doz tedavide bile doktorunuz bilmeden NSAİİ eklemeyin."
   },
   {
     "ingredientA": "naproksen",
     "ingredientB": "metotreksat",
     "risk": "high",
     "message": "NSAID/salisilat metotreksatın atılımını azaltarak toksisiteyi artırır.",
-    "details": "Özellikle yüksek doz metotreksatta kombinasyondan kaçınılmalıdır.",
+    "details": "NSAİİ'ler böbrek prostaglandinlerini baskılayarak metotreksatın atılımını azaltır; metotreksat birikimi kemik iliği ve böbrek toksisitesine yol açabilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0086",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Özellikle yüksek doz metotreksatta bu kombinasyondan kaçınılmalıdır; düşük doz tedavide bile doktorunuz bilmeden NSAİİ eklemeyin."
   },
   {
     "ingredientA": "ketoprofen",
     "ingredientB": "metotreksat",
     "risk": "high",
     "message": "NSAID/salisilat metotreksatın atılımını azaltarak toksisiteyi artırır.",
-    "details": "Özellikle yüksek doz metotreksatta kombinasyondan kaçınılmalıdır.",
+    "details": "NSAİİ'ler böbrek prostaglandinlerini baskılayarak metotreksatın atılımını azaltır; metotreksat birikimi kemik iliği ve böbrek toksisitesine yol açabilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0087",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Özellikle yüksek doz metotreksatta bu kombinasyondan kaçınılmalıdır; düşük doz tedavide bile doktorunuz bilmeden NSAİİ eklemeyin."
   },
   {
     "ingredientA": "asetilsalisilik asit",
     "ingredientB": "metotreksat",
     "risk": "high",
     "message": "NSAID/salisilat metotreksatın atılımını azaltarak toksisiteyi artırır.",
-    "details": "Özellikle yüksek doz metotreksatta kombinasyondan kaçınılmalıdır.",
+    "details": "Salisilatlar metotreksatı hem böbrek atılımında yarışarak hem protein bağından ayırarak yükseltir; toksisite riski artar.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0088",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Özellikle yüksek doz metotreksatta kaçınılmalıdır; ağrı kesici gerekiyorsa doktorunuza danışın."
   },
   {
     "ingredientA": "omeprazol",
     "ingredientB": "metotreksat",
     "risk": "medium",
     "message": "PPI ilaçlar (özellikle yüksek doz) metotreksat atılımını azaltabilir.",
-    "details": "Yüksek doz metotreksat tedavisinde PPI ara verilmesi düşünülmelidir.",
+    "details": "PPI'lar metotreksatın böbrek tübüllerinden atılımını (taşıyıcı inhibisyonu) azaltabilir; özellikle yüksek doz metotreksatta düzey yükselmesi ve toksisite bildirilmiştir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0089",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Yüksek doz metotreksat tedavisi sırasında PPI'ya ara verilmesi veya H2 blokere geçiş düşünülmelidir."
   },
   {
     "ingredientA": "pantoprazol",
     "ingredientB": "metotreksat",
     "risk": "medium",
     "message": "PPI ilaçlar (özellikle yüksek doz) metotreksat atılımını azaltabilir.",
-    "details": "Yüksek doz metotreksat tedavisinde PPI ara verilmesi düşünülmelidir.",
+    "details": "PPI'lar metotreksatın böbrek tübüllerinden atılımını (taşıyıcı inhibisyonu) azaltabilir; özellikle yüksek doz metotreksatta düzey yükselmesi ve toksisite bildirilmiştir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0090",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Yüksek doz metotreksat tedavisi sırasında PPI'ya ara verilmesi veya H2 blokere geçiş düşünülmelidir."
   },
   {
     "ingredientA": "esomeprazol",
     "ingredientB": "metotreksat",
     "risk": "medium",
     "message": "PPI ilaçlar (özellikle yüksek doz) metotreksat atılımını azaltabilir.",
-    "details": "Yüksek doz metotreksat tedavisinde PPI ara verilmesi düşünülmelidir.",
+    "details": "PPI'lar metotreksatın böbrek tübüllerinden atılımını (taşıyıcı inhibisyonu) azaltabilir; özellikle yüksek doz metotreksatta düzey yükselmesi ve toksisite bildirilmiştir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0091",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Yüksek doz metotreksat tedavisi sırasında PPI'ya ara verilmesi veya H2 blokere geçiş düşünülmelidir."
   },
   {
     "ingredientA": "lansoprazol",
     "ingredientB": "metotreksat",
     "risk": "medium",
     "message": "PPI ilaçlar (özellikle yüksek doz) metotreksat atılımını azaltabilir.",
-    "details": "Yüksek doz metotreksat tedavisinde PPI ara verilmesi düşünülmelidir.",
+    "details": "PPI'lar metotreksatın böbrek tübüllerinden atılımını (taşıyıcı inhibisyonu) azaltabilir; özellikle yüksek doz metotreksatta düzey yükselmesi ve toksisite bildirilmiştir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0092",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Yüksek doz metotreksat tedavisi sırasında PPI'ya ara verilmesi veya H2 blokere geçiş düşünülmelidir."
   },
   {
     "ingredientA": "metotreksat",
     "ingredientB": "leflunomid",
     "risk": "high",
     "message": "Metotreksat ve leflunomid birlikte hepatotoksisite ve kemik iliği baskılanması riskini artırır.",
-    "details": "Karaciğer enzimleri ve kan sayımı yakın izlenmelidir.",
+    "details": "Leflunomid ve metotreksatın karaciğer ve kemik iliği toksisiteleri toplanır.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0093",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Karaciğer enzimleri ve kan sayımı düzenli izlenmelidir; halsizlik, sararma veya morarma gelişirse başvurun."
   },
   {
     "ingredientA": "metotreksat",
     "ingredientB": "siklosporin",
     "risk": "medium",
     "message": "Siklosporin metotreksat düzeylerini artırabilir.",
-    "details": "Toksisite açısından izlem gerekir.",
+    "details": "Siklosporin metotreksat atılımını azaltır, metotreksat da siklosporin metabolitlerini artırır; böbrek toksisitesi ve karşılıklı düzey artışı görülebilir.",
     "source": "klasik literatür",
     "id": "R-0094",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Böbrek işlevi ve düzeyler izlenmelidir."
   },
   {
     "ingredientA": "metotreksat",
     "ingredientB": "probenesid",
     "risk": "high",
     "message": "Probenesid metotreksat atılımını azaltarak toksisiteyi artırır.",
-    "details": "Kombinasyondan kaçınılmalıdır.",
+    "details": "Probenesid, metotreksatın böbrek tübüllerinden atılımını güçlü biçimde bloke eder; metotreksat düzeyi katlanarak toksik aralığa çıkabilir.",
     "source": "klasik literatür",
     "id": "R-0095",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Kombinasyondan kaçınılmalıdır."
   },
   {
     "ingredientA": "naproksen",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "NSAID ilaçlar lityumun böbrekten atılımını azaltarak toksik düzeye çıkarabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "NSAİİ'ler böbrekte prostaglandin sentezini baskılayarak böbrek kan akımını ve lityumun idrarla atılımını azaltır; lityum düzeyi 1-2 hafta içinde toksik aralığa yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0096",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "ketoprofen",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "NSAID ilaçlar lityumun böbrekten atılımını azaltarak toksik düzeye çıkarabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "NSAİİ'ler böbrekte prostaglandin sentezini baskılayarak böbrek kan akımını ve lityumun idrarla atılımını azaltır; lityum düzeyi 1-2 hafta içinde toksik aralığa yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0097",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "indometazin",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "NSAID ilaçlar lityumun böbrekten atılımını azaltarak toksik düzeye çıkarabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "NSAİİ'ler böbrekte prostaglandin sentezini baskılayarak böbrek kan akımını ve lityumun idrarla atılımını azaltır; lityum düzeyi 1-2 hafta içinde toksik aralığa yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0098",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "piroksikam",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "NSAID ilaçlar lityumun böbrekten atılımını azaltarak toksik düzeye çıkarabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "NSAİİ'ler böbrekte prostaglandin sentezini baskılayarak böbrek kan akımını ve lityumun idrarla atılımını azaltır; lityum düzeyi 1-2 hafta içinde toksik aralığa yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0099",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "meloksikam",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "NSAID ilaçlar lityumun böbrekten atılımını azaltarak toksik düzeye çıkarabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "NSAİİ'ler böbrekte prostaglandin sentezini baskılayarak böbrek kan akımını ve lityumun idrarla atılımını azaltır; lityum düzeyi 1-2 hafta içinde toksik aralığa yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0100",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "selekoksib",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "NSAID ilaçlar lityumun böbrekten atılımını azaltarak toksik düzeye çıkarabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "NSAİİ'ler böbrekte prostaglandin sentezini baskılayarak böbrek kan akımını ve lityumun idrarla atılımını azaltır; lityum düzeyi 1-2 hafta içinde toksik aralığa yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0101",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "lizinopril",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "ACE inhibitörleri lityum düzeylerini artırarak toksisiteye yol açabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "ACE inhibitörleri böbrek süzme basıncını ve sodyum dengesini değiştirerek lityumun atılımını azaltır; lityum düzeyi haftalar içinde sinsice yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0102",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "ramipril",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "ACE inhibitörleri lityum düzeylerini artırarak toksisiteye yol açabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "ACE inhibitörleri böbrek süzme basıncını ve sodyum dengesini değiştirerek lityumun atılımını azaltır; lityum düzeyi haftalar içinde sinsice yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0103",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "perindopril",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "ACE inhibitörleri lityum düzeylerini artırarak toksisiteye yol açabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "ACE inhibitörleri böbrek süzme basıncını ve sodyum dengesini değiştirerek lityumun atılımını azaltır; lityum düzeyi haftalar içinde sinsice yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0104",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "kaptopril",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "ACE inhibitörleri lityum düzeylerini artırarak toksisiteye yol açabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "ACE inhibitörleri böbrek süzme basıncını ve sodyum dengesini değiştirerek lityumun atılımını azaltır; lityum düzeyi haftalar içinde sinsice yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0105",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "silazapril",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "ACE inhibitörleri lityum düzeylerini artırarak toksisiteye yol açabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "ACE inhibitörleri böbrek süzme basıncını ve sodyum dengesini değiştirerek lityumun atılımını azaltır; lityum düzeyi haftalar içinde sinsice yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0106",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "fosinopril",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "ACE inhibitörleri lityum düzeylerini artırarak toksisiteye yol açabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "ACE inhibitörleri böbrek süzme basıncını ve sodyum dengesini değiştirerek lityumun atılımını azaltır; lityum düzeyi haftalar içinde sinsice yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0107",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "losartan",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "ARB ilaçlar lityum düzeylerini artırabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "ARB'ler (sartanlar) böbrek süzme basıncını ve sodyum dengesini değiştirerek lityumun atılımını azaltır; lityum düzeyi haftalar içinde yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0108",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "valsartan",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "ARB ilaçlar lityum düzeylerini artırabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "ARB'ler (sartanlar) böbrek süzme basıncını ve sodyum dengesini değiştirerek lityumun atılımını azaltır; lityum düzeyi haftalar içinde yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0109",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "kandesartan",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "ARB ilaçlar lityum düzeylerini artırabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "ARB'ler (sartanlar) böbrek süzme basıncını ve sodyum dengesini değiştirerek lityumun atılımını azaltır; lityum düzeyi haftalar içinde yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0110",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "telmisartan",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "ARB ilaçlar lityum düzeylerini artırabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "ARB'ler (sartanlar) böbrek süzme basıncını ve sodyum dengesini değiştirerek lityumun atılımını azaltır; lityum düzeyi haftalar içinde yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0111",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "irbesartan",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "ARB ilaçlar lityum düzeylerini artırabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "ARB'ler (sartanlar) böbrek süzme basıncını ve sodyum dengesini değiştirerek lityumun atılımını azaltır; lityum düzeyi haftalar içinde yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0112",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "olmesartan",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "ARB ilaçlar lityum düzeylerini artırabilir.",
-    "details": "Lityum düzeyi yakın izlenmelidir.",
+    "details": "ARB'ler (sartanlar) böbrek süzme basıncını ve sodyum dengesini değiştirerek lityumun atılımını azaltır; lityum düzeyi haftalar içinde yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0113",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "hidroklorotiazid",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "Tiazid diüretikler lityum atılımını azaltarak toksik düzeye çıkarabilir.",
-    "details": "Lityum düzeyi yakın izlenmeli; doz azaltılması gerekebilir.",
+    "details": "Tiazid diüretikler sodyum kaybına karşılık böbreğin lityum geri emilimini artırır; lityum düzeyi birkaç gün içinde belirgin yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0114",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "indapamid",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "Tiazid diüretikler lityum atılımını azaltarak toksik düzeye çıkarabilir.",
-    "details": "Lityum düzeyi yakın izlenmeli; doz azaltılması gerekebilir.",
+    "details": "Tiazid diüretikler sodyum kaybına karşılık böbreğin lityum geri emilimini artırır; lityum düzeyi birkaç gün içinde belirgin yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0115",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "klortalidon",
     "ingredientB": "lityum",
     "risk": "high",
     "message": "Tiazid diüretikler lityum atılımını azaltarak toksik düzeye çıkarabilir.",
-    "details": "Lityum düzeyi yakın izlenmeli; doz azaltılması gerekebilir.",
+    "details": "Tiazid diüretikler sodyum kaybına karşılık böbreğin lityum geri emilimini artırır; lityum düzeyi birkaç gün içinde belirgin yükselebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0116",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa lityum kan düzeyi yakın izlenmelidir. Titreme, bulantı, ishal, sersemlik veya konuşma bozukluğu gelişirse hemen doktora başvurun."
   },
   {
     "ingredientA": "lityum",
     "ingredientB": "furosemid",
     "risk": "medium",
     "message": "Kıvrım diüretikleri lityum düzeylerini etkileyebilir.",
-    "details": "Lityum düzeyi izlenmelidir.",
+    "details": "Kıvrım diüretikleri sıvı-sodyum dengesini değiştirerek lityum düzeyini öngörülemez şekilde etkileyebilir; etki tiazidlerden daha az belirgindir.",
     "source": "klasik literatür",
     "id": "R-0117",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Lityum düzeyi izlenmeli; su kaybı (kusma, ishal, aşırı terleme) durumunda dikkat edilmelidir."
   },
   {
     "ingredientA": "lityum",
     "ingredientB": "metronidazol",
     "risk": "medium",
     "message": "Metronidazol lityum düzeylerini artırabilir.",
-    "details": "Lityum düzeyi izlenmelidir.",
+    "details": "Metronidazolün lityum atılımını azaltarak düzeyini yükselttiği ve böbrek hasarına katkı verdiği olgu bildirimleri vardır.",
     "source": "klasik literatür",
     "id": "R-0118",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Kısa antibiyotik kürlerinde bile lityum düzeyi ve böbrek işlevi izlenmelidir."
   },
   {
     "ingredientA": "lityum",
     "ingredientB": "karbamazepin",
     "risk": "medium",
     "message": "Lityum ve karbamazepin birlikte nörotoksisite riskini artırabilir.",
-    "details": "Nörolojik belirtiler izlenmelidir.",
+    "details": "Lityum ve karbamazepinin sinir sistemi yan etkileri toplanır; her iki ilacın düzeyi normal aralıktayken bile sersemlik, ataksi ve tremorla seyreden nörotoksisite bildirilmiştir.",
     "source": "klasik literatür",
     "id": "R-0119",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Nörolojik belirtiler (yürüyüş bozukluğu, titreme, uyuşukluk) açısından izlem gerekir."
   },
   {
     "ingredientA": "lityum",
     "ingredientB": "haloperidol",
     "risk": "medium",
     "message": "Yüksek doz lityum ve haloperidol birlikte nörotoksisite bildirilmiştir.",
-    "details": "Nörolojik belirtiler izlenmelidir.",
+    "details": "Lityum ve haloperidol birlikte, nadiren düzeyler normalken bile ağır nörotoksisite (konfüzyon, ekstrapiramidal bulgular, ateş) tablosuna yol açabilir.",
     "source": "klasik literatür",
     "id": "R-0120",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Nörolojik belirtiler yakın izlenmeli; konfüzyon veya kas sertliği gelişirse hemen başvurun."
   },
   {
     "ingredientA": "lityum",
     "ingredientB": "topiramat",
     "risk": "medium",
     "message": "Topiramat lityum düzeylerini etkileyebilir.",
-    "details": "Lityum düzeyi izlenmelidir.",
+    "details": "Topiramat böbrekten atılımı ve asit-baz dengesini etkileyerek lityum düzeyini değiştirebilir (hem düşme hem yükselme bildirilmiştir).",
     "source": "klasik literatür",
     "id": "R-0121",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Topiramat başlanırken/kesilirken lityum düzeyi kontrol edilmelidir."
   },
   {
     "ingredientA": "paroksetin",
     "ingredientB": "tramadol",
     "risk": "high",
     "message": "Serotonerjik antidepresan ve tramadol birlikte serotonin sendromu ve nöbet riskini artırır.",
-    "details": "Ateş, ajitasyon, tremor, kas sertliği belirtilerinde acil başvuru gerekir.",
+    "details": "Serotonerjik antidepresan serotonin geri alımını engeller; tramadol da serotonin salımını artırır ve geri alımını inhibe eder. Etkiler toplanınca serotonin sendromu riski, ayrıca nöbet eşiğinde düşme görülür.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0122",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Ateş, ajitasyon, tremor, kas sertliği veya terleme gelişirse acile başvurun; mümkünse serotonerjik olmayan analjezik tercih edilir."
   },
   {
     "ingredientA": "essitalopram",
     "ingredientB": "tramadol",
     "risk": "high",
     "message": "Serotonerjik antidepresan ve tramadol birlikte serotonin sendromu ve nöbet riskini artırır.",
-    "details": "Ateş, ajitasyon, tremor, kas sertliği belirtilerinde acil başvuru gerekir.",
+    "details": "Serotonerjik antidepresan serotonin geri alımını engeller; tramadol da serotonin salımını artırır ve geri alımını inhibe eder. Etkiler toplanınca serotonin sendromu riski, ayrıca nöbet eşiğinde düşme görülür.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0123",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Ateş, ajitasyon, tremor, kas sertliği veya terleme gelişirse acile başvurun; mümkünse serotonerjik olmayan analjezik tercih edilir."
   },
   {
     "ingredientA": "sitalopram",
     "ingredientB": "tramadol",
     "risk": "high",
     "message": "Serotonerjik antidepresan ve tramadol birlikte serotonin sendromu ve nöbet riskini artırır.",
-    "details": "Ateş, ajitasyon, tremor, kas sertliği belirtilerinde acil başvuru gerekir.",
+    "details": "Serotonerjik antidepresan serotonin geri alımını engeller; tramadol da serotonin salımını artırır ve geri alımını inhibe eder. Etkiler toplanınca serotonin sendromu riski, ayrıca nöbet eşiğinde düşme görülür.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0124",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Ateş, ajitasyon, tremor, kas sertliği veya terleme gelişirse acile başvurun; mümkünse serotonerjik olmayan analjezik tercih edilir."
   },
   {
     "ingredientA": "fluvoksamin",
     "ingredientB": "tramadol",
     "risk": "high",
     "message": "Serotonerjik antidepresan ve tramadol birlikte serotonin sendromu ve nöbet riskini artırır.",
-    "details": "Ateş, ajitasyon, tremor, kas sertliği belirtilerinde acil başvuru gerekir.",
+    "details": "Serotonerjik antidepresan serotonin geri alımını engeller; tramadol da serotonin salımını artırır ve geri alımını inhibe eder. Etkiler toplanınca serotonin sendromu riski, ayrıca nöbet eşiğinde düşme görülür.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0125",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Ateş, ajitasyon, tremor, kas sertliği veya terleme gelişirse acile başvurun; mümkünse serotonerjik olmayan analjezik tercih edilir."
   },
   {
     "ingredientA": "duloksetin",
     "ingredientB": "tramadol",
     "risk": "high",
     "message": "Serotonerjik antidepresan ve tramadol birlikte serotonin sendromu ve nöbet riskini artırır.",
-    "details": "Ateş, ajitasyon, tremor, kas sertliği belirtilerinde acil başvuru gerekir.",
+    "details": "Serotonerjik antidepresan serotonin geri alımını engeller; tramadol da serotonin salımını artırır ve geri alımını inhibe eder. Etkiler toplanınca serotonin sendromu riski, ayrıca nöbet eşiğinde düşme görülür.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0126",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Ateş, ajitasyon, tremor, kas sertliği veya terleme gelişirse acile başvurun; mümkünse serotonerjik olmayan analjezik tercih edilir."
   },
   {
     "ingredientA": "venlafaksin",
     "ingredientB": "tramadol",
     "risk": "high",
     "message": "Serotonerjik antidepresan ve tramadol birlikte serotonin sendromu ve nöbet riskini artırır.",
-    "details": "Ateş, ajitasyon, tremor, kas sertliği belirtilerinde acil başvuru gerekir.",
+    "details": "Serotonerjik antidepresan serotonin geri alımını engeller; tramadol da serotonin salımını artırır ve geri alımını inhibe eder. Etkiler toplanınca serotonin sendromu riski, ayrıca nöbet eşiğinde düşme görülür.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0127",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Ateş, ajitasyon, tremor, kas sertliği veya terleme gelişirse acile başvurun; mümkünse serotonerjik olmayan analjezik tercih edilir."
   },
   {
     "ingredientA": "sertralin",
     "ingredientB": "moklobemid",
     "risk": "critical",
     "message": "Serotonerjik antidepresan ve MAO inhibitörü birlikte kullanımı kontrendikedir. Serotonin sendromu riski!",
-    "details": "İlaçlar arasında yeterli arınma süresi bırakılmalıdır.",
+    "details": "SSRI/SNRI serotonin geri alımını engellerken moklobemid (MAO-A inhibitörü) serotonin yıkımını durdurur; sinapsta serotonin birikir ve yaşamı tehdit eden serotonin sendromu (ajitasyon, ateş, kas sertliği, titreme, bilinç değişikliği) gelişebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0128",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte KULLANILMAZ. Geçişte ilaçlar arasında yeterli arınma süresi bırakılmalıdır (çoğu SSRI/SNRI için ~2 hafta; doktorunuz planlar)."
   },
   {
     "ingredientA": "paroksetin",
     "ingredientB": "moklobemid",
     "risk": "critical",
     "message": "Serotonerjik antidepresan ve MAO inhibitörü birlikte kullanımı kontrendikedir. Serotonin sendromu riski!",
-    "details": "İlaçlar arasında yeterli arınma süresi bırakılmalıdır.",
+    "details": "SSRI/SNRI serotonin geri alımını engellerken moklobemid (MAO-A inhibitörü) serotonin yıkımını durdurur; sinapsta serotonin birikir ve yaşamı tehdit eden serotonin sendromu (ajitasyon, ateş, kas sertliği, titreme, bilinç değişikliği) gelişebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0129",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte KULLANILMAZ. Geçişte ilaçlar arasında yeterli arınma süresi bırakılmalıdır (çoğu SSRI/SNRI için ~2 hafta; doktorunuz planlar)."
   },
   {
     "ingredientA": "essitalopram",
     "ingredientB": "moklobemid",
     "risk": "critical",
     "message": "Serotonerjik antidepresan ve MAO inhibitörü birlikte kullanımı kontrendikedir. Serotonin sendromu riski!",
-    "details": "İlaçlar arasında yeterli arınma süresi bırakılmalıdır.",
+    "details": "SSRI/SNRI serotonin geri alımını engellerken moklobemid (MAO-A inhibitörü) serotonin yıkımını durdurur; sinapsta serotonin birikir ve yaşamı tehdit eden serotonin sendromu (ajitasyon, ateş, kas sertliği, titreme, bilinç değişikliği) gelişebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0130",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte KULLANILMAZ. Geçişte ilaçlar arasında yeterli arınma süresi bırakılmalıdır (çoğu SSRI/SNRI için ~2 hafta; doktorunuz planlar)."
   },
   {
     "ingredientA": "sitalopram",
     "ingredientB": "moklobemid",
     "risk": "critical",
     "message": "Serotonerjik antidepresan ve MAO inhibitörü birlikte kullanımı kontrendikedir. Serotonin sendromu riski!",
-    "details": "İlaçlar arasında yeterli arınma süresi bırakılmalıdır.",
+    "details": "SSRI/SNRI serotonin geri alımını engellerken moklobemid (MAO-A inhibitörü) serotonin yıkımını durdurur; sinapsta serotonin birikir ve yaşamı tehdit eden serotonin sendromu (ajitasyon, ateş, kas sertliği, titreme, bilinç değişikliği) gelişebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0131",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte KULLANILMAZ. Geçişte ilaçlar arasında yeterli arınma süresi bırakılmalıdır (çoğu SSRI/SNRI için ~2 hafta; doktorunuz planlar)."
   },
   {
     "ingredientA": "fluvoksamin",
     "ingredientB": "moklobemid",
     "risk": "critical",
     "message": "Serotonerjik antidepresan ve MAO inhibitörü birlikte kullanımı kontrendikedir. Serotonin sendromu riski!",
-    "details": "İlaçlar arasında yeterli arınma süresi bırakılmalıdır.",
+    "details": "SSRI/SNRI serotonin geri alımını engellerken moklobemid (MAO-A inhibitörü) serotonin yıkımını durdurur; sinapsta serotonin birikir ve yaşamı tehdit eden serotonin sendromu (ajitasyon, ateş, kas sertliği, titreme, bilinç değişikliği) gelişebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0132",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte KULLANILMAZ. Geçişte ilaçlar arasında yeterli arınma süresi bırakılmalıdır (çoğu SSRI/SNRI için ~2 hafta; doktorunuz planlar)."
   },
   {
     "ingredientA": "venlafaksin",
     "ingredientB": "moklobemid",
     "risk": "critical",
     "message": "Serotonerjik antidepresan ve MAO inhibitörü birlikte kullanımı kontrendikedir. Serotonin sendromu riski!",
-    "details": "İlaçlar arasında yeterli arınma süresi bırakılmalıdır.",
+    "details": "SSRI/SNRI serotonin geri alımını engellerken moklobemid (MAO-A inhibitörü) serotonin yıkımını durdurur; sinapsta serotonin birikir ve yaşamı tehdit eden serotonin sendromu (ajitasyon, ateş, kas sertliği, titreme, bilinç değişikliği) gelişebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0133",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte KULLANILMAZ. Geçişte ilaçlar arasında yeterli arınma süresi bırakılmalıdır (çoğu SSRI/SNRI için ~2 hafta; doktorunuz planlar)."
   },
   {
     "ingredientA": "duloksetin",
     "ingredientB": "moklobemid",
     "risk": "critical",
     "message": "Serotonerjik antidepresan ve MAO inhibitörü birlikte kullanımı kontrendikedir. Serotonin sendromu riski!",
-    "details": "İlaçlar arasında yeterli arınma süresi bırakılmalıdır.",
+    "details": "SSRI/SNRI serotonin geri alımını engellerken moklobemid (MAO-A inhibitörü) serotonin yıkımını durdurur; sinapsta serotonin birikir ve yaşamı tehdit eden serotonin sendromu (ajitasyon, ateş, kas sertliği, titreme, bilinç değişikliği) gelişebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0134",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte KULLANILMAZ. Geçişte ilaçlar arasında yeterli arınma süresi bırakılmalıdır (çoğu SSRI/SNRI için ~2 hafta; doktorunuz planlar)."
   },
   {
     "ingredientA": "fluoksetin",
     "ingredientB": "selejilin",
     "risk": "critical",
     "message": "SSRI ve selejilin birlikte serotonin sendromu riski taşır; kontrendikedir.",
-    "details": "Fluoksetin kesildikten sonra 5 hafta beklenmelidir.",
+    "details": "Fluoksetin serotonin geri alımını engeller, selejilin yüksek dozda MAO-A'yı da baskılar; serotonin birikimiyle serotonin sendromu gelişebilir. Fluoksetinin aktif metaboliti çok uzun ömürlüdür.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0135",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Birlikte KULLANILMAZ. Fluoksetin kesildikten sonra selejilin başlamadan önce en az 5 hafta beklenmelidir."
   },
   {
     "ingredientA": "sertralin",
     "ingredientB": "selejilin",
     "risk": "critical",
     "message": "SSRI ve selejilin birlikte serotonin sendromu riski taşır; kontrendikedir.",
-    "details": "Fluoksetin kesildikten sonra 5 hafta beklenmelidir.",
+    "details": "Sertralin serotonin geri alımını engeller, selejilin MAO yıkımını baskılar; serotonin sendromu riski vardır.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0136",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Birlikte KULLANILMAZ. Sertralin kesildikten sonra en az 2 hafta beklenmelidir (fluoksetinde bu süre 5 haftadır)."
   },
   {
     "ingredientA": "paroksetin",
     "ingredientB": "selejilin",
     "risk": "critical",
     "message": "SSRI ve selejilin birlikte serotonin sendromu riski taşır; kontrendikedir.",
-    "details": "Fluoksetin kesildikten sonra 5 hafta beklenmelidir.",
+    "details": "Paroksetin serotonin geri alımını engeller, selejilin MAO yıkımını baskılar; serotonin sendromu riski vardır.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0137",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Birlikte KULLANILMAZ. Paroksetin kesildikten sonra en az 2 hafta beklenmelidir."
   },
   {
     "ingredientA": "fluoksetin",
     "ingredientB": "rasajilin",
     "risk": "critical",
     "message": "SSRI ve rasajilin birlikte serotonin sendromu riski taşır.",
-    "details": "Kombinasyondan kaçınılmalıdır.",
+    "details": "SSRI serotonin geri alımını engellerken rasajilin (MAO-B inhibitörü) yüksek maruziyette serotonin yıkımını da baskılayabilir; serotonin sendromu olguları bildirilmiştir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0138",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kombinasyondan kaçınılmalıdır; geçişlerde arınma süresine uyulur (fluoksetin için 5 hafta)."
   },
   {
     "ingredientA": "sertralin",
     "ingredientB": "rasajilin",
     "risk": "critical",
     "message": "SSRI ve rasajilin birlikte serotonin sendromu riski taşır.",
-    "details": "Kombinasyondan kaçınılmalıdır.",
+    "details": "SSRI serotonin geri alımını engellerken rasajilin (MAO-B inhibitörü) yüksek maruziyette serotonin yıkımını da baskılayabilir; serotonin sendromu olguları bildirilmiştir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0139",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kombinasyondan kaçınılmalıdır; geçişlerde arınma süresine uyulur (fluoksetin için 5 hafta)."
   },
   {
     "ingredientA": "paroksetin",
     "ingredientB": "rasajilin",
     "risk": "critical",
     "message": "SSRI ve rasajilin birlikte serotonin sendromu riski taşır.",
-    "details": "Kombinasyondan kaçınılmalıdır.",
+    "details": "SSRI serotonin geri alımını engellerken rasajilin (MAO-B inhibitörü) yüksek maruziyette serotonin yıkımını da baskılayabilir; serotonin sendromu olguları bildirilmiştir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0140",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kombinasyondan kaçınılmalıdır; geçişlerde arınma süresine uyulur (fluoksetin için 5 hafta)."
   },
   {
     "ingredientA": "fluoksetin",
     "ingredientB": "dekstrometorfan",
     "risk": "high",
     "message": "SSRI dekstrometorfan düzeylerini artırarak serotonin sendromu riski oluşturur.",
-    "details": "Öksürük ilaçlarının içeriği kontrol edilmelidir.",
+    "details": "Fluoksetin/paroksetin güçlü CYP2D6 inhibitörüdür; dekstrometorfanın yıkımını engelleyip düzeyini katlar, iki ilacın serotonerjik etkileri de toplanır — serotonin sendromu riski.",
     "source": "klasik literatür",
     "id": "R-0141",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Öksürük şuruplarının içeriğini kontrol edin; dekstrometorfan içerenlerden kaçının veya doktorunuza danışın."
   },
   {
     "ingredientA": "paroksetin",
     "ingredientB": "dekstrometorfan",
     "risk": "high",
     "message": "SSRI dekstrometorfan düzeylerini artırarak serotonin sendromu riski oluşturur.",
-    "details": "Öksürük ilaçlarının içeriği kontrol edilmelidir.",
+    "details": "Fluoksetin/paroksetin güçlü CYP2D6 inhibitörüdür; dekstrometorfanın yıkımını engelleyip düzeyini katlar, iki ilacın serotonerjik etkileri de toplanır — serotonin sendromu riski.",
     "source": "klasik literatür",
     "id": "R-0142",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Öksürük şuruplarının içeriğini kontrol edin; dekstrometorfan içerenlerden kaçının veya doktorunuza danışın."
   },
   {
     "ingredientA": "tramadol",
     "ingredientB": "karbamazepin",
     "risk": "medium",
     "message": "Karbamazepin tramadolün etkinliğini azaltır; ayrıca nöbet eşiğini etkileyebilir.",
-    "details": "Analjezik etki yetersiz kalabilir.",
+    "details": "Karbamazepin, tramadolün yıkımını hızlandırarak analjezik etkisini azaltır; tramadol da nöbet eşiğini düşürebilir.",
     "source": "klasik literatür",
     "id": "R-0143",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Ağrı kontrolü yetersizse alternatif analjezik değerlendirilmelidir."
   },
   {
     "ingredientA": "sitalopram",
     "ingredientB": "amiodaron",
     "risk": "high",
     "message": "Sitalopram/essitalopram ve amiodaron birlikte ciddi QT uzaması riski taşır.",
-    "details": "EKG takibi önerilir; alternatif antidepresan düşünülmelidir.",
+    "details": "Sitalopram/essitalopram doz bağımlı QT uzatır; amiodaronun güçlü QT uzatıcı etkisiyle birleşince torsades de pointes tipi ölümcül aritmi riski belirgin artar.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0144",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "EKG ve elektrolit takibi önerilir; mümkünse QT etkisi düşük alternatif antidepresan seçilir. Çarpıntı/bayılmada hemen başvurun."
   },
   {
     "ingredientA": "essitalopram",
     "ingredientB": "amiodaron",
     "risk": "high",
     "message": "Sitalopram/essitalopram ve amiodaron birlikte ciddi QT uzaması riski taşır.",
-    "details": "EKG takibi önerilir; alternatif antidepresan düşünülmelidir.",
+    "details": "Sitalopram/essitalopram doz bağımlı QT uzatır; amiodaronun güçlü QT uzatıcı etkisiyle birleşince torsades de pointes tipi ölümcül aritmi riski belirgin artar.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0145",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "EKG ve elektrolit takibi önerilir; mümkünse QT etkisi düşük alternatif antidepresan seçilir. Çarpıntı/bayılmada hemen başvurun."
   },
   {
     "ingredientA": "sitalopram",
     "ingredientB": "sotalol",
     "risk": "high",
     "message": "Sitalopram/essitalopram ve sotalol birlikte QT uzaması riskini artırır.",
-    "details": "EKG takibi önerilir.",
+    "details": "Sitalopram/essitalopram ve sotalolün her ikisi de kalpte QT aralığını uzatır; etkiler toplanınca torsades de pointes tipi tehlikeli aritmi riski artar.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0146",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Birlikte kullanım gerekiyorsa EKG ve elektrolit (potasyum, magnezyum) takibi yapılmalıdır; çarpıntı veya bayılmada hemen başvurun."
   },
   {
     "ingredientA": "essitalopram",
     "ingredientB": "sotalol",
     "risk": "high",
     "message": "Sitalopram/essitalopram ve sotalol birlikte QT uzaması riskini artırır.",
-    "details": "EKG takibi önerilir.",
+    "details": "Sitalopram/essitalopram ve sotalolün her ikisi de kalpte QT aralığını uzatır; etkiler toplanınca torsades de pointes tipi tehlikeli aritmi riski artar.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0147",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Birlikte kullanım gerekiyorsa EKG ve elektrolit (potasyum, magnezyum) takibi yapılmalıdır; çarpıntı veya bayılmada hemen başvurun."
   },
   {
     "ingredientA": "ketokonazol",
     "ingredientB": "domperidon",
     "risk": "critical",
     "message": "CYP3A4 inhibitörleri domperidon düzeylerini artırarak ölümcül aritmi riski oluşturur. Kontrendikedir.",
-    "details": "Domperidon QT uzatan ilaçlarla birlikte kullanılmamalıdır.",
+    "details": "Bu ilaçlar CYP3A4'ü inhibe ederek domperidon düzeyini katlar; domperidonun QT uzatıcı etkisi doz bağımlıdır ve ani kardiyak ölüm riskiyle ilişkilendirilmiştir. EMA birlikte kullanımını kontrendike sayar.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0148",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Bu kombinasyon KULLANILMAMALIDIR; bulantı ilacı gerekiyorsa doktorunuz alternatif önerir."
   },
   {
     "ingredientA": "eritromisin",
     "ingredientB": "domperidon",
     "risk": "critical",
     "message": "CYP3A4 inhibitörleri domperidon düzeylerini artırarak ölümcül aritmi riski oluşturur. Kontrendikedir.",
-    "details": "Domperidon QT uzatan ilaçlarla birlikte kullanılmamalıdır.",
+    "details": "Bu ilaçlar CYP3A4'ü inhibe ederek domperidon düzeyini katlar; domperidonun QT uzatıcı etkisi doz bağımlıdır ve ani kardiyak ölüm riskiyle ilişkilendirilmiştir. EMA birlikte kullanımını kontrendike sayar.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0149",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Bu kombinasyon KULLANILMAMALIDIR; bulantı ilacı gerekiyorsa doktorunuz alternatif önerir."
   },
   {
     "ingredientA": "klaritromisin",
     "ingredientB": "domperidon",
     "risk": "critical",
     "message": "CYP3A4 inhibitörleri domperidon düzeylerini artırarak ölümcül aritmi riski oluşturur. Kontrendikedir.",
-    "details": "Domperidon QT uzatan ilaçlarla birlikte kullanılmamalıdır.",
+    "details": "Bu ilaçlar CYP3A4'ü inhibe ederek domperidon düzeyini katlar; domperidonun QT uzatıcı etkisi doz bağımlıdır ve ani kardiyak ölüm riskiyle ilişkilendirilmiştir. EMA birlikte kullanımını kontrendike sayar.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0150",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Bu kombinasyon KULLANILMAMALIDIR; bulantı ilacı gerekiyorsa doktorunuz alternatif önerir."
   },
   {
     "ingredientA": "domperidon",
     "ingredientB": "flukonazol",
     "risk": "high",
     "message": "Flukonazol domperidon düzeylerini artırarak QT uzaması riskini yükseltir.",
-    "details": "Kombinasyondan kaçınılmalıdır.",
+    "details": "Flukonazol hem domperidon yıkımını azaltır hem kendisi QT uzatabilir; aritmi riski toplanır.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0151",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kombinasyondan kaçınılmalıdır."
   },
   {
     "ingredientA": "teofilin",
     "ingredientB": "fluvoksamin",
     "risk": "high",
     "message": "Fluvoksamin teofilin metabolizmasını güçlü inhibe eder; toksisite riski yüksektir.",
-    "details": "Teofilin dozu üçte bire düşürülmeli ve düzey izlenmelidir.",
+    "details": "Fluvoksamin güçlü CYP1A2 inhibitörüdür; teofilinin yıkımını durdurarak düzeyini yaklaşık üç katına çıkarabilir — bulantı, çarpıntı, nöbet riski.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0152",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kombinasyon gerekiyorsa teofilin dozu yaklaşık üçte bire düşürülmeli ve düzey izlenmelidir."
   },
   {
     "ingredientA": "teofilin",
     "ingredientB": "karbamazepin",
     "risk": "medium",
     "message": "Karbamazepin teofilin düzeylerini azaltabilir.",
-    "details": "Teofilin düzeyi izlenmelidir.",
+    "details": "Karbamazepin CYP1A2/CYP3A4 indüksiyonuyla teofilin yıkımını hızlandırır; teofilin düzeyi ve etkisi düşer, karbamazepin düzeyi de değişebilir.",
     "source": "klasik literatür",
     "id": "R-0153",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Teofilin düzeyi izlenmeli, doz gerekirse artırılmalıdır."
   },
   {
     "ingredientA": "teofilin",
     "ingredientB": "fenitoin",
     "risk": "medium",
     "message": "Fenitoin ve teofilin karşılıklı düzey azalmasına yol açabilir.",
-    "details": "Her iki ilacın düzeyi izlenmelidir.",
+    "details": "Fenitoin enzim indüksiyonuyla teofilin düzeyini düşürür; teofilin de fenitoin emilim ve düzeyini etkileyebilir.",
     "source": "klasik literatür",
     "id": "R-0154",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Her iki ilacın düzeyi izlenmelidir."
   },
   {
     "ingredientA": "teofilin",
     "ingredientB": "rifampisin",
     "risk": "medium",
     "message": "Rifampisin teofilin düzeylerini azaltır.",
-    "details": "Teofilin dozu artırılması gerekebilir.",
+    "details": "Rifampisin güçlü enzim indükleyicisidir; teofilin yıkımını hızlandırarak düzeyini ve bronkodilatör etkisini azaltır.",
     "source": "klasik literatür",
     "id": "R-0155",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Teofilin düzeyi izlenmeli; doz artırımı gerekebilir."
   },
   {
     "ingredientA": "teofilin",
     "ingredientB": "allopurinol",
     "risk": "medium",
     "message": "Yüksek doz allopurinol teofilin düzeylerini artırabilir.",
-    "details": "Teofilin düzeyi izlenmelidir.",
+    "details": "Allopurinol (özellikle yüksek dozda) teofilin yıkımını azaltarak düzeyini yükseltebilir.",
     "source": "klasik literatür",
     "id": "R-0156",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Uzun süreli birlikte kullanımda teofilin düzeyi izlenmelidir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "klaritromisin",
     "risk": "high",
     "message": "Klaritromisin karbamazepin düzeylerini artırarak toksisiteye yol açar.",
-    "details": "Baş dönmesi, çift görme, ataksi belirtileri izlenmelidir.",
+    "details": "Klaritromisin CYP3A4'ü inhibe ederek karbamazepin düzeyini toksik aralığa yükseltebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0157",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Baş dönmesi, çift görme, dengesizlik gelişirse başvurun; mümkünse etkileşimsiz antibiyotik tercih edilir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "izoniazid",
     "risk": "high",
     "message": "İzoniazid karbamazepin düzeylerini artırır; hepatotoksisite riski de artar.",
-    "details": "Karbamazepin düzeyi ve karaciğer enzimleri izlenmelidir.",
+    "details": "İzoniazid CYP3A4 inhibisyonuyla karbamazepin düzeyini artırır; karbamazepin de izoniazidin karaciğer toksisitesini artırabilir.",
     "source": "klasik literatür",
     "id": "R-0158",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Karbamazepin düzeyi ve karaciğer enzimleri izlenmelidir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "diltiazem",
     "risk": "high",
     "message": "Diltiazem karbamazepin düzeylerini artırır.",
-    "details": "Karbamazepin düzeyi izlenmelidir.",
+    "details": "Diltiazem/verapamil CYP3A4 inhibisyonuyla karbamazepin düzeyini yükseltir; toksisite (ataksi, sersemlik) bildirilmiştir.",
     "source": "klasik literatür",
     "id": "R-0159",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Karbamazepin düzeyi izlenmeli; belirti gelişirse doz gözden geçirilir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "verapamil",
     "risk": "high",
     "message": "Verapamil karbamazepin düzeylerini artırır.",
-    "details": "Karbamazepin düzeyi izlenmelidir.",
+    "details": "Diltiazem/verapamil CYP3A4 inhibisyonuyla karbamazepin düzeyini yükseltir; toksisite (ataksi, sersemlik) bildirilmiştir.",
     "source": "klasik literatür",
     "id": "R-0160",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Karbamazepin düzeyi izlenmeli; belirti gelişirse doz gözden geçirilir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "flukonazol",
     "risk": "high",
     "message": "Flukonazol karbamazepin düzeylerini artırarak toksisiteye yol açabilir.",
-    "details": "Karbamazepin düzeyi izlenmelidir.",
+    "details": "Flukonazol CYP3A4 inhibisyonuyla karbamazepin düzeyini yükseltebilir.",
     "source": "klasik literatür",
     "id": "R-0161",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Karbamazepin düzeyi izlenmelidir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "itrakonazol",
     "risk": "medium",
     "message": "Karbamazepin itrakonazol düzeylerini azaltarak antifungal tedaviyi etkisizleştirebilir.",
-    "details": "Alternatif antifungal düşünülmelidir.",
+    "details": "Karbamazepin güçlü CYP3A4 indükleyicisidir; itrakonazolün düzeyini düşürerek antifungal tedaviyi ETKİSİZLEŞTİREBİLİR.",
     "source": "klasik literatür",
     "id": "R-0162",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Mümkünse indüksiyondan etkilenmeyen alternatif antifungal seçilmelidir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "valproat",
     "risk": "medium",
     "message": "Karbamazepin ve valproat karşılıklı düzey ve toksisite etkileşimi gösterir.",
-    "details": "Her iki ilacın düzeyi izlenmelidir.",
+    "details": "Valproat, karbamazepinin aktif epoksit metabolitinin yıkımını engelleyerek toksisiteyi artırabilir; karbamazepin de valproat düzeyini düşürür.",
     "source": "klasik literatür",
     "id": "R-0163",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Her iki ilacın düzeyi ve yan etkiler izlenmelidir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "lamotrijin",
     "risk": "medium",
     "message": "Karbamazepin lamotrijin düzeylerini azaltır; nörotoksisite de bildirilmiştir.",
-    "details": "Doz ayarı gerekebilir.",
+    "details": "Karbamazepin, lamotrijinin yıkımını hızlandırarak düzeyini düşürür; lamotrijin de karbamazepin yan etkilerini (baş dönmesi, çift görme) artırabilir.",
     "source": "klasik literatür",
     "id": "R-0164",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Doz ayarı gerekebilir; nöbet kontrolü ve yan etkiler izlenir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "etinilestradiol",
     "risk": "high",
     "message": "Karbamazepin hormonal kontraseptiflerin etkinliğini azaltır; istenmeyen gebelik riski!",
-    "details": "Ek/alternatif kontrasepsiyon yöntemi kullanılmalıdır.",
+    "details": "Karbamazepin, hormonal kontraseptif hormonlarının (etinilestradiol/levonorgestrel) yıkımını CYP3A4 indüksiyonuyla hızlandırır; doğum kontrol etkinliği düşer ve istenmeyen gebelik görülebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0165",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Ek veya alternatif (hormon dışı) kontrasepsiyon yöntemi kullanılmalıdır; ara kanama uyarıcı olabilir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "levonorgestrel",
     "risk": "high",
     "message": "Karbamazepin levonorgestrel etkinliğini azaltır.",
-    "details": "Ek/alternatif kontrasepsiyon yöntemi kullanılmalıdır.",
+    "details": "Karbamazepin, hormonal kontraseptif hormonlarının (etinilestradiol/levonorgestrel) yıkımını CYP3A4 indüksiyonuyla hızlandırır; doğum kontrol etkinliği düşer ve istenmeyen gebelik görülebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0166",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Ek veya alternatif (hormon dışı) kontrasepsiyon yöntemi kullanılmalıdır; ara kanama uyarıcı olabilir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "doksisiklin",
     "risk": "medium",
     "message": "Karbamazepin doksisiklin düzeylerini azaltır.",
-    "details": "Doksisiklin doz aralığı ayarlanabilir.",
+    "details": "Karbamazepin enzim indüksiyonuyla doksisiklinin yıkımını hızlandırır; antibiyotik düzeyi ve etkinliği düşebilir.",
     "source": "klasik literatür",
     "id": "R-0167",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Tedavi yanıtı izlenmeli; doz aralığı ayarlanabilir veya alternatif tetrasiklin seçilebilir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "simvastatin",
     "risk": "medium",
     "message": "Karbamazepin simvastatin düzeylerini azaltarak etkinliğini düşürür.",
-    "details": "Lipid yanıtı izlenmelidir.",
+    "details": "Karbamazepin CYP3A4 indüksiyonuyla simvastatin düzeyini belirgin düşürür; kolesterol kontrolü zayıflayabilir.",
     "source": "klasik literatür",
     "id": "R-0168",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Lipid yanıtı izlenmeli; gerekirse indüksiyondan az etkilenen statin seçilir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "ketiapin",
     "risk": "medium",
     "message": "Karbamazepin ketiapin düzeylerini belirgin azaltır.",
-    "details": "Ketiapin dozu ayarlanması gerekebilir.",
+    "details": "Karbamazepin CYP3A4 indüksiyonuyla ketiapin düzeyini büyük oranda düşürür; psikiyatrik tedavi etkisiz kalabilir.",
     "source": "klasik literatür",
     "id": "R-0169",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Klinik yanıt izlenmeli; ketiapin dozunun ayarlanması gerekebilir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "risperidon",
     "risk": "medium",
     "message": "Karbamazepin risperidon düzeylerini azaltır.",
-    "details": "Klinik yanıt izlenmelidir.",
+    "details": "Karbamazepin, risperidonun ve aktif metabolitinin düzeyini enzim indüksiyonuyla düşürür.",
     "source": "klasik literatür",
     "id": "R-0170",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Klinik yanıt izlenmeli; doz ayarı gerekebilir."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "takrolimus",
     "risk": "high",
     "message": "Karbamazepin takrolimus düzeylerini düşürerek rejeksiyon riskine yol açabilir.",
-    "details": "Takrolimus düzeyi yakın izlenmelidir.",
+    "details": "Karbamazepin CYP3A4 indüksiyonuyla takrolimus düzeyini düşürür; organ reddi riski doğar.",
     "source": "klasik literatür",
     "id": "R-0171",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Takrolimus düzeyi yakın izlenmeli, doz ayarlanmalıdır."
   },
   {
     "ingredientA": "karbamazepin",
     "ingredientB": "siklosporin",
     "risk": "high",
     "message": "Karbamazepin siklosporin düzeylerini düşürerek rejeksiyon riskine yol açabilir.",
-    "details": "Siklosporin düzeyi yakın izlenmelidir.",
+    "details": "Karbamazepin CYP3A4 indüksiyonuyla siklosporin düzeyini düşürür; organ reddi riski doğar.",
     "source": "klasik literatür",
     "id": "R-0172",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Siklosporin düzeyi yakın izlenmeli, doz ayarlanmalıdır."
   },
   {
     "ingredientA": "valproat",
     "ingredientB": "lamotrijin",
     "risk": "high",
     "message": "Valproat lamotrijin düzeylerini iki katına çıkarır; ciddi deri döküntüsü (SJS) riski artar.",
-    "details": "Lamotrijin dozu yarıya indirilmeli, döküntüde ilaç kesilmelidir.",
+    "details": "Valproat, lamotrijinin glukuronidasyonla yıkımını inhibe ederek düzeyini yaklaşık iki katına çıkarır; ciddi deri reaksiyonu (Stevens-Johnson sendromu) riski doza ve hızlı titrasyona bağlı olarak artar.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0173",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Lamotrijin dozu yarıya indirilerek ve yavaş artırılarak kullanılmalı; yaygın döküntü, ateş, ağız içi yara gelişirse İLACI KESİP hemen başvurun."
   },
   {
     "ingredientA": "meropenem",
     "ingredientB": "valproat",
     "risk": "critical",
     "message": "Karbapenem antibiyotikler valproat düzeylerini hızla ve belirgin düşürür; nöbet kontrolü kaybolabilir.",
-    "details": "Bu kombinasyondan kaçınılmalı, alternatif antibiyotik seçilmelidir.",
+    "details": "Karbapenemler valproatın emilim ve dolaşımdaki düzeyini günler içinde %60-100 düşürür (mekanizma çok yönlü: emilim, glukuronidasyon, eritrosit dağılımı); nöbet kontrolü aniden kaybolabilir. Doz artırmak da düzeyi toparlamaz.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0174",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Bu kombinasyondan kaçınılmalı, alternatif antibiyotik seçilmelidir; zorunluysa ek nöbet koruması planlanır."
   },
   {
     "ingredientA": "imipenem",
     "ingredientB": "valproat",
     "risk": "critical",
     "message": "Karbapenem antibiyotikler valproat düzeylerini hızla ve belirgin düşürür; nöbet kontrolü kaybolabilir.",
-    "details": "Bu kombinasyondan kaçınılmalı, alternatif antibiyotik seçilmelidir.",
+    "details": "Karbapenemler valproatın emilim ve dolaşımdaki düzeyini günler içinde %60-100 düşürür (mekanizma çok yönlü: emilim, glukuronidasyon, eritrosit dağılımı); nöbet kontrolü aniden kaybolabilir. Doz artırmak da düzeyi toparlamaz.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0175",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Bu kombinasyondan kaçınılmalı, alternatif antibiyotik seçilmelidir; zorunluysa ek nöbet koruması planlanır."
   },
   {
     "ingredientA": "ertapenem",
     "ingredientB": "valproat",
     "risk": "critical",
     "message": "Karbapenem antibiyotikler valproat düzeylerini hızla ve belirgin düşürür; nöbet kontrolü kaybolabilir.",
-    "details": "Bu kombinasyondan kaçınılmalı, alternatif antibiyotik seçilmelidir.",
+    "details": "Karbapenemler valproatın emilim ve dolaşımdaki düzeyini günler içinde %60-100 düşürür (mekanizma çok yönlü: emilim, glukuronidasyon, eritrosit dağılımı); nöbet kontrolü aniden kaybolabilir. Doz artırmak da düzeyi toparlamaz.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0176",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Bu kombinasyondan kaçınılmalı, alternatif antibiyotik seçilmelidir; zorunluysa ek nöbet koruması planlanır."
   },
   {
     "ingredientA": "valproat",
     "ingredientB": "asetilsalisilik asit",
     "risk": "medium",
     "message": "Aspirin valproatın serbest fraksiyonunu artırarak toksisiteye yol açabilir.",
-    "details": "Özellikle yüksek doz aspirin ile dikkat edilmelidir.",
+    "details": "Aspirin valproatı plazma protein bağından ayırır ve yıkımını azaltır; serbest valproat düzeyi yükselerek toksisiteye (tremor, sersemlik) yol açabilir.",
     "source": "klasik literatür",
     "id": "R-0177",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Özellikle yüksek doz aspirinle birlikte kullanımda dikkat; belirti gelişirse başvurun."
   },
   {
     "ingredientA": "valproat",
     "ingredientB": "fenitoin",
     "risk": "medium",
     "message": "Valproat ve fenitoin karşılıklı düzey etkileşimi gösterir.",
-    "details": "Her iki ilacın düzeyi izlenmelidir.",
+    "details": "Etkileşim çift yönlü ve karmaşıktır: her ilaç diğerini protein bağından ayırır ve yıkımını etkiler; serbest ilaç düzeyleri öngörülemez değişir.",
     "source": "klasik literatür",
     "id": "R-0178",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Her iki ilacın düzeyi (mümkünse serbest düzeyler) izlenmelidir."
   },
   {
     "ingredientA": "valproat",
     "ingredientB": "fenobarbital",
     "risk": "medium",
     "message": "Valproat fenobarbital düzeylerini artırarak sedasyonu derinleştirir.",
-    "details": "Fenobarbital dozu azaltılabilir.",
+    "details": "Valproat, fenobarbitalın yıkımını inhibe ederek düzeyini yükseltir; belirgin sedasyon görülebilir.",
     "source": "klasik literatür",
     "id": "R-0179",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Aşırı uyku halinde fenobarbital dozu azaltılabilir — doktor kararıyla."
   },
   {
     "ingredientA": "fenitoin",
     "ingredientB": "izoniazid",
     "risk": "high",
     "message": "İzoniazid fenitoin metabolizmasını inhibe ederek toksisiteye yol açar.",
-    "details": "Fenitoin düzeyi izlenmelidir.",
+    "details": "İzoniazid fenitoinin yıkımını (CYP2C9/2C19) inhibe eder; özellikle yavaş asetilleyicilerde fenitoin toksisitesi gelişebilir.",
     "source": "klasik literatür",
     "id": "R-0180",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Fenitoin düzeyi izlenmelidir."
   },
   {
     "ingredientA": "fenitoin",
     "ingredientB": "simetidin",
     "risk": "medium",
     "message": "Simetidin fenitoin düzeylerini artırabilir.",
-    "details": "Fenitoin düzeyi izlenmelidir.",
+    "details": "Simetidin CYP inhibisyonuyla fenitoin düzeyini yükseltir.",
     "source": "klasik literatür",
     "id": "R-0181",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Fenitoin düzeyi izlenmeli veya famotidin gibi alternatif tercih edilmelidir."
   },
   {
     "ingredientA": "fenitoin",
     "ingredientB": "amiodaron",
     "risk": "high",
     "message": "Amiodaron fenitoin düzeylerini artırır; fenitoin de amiodaronu azaltır.",
-    "details": "Her iki ilacın etkinliği/toksisitesi izlenmelidir.",
+    "details": "Amiodaron fenitoin yıkımını inhibe ederek düzeyini artırır; fenitoin de enzim indüksiyonuyla amiodaron düzeyini düşürür.",
     "source": "klasik literatür",
     "id": "R-0182",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Her iki ilacın etkinliği ve toksisitesi izlenmelidir."
   },
   {
     "ingredientA": "fenitoin",
     "ingredientB": "kotrimoksazol",
     "risk": "high",
     "message": "Kotrimoksazol fenitoin düzeylerini artırarak toksisiteye yol açabilir.",
-    "details": "Fenitoin düzeyi izlenmelidir.",
+    "details": "Kotrimoksazolün trimetoprim/sülfametoksazol bileşenleri CYP2C9 üzerinden fenitoin yıkımını azaltır; toksisite bildirilmiştir.",
     "source": "klasik literatür",
     "id": "R-0183",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Fenitoin düzeyi izlenmelidir."
   },
   {
     "ingredientA": "fenitoin",
     "ingredientB": "omeprazol",
     "risk": "medium",
     "message": "Omeprazol fenitoin düzeylerini artırabilir.",
-    "details": "Fenitoin düzeyi izlenmelidir.",
+    "details": "Omeprazol CYP2C19 inhibisyonuyla fenitoin düzeyini yükseltebilir.",
     "source": "klasik literatür",
     "id": "R-0184",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Fenitoin düzeyi izlenmeli veya etkileşimi az PPI (pantoprazol) düşünülmelidir."
   },
   {
     "ingredientA": "fenitoin",
     "ingredientB": "siklosporin",
     "risk": "medium",
     "message": "Fenitoin siklosporin düzeylerini azaltır.",
-    "details": "Siklosporin düzeyi izlenmelidir.",
+    "details": "Fenitoin enzim indüksiyonuyla siklosporin düzeyini düşürür; organ reddi riski doğar.",
     "source": "klasik literatür",
     "id": "R-0185",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Siklosporin düzeyi izlenmeli, doz ayarlanmalıdır."
   },
   {
     "ingredientA": "fenitoin",
     "ingredientB": "doksisiklin",
     "risk": "medium",
     "message": "Fenitoin doksisiklin düzeylerini azaltır.",
-    "details": "Doksisiklin dozu ayarlanabilir.",
+    "details": "Fenitoin enzim indüksiyonuyla doksisiklin yıkımını hızlandırır; antibiyotik etkinliği düşebilir.",
     "source": "klasik literatür",
     "id": "R-0186",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Tedavi yanıtı izlenmeli; doz aralığı ayarlanabilir."
   },
   {
     "ingredientA": "klozapin",
     "ingredientB": "karbamazepin",
     "risk": "critical",
     "message": "Klozapin ve karbamazepin birlikte agranülositoz riski nedeniyle kontrendikedir.",
-    "details": "Her iki ilaç da kemik iliği baskılanması yapabilir.",
+    "details": "Hem klozapin hem karbamazepin kemik iliğini baskılayabilir; agranülositoz riski toplanır. Karbamazepin ayrıca klozapin düzeyini enzim indüksiyonuyla düşürür.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0187",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Bu kombinasyondan kaçınılmalıdır; klozapin kullananlarda düzenli kan sayımı zaten zorunludur."
   },
   {
     "ingredientA": "klozapin",
     "ingredientB": "siprofloksasin",
     "risk": "high",
     "message": "Siprofloksasin klozapin düzeylerini belirgin artırır.",
-    "details": "Klozapin toksisitesi (sedasyon, nöbet) açısından izlenmelidir.",
+    "details": "Siprofloksasin CYP1A2 inhibisyonuyla klozapin düzeyini belirgin artırır; sedasyon, hipotansiyon ve nöbet riski yükselir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0188",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Birlikte kullanımda klozapin yan etkileri izlenmeli; mümkünse alternatif antibiyotik seçilir."
   },
   {
     "ingredientA": "klozapin",
     "ingredientB": "fluvoksamin",
     "risk": "high",
     "message": "Fluvoksamin klozapin düzeylerini birkaç kat artırabilir.",
-    "details": "Kombinasyondan kaçınılmalı veya klozapin dozu azaltılmalıdır.",
+    "details": "Fluvoksamin güçlü CYP1A2 inhibitörüdür; klozapin düzeyini birkaç kat artırabilir — ağır sedasyon, hipotansiyon, nöbet riski.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0189",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kombinasyondan kaçınılmalı veya klozapin dozu düzey takibiyle belirgin azaltılmalıdır."
   },
   {
     "ingredientA": "klozapin",
     "ingredientB": "lityum",
     "risk": "medium",
     "message": "Klozapin ve lityum birlikte nörotoksisite riskini artırabilir.",
-    "details": "Nörolojik belirtiler izlenmelidir.",
+    "details": "Klozapin ve lityum birlikte nörotoksisite (konfüzyon, kas seğirmesi) ve nadiren nöroleptik malign sendrom benzeri tablo bildirimleriyle ilişkilidir.",
     "source": "klasik literatür",
     "id": "R-0190",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Nörolojik belirtiler izlenmelidir."
   },
   {
     "ingredientA": "glimepirid",
     "ingredientB": "flukonazol",
     "risk": "high",
     "message": "Flukonazol sülfonilüre düzeylerini artırarak ciddi hipoglisemi riskine yol açar.",
-    "details": "Kan şekeri yakın izlenmelidir.",
+    "details": "Flukonazol CYP2C9'u inhibe ederek sülfonilürenin yıkımını azaltır; kan şekeri beklenenden fazla düşebilir (hipoglisemi: terleme, titreme, bilinç bulanıklığı).",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0191",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Kan şekeri yakın izlenmeli; hipoglisemi belirtilerinde şekerli gıda alıp doktora bildirin."
   },
   {
     "ingredientA": "gliklazid",
     "ingredientB": "flukonazol",
     "risk": "high",
     "message": "Flukonazol sülfonilüre düzeylerini artırarak ciddi hipoglisemi riskine yol açar.",
-    "details": "Kan şekeri yakın izlenmelidir.",
+    "details": "Flukonazol CYP2C9'u inhibe ederek sülfonilürenin yıkımını azaltır; kan şekeri beklenenden fazla düşebilir (hipoglisemi: terleme, titreme, bilinç bulanıklığı).",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0192",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Kan şekeri yakın izlenmeli; hipoglisemi belirtilerinde şekerli gıda alıp doktora bildirin."
   },
   {
     "ingredientA": "glibenklamid",
     "ingredientB": "flukonazol",
     "risk": "high",
     "message": "Flukonazol sülfonilüre düzeylerini artırarak ciddi hipoglisemi riskine yol açar.",
-    "details": "Kan şekeri yakın izlenmelidir.",
+    "details": "Flukonazol CYP2C9'u inhibe ederek sülfonilürenin yıkımını azaltır; kan şekeri beklenenden fazla düşebilir (hipoglisemi: terleme, titreme, bilinç bulanıklığı).",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0193",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Kan şekeri yakın izlenmeli; hipoglisemi belirtilerinde şekerli gıda alıp doktora bildirin."
   },
   {
     "ingredientA": "metformin",
     "ingredientB": "topiramat",
     "risk": "medium",
     "message": "Topiramat ve metformin birlikte metabolik asidoz riskini artırabilir.",
-    "details": "Bikarbonat düzeyi izlenebilir.",
+    "details": "Topiramat karbonik anhidraz inhibisyonuyla metabolik asidoza eğilim yaratır; metforminin laktik asidoz riskiyle birleşebilir. Ayrıca iki ilacın düzeyleri karşılıklı hafif artar.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0194",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Uzun süreli kullanımda bikarbonat düzeyi kontrol edilebilir."
   },
   {
     "ingredientA": "metformin",
     "ingredientB": "simetidin",
     "risk": "medium",
     "message": "Simetidin metformin atılımını azaltarak düzeylerini artırır.",
-    "details": "Alternatif olarak famotidin tercih edilebilir.",
+    "details": "Simetidin, metforminin böbrekten atılımını sağlayan taşıyıcıları (OCT2/MATE) bloke eder; metformin düzeyi yükselir.",
     "source": "klasik literatür",
     "id": "R-0195",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Mide ilacı gerekiyorsa bu yolağı etkilemeyen famotidin tercih edilebilir."
   },
   {
     "ingredientA": "allopurinol",
     "ingredientB": "azatiyoprin",
     "risk": "critical",
     "message": "Allopurinol azatiyoprin toksisitesini ciddi artırır; ölümcül kemik iliği baskılanması riski!",
-    "details": "Azatiyoprin dozu %75 azaltılmalı veya kombinasyondan kaçınılmalıdır.",
+    "details": "Allopurinol, azatiyoprinin aktif metaboliti merkaptopurinin yıkım enzimi ksantin oksidazı bloke eder; tiyopurin birikimi ölümcül kemik iliği baskılanmasına yol açabilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0196",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Kombinasyondan kaçınılmalı; zorunluysa azatiyoprin dozu ~%75 azaltılır ve kan sayımı yakın izlenir."
   },
   {
     "ingredientA": "allopurinol",
     "ingredientB": "merkaptopurin",
     "risk": "critical",
     "message": "Allopurinol merkaptopurin toksisitesini ciddi artırır.",
-    "details": "Merkaptopurin dozu %75 azaltılmalıdır.",
+    "details": "Allopurinol, merkaptopurinin yıkım enzimi ksantin oksidazı bloke eder; merkaptopurin düzeyi katlanarak ağır kemik iliği baskılanmasına yol açar.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0197",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Birlikte kullanım zorunluysa merkaptopurin dozu yaklaşık %75 azaltılmalı ve kan sayımı yakın izlenmelidir."
   },
   {
     "ingredientA": "klopidogrel",
     "ingredientB": "esomeprazol",
     "risk": "high",
     "message": "Esomeprazol klopidogrelin aktif metabolite dönüşümünü azaltır.",
-    "details": "Pantoprazol tercih edilmelidir.",
+    "details": "Klopidogrel ön ilaçtır; pıhtı önleyici etkisi için CYP2C19 ile aktifleşmesi gerekir. Esomeprazol/omeprazol bu enzimi inhibe ederek aktif metaboliti azaltır — kalp krizi/stent tıkanması riski artabilir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0198",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "PPI gerekiyorsa CYP2C19'u etkilemeyen pantoprazol tercih edilmelidir."
   },
   {
     "ingredientA": "metoprolol",
     "ingredientB": "verapamil",
     "risk": "high",
     "message": "Beta bloker ve verapamil birlikte ciddi bradikardi, AV blok ve kalp yetmezliği riski taşır.",
-    "details": "Bu kombinasyondan mümkünse kaçınılmalıdır.",
+    "details": "Beta blokerler ve verapamil kalpte hem uyarı oluşumunu hem AV iletimini baskılar; etkiler toplanınca ağır bradikardi, AV blok ve kalp yetersizliği alevlenmesi görülebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0199",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Bu kombinasyondan mümkünse kaçınılmalıdır; zorunluysa nabız ve EKG yakın izlenir. Bayılma, aşırı yavaş nabız durumunda hemen başvurun."
   },
   {
     "ingredientA": "bisoprolol",
     "ingredientB": "verapamil",
     "risk": "high",
     "message": "Beta bloker ve verapamil birlikte ciddi bradikardi, AV blok ve kalp yetmezliği riski taşır.",
-    "details": "Bu kombinasyondan mümkünse kaçınılmalıdır.",
+    "details": "Beta blokerler ve verapamil kalpte hem uyarı oluşumunu hem AV iletimini baskılar; etkiler toplanınca ağır bradikardi, AV blok ve kalp yetersizliği alevlenmesi görülebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0200",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Bu kombinasyondan mümkünse kaçınılmalıdır; zorunluysa nabız ve EKG yakın izlenir. Bayılma, aşırı yavaş nabız durumunda hemen başvurun."
   },
   {
     "ingredientA": "karvedilol",
     "ingredientB": "verapamil",
     "risk": "high",
     "message": "Beta bloker ve verapamil birlikte ciddi bradikardi, AV blok ve kalp yetmezliği riski taşır.",
-    "details": "Bu kombinasyondan mümkünse kaçınılmalıdır.",
+    "details": "Beta blokerler ve verapamil kalpte hem uyarı oluşumunu hem AV iletimini baskılar; etkiler toplanınca ağır bradikardi, AV blok ve kalp yetersizliği alevlenmesi görülebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0201",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Bu kombinasyondan mümkünse kaçınılmalıdır; zorunluysa nabız ve EKG yakın izlenir. Bayılma, aşırı yavaş nabız durumunda hemen başvurun."
   },
   {
     "ingredientA": "metoprolol",
     "ingredientB": "diltiazem",
     "risk": "high",
     "message": "Beta bloker ve diltiazem birlikte bradikardi ve AV blok riskini artırır.",
-    "details": "EKG ve nabız takibi gerekir.",
+    "details": "Beta blokerler ve diltiazem kalp hızını ve AV iletimini birlikte baskılar; bradikardi ve blok riski artar (verapamile göre biraz daha düşük).",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0202",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "EKG ve nabız takibi gerekir; baş dönmesi veya bayılmada başvurun."
   },
   {
     "ingredientA": "bisoprolol",
     "ingredientB": "diltiazem",
     "risk": "high",
     "message": "Beta bloker ve diltiazem birlikte bradikardi ve AV blok riskini artırır.",
-    "details": "EKG ve nabız takibi gerekir.",
+    "details": "Beta blokerler ve diltiazem kalp hızını ve AV iletimini birlikte baskılar; bradikardi ve blok riski artar (verapamile göre biraz daha düşük).",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0203",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "EKG ve nabız takibi gerekir; baş dönmesi veya bayılmada başvurun."
   },
   {
     "ingredientA": "karvedilol",
     "ingredientB": "diltiazem",
     "risk": "high",
     "message": "Beta bloker ve diltiazem birlikte bradikardi ve AV blok riskini artırır.",
-    "details": "EKG ve nabız takibi gerekir.",
+    "details": "Beta blokerler ve diltiazem kalp hızını ve AV iletimini birlikte baskılar; bradikardi ve blok riski artar (verapamile göre biraz daha düşük).",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0204",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "EKG ve nabız takibi gerekir; baş dönmesi veya bayılmada başvurun."
   },
   {
     "ingredientA": "amiodaron",
     "ingredientB": "sofosbuvir",
     "risk": "critical",
     "message": "Amiodaron ve sofosbuvir içeren rejimler birlikte ciddi semptomatik bradikardi bildirilmiştir.",
-    "details": "FDA uyarısı: kombinasyondan kaçınılmalıdır.",
+    "details": "Sofosbuvir içeren hepatit C tedavileriyle amiodaron birlikte kullanıldığında yaşamı tehdit eden ağır bradikardi olguları bildirilmiştir; mekanizma tam aydınlatılamamıştır.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0205",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "FDA uyarısı: kombinasyondan kaçının. Zorunluysa ilk 48 saat hastanede ritim izlemi gerekir."
   },
   {
     "ingredientA": "etinilestradiol",
     "ingredientB": "rifampisin",
     "risk": "high",
     "message": "Rifampisin hormonal kontraseptiflerin etkinliğini ortadan kaldırabilir.",
-    "details": "Ek/alternatif kontrasepsiyon şarttır.",
+    "details": "Rifampisin çok güçlü enzim indükleyicisidir; kontraseptif hormonların yıkımını hızlandırarak doğum kontrol etkinliğini ortadan kaldırabilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0206",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Tedavi boyunca ve sonrasında en az 1 ay ek/alternatif (hormon dışı) kontrasepsiyon ŞARTTIR."
   },
   {
     "ingredientA": "etinilestradiol",
     "ingredientB": "fenitoin",
     "risk": "high",
     "message": "Fenitoin hormonal kontraseptif etkinliğini azaltır.",
-    "details": "Ek/alternatif kontrasepsiyon önerilir.",
+    "details": "Fenitoin/fenobarbital enzim indüksiyonuyla etinilestradiol düzeyini düşürür; kontraseptif başarısızlığı ve ara kanama görülebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0207",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Ek veya alternatif kontrasepsiyon yöntemi önerilir."
   },
   {
     "ingredientA": "etinilestradiol",
     "ingredientB": "fenobarbital",
     "risk": "high",
     "message": "Fenobarbital hormonal kontraseptif etkinliğini azaltır.",
-    "details": "Ek/alternatif kontrasepsiyon önerilir.",
+    "details": "Fenitoin/fenobarbital enzim indüksiyonuyla etinilestradiol düzeyini düşürür; kontraseptif başarısızlığı ve ara kanama görülebilir.",
     "source": "ONC yüksek öncelikli DDI listesi",
     "id": "R-0208",
-    "evidence": "guideline"
+    "evidence": "guideline",
+    "action": "Ek veya alternatif kontrasepsiyon yöntemi önerilir."
   },
   {
     "ingredientA": "etinilestradiol",
     "ingredientB": "topiramat",
     "risk": "medium",
     "message": "Yüksek doz topiramat kontraseptif etkinliğini azaltabilir.",
-    "details": "Doz 200 mg üzerindeyse ek yöntem önerilir.",
+    "details": "Topiramat 200 mg/gün üzerindeki dozlarda etinilestradiol düzeyini düşürerek kontraseptif etkinliği azaltabilir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0209",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Yüksek doz topiramat kullanımında ek yöntem önerilir."
   },
   {
     "ingredientA": "ivabradin",
     "ingredientB": "klaritromisin",
     "risk": "high",
     "message": "Klaritromisin ivabradin düzeylerini artırarak ciddi bradikardi riskine yol açar.",
-    "details": "Kombinasyondan kaçınılmalıdır.",
+    "details": "Klaritromisin güçlü CYP3A4 inhibitörüdür; ivabradin düzeyini katlayarak ağır bradikardi ve QT sorunlarına yol açabilir. Birlikte kullanım kontrendikedir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0210",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kombinasyondan kaçınılmalıdır; antibiyotik gerekiyorsa alternatif seçilir."
   },
   {
     "ingredientA": "ivabradin",
     "ingredientB": "verapamil",
     "risk": "high",
     "message": "Verapamil ivabradin düzeylerini artırır ve bradikardi etkisini derinleştirir.",
-    "details": "Kombinasyon önerilmez.",
+    "details": "Verapamil/diltiazem hem CYP3A4 inhibisyonuyla ivabradin düzeyini artırır hem kendi kalp hızı düşürücü etkilerini ekler; belirgin bradikardi riski.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0211",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kombinasyon önerilmez; nabız çok düşerse başvurun."
   },
   {
     "ingredientA": "ivabradin",
     "ingredientB": "diltiazem",
     "risk": "high",
     "message": "Diltiazem ivabradin düzeylerini artırır ve bradikardi etkisini derinleştirir.",
-    "details": "Kombinasyon önerilmez.",
+    "details": "Verapamil/diltiazem hem CYP3A4 inhibisyonuyla ivabradin düzeyini artırır hem kendi kalp hızı düşürücü etkilerini ekler; belirgin bradikardi riski.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0212",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kombinasyon önerilmez; nabız çok düşerse başvurun."
   },
   {
     "ingredientA": "dabigatran",
     "ingredientB": "verapamil",
     "risk": "medium",
     "message": "Verapamil dabigatran düzeylerini artırır.",
-    "details": "Aynı anda alımdan kaçınılmalı; doz ayarı gerekebilir.",
+    "details": "Verapamil P-glikoproteini inhibe ederek dabigatran emilimini ve kan düzeyini artırır; kanama riski yükselir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0213",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Aynı anda alımdan kaçınılmalı (dabigatran en az 2 saat önce alınmalı); doz ayarı gerekebilir."
   },
   {
     "ingredientA": "dabigatran",
     "ingredientB": "amiodaron",
     "risk": "medium",
     "message": "Amiodaron dabigatran düzeylerini artırabilir.",
-    "details": "Kanama belirtileri izlenmelidir.",
+    "details": "Amiodaron P-glikoprotein inhibisyonuyla dabigatran düzeyini artırır; kanama riski yükselir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0214",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Kanama belirtileri (morarma, dişeti kanaması, koyu dışkı) izlenmelidir."
   },
   {
     "ingredientA": "metoklopramid",
     "ingredientB": "levodopa",
     "risk": "medium",
     "message": "Metoklopramid dopamin antagonistidir; levodopanın etkisini azaltır ve parkinsonizmi kötüleştirebilir.",
-    "details": "Bulantı için domperidon dışı alternatifler değerlendirilmelidir.",
+    "details": "Metoklopramid beyinde dopamin reseptörlerini bloke eder; levodopanın Parkinson tedavisindeki etkisini doğrudan antagonize eder ve hareket belirtilerini kötüleştirir.",
     "source": "klasik literatür",
     "id": "R-0215",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Parkinson hastasında bulantı için dopamin blokeri olmayan alternatifler değerlendirilmelidir — doktorunuza danışın."
   },
   {
     "ingredientA": "siprofloksasin",
     "ingredientB": "tizanidin",
     "risk": "critical",
     "message": "Siprofloksasin tizanidin düzeylerini 10 kata kadar artırır; ciddi hipotansiyon ve sedasyon. Kontrendikedir.",
-    "details": "Bu kombinasyon kullanılmamalıdır.",
+    "details": "Siprofloksasin güçlü CYP1A2 inhibitörüdür; tizanidin düzeyini ~10 kat artırarak ağır hipotansiyon ve aşırı sedasyona yol açar. Birlikte kullanımı kontrendikedir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0216",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Bu kombinasyon KULLANILMAMALIDIR; antibiyotik gerekiyorsa alternatif seçilir."
   },
   {
     "ingredientA": "fluvoksamin",
     "ingredientB": "tizanidin",
     "risk": "critical",
     "message": "Fluvoksamin tizanidin düzeylerini belirgin artırır. Kontrendikedir.",
-    "details": "Bu kombinasyon kullanılmamalıdır.",
+    "details": "Fluvoksamin güçlü CYP1A2 inhibitörüdür; tizanidin düzeyini ~30 kat artırabilir — ağır hipotansiyon, bradikardi ve derin sedasyon. Birlikte kullanımı kontrendikedir.",
     "source": "FDA/EMA ürün bilgisi",
     "id": "R-0217",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Bu kombinasyon KULLANILMAMALIDIR."
   },
   {
     "ingredientA": "levotiroksin",
     "ingredientB": "kolestiramin",
     "risk": "medium",
     "message": "Kolestiramin levotiroksin emilimini azaltır.",
-    "details": "En az 4 saat arayla alınmalıdır.",
+    "details": "Kolestiramin/sukralfat bağırsakta levotiroksini bağlayarak emilimini belirgin azaltır; tiroid kontrolü bozulabilir.",
     "source": "klasik literatür",
     "id": "R-0218",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Levotiroksin en az 4 saat arayla alınmalıdır."
   },
   {
     "ingredientA": "levotiroksin",
     "ingredientB": "sukralfat",
     "risk": "medium",
     "message": "Sukralfat levotiroksin emilimini azaltır.",
-    "details": "En az 4 saat arayla alınmalıdır.",
+    "details": "Kolestiramin/sukralfat bağırsakta levotiroksini bağlayarak emilimini belirgin azaltır; tiroid kontrolü bozulabilir.",
     "source": "klasik literatür",
     "id": "R-0219",
-    "evidence": "expert"
+    "evidence": "expert",
+    "action": "Levotiroksin en az 4 saat arayla alınmalıdır."
   },
   {
     "ingredientA": "febuksostat",
     "ingredientB": "azatiyoprin",
     "risk": "critical",
     "message": "Febuksostat, azatiyoprinin yıkımını bloke ederek ciddi kemik iliği baskılanmasına yol açabilir. Birlikte kullanımı kontrendikedir.",
-    "details": "Febuksostat ksantin oksidazı inhibe eder; azatiyoprin metaboliti birikir. ONC yüksek öncelikli listesindedir.",
+    "details": "Febuksostat, tiyopurinlerin (azatiyoprin/merkaptopurin) yıkım enzimi ksantin oksidazı güçlü inhibe eder; tiyopurin birikimi ağır kemik iliği baskılanmasına yol açar. Birlikte kullanım kontrendikedir.",
     "source": "FDA etiketi (Uloric); ONC yüksek öncelikli listesi",
     "id": "R-0220",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Bu kombinasyon KULLANILMAMALIDIR; gut tedavisi gerekiyorsa doktorunuz alternatif planlar."
   },
   {
     "ingredientA": "febuksostat",
     "ingredientB": "merkaptopurin",
     "risk": "critical",
     "message": "Febuksostat, merkaptopurinin yıkımını bloke ederek ciddi kemik iliği baskılanmasına yol açabilir. Birlikte kullanımı kontrendikedir.",
-    "details": "Febuksostat ksantin oksidazı inhibe eder; merkaptopurin düzeyi toksik seviyeye çıkar. ONC yüksek öncelikli listesindedir.",
+    "details": "Febuksostat, tiyopurinlerin (azatiyoprin/merkaptopurin) yıkım enzimi ksantin oksidazı güçlü inhibe eder; tiyopurin birikimi ağır kemik iliği baskılanmasına yol açar. Birlikte kullanım kontrendikedir.",
     "source": "FDA etiketi (Uloric); ONC yüksek öncelikli listesi",
     "id": "R-0221",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Bu kombinasyon KULLANILMAMALIDIR; gut tedavisi gerekiyorsa doktorunuz alternatif planlar."
   },
   {
     "ingredientA": "metilfenidat",
@@ -2207,7 +2426,9 @@
     "message": "Metilfenidat ve MAO inhibitörü birlikte hipertansif kriz (ani ve tehlikeli tansiyon yükselmesi) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
     "source": "FDA etiketi (Ritalin); ONC yüksek öncelikli listesi",
     "id": "R-0222",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "MAO inhibitörü katekolamin (noradrenalin/dopamin) yıkımını durdurur; metilfenidat bu iletileri artırır. Birikim ani ve şiddetli kan basıncı yükselmesine (hipertansif kriz) yol açabilir.",
+    "action": "Birlikte KULLANILMAZ; MAO inhibitörü kesildikten sonra en az 14 gün beklenmelidir."
   },
   {
     "ingredientA": "metilfenidat",
@@ -2216,7 +2437,9 @@
     "message": "Metilfenidat ve MAO inhibitörü birlikte hipertansif kriz (ani ve tehlikeli tansiyon yükselmesi) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
     "source": "FDA etiketi (Ritalin); ONC yüksek öncelikli listesi",
     "id": "R-0223",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "MAO inhibitörü katekolamin (noradrenalin/dopamin) yıkımını durdurur; metilfenidat bu iletileri artırır. Birikim ani ve şiddetli kan basıncı yükselmesine (hipertansif kriz) yol açabilir.",
+    "action": "Birlikte KULLANILMAZ; MAO inhibitörü kesildikten sonra en az 14 gün beklenmelidir."
   },
   {
     "ingredientA": "metilfenidat",
@@ -2225,7 +2448,9 @@
     "message": "Metilfenidat ve MAO inhibitörü birlikte hipertansif kriz (ani ve tehlikeli tansiyon yükselmesi) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
     "source": "FDA etiketi (Azilect); ONC yüksek öncelikli listesi",
     "id": "R-0224",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "MAO inhibitörü katekolamin (noradrenalin/dopamin) yıkımını durdurur; metilfenidat bu iletileri artırır. Birikim ani ve şiddetli kan basıncı yükselmesine (hipertansif kriz) yol açabilir.",
+    "action": "Birlikte KULLANILMAZ; MAO inhibitörü kesildikten sonra en az 14 gün beklenmelidir."
   },
   {
     "ingredientA": "atomoksetin",
@@ -2234,7 +2459,9 @@
     "message": "Atomoksetin ve MAO inhibitörü birlikte serotonin sendromu (huzursuzluk, titreme, ateş, çarpıntı) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
     "source": "FDA etiketi (Strattera); ONC yüksek öncelikli listesi",
     "id": "R-0225",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Atomoksetin noradrenalin geri alımını engeller, MAO inhibitörü yıkımını durdurur; noradrenalin/serotonin birikimiyle serotonin sendromu ve hipertansif reaksiyonlar bildirilmiştir.",
+    "action": "Birlikte KULLANILMAZ; arada en az 14 gün bırakılmalıdır."
   },
   {
     "ingredientA": "atomoksetin",
@@ -2243,7 +2470,9 @@
     "message": "Atomoksetin ve MAO inhibitörü birlikte serotonin sendromu (huzursuzluk, titreme, ateş, çarpıntı) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
     "source": "FDA etiketi (Strattera); ONC yüksek öncelikli listesi",
     "id": "R-0226",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Atomoksetin noradrenalin geri alımını engeller, MAO inhibitörü yıkımını durdurur; noradrenalin/serotonin birikimiyle serotonin sendromu ve hipertansif reaksiyonlar bildirilmiştir.",
+    "action": "Birlikte KULLANILMAZ; arada en az 14 gün bırakılmalıdır."
   },
   {
     "ingredientA": "atomoksetin",
@@ -2252,17 +2481,20 @@
     "message": "Atomoksetin ve MAO inhibitörü birlikte serotonin sendromu (huzursuzluk, titreme, ateş, çarpıntı) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
     "source": "FDA etiketi (Strattera); ONC yüksek öncelikli listesi",
     "id": "R-0227",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Atomoksetin noradrenalin geri alımını engeller, MAO inhibitörü yıkımını durdurur; noradrenalin/serotonin birikimiyle serotonin sendromu ve hipertansif reaksiyonlar bildirilmiştir.",
+    "action": "Birlikte KULLANILMAZ; arada en az 14 gün bırakılmalıdır."
   },
   {
     "ingredientA": "psödoefedrin",
     "ingredientB": "moklobemid",
     "risk": "critical",
     "message": "Psödoefedrin (burun açıcı soğuk algınlığı bileşeni) ve MAO inhibitörü birlikte hipertansif kriz (ani ve tehlikeli tansiyon yükselmesi) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
-    "details": "Birçok soğuk algınlığı ilacı psödoefedrin içerir; MAO inhibitörü kullananlar içeriği mutlaka kontrol etmelidir.",
+    "details": "Psödoefedrin noradrenalin salımını artıran sempatomimetiktir; moklobemid bu noradrenalinin yıkımını engeller — ani ve şiddetli kan basıncı yükselmesi (hipertansif kriz) gelişebilir.",
     "source": "FDA etiketi (Sudafed); ONC yüksek öncelikli listesi",
     "id": "R-0228",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "MAO inhibitörü kullanırken psödoefedrinli soğuk algınlığı ilaçlarından kaçının; içerik etiketlerini mutlaka kontrol edin."
   },
   {
     "ingredientA": "psödoefedrin",
@@ -2271,7 +2503,9 @@
     "message": "Psödoefedrin (burun açıcı soğuk algınlığı bileşeni) ve MAO inhibitörü birlikte hipertansif kriz (ani ve tehlikeli tansiyon yükselmesi) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
     "source": "FDA etiketi (Eldepryl); ONC yüksek öncelikli listesi",
     "id": "R-0229",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Psödoefedrin noradrenalin salımını artıran sempatomimetiktir; MAO inhibitörü bu noradrenalinin yıkımını engeller — ani hipertansif kriz gelişebilir.",
+    "action": "MAO inhibitörü kullanırken psödoefedrinli soğuk algınlığı ilaçlarından kaçının; içerik etiketlerini kontrol edin."
   },
   {
     "ingredientA": "psödoefedrin",
@@ -2280,7 +2514,9 @@
     "message": "Psödoefedrin (burun açıcı soğuk algınlığı bileşeni) ve MAO inhibitörü birlikte hipertansif kriz (ani ve tehlikeli tansiyon yükselmesi) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
     "source": "FDA etiketi (Azilect); ONC yüksek öncelikli listesi",
     "id": "R-0230",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Psödoefedrin noradrenalin salımını artıran sempatomimetiktir; MAO inhibitörü bu noradrenalinin yıkımını engeller — ani hipertansif kriz gelişebilir.",
+    "action": "MAO inhibitörü kullanırken psödoefedrinli soğuk algınlığı ilaçlarından kaçının; içerik etiketlerini kontrol edin."
   },
   {
     "ingredientA": "dekstrometorfan",
@@ -2289,7 +2525,9 @@
     "message": "Dekstrometorfan (öksürük kesici) ve MAO inhibitörü birlikte serotonin sendromu (huzursuzluk, titreme, ateş, çarpıntı) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
     "source": "FDA etiketi; ONC yüksek öncelikli listesi",
     "id": "R-0231",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Dekstrometorfan serotonin geri alımını zayıf inhibe eder; MAO inhibitörüyle birleşince serotonin birikimi ve serotonin sendromu (hipertermi, kas sertliği) bildirilmiştir.",
+    "action": "MAO inhibitörü kullanırken dekstrometorfanlı öksürük ilaçlarından kaçının."
   },
   {
     "ingredientA": "dekstrometorfan",
@@ -2298,7 +2536,9 @@
     "message": "Dekstrometorfan (öksürük kesici) ve MAO inhibitörü birlikte serotonin sendromu (huzursuzluk, titreme, ateş, çarpıntı) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
     "source": "FDA etiketi (Eldepryl); ONC yüksek öncelikli listesi",
     "id": "R-0232",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Dekstrometorfan serotonin geri alımını zayıf inhibe eder; MAO inhibitörüyle birleşince serotonin birikimi ve serotonin sendromu (hipertermi, kas sertliği) bildirilmiştir.",
+    "action": "MAO inhibitörü kullanırken dekstrometorfanlı öksürük ilaçlarından kaçının."
   },
   {
     "ingredientA": "dekstrometorfan",
@@ -2307,17 +2547,20 @@
     "message": "Dekstrometorfan (öksürük kesici) ve MAO inhibitörü birlikte serotonin sendromu (huzursuzluk, titreme, ateş, çarpıntı) riski taşır. Birlikte ve MAO inhibitörü kesildikten sonraki 14 gün içinde kullanılmamalıdır.",
     "source": "FDA etiketi (Azilect); ONC yüksek öncelikli listesi",
     "id": "R-0233",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Dekstrometorfan serotonin geri alımını zayıf inhibe eder; MAO inhibitörüyle birleşince serotonin birikimi ve serotonin sendromu (hipertermi, kas sertliği) bildirilmiştir.",
+    "action": "MAO inhibitörü kullanırken dekstrometorfanlı öksürük ilaçlarından kaçının."
   },
   {
     "ingredientA": "irinotekan",
     "ingredientB": "klaritromisin",
     "risk": "high",
     "message": "Klaritromisin irinotekan düzeylerini artırarak ağır ishal ve kemik iliği baskılanması riskini yükseltir; birlikte kullanımdan kaçınılmalıdır.",
-    "details": "CYP3A4 inhibisyonu aktif metabolit (SN-38) maruziyetini artırır. ONC yüksek öncelikli listesindedir.",
+    "details": "Klaritromisin CYP3A4 inhibisyonuyla irinotekanın aktif metaboliti SN-38'in birikmesine yol açar; ağır ishal ve nötropeni riski belirgin artar.",
     "source": "FDA etiketi (Camptosar); ONC yüksek öncelikli listesi",
     "id": "R-0234",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Onkoloji ekibi bilgilendirilmeden birlikte kullanılmamalıdır."
   },
   {
     "ingredientA": "irinotekan",
@@ -2326,7 +2569,9 @@
     "message": "İtrakonazol (azol antifungal) irinotekan toksisitesini artırır; birlikte kullanımdan kaçınılmalı, azol tedavisi irinotekandan en az 1 hafta önce kesilmelidir.",
     "source": "FDA etiketi (Camptosar); ONC yüksek öncelikli listesi",
     "id": "R-0235",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Azol antifungaller CYP3A4'ü inhibe ederek irinotekanın aktif metaboliti SN-38'in birikmesine yol açar; ağır ishal ve nötropeni (enfeksiyona açık düşme) riski belirgin artar.",
+    "action": "Onkoloji ekibi bilgilendirilmeden birlikte kullanılmamalıdır; azol tedavisi genellikle irinotekan öncesi kesilir."
   },
   {
     "ingredientA": "irinotekan",
@@ -2335,7 +2580,9 @@
     "message": "Ketokonazol irinotekan toksisitesini (ağır ishal, nötropeni) belirgin artırır; birlikte kullanılmamalıdır.",
     "source": "FDA etiketi (Camptosar); ONC yüksek öncelikli listesi",
     "id": "R-0236",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Azol antifungaller CYP3A4'ü inhibe ederek irinotekanın aktif metaboliti SN-38'in birikmesine yol açar; ağır ishal ve nötropeni (enfeksiyona açık düşme) riski belirgin artar.",
+    "action": "Onkoloji ekibi bilgilendirilmeden birlikte kullanılmamalıdır; azol tedavisi genellikle irinotekan öncesi kesilir."
   },
   {
     "ingredientA": "simvastatin",
@@ -2344,7 +2591,9 @@
     "message": "Klaritromisin simvastatin düzeylerini çok yükselterek rabdomiyoliz (kas yıkımı) riskini ciddi artırır. Birlikte kullanımı kontrendikedir; kısa antibiyotik kürlerinde statine ara verilir.",
     "source": "FDA etiketi (Zocor); ONC yüksek öncelikli listesi",
     "id": "R-0237",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Klaritromisin güçlü CYP3A4 inhibitörüdür; simvastatin düzeyini ~10 kat artırarak rabdomiyoliz (kas yıkımı ve böbrek yetmezliği) riskini ciddi yükseltir. Birlikte kullanımı kontrendikedir.",
+    "action": "Klaritromisin kürü boyunca simvastatine ara verilmesi tipik yaklaşımdır — doktorunuza danışın. Açıklanamayan kas ağrısı, güçsüzlük veya koyu (çay rengi) idrar gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "simvastatin",
@@ -2353,7 +2602,9 @@
     "message": "Ketokonazol simvastatin düzeylerini çok yükselterek rabdomiyoliz riskini ciddi artırır. Birlikte kullanımı kontrendikedir.",
     "source": "FDA etiketi (Zocor); ONC yüksek öncelikli listesi",
     "id": "R-0238",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Ketokonazol güçlü CYP3A4 inhibitörüdür; simvastatin düzeyini katlayarak rabdomiyoliz riskini ciddi artırır. Birlikte kullanımı kontrendikedir.",
+    "action": "Azol tedavisi süresince simvastatine ara verilmesi gerekir — doktorunuza danışın. Açıklanamayan kas ağrısı, güçsüzlük veya koyu (çay rengi) idrar gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "lovastatin",
@@ -2362,17 +2613,20 @@
     "message": "Klaritromisin lovastatin düzeylerini çok yükselterek rabdomiyoliz riskini ciddi artırır. Birlikte kullanımı kontrendikedir.",
     "source": "FDA etiketi (Mevacor); ONC yüksek öncelikli listesi",
     "id": "R-0239",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Klaritromisin güçlü CYP3A4 inhibitörüdür; lovastatin düzeyini katlayarak rabdomiyoliz riskini ciddi artırır. Birlikte kullanımı kontrendikedir.",
+    "action": "Klaritromisin kürü boyunca lovastatine ara verilmesi tipik yaklaşımdır — doktorunuza danışın. Açıklanamayan kas ağrısı, güçsüzlük veya koyu (çay rengi) idrar gelişirse ilacı bırakıp hemen doktora başvurun."
   },
   {
     "ingredientA": "simvastatin",
     "ingredientB": "ritonavir",
     "risk": "critical",
     "message": "Ritonavir içeren tedaviler simvastatin düzeylerini çok yükselterek rabdomiyoliz riskini ciddi artırır. Birlikte kullanımı kontrendikedir.",
-    "details": "Ritonavir içeren antiviral kombinasyonlar (HIV tedavileri) için geçerlidir.",
+    "details": "Ritonavir en güçlü CYP3A4 inhibitörlerindendir; simvastatin düzeyini katlayarak rabdomiyoliz riskini ciddi artırır. HIV/hepatit tedavilerindeki ritonavir kombinasyonları için geçerlidir ve birlikte kullanım kontrendikedir.",
     "source": "FDA etiketi (Norvir); ONC yüksek öncelikli listesi",
     "id": "R-0240",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Ritonavir içeren tedavi süresince simvastatin KULLANILMAZ; statin gerekiyorsa doktorunuz etkileşimsiz seçenek belirler."
   },
   {
     "ingredientA": "ergotamin",
@@ -2381,7 +2635,9 @@
     "message": "İtrakonazol ergotamin düzeylerini artırarak ergotizme (uzuvlarda damar spazmı, kangren riski) yol açabilir. Birlikte kullanımı kontrendikedir.",
     "source": "FDA etiketi (Sporanox); ONC yüksek öncelikli listesi",
     "id": "R-0241",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Azol antifungaller CYP3A4'ü güçlü inhibe ederek ergotamin birikimine yol açar; ergotizm (uzuvlarda damar kasılması, iskemi, kangren riski) gelişebilir. Birlikte kullanım kontrendikedir.",
+    "action": "Bu kombinasyon KULLANILMAMALIDIR; el-ayakta soğukluk, uyuşma, morarma gelişirse acile başvurun."
   },
   {
     "ingredientA": "ergotamin",
@@ -2390,7 +2646,9 @@
     "message": "Ketokonazol ergotamin düzeylerini artırarak ergotizme yol açabilir. Birlikte kullanımı kontrendikedir.",
     "source": "FDA etiketi (Nizoral); ONC yüksek öncelikli listesi",
     "id": "R-0242",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Azol antifungaller CYP3A4'ü güçlü inhibe ederek ergotamin birikimine yol açar; ergotizm (uzuvlarda damar kasılması, iskemi, kangren riski) gelişebilir. Birlikte kullanım kontrendikedir.",
+    "action": "Bu kombinasyon KULLANILMAMALIDIR; el-ayakta soğukluk, uyuşma, morarma gelişirse acile başvurun."
   },
   {
     "ingredientA": "ergotamin",
@@ -2399,7 +2657,9 @@
     "message": "Vorikonazol ergotamin düzeylerini artırarak ergotizme yol açabilir. Birlikte kullanımı kontrendikedir.",
     "source": "FDA etiketi (Vfend); ONC yüksek öncelikli listesi",
     "id": "R-0243",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Azol antifungaller CYP3A4'ü güçlü inhibe ederek ergotamin birikimine yol açar; ergotizm (uzuvlarda damar kasılması, iskemi, kangren riski) gelişebilir. Birlikte kullanım kontrendikedir.",
+    "action": "Bu kombinasyon KULLANILMAMALIDIR; el-ayakta soğukluk, uyuşma, morarma gelişirse acile başvurun."
   },
   {
     "ingredientA": "ergotamin",
@@ -2408,7 +2668,9 @@
     "message": "Ritonavir içeren tedaviler ergotamin düzeylerini çok yükselterek yaşamı tehdit eden ergotizme yol açabilir. Birlikte kullanımı kontrendikedir.",
     "source": "FDA etiketi (Norvir); ONC yüksek öncelikli listesi",
     "id": "R-0244",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Ritonavir en güçlü CYP3A4 inhibitörlerindendir; ergotamin düzeyini katlayarak yaşamı tehdit eden ergotizme yol açar. Birlikte kullanım kontrendikedir.",
+    "action": "Bu kombinasyon KULLANILMAMALIDIR."
   },
   {
     "ingredientA": "karbamazepin",
@@ -2417,17 +2679,20 @@
     "message": "Karbamazepin ritonavirin etkinliğini azaltabilir; ritonavir de karbamazepin düzeyini yükselterek toksisiteye yol açabilir. Birlikte kullanımda doz ayarı ve düzey takibi gerekir.",
     "source": "FDA etiketi (Norvir)",
     "id": "R-0245",
-    "evidence": "label"
+    "evidence": "label",
+    "details": "Etkileşim çift yönlüdür: karbamazepin CYP3A4 indüksiyonuyla ritonavirin düzeyini düşürerek HIV tedavisini zayıflatabilir; ritonavir de karbamazepin yıkımını inhibe ederek toksisitesini artırır.",
+    "action": "Mümkünse alternatif antiepileptik seçilir; zorunluysa karbamazepin düzeyi ve tedavi yanıtı yakın izlenir."
   },
   {
     "ingredientA": "ramelteon",
     "ingredientB": "fluvoksamin",
     "risk": "critical",
     "message": "Fluvoksamin, ramelteon düzeylerini çok yüksek katlarda artırır. Birlikte kullanımı kontrendikedir.",
-    "details": "Fluvoksamin güçlü CYP1A2 inhibitörüdür. ONC yüksek öncelikli listesindedir.",
+    "details": "Fluvoksamin güçlü CYP1A2 inhibitörüdür; ramelteonun ilk geçiş metabolizmasını durdurarak düzeyini ~100 kata kadar artırabilir. Birlikte kullanım kontrendikedir.",
     "source": "FDA etiketi (Rozerem); ONC yüksek öncelikli listesi",
     "id": "R-0246",
-    "evidence": "label"
+    "evidence": "label",
+    "action": "Bu kombinasyon KULLANILMAMALIDIR; uyku ilacı gerekiyorsa alternatif seçilir."
   },
   {
     "ingredientA": "ginkgo biloba",
