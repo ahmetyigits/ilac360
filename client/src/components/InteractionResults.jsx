@@ -195,6 +195,8 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
         return `<div class="card risk-${escapeHtml(i.risk)}">
           <div class="pair">${escapeHtml(displayName(i.drug1, i.food1))} ↔ ${escapeHtml(displayName(i.drug2, i.food2))} <span class="badge">${escapeHtml(cfg.label)}</span></div>
           <div class="msg">${escapeHtml(i.message || '')}</div>
+          ${i.details ? `<div class="msg"><strong>Mekanizma:</strong> ${escapeHtml(i.details)}</div>` : ''}
+          ${i.action ? `<div class="msg"><strong>Ne yapmalı:</strong> ${escapeHtml(i.action)}</div>` : ''}
           ${i.ingredientA || i.ingredientB ? `<div class="msg">${escapeHtml(i.ingredientA || '—')} ↔ ${escapeHtml(i.ingredientB || '—')}</div>` : ''}
         </div>`;
       }).join('')}
