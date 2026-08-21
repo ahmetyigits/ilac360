@@ -15,6 +15,7 @@ const WARNING_TYPE_LABELS = {
   pregnancy: 'Gebelik',
   allergy: 'Alerji',
   age: 'Yaş Sınırı',
+  administration: 'Kullanım Şekli',
   driving: 'Araç Kullanımı',
   food: 'Besin',
   supplement: 'Takviye',

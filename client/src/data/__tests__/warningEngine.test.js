@@ -140,3 +140,30 @@ describe('warningEngine — general tipi ve genişletilmiş set', () => {
     expect(list.some((w) => w.id === 'W-0214')).toBe(true);
   });
 });
+
+describe('warningEngine — administration (kullanım şekli) tipi', () => {
+  it('doksisiklin "dik pozisyonda alın" uyarısı alır (feedback örneği)', () => {
+    const list = getWarningsForDrug({ activeIngredient: 'Doksisiklin', atcCode: 'J01AA02', form: 'sistemik' });
+    const adm = list.find((w) => w.type === 'administration');
+    expect(adm).toBeTruthy();
+    expect(adm.id).toBe('W-0285');
+    expect(adm.message).toContain('dik pozisyonda');
+  });
+
+  it('metotreksat "haftada bir" uyarısı critical olarak döner', () => {
+    const list = getWarningsForDrug({ activeIngredient: 'Metotreksat', atcCode: 'L04AX03', form: 'sistemik' });
+    const adm = list.find((w) => w.id === 'W-0287');
+    expect(adm).toBeTruthy();
+    expect(adm.severity).toBe('critical');
+  });
+
+  it('administration, food ve general tiplerinden ÖNCE sıralanır', () => {
+    // Bifosfonat: W-0284 (administration) + W-0031 (food, süt/kalsiyum) birlikte
+    const list = getWarningsForDrug({ activeIngredient: 'Alendronat Sodyum', atcCode: 'M05BA04', form: 'sistemik' });
+    const types = list.map((w) => w.type);
+    const iAdm = types.indexOf('administration');
+    const iFood = types.indexOf('food');
+    expect(iAdm).toBeGreaterThanOrEqual(0);
+    expect(iFood).toBeGreaterThan(iAdm);
+  });
+});

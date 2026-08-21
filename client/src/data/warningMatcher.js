@@ -12,9 +12,10 @@ import { getComponents, normalizeRuleIngredient } from './ingredientMatcher.js';
 import { isLowSystemicForm } from './formDetect.js';
 
 // Panel içi sıralama: en kritik bağlamlar önce (gebelik, alerji, yaş),
+// ardından her alımda uygulanacak pratik talimatlar (kullanım şekli),
 // yaşam tarzı uyarıları sonra (araç, besin, takviye); 'general' (ani kesme,
 // süre sınırı, takip gereksinimi gibi sınıf uyarıları) en sonda.
-const TYPE_ORDER = { pregnancy: 0, allergy: 1, age: 2, driving: 3, food: 4, supplement: 5, general: 6 };
+const TYPE_ORDER = { pregnancy: 0, allergy: 1, age: 2, administration: 3, driving: 4, food: 5, supplement: 6, general: 7 };
 const SEVERITY_ORDER = { critical: 0, high: 1, medium: 2, info: 3 };
 
 // Kayıt taraflarını ilaç tarafıyla aynı boru hattından geçirip önceden derle.
