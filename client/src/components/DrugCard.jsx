@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Tag, Layers, Barcode, FolderTree, FileText, Loader2, X, ChevronDown, ChevronUp, AlertTriangle, Baby, ShieldAlert, Users, Car, Citrus, Pill, Info } from 'lucide-react';
+import { Tag, Layers, Barcode, FolderTree, FileText, Loader2, X, ChevronDown, ChevronUp, AlertTriangle, Baby, ShieldAlert, Users, Car, Citrus, Pill, Info, Clock } from 'lucide-react';
 import { getDrugDetail, getEquivalents } from '../data/api';
 import { parseDescription, normalizeDescription } from '../data/descriptionFormat.js';
 import { reportError } from '../data/telemetry.js';
@@ -10,6 +10,7 @@ const WARNING_TYPE_CONFIG = {
   pregnancy: { icon: Baby, label: 'Gebelik' },
   allergy: { icon: ShieldAlert, label: 'Alerji' },
   age: { icon: Users, label: 'Yaş Sınırı' },
+  administration: { icon: Clock, label: 'Kullanım Şekli' },
   driving: { icon: Car, label: 'Araç Kullanımı' },
   food: { icon: Citrus, label: 'Besin' },
   supplement: { icon: Pill, label: 'Takviye' },

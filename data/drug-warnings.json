@@ -1234,7 +1234,7 @@
   },
   {
     "id": "W-0111",
-    "type": "food",
+    "type": "administration",
     "severity": "info",
     "match": {
       "atcPrefixes": [
@@ -1541,7 +1541,7 @@
   },
   {
     "id": "W-0142",
-    "type": "general",
+    "type": "administration",
     "severity": "medium",
     "match": {
       "atcPrefixes": [
@@ -2440,7 +2440,7 @@
   },
   {
     "id": "W-0216",
-    "type": "food",
+    "type": "administration",
     "severity": "info",
     "match": {
       "ingredients": [
@@ -3277,5 +3277,189 @@
     "foodKeys": [
       "alkol"
     ]
+  },
+  {
+    "id": "W-0284",
+    "type": "administration",
+    "severity": "high",
+    "match": {
+      "atcPrefixes": [
+        "M05BA"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Aldıktan sonra 30-60 dakika dik durun",
+    "message": "Bifosfonatlar yemek borusuna kaçarsa ciddi ülser ve tahrişe yol açabilir. İlacı tam bir bardak su ile, ayakta veya dik oturarak alın; sonrasında en az 30-60 dakika yatmayın.",
+    "details": "Yutma güçlüğü, göğüs arkasında ağrı veya yanma gelişirse ilacı bırakıp doktorunuza başvurun.",
+    "source": "FDA etiketi (Fosamax); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0285",
+    "type": "administration",
+    "severity": "medium",
+    "match": {
+      "atcPrefixes": [
+        "J01AA"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Bol su ile, dik pozisyonda alın",
+    "message": "Doksisiklin ve tetrasiklinler yemek borusunda takılırsa ülser ve şiddetli tahriş yapabilir. Kapsül/tableti tam bir bardak su ile, dik pozisyonda alın ve aldıktan sonra en az 30 dakika yatmayın.",
+    "details": "Özellikle yatmadan hemen önce almayın. Yutma sırasında ağrı gelişirse doktorunuza bildirin.",
+    "source": "FDA etiketi (Vibramycin); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0286",
+    "type": "administration",
+    "severity": "medium",
+    "match": {
+      "ingredients": [
+        "klindamisin"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Tam bir bardak su ile alın",
+    "message": "Klindamisin kapsülleri yemek borusunda tahriş ve ülsere yol açabilir. Tam bir bardak su ile alın ve hemen ardından yatmayın.",
+    "source": "FDA etiketi (Cleocin)",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0287",
+    "type": "administration",
+    "severity": "critical",
+    "match": {
+      "ingredients": [
+        "metotreksat"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "HAFTADA BİR alınır — her gün DEĞİL",
+    "message": "Romatizmal hastalıklar ve sedef için metotreksat haftada yalnızca BİR gün alınır. Yanlışlıkla her gün alınması ölümcül zehirlenmeye yol açabilir.",
+    "details": "Haftanın hangi günü alacağınızı takviminize işaretleyin. Doz karışıklığında hemen doktorunuza veya zehir danışmaya başvurun.",
+    "source": "FDA Güvenlik Bildirimi; FDA etiketi (Trexall)",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0288",
+    "type": "administration",
+    "severity": "medium",
+    "match": {
+      "atcPrefixes": [
+        "A12BA"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Yemekle ve bol su ile alın",
+    "message": "Ağızdan potasyum preparatları mide-bağırsak mukozasını tahriş edebilir; ülser riski taşır. Yemekle birlikte, tam bir bardak su ile ve dik pozisyonda alın.",
+    "source": "FDA etiketi (K-Dur); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0289",
+    "type": "administration",
+    "severity": "info",
+    "match": {
+      "ingredients": [
+        "metformin"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Yemekle birlikte alın",
+    "message": "Metformini yemekle birlikte veya yemekten hemen sonra almak bulantı, ishal gibi mide-bağırsak yan etkilerini belirgin azaltır.",
+    "source": "FDA etiketi (Glucophage); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0290",
+    "type": "administration",
+    "severity": "medium",
+    "match": {
+      "ingredients": [
+        "nitrofurantoin"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Yemekle birlikte alın",
+    "message": "Nitrofurantoin yemekle alındığında hem emilimi artar hem mide rahatsızlığı azalır. Aç karnına almaktan kaçının.",
+    "source": "FDA etiketi (Macrobid)",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0291",
+    "type": "administration",
+    "severity": "medium",
+    "match": {
+      "atcPrefixes": [
+        "J01E"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Bol sıvı için",
+    "message": "Sülfonamid antibiyotikler yeterli sıvı alınmazsa idrarda kristal oluşumuna ve böbrek tahrişine yol açabilir. Tedavi boyunca bol su için.",
+    "source": "FDA etiketi (Bactrim); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0292",
+    "type": "administration",
+    "severity": "info",
+    "match": {
+      "ingredients": [
+        "izotretinoin"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Yemekle birlikte alın",
+    "message": "İzotretinoin yağda çözünür; yemekle (tercihen yağ içeren bir öğünle) alındığında emilimi belirgin artar.",
+    "source": "FDA etiketi (Accutane)",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0293",
+    "type": "administration",
+    "severity": "info",
+    "match": {
+      "ingredients": [
+        "sukralfat"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Aç karnına alın",
+    "message": "Sükralfat mide mukozasını kaplayarak etki eder; yemeklerden 1 saat önce, aç karnına alınmalıdır.",
+    "source": "FDA etiketi (Carafate); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0294",
+    "type": "administration",
+    "severity": "info",
+    "match": {
+      "ingredients": [
+        "simvastatin"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Akşam alın",
+    "message": "Kolesterol sentezi en çok gece olur; simvastatin akşam alındığında daha etkilidir.",
+    "source": "FDA etiketi (Zocor)",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0295",
+    "type": "administration",
+    "severity": "info",
+    "match": {
+      "atcPrefixes": [
+        "C03A",
+        "C03C"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Sabah alın",
+    "message": "İdrar söktürücüleri sabah almak, gece sık idrara kalkmayı ve uyku bölünmesini önler. Günde iki doz gerekiyorsa ikinci dozu öğleden sonra erken saatte alın.",
+    "source": "TİTCK KT; FDA etiketi (Lasix)",
+    "evidence": "label"
   }
 ]

@@ -21,7 +21,7 @@ try {
   // dosya yoksa besin kontrolleri atlanır
 }
 
-const VALID_TYPES = new Set(['allergy', 'food', 'supplement', 'pregnancy', 'driving', 'age', 'general']);
+const VALID_TYPES = new Set(['allergy', 'food', 'supplement', 'pregnancy', 'driving', 'age', 'administration', 'general']);
 const VALID_SEVERITIES = new Set(['critical', 'high', 'medium', 'info']);
 const VALID_EVIDENCE = new Set(['label', 'guideline', 'review', 'expert']);
 // A (harf) + 2 rakam + 1-2 harf + opsiyonel 2 rakam — 1..7 karakter arası kesimler
@@ -42,7 +42,7 @@ warningsData.forEach((w, i) => {
   }
 
   if (!VALID_TYPES.has(w.type)) {
-    errors.push(`${where}: geçersiz type '${w.type}' (allergy|food|supplement|pregnancy|driving|age|general)`);
+    errors.push(`${where}: geçersiz type '${w.type}' (allergy|food|supplement|pregnancy|driving|age|administration|general)`);
   }
   if (!VALID_SEVERITIES.has(w.severity)) {
     errors.push(`${where}: geçersiz severity '${w.severity}' (critical|high|medium|info)`);
