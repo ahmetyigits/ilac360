@@ -171,6 +171,9 @@ export async function getConditionList() {
 }
 
 export async function searchCondition(query, opts) {
-  await Promise.all([loadDrugs(), loadConditions()]);
+  // loadInteractions: sonuç gruplaması sinonim tablosunu kullanır (tuz
+  // varyantları aynı gruba insin). Yüklenemezse arama ENGELLENMEZ —
+  // gruplama sinonimsz kanonikleşmeyle zarifçe devam eder.
+  await Promise.all([loadDrugs(), loadConditions(), loadInteractions().catch(() => {})]);
   return searchByConditionLocal(query, opts);
 }
