@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { Fragment, useState, useEffect, useRef, useCallback } from 'react';
 import { Search, Plus, Loader2, SearchX, Stethoscope, Check } from 'lucide-react';
 import Pagination from './Pagination';
 import MatchSourceModal from './MatchSourceModal';
@@ -239,14 +239,28 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
                     ? Math.min(activeRow + 1, results.drugs.length - 1)
                     : Math.max(activeRow - 1, 0);
                   setActiveRow(next);
-                  listRef.current?.children[next]?.focus();
+                  // children[next] DEĞİL: grup başlık satırları indeksi kaydırır —
+                  // yalnız ilaç satırları sayılır, indeks results.drugs ile hizalı kalır.
+                  listRef.current?.querySelectorAll('[data-drug-row]')[next]?.focus();
                 }}
               >
                 {results.drugs.map((drug, idx) => {
                   const selected = isSelected(drug);
+                  // Grup başlığı: grubun sayfadaki ilk satırının üstünde. Sayfa
+                  // ortadan başlıyorsa (grup önceki sayfada açıldı) "devam" denir.
+                  const showGroupHeader = drug.groupSize > 1 && (drug.groupStart || idx === 0);
                   return (
+                    <Fragment key={drug.id}>
+                    {showGroupHeader && (
+                      <div className="px-5 py-2 bg-bg-primary/60 flex items-center gap-2">
+                        <span className="text-[12px] font-semibold text-text-primary">{drug.groupLabel}</span>
+                        <span className="text-[10px] font-medium text-accent bg-accent/10 rounded-full px-2 py-px">
+                          {drug.groupStart ? `${drug.groupSize} ürün` : 'devam'}
+                        </span>
+                      </div>
+                    )}
                     <div
-                      key={drug.id}
+                      data-drug-row
                       role="button"
                       tabIndex={0}
                       aria-label={`${drug.name} — detayı aç`}
@@ -311,6 +325,7 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
                         {selected ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                       </button>
                     </div>
+                    </Fragment>
                   );
                 })}
               </div>

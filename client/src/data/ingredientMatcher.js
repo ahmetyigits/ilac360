@@ -112,6 +112,15 @@ export function getComponents(ingredient, synonymLookup) {
   return [...bases];
 }
 
+// Kanonik bileşen kümesinden deterministik grup anahtarı: "aynı etken madde"
+// gruplaması (Keşfet) ve eşdeğerlik anahtarının bileşen yarısı bunu kullanır.
+// Boş/geçersiz etken maddede null döner — çağıran gruplamamayı seçer.
+export function componentKey(ingredient, synonymLookup) {
+  const components = getComponents(ingredient, synonymLookup);
+  if (components.length === 0) return null;
+  return [...components].sort().join('+');
+}
+
 // Kural tarafındaki etken madde adını aynı boru hattından geçirir.
 export function normalizeRuleIngredient(ruleIngredient, synonymLookup) {
   const normalized = normalizeText(ruleIngredient);

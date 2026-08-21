@@ -5,6 +5,8 @@ import {
   dataUrl,
 } from './drugStore.js';
 import { searchFold } from './turkishText.js';
+import { componentKey } from './ingredientMatcher.js';
+import { getSynonymLookup } from './interactionEngine.js';
 
 let conditions = [];
 // Durum id → { usage: {drugId: keyword}, full: {drugId: keyword} }
@@ -38,6 +40,15 @@ export function loadConditions() {
     throw err;
   });
   return loadPromise;
+}
+
+// Test kancası: koşul listesi + prospektüs eşleşmeleri ağ olmadan enjekte edilir
+// (drugStore.setDrugsForTest deseni).
+export function setConditionsForTest(list, matches = {}) {
+  conditions = list;
+  descMatches = matches;
+  cachedResults.clear();
+  loadPromise = Promise.resolve(conditions);
 }
 
 export function getConditionList() {
@@ -240,6 +251,42 @@ async function buildFullResultList(matchedCondition, drugs) {
   return allItems;
 }
 
+// Aynı etken maddeli ürünleri ardışıklaştırır ("eşdeğerler bir arada" feedback'i).
+// Stabil partisyon: her grubun konumu İLK üyesinin sıralamadaki yeridir — böylece
+// priorityBrands başta kalır ve grubu hemen altına toplanır; grup içi görece
+// sıra (sortScore) korunur. Anahtarsız (etken maddesi bilinmeyen) ürünler yapay
+// bir "bilinmeyen" grubuna TOPLANMAZ, yerlerinde tekil satır kalırlar.
+// Sayfalama item-bazlı kaldığından grup sayfa sınırında bölünebilir; UI bunu
+// groupStart=false başlıkta "(devam)" ile telafi eder.
+function groupResultList(items) {
+  const synonymLookup = getSynonymLookup();
+  const slots = [];
+  const groupByKey = new Map();
+  for (const item of items) {
+    const key = componentKey(item.activeIngredient, synonymLookup);
+    if (!key) {
+      slots.push({ key: null, items: [item] });
+      continue;
+    }
+    let group = groupByKey.get(key);
+    if (!group) {
+      group = { key, label: (item.activeIngredient || '').trim(), items: [] };
+      groupByKey.set(key, group);
+      slots.push(group);
+    }
+    group.items.push(item);
+  }
+  const out = [];
+  for (const slot of slots) {
+    slot.items.forEach((item, i) => {
+      out.push(slot.key
+        ? { ...item, groupKey: slot.key, groupLabel: slot.label, groupSize: slot.items.length, groupStart: i === 0 }
+        : item);
+    });
+  }
+  return out;
+}
+
 function cleanItem(item) {
   const rest = { ...item };
   delete rest._source;
@@ -302,8 +349,9 @@ async function fallbackSearch(query) {
     });
   }
 
-  rememberResult(cacheKey, results);
-  return results;
+  const grouped = groupResultList(results);
+  rememberResult(cacheKey, grouped);
+  return grouped;
 }
 
 export async function searchByCondition(query, { page = 1, limit = 25 } = {}) {
@@ -318,7 +366,7 @@ export async function searchByCondition(query, { page = 1, limit = 25 } = {}) {
     const cacheKey = matchedCondition.id;
     let fullList = cachedResults.get(cacheKey);
     if (!fullList) {
-      fullList = await buildFullResultList(matchedCondition, drugs);
+      fullList = groupResultList(await buildFullResultList(matchedCondition, drugs));
       rememberResult(cacheKey, fullList);
     }
 

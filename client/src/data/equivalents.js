@@ -7,7 +7,7 @@
 // ibareyi her zaman gösterir.
 
 import { getDrugs, getDrugById } from './drugStore.js';
-import { getComponents } from './ingredientMatcher.js';
+import { componentKey } from './ingredientMatcher.js';
 import { getSynonymLookup } from './interactionEngine.js';
 
 let groupsByKey = null;
@@ -21,9 +21,9 @@ export function resetEquivalentsIndex() {
 function equivalenceKey(drug, synonymLookup) {
   const atc = drug.ATC_code && drug.ATC_code !== '0' ? drug.ATC_code.trim() : null;
   if (!atc || atc.length < 7) return null;
-  const components = getComponents(drug.Active_Ingredient, synonymLookup);
-  if (components.length === 0) return null;
-  return `${[...components].sort().join('+')}|${atc}`;
+  const key = componentKey(drug.Active_Ingredient, synonymLookup);
+  if (!key) return null;
+  return `${key}|${atc}`;
 }
 
 function buildIndex() {
