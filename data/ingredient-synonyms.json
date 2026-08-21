@@ -36,5 +36,12 @@
   "levosetirizin": ["levocetirizin", "levocetirizine"],
   "eltrombopag": ["eltrombopag olamin", "eltrombopag seskietanolamin"],
   "sodyum fosfat": ["monobazik sodyum fosfat", "dibazik sodyum fosfat", "monobazik sodyum fosfat dihidrat", "dibazik sodyum fosfat dodekahidrat", "dibazik sodyum fosfat heptahidrat", "monobazik sodyum fosfat anhidroz", "dibazik sodyum fosfat anhidroz", "monobazik sodyum fosfat monohidrat"],
-  "psödoefedrin": ["pseudoefedrin", "psodoefedrin", "pseudoephedrine", "psödoefedrin"]
+  "psödoefedrin": ["pseudoefedrin", "psodoefedrin", "pseudoephedrine", "psödoefedrin"],
+  "ginkgo biloba": ["gingko biloba", "ginko biloba", "ginkgo", "ginkgo ekstresi", "ginkgo biloba ekstresi", "ginkgo glikozidi", "ginkgo biloba kuru ekstresi", "ginko biloba kuru ekstresi", "gingko biloba kuru ekstresi", "ginkgo biloba yapraklari kuru ekstresi", "ginkgo biloba l. yapraklari kuru ekstresi"],
+  "valerian": ["tent. de valeriane", "valeriana officinalis", "valerian ekstresi", "kediotu ekstresi", "kediotu kuru ekstresi"],
+  "pasiflora": ["tent. de pasiflora", "passiflora", "passiflora incarnata", "pasiflora ekstresi", "passiflora ekstresi"],
+  "crataegus": ["tent. de grateagus", "crataegus ekstresi", "alic ekstresi", "alic kuru ekstresi"],
+  "saw palmetto": ["sabal", "saw palmetto ekstresi", "sabal ekstresi", "serenoa repens", "serenoa repens ekstresi"],
+  "senna": ["senna glycosides", "senna ekstresi", "senne ekstresi", "sennoside", "sennosid", "sennozid", "sennosid a", "sennozid a", "sennosid b", "sennozid b", "sinameki ekstresi"],
+  "silimarin": ["silymarin", "silimarin ekstresi", "silybum marianum gaertn meyvesi kuru ekstresi", "silybum marianum gaestner meyve ekstresi"]
 }

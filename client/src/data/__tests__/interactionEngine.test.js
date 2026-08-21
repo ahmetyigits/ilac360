@@ -43,6 +43,17 @@ const FIXTURE_DRUGS = [
   // zenginleştirmenin ada değil id'ye göre çözdüğünü doğrular.
   { ID: '30', Product_Name: 'DUPLIK TABLET', Active_Ingredient: 'Parasetamol', ATC_code: 'N02BE01' },
   { ID: '31', Product_Name: 'DUPLIK TABLET', Active_Ingredient: 'İbuprofen', ATC_code: 'M01AE01' },
+  // Bitkisel fikstürler — etken madde stringleri DATASET'TEKİ GERÇEK yazımlar
+  // (fragmanlı varyantlar, "gingko" yazım hatası, ATC "0" kombinasyonlar dahil).
+  { ID: '32', Product_Name: 'TEBOKAN FORT 40 MG FILM TABLET', Active_Ingredient: 'ginkgo biloba yapraklari kuru ekstresi', ATC_code: 'N06DX02' },
+  { ID: '33', Product_Name: 'GINKOREM 10/80 MG EFERVESAN TABLET', Active_Ingredient: 'donepezil hcl ve ginkgo biloba kuru ekstresi', ATC_code: '0' },
+  { ID: '34', Product_Name: 'BILOKAN SUPRA FILM TABLET', Active_Ingredient: 'gingko biloba', ATC_code: 'N06DX02' },
+  { ID: '35', Product_Name: 'NOROBALANS ELIXIR', Active_Ingredient: 'tent. de valeriane, tent. de pasiflora, tent. de grateagus', ATC_code: 'N05CM' },
+  { ID: '36', Product_Name: 'DIAZEM 5 MG KAPSUL', Active_Ingredient: 'Diazepam', ATC_code: 'N05BA01' },
+  { ID: '37', Product_Name: 'PROSTAGOOD MONO KAPSUL', Active_Ingredient: 'saw palmetto ekstresi', ATC_code: 'G04CX02' },
+  { ID: '38', Product_Name: 'ELIQUIS 5 MG TABLET', Active_Ingredient: 'Apiksaban', ATC_code: 'B01AF02' },
+  { ID: '39', Product_Name: 'PURSENNID DRAJE', Active_Ingredient: 'senna glycosides', ATC_code: 'A06AB06' },
+  { ID: '40', Product_Name: 'DIGOXIN 0.25 MG TABLET', Active_Ingredient: 'Digoksin', ATC_code: 'C01AA05' },
 ];
 
 // Bileşen→ATC geri doldurma haritası (gerçek build çıktısının küçük örneği):
@@ -423,4 +434,55 @@ describe('İlaç-Besin kanonik çiftler — bu liste HER ZAMAN uyarı vermeli', 
 
   // Fikstürleri diğer describe'lar için geri yükle
   afterAll(() => setDrugsForTest(FIXTURE_DRUGS));
+});
+
+describe('bitkisel ürün kuralları (Tebokan×Warfmadin sınıfı boşluklar)', () => {
+  it('REGRESYON: ginkgo (fragmanlı yazım) + warfarin → high, unknown DEĞİL', () => {
+    // Bildirilen bug: Tebokan × Warfmadin "risk görünmüyor" — gri unknown kartı.
+    const [r] = analyze('TEBOKAN FORT 40 MG FILM TABLET', 'COUMADIN 5 MG TABLET');
+    expect(r.risk).toBe('high');
+    expect(r.ruleId).toBe('R-0247');
+    expect(r.source).toBeTruthy();
+  });
+
+  it('ATC "0" kombinasyon (GINKOREM) bileşen yoluyla yakalanır', () => {
+    const [r] = analyze('GINKOREM 10/80 MG EFERVESAN TABLET', 'COUMADIN 5 MG TABLET');
+    expect(r.risk).toBe('high');
+  });
+
+  it('"gingko" yazım hatası sinonimle kanona iner: BILOKAN + aspirin → high', () => {
+    const [r] = analyze('BILOKAN SUPRA FILM TABLET', 'ASPIRIN 100 MG TABLET');
+    expect(r.risk).toBe('high');
+    expect(r.ruleId).toBe('R-0248');
+  });
+
+  it('ad kuralı olmayan çiftte kategori emniyet ağı: ginkgo + apiksaban → medium', () => {
+    const [r] = analyze('TEBOKAN FORT 40 MG FILM TABLET', 'ELIQUIS 5 MG TABLET');
+    expect(r.risk).toBe('medium');
+    expect(r.message).toContain('kanama');
+  });
+
+  it('sedatif bitkisel sınıf etiketi: NOROBALANS + diazepam → medium', () => {
+    const [r] = analyze('NOROBALANS ELIXIR', 'DIAZEM 5 MG KAPSUL');
+    expect(r.risk).toBe('medium');
+    expect(r.message.toLocaleLowerCase('tr')).toContain('sedasyon');
+  });
+
+  it('saw palmetto + warfarin → medium (R-0251)', () => {
+    const [r] = analyze('PROSTAGOOD MONO KAPSUL', 'COUMADIN 5 MG TABLET');
+    expect(r.risk).toBe('medium');
+    expect(r.ruleId).toBe('R-0251');
+  });
+
+  it('senna + digoksin → medium (hipokalemi → toksisite)', () => {
+    const [r] = analyze('PURSENNID DRAJE', 'DIGOXIN 0.25 MG TABLET');
+    expect(r.risk).toBe('medium');
+    expect(r.message).toContain('digoksin');
+  });
+
+  it('iki ginkgo ürünü ortak etkin madde olarak yakalanır (sinonim birleştirme)', () => {
+    const [r] = analyze('TEBOKAN FORT 40 MG FILM TABLET', 'BILOKAN SUPRA FILM TABLET');
+    expect(r.risk).toBe('critical');
+    expect(r.message).toContain('aynı etkin madde');
+  });
 });
