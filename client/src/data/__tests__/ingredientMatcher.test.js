@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
 import {
   normalizeText,
   splitComponents,
@@ -120,5 +120,41 @@ describe('getComponents + sinonimler', () => {
   it('geçersiz girdide boş küme döner', () => {
     expect(getComponents('Etken maddesi bilgisi bulunamadı.', synonyms)).toEqual([]);
     expect(getComponents(null, synonyms)).toEqual([]);
+  });
+});
+
+describe('bitkisel varyant kanonikleşmesi (gerçek sinonim tablosu)', () => {
+  // Dataset'te ginkgo 9 farklı yazımla geçiyor; hepsi tek kanona inmezse
+  // ad-tabanlı kurallar ürünlerin yalnız bir kısmını yakalar (Tebokan bug'ı).
+  let synonyms;
+  beforeAll(async () => {
+    const real = (await import('../../../../data/ingredient-synonyms.json')).default;
+    synonyms = buildSynonymLookup(real);
+  });
+
+  it.each([
+    'gingko biloba',
+    'ginkgo glikozidi',
+    'ginkgo biloba kuru ekstresi',
+    'ginkgo biloba yapraklari kuru ekstresi',
+    'ginkgo biloba yaprakları kuru ekstresi',
+    'ginkgo biloba l. yapraklari kuru ekstresi',
+  ])('%s → ginkgo biloba', (variant) => {
+    expect(getComponents(variant, synonyms)).toEqual(['ginkgo biloba']);
+  });
+
+  it('kombinasyon stringinde bitkisel bileşen ayrışır', () => {
+    expect(getComponents('memantin hcl ve ginko biloba kuru ekstresi', synonyms))
+      .toEqual(['memantin', 'ginkgo biloba']);
+  });
+
+  it('tentür yazımları kanonikleşir (NOROBALANS)', () => {
+    expect(getComponents('tent. de valeriane, tent. de pasiflora, tent. de grateagus', synonyms))
+      .toEqual(['valerian', 'pasiflora', 'crataegus']);
+  });
+
+  it('senna türevleri tek kanona iner', () => {
+    expect(getComponents('sennosid a+b kalsiyum', synonyms)).toEqual(['senna']);
+    expect(getComponents('senna glycosides', synonyms)).toEqual(['senna']);
   });
 });

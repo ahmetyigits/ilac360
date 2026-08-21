@@ -2428,5 +2428,60 @@
     "source": "FDA etiketi (Rozerem); ONC yüksek öncelikli listesi",
     "id": "R-0246",
     "evidence": "label"
+  },
+  {
+    "ingredientA": "ginkgo biloba",
+    "ingredientB": "warfarin",
+    "risk": "high",
+    "message": "Ginkgo biloba, warfarin ile birlikte kullanıldığında kanama riskini artırabilir.",
+    "details": "Ginkgo trombosit aktive edici faktörü baskılayarak trombosit işlevini bozabilir; warfarinin pıhtılaşmayı baskılayan etkisine eklenince kanama (beyin kanaması dahil) olguları bildirilmiştir. INR normal görünse bile risk artabilir.",
+    "action": "Bu kombinasyondan kaçının; ginkgo içeren ürün kullanıyorsanız warfarin başlanmadan önce doktorunuza mutlaka bildirin. Olağan dışı morarma/kanamada hemen başvurun.",
+    "source": "FDA etiketi (Coumadin) — bitkisel ürün uyarısı; NIH NCCIH Ginkgo monografı",
+    "id": "R-0247",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "ginkgo biloba",
+    "ingredientB": "asetilsalisilik asit",
+    "risk": "high",
+    "message": "Ginkgo biloba, aspirin ile birlikte kanama riskini artırabilir.",
+    "details": "Ginkgo trombosit işlevini baskılar; aspirinin geri dönüşsüz trombosit inhibisyonuna eklenince kanama eğilimi artar. Birlikte kullanımda göz içi (hifema) ve cilt altı kanama olguları bildirilmiştir.",
+    "action": "Birlikte kullanmadan önce doktorunuza veya eczacınıza danışın; olağan dışı morarma ya da kanama görürseniz kullanımı bırakıp başvurun.",
+    "source": "NIH NCCIH Ginkgo monografı; olgu bildirimleri (kamu malı derlemeler)",
+    "id": "R-0248",
+    "evidence": "review"
+  },
+  {
+    "ingredientA": "ginkgo biloba",
+    "ingredientB": "klopidogrel",
+    "risk": "high",
+    "message": "Ginkgo biloba, klopidogrel ile birlikte kanama riskini artırabilir.",
+    "details": "Her ikisi de trombosit işlevini baskılar; etkiler toplanarak kanama eğilimini artırır.",
+    "action": "Birlikte kullanmadan önce doktorunuza danışın; ameliyat/diş çekimi öncesi ginkgo kullandığınızı mutlaka söyleyin.",
+    "source": "NIH NCCIH Ginkgo monografı",
+    "id": "R-0249",
+    "evidence": "review"
+  },
+  {
+    "ingredientA": "ginkgo biloba",
+    "ingredientB": "ibuprofen",
+    "risk": "high",
+    "message": "Ginkgo biloba, ibuprofen ile birlikte kanama riskini artırabilir.",
+    "details": "Ginkgo ve NSAID ilaçların trombosit baskılayıcı etkileri toplanır; bu kombinasyonla ölümcül beyin kanaması olgusu bildirilmiştir.",
+    "action": "Düzenli birlikte kullanımdan kaçının; gerekli ise doktorunuza danışın.",
+    "source": "NIH NCCIH Ginkgo monografı; olgu bildirimi (kamu malı derleme)",
+    "id": "R-0250",
+    "evidence": "review"
+  },
+  {
+    "ingredientA": "saw palmetto",
+    "ingredientB": "warfarin",
+    "risk": "medium",
+    "message": "Saw palmetto (cüce palmiye), warfarin ile birlikte kanama riskini artırabilir.",
+    "details": "Saw palmetto ile INR yükselmesi ve ameliyat sırasında uzamış kanama olguları bildirilmiştir; mekanizma tam aydınlatılmamıştır (olası trombosit etkisi).",
+    "action": "Warfarin kullanıyorsanız saw palmetto içeren ürünlere başlamadan önce doktorunuza bildirin; INR takibi sıklaştırılabilir.",
+    "source": "NIH NCCIH Saw Palmetto monografı; olgu bildirimleri",
+    "id": "R-0251",
+    "evidence": "review"
   }
 ]

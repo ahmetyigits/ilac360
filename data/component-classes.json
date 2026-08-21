@@ -173,6 +173,30 @@
     "sisaprid": {
       "qt": "known",
       "source": "FDA etiketi (Propulsid) — QT/TdP nedeniyle kısıtlanmış kullanım"
+    },
+    "ginkgo biloba": {
+      "classes": [
+        "HERBAL_GINKGO"
+      ],
+      "source": "EMA HMPC Ginkgonis folium monografı; NIH NCCIH Ginkgo — trombosit işlevi/kanama uyarısı"
+    },
+    "valerian": {
+      "classes": [
+        "SEDATIVE_HERBAL"
+      ],
+      "source": "EMA HMPC Valerianae radix monografı — sedatiflerle additif etki uyarısı"
+    },
+    "pasiflora": {
+      "classes": [
+        "SEDATIVE_HERBAL"
+      ],
+      "source": "EMA HMPC Passiflorae herba monografı — sedatiflerle additif etki uyarısı"
+    },
+    "senna": {
+      "classes": [
+        "STIMULANT_LAXATIVE"
+      ],
+      "source": "EMA HMPC Sennae folium monografı — kronik kullanımda hipokalemi uyarısı"
     }
   }
 }

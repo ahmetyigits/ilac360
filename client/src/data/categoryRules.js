@@ -80,6 +80,11 @@ export const ATC_CATEGORY_MAP = [
   // N05AN (lityum) N05A prefiksine de uyar ama antipsikotik DEĞİLDİR;
   // getAllCategories LITHIUM görünce ANTIPSYCHOTIC'i eler.
   { prefix: 'N05AN', category: 'LITHIUM' },
+  // Bitkiseller: yalnız TAM/uzun ATC — N06DX geneli (memantin N06DX01!) veya
+  // N05CM geneli (deksmedetomidin N05CM18!) eşlenmez. ATC'si "0" olan bitkisel
+  // kombinasyonlar component-classes.json sınıf etiketiyle yakalanır.
+  { prefix: 'N06DX02', category: 'HERBAL_GINKGO' },
+  { prefix: 'A06AB', category: 'STIMULANT_LAXATIVE' },
   { prefix: 'L01BA01', category: 'METHOTREXATE' },
   { prefix: 'L04AX03', category: 'METHOTREXATE' },
   { prefix: 'V08A', category: 'IODINATED_CONTRAST' },
@@ -310,6 +315,24 @@ export const CATEGORY_INTERACTIONS = [
   { catA: 'SNRI', catB: 'MAOI_A', risk: 'critical', message: 'SNRI ve MAO-A inhibitörü birlikte serotonin sendromu riski taşır.' },
   { catA: 'SNRI', catB: 'TRIPTAN', risk: 'high', message: 'SNRI ve triptan birlikte serotonin sendromu riskini artırır.' },
   { catA: 'SNRI', catB: 'LINEZOLID', risk: 'high', message: 'Linezolid ve SNRI birlikte serotonin sendromu riskini artırır.' },
+  // --- Bitkiseller (emniyet ağı: adla eşleşmeyen ürün/il. formları için) ---
+  // Ginkgo trombosit işlevini baskılayabilir → tüm kanama-riskli sınıflarla additif.
+  { catA: 'HERBAL_GINKGO', catB: 'VITAMIN_K_ANTAGONIST', risk: 'high', message: 'Ginkgo biloba içeren ürünler warfarinle birlikte kanama riskini artırabilir; trombosit işlevi baskılanır.' },
+  { catA: 'HERBAL_GINKGO', catB: 'ANTIPLATELET', risk: 'high', message: 'Ginkgo biloba içeren ürünler antiplatelet ilaçlarla birlikte kanama riskini artırabilir.' },
+  { catA: 'HERBAL_GINKGO', catB: 'SALICYLATE', risk: 'high', message: 'Ginkgo biloba içeren ürünler aspirinle birlikte kanama riskini artırabilir.' },
+  { catA: 'HERBAL_GINKGO', catB: 'DIRECT_FACTOR_XA_INHIBITOR', risk: 'medium', message: 'Ginkgo biloba içeren ürünler DOAK ile birlikte kanama riskini artırabilir.' },
+  { catA: 'HERBAL_GINKGO', catB: 'DIRECT_THROMBIN_INHIBITOR', risk: 'medium', message: 'Ginkgo biloba içeren ürünler direkt trombin inhibitörüyle birlikte kanama riskini artırabilir.' },
+  { catA: 'HERBAL_GINKGO', catB: 'HEPARIN', risk: 'medium', message: 'Ginkgo biloba içeren ürünler heparinle birlikte kanama riskini artırabilir.' },
+  { catA: 'HERBAL_GINKGO', catB: 'NSAID', risk: 'medium', message: 'Ginkgo biloba içeren ürünler NSAID ilaçlarla birlikte kanama eğilimini artırabilir.' },
+  { catA: 'HERBAL_GINKGO', catB: 'SSRI', risk: 'medium', message: 'Ginkgo biloba, SSRI ilaçların trombosit etkisine eklenerek kanama riskini artırabilir.' },
+  // Sedatif bitkiseller (valerian, pasiflora): SSS baskılayıcılarla additif sedasyon.
+  { catA: 'SEDATIVE_HERBAL', catB: 'BENZODIAZEPINE', risk: 'medium', message: 'Sedatif bitkisel ürünler (kediotu, pasiflora) benzodiazepinlerle birlikte sedasyonu derinleştirebilir.' },
+  { catA: 'SEDATIVE_HERBAL', catB: 'Z_DRUG', risk: 'medium', message: 'Sedatif bitkisel ürünler uyku ilaçlarıyla birlikte sedasyonu derinleştirebilir.' },
+  { catA: 'SEDATIVE_HERBAL', catB: 'OPIOID', risk: 'medium', message: 'Sedatif bitkisel ürünler opioidlerle birlikte sedasyon ve solunum depresyonu riskini artırabilir.' },
+  // Stimülan laksatifler (senna): kronik kullanımda hipokalemi → digoksin/diüretik.
+  { catA: 'STIMULANT_LAXATIVE', catB: 'CARDIAC_GLYCOSIDE', risk: 'medium', message: 'Uyarıcı laksatiflerin (sinameki) kronik kullanımı hipokalemiye yol açarak digoksin toksisitesi riskini artırır.' },
+  { catA: 'STIMULANT_LAXATIVE', catB: 'LOOP_DIURETIC', risk: 'low', message: 'Uyarıcı laksatif ve diüretik birlikte potasyum kaybını artırabilir.' },
+  { catA: 'STIMULANT_LAXATIVE', catB: 'THIAZIDE_DIURETIC', risk: 'low', message: 'Uyarıcı laksatif ve diüretik birlikte potasyum kaybını artırabilir.' },
 ];
 
 // Çok-kategorili ürünlerde (kombinasyonlar) birden çok kural eşleşebilir;
