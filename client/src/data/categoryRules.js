@@ -348,6 +348,21 @@ export const CATEGORY_INTERACTIONS = [
   { catA: 'COQ10', catB: 'VITAMIN_K_ANTAGONIST', risk: 'medium', message: 'Koenzim Q10, K vitaminine yapısal benzerliği nedeniyle warfarinin etkisini azaltabilir; INR düşüşü bildirilmiştir.' },
   { catA: 'ECHINACEA', catB: 'CALCINEURIN', risk: 'medium', message: 'Ekinezya bağışıklığı uyarır; immünosüpresif tedavinin etkisini azaltabilir.' },
   { catA: 'ECHINACEA', catB: 'MTOR_IMMUNOSUPPRESSANT', risk: 'medium', message: 'Ekinezya bağışıklığı uyarır; immünosüpresif tedavinin etkisini azaltabilir.' },
+  // Cranberry/turna yemişi: FDA Coumadin etiketi INR yükselmesi uyarısı
+  { catA: 'CRANBERRY', catB: 'VITAMIN_K_ANTAGONIST', risk: 'medium', message: 'Turna yemişi (cranberry) ürünleri warfarinin etkisini artırarak INR yükselmesine yol açabilir; kanama belirtilerine dikkat edin.' },
+  // 5-HTP: serotonin öncülü takviye — serotonerjik ilaçlarla birikim
+  { catA: 'SEROTONERGIC_SUPPLEMENT', catB: 'SSRI', risk: 'high', message: '5-HTP içeren takviyeler SSRI antidepresanlarla birlikte serotonin sendromu riskini artırır; birlikte kullanmayın.' },
+  { catA: 'SEROTONERGIC_SUPPLEMENT', catB: 'SNRI', risk: 'high', message: '5-HTP içeren takviyeler SNRI antidepresanlarla birlikte serotonin sendromu riskini artırır.' },
+  { catA: 'SEROTONERGIC_SUPPLEMENT', catB: 'MAOI', risk: 'critical', message: '5-HTP ve MAO inhibitörü birlikte KULLANILMAZ; serotonin sendromu riski.' },
+  // Kudret narı: kan şekeri düşürücü bitkisel
+  { catA: 'HYPOGLYCEMIC_HERBAL', catB: 'SULFONYLUREA', risk: 'medium', message: 'Kudret narı kan şekerini düşürebilir; sülfonilürelerle hipoglisemi riski artar.' },
+  { catA: 'HYPOGLYCEMIC_HERBAL', catB: 'INSULIN', risk: 'medium', message: 'Kudret narı kan şekerini düşürebilir; insülinle hipoglisemi riski artar.' },
+  // Alıç: dijital glikozidlerin etkisini güçlendirebilir (EMA HMPC)
+  { catA: 'CRATAEGUS', catB: 'CARDIAC_GLYCOSIDE', risk: 'medium', message: 'Alıç (crataegus) takviyesi digoksinin kalp üzerindeki etkisini güçlendirebilir; birlikte kullanmadan önce doktorunuza danışın.' },
+  // Meyan kökü: glisirizin → hipokalemi (digoksin toksisitesi, diüretik additif)
+  { catA: 'LICORICE', catB: 'CARDIAC_GLYCOSIDE', risk: 'medium', message: 'Meyan kökü (glisirizin) potasyum kaybına yol açarak digoksin toksisitesi riskini artırabilir.' },
+  { catA: 'LICORICE', catB: 'LOOP_DIURETIC', risk: 'medium', message: 'Meyan kökü ve diüretik birlikte potasyum kaybını belirginleştirir; kas güçsüzlüğü ve ritim bozukluğu riski artar.' },
+  { catA: 'LICORICE', catB: 'THIAZIDE_DIURETIC', risk: 'medium', message: 'Meyan kökü ve tiazid diüretik birlikte potasyum kaybını belirginleştirir.' },
   // Kanamayla etkileşen diğer takviye bileşenleri (hepsi warfarin/antiplatelet ekseni)
   { catA: 'GARLIC', catB: 'VITAMIN_K_ANTAGONIST', risk: 'medium', message: 'Yüksek doz sarımsak takviyesi trombosit işlevini etkileyebilir; warfarinle kanama riski artabilir.' },
   { catA: 'GARLIC', catB: 'ANTIPLATELET', risk: 'low', message: 'Sarımsak takviyesi, antiplatelet ilaçlarla kanama eğilimini hafif artırabilir.' },

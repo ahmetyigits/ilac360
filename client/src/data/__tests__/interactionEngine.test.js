@@ -552,6 +552,9 @@ describe('İlaç-İlaç kanonik çiftler — bu liste HER ZAMAN uyarı vermeli',
     ['Zerdeçal, Zencefil', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],
     ['Glukozamin', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],
     ['E Vitamini', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],
+    ['Alıç', '0', 'Digoksin', 'C01AA05', 'medium'],
+    ['Meyan Kökü', '0', 'Digoksin', 'C01AA05', 'medium'],
+    ['Meyan Kökü', '0', 'Furosemid', 'C03CA01', 'medium'],
   ];
   const RISK_AT_LEAST = { critical: 0, high: 1, medium: 2 };
 
