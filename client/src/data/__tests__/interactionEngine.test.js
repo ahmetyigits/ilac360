@@ -548,6 +548,10 @@ describe('İlaç-İlaç kanonik çiftler — bu liste HER ZAMAN uyarı vermeli',
     ['Koenzim Q10', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],
     ['Ekinezya', '0', 'Takrolimus', 'L04AD02', 'medium'],
     ['Kafein', '0', 'Fluvoksamin Maleat', 'N06AB08', 'high'],
+    ['Sarımsak', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],
+    ['Zerdeçal, Zencefil', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],
+    ['Glukozamin', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],
+    ['E Vitamini', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],
   ];
   const RISK_AT_LEAST = { critical: 0, high: 1, medium: 2 };
 

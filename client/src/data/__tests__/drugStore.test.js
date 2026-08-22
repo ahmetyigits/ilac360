@@ -15,6 +15,9 @@ const FIXTURE_DRUGS = [
   { ID: '3', Product_Name: 'MAJEZIK 100 MG TABLET', Active_Ingredient: 'Flurbiprofen', ATC_code: 'M01AE09', barcode: '8699541000002' },
   { ID: '4', Product_Name: 'IBURAMIN COLD TABLET', Active_Ingredient: 'İbuprofen, Psödoefedrin', ATC_code: 'M01AE51', barcode: '8699541000003' },
   { ID: '5', Product_Name: 'İBUFEN 400 MG TABLET', Active_Ingredient: 'İbuprofen', ATC_code: 'M01AE01', barcode: '8699541000004' },
+  // Takviye kayıtları (build enjeksiyonundaki expand() çıktısının şekli)
+  { ID: '9000001', Product_Name: 'PHARMATON VITALITY KAPSÜL', Active_Ingredient: 'Ginseng G115, Demir', ATC_code: '0', barcode: null, isSupplement: true },
+  { ID: '9000007', Product_Name: 'OCEAN BALIK YAĞI ŞURUP', Active_Ingredient: 'Omega-3', ATC_code: '0', barcode: null, isSupplement: true },
 ];
 
 beforeAll(() => {
@@ -72,6 +75,23 @@ describe('searchDrugs', () => {
   it('2 karakterden kısa sorguda boş döner', () => {
     expect(searchDrugs('p')).toEqual([]);
     expect(searchDrugs('')).toEqual([]);
+  });
+
+  it('"takviye" sorgusu takviye kataloğunu listeler', () => {
+    const results = searchDrugs('takviye');
+    expect(results.length).toBe(2);
+    expect(results.every((r) => r.isSupplement)).toBe(true);
+    // kısmi yazım da çalışır ("takvi")
+    expect(searchDrugs('takvi').every((r) => r.isSupplement)).toBe(true);
+  });
+
+  it('"takviye <kelime>" sorgusu takviyeleri filtreler', () => {
+    const results = searchDrugs('takviye omega');
+    expect(results).toHaveLength(1);
+    expect(results[0].name).toContain('OCEAN');
+    // eşleşmeyen filtre boşa düşerse normal aramaya döner (ilaçlar gelir)
+    const fallback = searchDrugs('takviye parol');
+    expect(fallback.some((r) => r.name.startsWith('PAROL'))).toBe(true);
   });
 });
 

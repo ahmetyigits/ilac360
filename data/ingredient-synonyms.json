@@ -67,10 +67,18 @@
   "ginseng": ["panax ginseng", "kore ginsengi", "ginseng g115", "g115", "ginseng ekstresi", "asya ginsengi", "panaks ginseng"],
   "ekinezya": ["echinacea", "echinacea purpurea", "ekinezya ekstresi", "ekinacea"],
   "koenzim q10": ["coq10", "co q10", "ubikinol", "ubidekarenon", "ko-enzim q10", "koenzim q-10"],
-  "omega-3": ["balık yağı", "omega 3", "epa", "dha", "omega3"],
+  "omega-3": ["balık yağı", "omega 3", "epa", "dha", "omega3", "kril yağı", "krill yağı"],
   "kara mürver": ["sambucus nigra", "elderberry", "kara mürver ekstresi"],
   "çörek otu": ["nigella sativa", "çörek otu yağı"],
   "k vitamini": ["fitomenadion", "phytomenadione", "vitamin k", "vitamin k1", "vitamin k2", "menakinon"],
   "magnezyum": ["magnezyum sitrat", "magnezyum bisglisinat", "magnezyum oksit", "magnezyum malat"],
-  "çinko": ["çinko sülfat", "çinko pikolinat", "çinko glukonat", "zinc", "zinc sulfate", "çinko sulfat", "çinko sülfat heptahidrat", "çinko sülfat monohidrat"]
+  "çinko": ["çinko sülfat", "çinko pikolinat", "çinko glukonat", "zinc", "zinc sulfate", "çinko sulfat", "çinko sülfat heptahidrat", "çinko sülfat monohidrat"],
+  "sarımsak": ["allium sativum", "garlic", "sarımsak ekstresi", "sarımsak yağı", "sarmısak"],
+  "zencefil": ["ginger", "zingiber officinale", "zencefil ekstresi", "zencefil kök ekstresi"],
+  "zerdeçal": ["kurkumin", "curcumin", "turmeric", "curcuma longa", "zerdeçal ekstresi", "kurkumin ekstresi"],
+  "glukozamin": ["glucosamine", "glukozamin hidroklorür", "glukozamin hcl"],
+  "e vitamini": ["vitamin e", "tokoferol", "alfa tokoferol", "d-alfa tokoferol", "tokoferil"],
+  "yeşil çay": ["green tea", "camellia sinensis", "yeşil çay ekstresi", "egcg"],
+  "kolajen": ["collagen", "hidrolize kolajen", "kolajen peptit"],
+  "probiyotik": ["probiotic", "laktobasillus", "lactobacillus", "bifidobacterium"]
 }

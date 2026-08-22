@@ -205,6 +205,30 @@ export function searchDrugs(query, { limit = 25 } = {}) {
   }
 
   const q = searchFold(trimmed);
+
+  // "takviye" sorgusu takviye kataloğunu listeler: ürün adlarında "takviye"
+  // geçmediğinden normal ad/etken araması bu kataloğu bulamazdı. Kalan
+  // karakterler marka filtresi olur ("takviye omega" → omega içerenler).
+  if (q.startsWith('takviye') || 'takviye edici gida'.startsWith(q)) {
+    // Kısmi yazımda ("takvi", "takviye edic") filtre yok — tüm katalog listelenir.
+    // Yalnız tam "takviye" sonrası kalan kelimeler filtre olur; regex eşleşmezse
+    // rest'i q'da bırakmak sonsuz özyineleme yapar (searchFold stack overflow'u).
+    const rest = q.startsWith('takviye')
+      ? q.replace(/^takviye( edici)?( gida\w*)?/, '').trim()
+      : '';
+    const matches = [];
+    for (const d of drugs) {
+      if (!d.isSupplement) continue;
+      if (rest && !d._nameL.includes(rest) && !d._ingL.includes(rest)) continue;
+      matches.push(cleanDrugResponse(d));
+      if (matches.length >= limit) break;
+    }
+    if (matches.length > 0) return matches;
+    // Takviye eşleşmesi yoksa: filtre kelimesiyle normal arama ("takviye parol"
+    // → parol araması), filtre de yoksa tam sorguyla devam (adı "takvi..." olan ilaç).
+    if (rest) return searchDrugs(rest, { limit });
+  }
+
   // Çok kelimeli sorguda tokenlar bitişik olmak zorunda değildir:
   // "parol tablet" → her token adın herhangi bir yerinde geçsin yeter.
   const tokens = q.split(/\s+/).filter(Boolean);

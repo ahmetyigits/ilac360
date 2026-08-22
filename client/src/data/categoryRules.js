@@ -348,6 +348,16 @@ export const CATEGORY_INTERACTIONS = [
   { catA: 'COQ10', catB: 'VITAMIN_K_ANTAGONIST', risk: 'medium', message: 'Koenzim Q10, K vitaminine yapısal benzerliği nedeniyle warfarinin etkisini azaltabilir; INR düşüşü bildirilmiştir.' },
   { catA: 'ECHINACEA', catB: 'CALCINEURIN', risk: 'medium', message: 'Ekinezya bağışıklığı uyarır; immünosüpresif tedavinin etkisini azaltabilir.' },
   { catA: 'ECHINACEA', catB: 'MTOR_IMMUNOSUPPRESSANT', risk: 'medium', message: 'Ekinezya bağışıklığı uyarır; immünosüpresif tedavinin etkisini azaltabilir.' },
+  // Kanamayla etkileşen diğer takviye bileşenleri (hepsi warfarin/antiplatelet ekseni)
+  { catA: 'GARLIC', catB: 'VITAMIN_K_ANTAGONIST', risk: 'medium', message: 'Yüksek doz sarımsak takviyesi trombosit işlevini etkileyebilir; warfarinle kanama riski artabilir.' },
+  { catA: 'GARLIC', catB: 'ANTIPLATELET', risk: 'low', message: 'Sarımsak takviyesi, antiplatelet ilaçlarla kanama eğilimini hafif artırabilir.' },
+  { catA: 'GINGER', catB: 'VITAMIN_K_ANTAGONIST', risk: 'medium', message: 'Zencefil takviyesi warfarinle birlikte INR yükselmesi ve kanama olgularıyla ilişkilendirilmiştir.' },
+  { catA: 'GINGER', catB: 'ANTIPLATELET', risk: 'low', message: 'Zencefil, antiplatelet ilaçlarla kanama eğilimini hafif artırabilir.' },
+  { catA: 'CURCUMIN', catB: 'VITAMIN_K_ANTAGONIST', risk: 'medium', message: 'Zerdeçal/kurkumin takviyesi trombosit işlevini etkileyebilir; warfarinle kanama riski artabilir.' },
+  { catA: 'CURCUMIN', catB: 'ANTIPLATELET', risk: 'low', message: 'Zerdeçal/kurkumin, antiplatelet ilaçlarla kanama eğilimini hafif artırabilir.' },
+  { catA: 'GLUCOSAMINE', catB: 'VITAMIN_K_ANTAGONIST', risk: 'medium', message: 'Glukozamin (±kondroitin) takviyesiyle warfarin kullananlarda INR yükselmesi bildirilmiştir; INR takibi önerilir.' },
+  { catA: 'VITAMIN_E', catB: 'VITAMIN_K_ANTAGONIST', risk: 'medium', message: 'Yüksek doz E vitamini, K vitamini bağımlı pıhtılaşmayı baskılayarak warfarinin kanama riskini artırabilir.' },
+  { catA: 'VITAMIN_E', catB: 'ANTIPLATELET', risk: 'low', message: 'Yüksek doz E vitamini, antiplatelet ilaçlarla kanama eğilimini hafif artırabilir.' },
   // Mineral şelasyonu (takviye tarafı; ilaç tarafındaki demir/kalsiyum kuralları zaten var)
   { catA: 'MAGNESIUM_SUPPLEMENT', catB: 'TETRACYCLINE', risk: 'medium', message: 'Magnezyum, tetrasiklin emilimini azaltır. En az 2-3 saat arayla alınmalıdır.' },
   { catA: 'MAGNESIUM_SUPPLEMENT', catB: 'FLUOROQUINOLONE', risk: 'medium', message: 'Magnezyum, fluorokinolon emilimini azaltır. En az 2 saat arayla alınmalıdır.' },
