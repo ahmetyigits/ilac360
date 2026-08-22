@@ -3461,5 +3461,253 @@
     "message": "İdrar söktürücüleri sabah almak, gece sık idrara kalkmayı ve uyku bölünmesini önler. Günde iki doz gerekiyorsa ikinci dozu öğleden sonra erken saatte alın.",
     "source": "TİTCK KT; FDA etiketi (Lasix)",
     "evidence": "label"
+  },
+  {
+    "id": "W-0296",
+    "type": "general",
+    "severity": "high",
+    "match": {
+      "atcPrefixes": [
+        "L01"
+      ]
+    },
+    "systemicOnly": false,
+    "title": "Onkoloji ilacı — etkileşim değerlendirmesi uzman ister",
+    "message": "Bu bir kanser tedavisi ilacıdır. Reçetesiz ilaçlar, bitkisel ürünler ve takviyeler dahil TÜM kombinasyonlar tedaviyi yürüten onkoloji ekibince değerlendirilmelidir; bu sitedeki sonuçlar onkoloji ilaçları için kapsayıcı değildir.",
+    "source": "FDA/EMA sınıf etiketleri; ilac360 kapsam notu",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0297",
+    "type": "general",
+    "severity": "high",
+    "match": {
+      "atcPrefixes": [
+        "L01",
+        "L04A"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Canlı aşılardan kaçının",
+    "message": "Bağışıklığı baskılayan tedaviler sırasında canlı aşılar (kızamık-kabakulak-kızamıkçık, suçiçeği, sarıhumma vb.) ciddi enfeksiyona yol açabilir. Aşı olmadan önce tedavinizi mutlaka bildirin.",
+    "details": "İnaktive aşılar genellikle uygulanabilir ancak yanıt zayıf olabilir; zamanlama için doktorunuza danışın.",
+    "source": "FDA immünosüpresan sınıf etiketleri (ör. Imuran, CellCept)",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0298",
+    "type": "lactation",
+    "severity": "critical",
+    "match": {
+      "ingredients": [
+        "metotreksat"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Emzirirken kullanılmaz",
+    "message": "Metotreksat anne sütüne geçer ve bebekte kan hücresi baskılanmasına yol açabilir; emzirme döneminde kullanılmamalıdır.",
+    "source": "FDA etiketi (Trexall); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0299",
+    "type": "lactation",
+    "severity": "critical",
+    "match": {
+      "ingredients": [
+        "kodein"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Emzirirken kodein tehlikeli olabilir",
+    "message": "Bazı annelerde kodein hızla morfine çevrilir ve süte geçen morfin bebekte yaşamı tehdit eden solunum baskılanması yapabilir. Emzirme döneminde önerilmez.",
+    "details": "Bebeğinizde aşırı uyku hali, emmede zorluk veya gevşeklik fark ederseniz ilacı bırakıp hemen başvurun.",
+    "source": "FDA Güvenlik Bildirimi 2017 (kodein/tramadol — emzirme); FDA etiketi",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0300",
+    "type": "lactation",
+    "severity": "high",
+    "match": {
+      "atcPrefixes": [
+        "L01"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Emzirmeye ara verilmelidir",
+    "message": "Kanser tedavisi ilaçları anne sütüne geçebilir ve bebeğe zarar verebilir; tedavi süresince emzirme önerilmez.",
+    "source": "FDA sınıf etiketleri (sitotoksikler); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0301",
+    "type": "lactation",
+    "severity": "high",
+    "match": {
+      "ingredients": [
+        "lityum"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Emzirmede önerilmez",
+    "message": "Lityum anne sütüne belirgin geçer; bebekte lityum düzeyi ölçülebilir seviyelere ulaşabilir ve toksisite riski taşır.",
+    "details": "Emzirme zorunluysa bebek düzey ve tiroid takibiyle yakından izlenmelidir — uzman kararı gerektirir.",
+    "source": "FDA etiketi (lityum karbonat); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0302",
+    "type": "lactation",
+    "severity": "high",
+    "match": {
+      "ingredients": [
+        "amiodaron"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Emzirmede önerilmez",
+    "message": "Amiodaron ve iyot içeriği anne sütüne geçer, vücutta aylarca kalır; bebeğin tiroid işlevini bozabilir.",
+    "source": "FDA etiketi (Cordarone)",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0303",
+    "type": "lactation",
+    "severity": "high",
+    "match": {
+      "ingredients": [
+        "izotretinoin",
+        "asitretin"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Emzirirken kullanılmaz",
+    "message": "Retinoidler yağda çözünür ve anne sütüne geçmesi beklenir; emzirme döneminde kullanılmamalıdır.",
+    "source": "FDA etiketi (Accutane/Soriatane)",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0304",
+    "type": "lactation",
+    "severity": "high",
+    "match": {
+      "ingredients": [
+        "ergotamin",
+        "dihidroergotamin"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Emzirirken kullanılmaz",
+    "message": "Ergot türevleri bebekte kusma, ishal ve dolaşım sorunlarına yol açabilir; süt üretimini de azaltır.",
+    "source": "FDA etiketi (ergotamin); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0305",
+    "type": "lactation",
+    "severity": "high",
+    "match": {
+      "ingredients": [
+        "klozapin"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Emzirmede önerilmez",
+    "message": "Klozapin anne sütüne geçer; bebekte aşırı uyku, emme güçlüğü ve kan hücresi baskılanması riski bildirilmiştir.",
+    "source": "FDA etiketi (Clozaril)",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0306",
+    "type": "lactation",
+    "severity": "high",
+    "match": {
+      "atcPrefixes": [
+        "C10AA"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Emzirmede önerilmez",
+    "message": "Statinlerin süte geçişi ve bebeğin gelişen metabolizmasına etkisi nedeniyle emzirme döneminde kullanılmaması önerilir.",
+    "source": "FDA etiketleri (statin sınıfı)",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0307",
+    "type": "lactation",
+    "severity": "medium",
+    "match": {
+      "atcPrefixes": [
+        "J01AA"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Uzun süreli kullanımda dikkat",
+    "message": "Tetrasiklinlerin kısa kürleri emzirmede genellikle kabul edilir; uzun süreli kullanım bebeğin diş ve kemik gelişimini etkileyebilir.",
+    "source": "FDA etiketi (Vibramycin); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0308",
+    "type": "lactation",
+    "severity": "medium",
+    "match": {
+      "ingredients": [
+        "kabergolin",
+        "bromokriptin"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Süt üretimini durdurur",
+    "message": "Bu ilaçlar prolaktini baskılayarak süt üretimini azaltır veya tamamen durdurur; emzirmeyi sürdürmek isteyenlerde kullanılmaz.",
+    "source": "FDA etiketi (Dostinex/Parlodel)",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0309",
+    "type": "lactation",
+    "severity": "medium",
+    "match": {
+      "atcPrefixes": [
+        "V09",
+        "V10"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Emzirmeye ara gerekebilir",
+    "message": "Radyoaktif ilaçlardan sonra süte geçen radyasyon nedeniyle emzirmeye ilaca göre değişen sürelerde ara verilmesi gerekir; süreyi uygulamayı yapan ekibe danışın.",
+    "source": "FDA radyofarmasötik etiketleri",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0310",
+    "type": "lactation",
+    "severity": "medium",
+    "match": {
+      "atcPrefixes": [
+        "J01E"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Yenidoğan ve sarılıkta dikkat",
+    "message": "Sülfonamidler sarılığı olan, prematüre veya G6PD eksikliği olan bebeklerin annelerinde emzirme sırasında sorun yaratabilir.",
+    "source": "FDA etiketi (Bactrim)",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0311",
+    "type": "lactation",
+    "severity": "medium",
+    "match": {
+      "ingredients": [
+        "asetilsalisilik asit"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Yüksek dozdan kaçının",
+    "message": "Düzenli yüksek doz aspirin emziren annede bebeğe geçerek kanama eğilimi ve teorik Reye riski oluşturabilir; düşük doz (bebek aspirini) genellikle kabul edilir.",
+    "source": "FDA etiketi; TİTCK KT",
+    "evidence": "label"
   }
 ]
