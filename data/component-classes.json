@@ -303,6 +303,72 @@
     "tolterodin": {
       "qt": "possible",
       "source": "FDA etiketi (Detrol)"
+    },
+    "sarı kantaron": {
+      "classes": [
+        "HYPERICUM"
+      ],
+      "source": "EMA HMPC Hyperici herba monografı; FDA St. Johns Wort etkileşim uyarıları — güçlü CYP3A4/P-gp indükleyicisi + serotonerjik"
+    },
+    "ginseng": {
+      "classes": [
+        "HERBAL_GINSENG"
+      ],
+      "source": "FDA etiketi (Coumadin) — bitkisel ürün uyarısı; NIH NCCIH Asian Ginseng"
+    },
+    "ekinezya": {
+      "classes": [
+        "ECHINACEA"
+      ],
+      "source": "NIH NCCIH Echinacea — immün uyarım, immünosüpresanlarla teorik antagonizma"
+    },
+    "koenzim q10": {
+      "classes": [
+        "COQ10"
+      ],
+      "source": "NIH ODS Coenzyme Q10 — K vitaminine yapısal benzerlik, warfarin INR düşüşü olgu bildirimleri"
+    },
+    "omega-3": {
+      "classes": [
+        "OMEGA3"
+      ],
+      "source": "FDA etiketi (Lovaza) — antikoagülanlarla kanama zamanı uzaması"
+    },
+    "demir": {
+      "classes": [
+        "IRON_SUPPLEMENT"
+      ],
+      "source": "FDA etiketleri — tetrasiklin/kinolon/levotiroksin şelasyonu (ATC atanamayan takviye ürünleri için sınıf etiketi)"
+    },
+    "kalsiyum": {
+      "classes": [
+        "CALCIUM_SUPPLEMENT"
+      ],
+      "source": "FDA etiketleri — şelasyon/emilim etkileşimleri"
+    },
+    "magnezyum": {
+      "classes": [
+        "MAGNESIUM_SUPPLEMENT"
+      ],
+      "source": "FDA etiketleri (kinolon/tetrasiklin) — magnezyum şelasyonu"
+    },
+    "çinko": {
+      "classes": [
+        "ZINC_SUPPLEMENT"
+      ],
+      "source": "FDA etiketleri (kinolon/tetrasiklin) — çinko şelasyonu"
+    },
+    "k vitamini": {
+      "classes": [
+        "VITAMIN_K_SUPPLEMENT"
+      ],
+      "source": "FDA etiketi (Coumadin/Mephyton) — K vitamini warfarin etkisini doğrudan antagonize eder"
+    },
+    "kafein": {
+      "classes": [
+        "CAFFEINE"
+      ],
+      "source": "FDA OTC kafein monografı; lityum ve teofilinle etkileşim bildirimleri"
     }
   }
 }

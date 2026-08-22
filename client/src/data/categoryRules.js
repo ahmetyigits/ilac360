@@ -87,6 +87,9 @@ export const ATC_CATEGORY_MAP = [
   { prefix: 'A06AB', category: 'STIMULANT_LAXATIVE' },
   // Metamizol (Novalgin ailesi): TR'de çok satan, sıfır kapsamdaydı
   { prefix: 'N02BB', category: 'PYRAZOLONE' },
+  // Mineral takviyeleri (ilaç ürünleri ATC'den, takviye ürünleri component-classes'tan gelir)
+  { prefix: 'A12CC', category: 'MAGNESIUM_SUPPLEMENT' },
+  { prefix: 'A12CB', category: 'ZINC_SUPPLEMENT' },
   // IV/oral potasyum preparatları — hiperkalemi ağı B05'ten de beslensin
   { prefix: 'B05XA01', category: 'POTASSIUM_SUPPLEMENT' },
   { prefix: 'L01BA01', category: 'METHOTREXATE' },
@@ -319,6 +322,44 @@ export const CATEGORY_INTERACTIONS = [
   { catA: 'SNRI', catB: 'MAOI_A', risk: 'critical', message: 'SNRI ve MAO-A inhibitörü birlikte serotonin sendromu riski taşır.' },
   { catA: 'SNRI', catB: 'TRIPTAN', risk: 'high', message: 'SNRI ve triptan birlikte serotonin sendromu riskini artırır.' },
   { catA: 'SNRI', catB: 'LINEZOLID', risk: 'high', message: 'Linezolid ve SNRI birlikte serotonin sendromu riskini artırır.' },
+  // --- Takviye bileşenleri (Pharmaton sınıfı ürünler; sınıf etiketleri
+  // component-classes.json'dan gelir, ATC gerekmez) ---
+  // Sarı kantaron: güçlü CYP3A4/P-gp indükleyicisi + serotonerjik — takviyelerin en riskli bileşeni
+  { catA: 'HYPERICUM', catB: 'SSRI', risk: 'high', message: 'Sarı kantaron içeren ürünler SSRI antidepresanlarla birlikte serotonin sendromu riskini artırır; birlikte kullanılmamalıdır.' },
+  { catA: 'HYPERICUM', catB: 'SNRI', risk: 'high', message: 'Sarı kantaron içeren ürünler SNRI antidepresanlarla birlikte serotonin sendromu riskini artırır.' },
+  { catA: 'HYPERICUM', catB: 'OTHER_ANTIDEPRESSANT', risk: 'medium', message: 'Sarı kantaron, diğer antidepresanlarla serotonerjik etkileri artırabilir.' },
+  { catA: 'HYPERICUM', catB: 'TCA', risk: 'medium', message: 'Sarı kantaron, trisiklik antidepresanların düzeyini düşürebilir ve serotonerjik etkiyi artırabilir.' },
+  { catA: 'HYPERICUM', catB: 'VITAMIN_K_ANTAGONIST', risk: 'high', message: 'Sarı kantaron, warfarinin yıkımını hızlandırarak etkisini AZALTIR; pıhtı riski doğar. Kesildiğinde INR bu kez yükselebilir.' },
+  { catA: 'HYPERICUM', catB: 'DIRECT_FACTOR_XA_INHIBITOR', risk: 'high', message: 'Sarı kantaron, DOAK düzeyini düşürerek pıhtı önleyici korumayı zayıflatabilir.' },
+  { catA: 'HYPERICUM', catB: 'DIRECT_THROMBIN_INHIBITOR', risk: 'high', message: 'Sarı kantaron, antikoagülan düzeyini düşürerek korumayı zayıflatabilir.' },
+  { catA: 'HYPERICUM', catB: 'CALCINEURIN', risk: 'high', message: 'Sarı kantaron, siklosporin/takrolimus düzeylerini belirgin düşürür; organ reddi olguları bildirilmiştir.' },
+  { catA: 'HYPERICUM', catB: 'MTOR_IMMUNOSUPPRESSANT', risk: 'high', message: 'Sarı kantaron, everolimus/sirolimus düzeylerini düşürerek tedaviyi zayıflatabilir.' },
+  { catA: 'HYPERICUM', catB: 'CARDIAC_GLYCOSIDE', risk: 'medium', message: 'Sarı kantaron, digoksin düzeyini düşürerek etkisini azaltabilir.' },
+  { catA: 'HYPERICUM', catB: 'OPIOID', risk: 'medium', message: 'Sarı kantaron, serotonerjik opioidlerle (tramadol vb.) serotonin sendromu riskini artırabilir.' },
+  { catA: 'HYPERICUM', catB: 'TRIPTAN', risk: 'medium', message: 'Sarı kantaron ve triptanlar birlikte serotonerjik etkileri artırabilir.' },
+  // Ginseng
+  { catA: 'HERBAL_GINSENG', catB: 'VITAMIN_K_ANTAGONIST', risk: 'medium', message: 'Ginseng, warfarinin etkisini azaltarak INR düşüşüne yol açabilir; pıhtı riski. INR takibi önerilir.' },
+  { catA: 'HERBAL_GINSENG', catB: 'ANTIPLATELET', risk: 'medium', message: 'Ginseng, trombosit işlevini etkileyerek antiplatelet ilaçlarla kanama dengesini değiştirebilir.' },
+  { catA: 'HERBAL_GINSENG', catB: 'SULFONYLUREA', risk: 'medium', message: 'Ginseng kan şekerini düşürebilir; sülfonilürelerle hipoglisemi riski artar.' },
+  { catA: 'HERBAL_GINSENG', catB: 'INSULIN', risk: 'medium', message: 'Ginseng kan şekerini düşürebilir; insülinle hipoglisemi riski artar.' },
+  // Omega-3 / CoQ10 / Ekinezya
+  { catA: 'OMEGA3', catB: 'VITAMIN_K_ANTAGONIST', risk: 'medium', message: 'Yüksek doz omega-3 (balık yağı) kanama zamanını uzatabilir; warfarinle birlikte INR takibi önerilir.' },
+  { catA: 'OMEGA3', catB: 'ANTIPLATELET', risk: 'low', message: 'Yüksek doz omega-3, antiplatelet ilaçlarla kanama eğilimini hafif artırabilir.' },
+  { catA: 'COQ10', catB: 'VITAMIN_K_ANTAGONIST', risk: 'medium', message: 'Koenzim Q10, K vitaminine yapısal benzerliği nedeniyle warfarinin etkisini azaltabilir; INR düşüşü bildirilmiştir.' },
+  { catA: 'ECHINACEA', catB: 'CALCINEURIN', risk: 'medium', message: 'Ekinezya bağışıklığı uyarır; immünosüpresif tedavinin etkisini azaltabilir.' },
+  { catA: 'ECHINACEA', catB: 'MTOR_IMMUNOSUPPRESSANT', risk: 'medium', message: 'Ekinezya bağışıklığı uyarır; immünosüpresif tedavinin etkisini azaltabilir.' },
+  // Mineral şelasyonu (takviye tarafı; ilaç tarafındaki demir/kalsiyum kuralları zaten var)
+  { catA: 'MAGNESIUM_SUPPLEMENT', catB: 'TETRACYCLINE', risk: 'medium', message: 'Magnezyum, tetrasiklin emilimini azaltır. En az 2-3 saat arayla alınmalıdır.' },
+  { catA: 'MAGNESIUM_SUPPLEMENT', catB: 'FLUOROQUINOLONE', risk: 'medium', message: 'Magnezyum, fluorokinolon emilimini azaltır. En az 2 saat arayla alınmalıdır.' },
+  { catA: 'MAGNESIUM_SUPPLEMENT', catB: 'BISPHOSPHONATE', risk: 'medium', message: 'Magnezyum, bifosfonat emilimini engeller. Aynı anda alınmamalıdır.' },
+  { catA: 'MAGNESIUM_SUPPLEMENT', catB: 'THYROID_HORMONE', risk: 'medium', message: 'Magnezyum, levotiroksin emilimini azaltabilir. En az 4 saat arayla alınmalıdır.' },
+  { catA: 'ZINC_SUPPLEMENT', catB: 'TETRACYCLINE', risk: 'medium', message: 'Çinko, tetrasiklin emilimini azaltır. En az 2-3 saat arayla alınmalıdır.' },
+  { catA: 'ZINC_SUPPLEMENT', catB: 'FLUOROQUINOLONE', risk: 'medium', message: 'Çinko, fluorokinolon emilimini azaltır. En az 2 saat arayla alınmalıdır.' },
+  // K vitamini içeren takviye (multivitaminlerde!) × warfarin
+  { catA: 'VITAMIN_K_SUPPLEMENT', catB: 'VITAMIN_K_ANTAGONIST', risk: 'high', message: 'K vitamini içeren takviyeler warfarinin etkisini doğrudan azaltır; pıhtı riski doğar. Kullanmadan önce doktorunuza danışın.' },
+  // Kafein
+  { catA: 'CAFFEINE', catB: 'LITHIUM', risk: 'medium', message: 'Kafein alımındaki ani değişiklikler lityum düzeyini etkileyebilir; düzenli ve sabit tüketim önemlidir.' },
+  { catA: 'CAFFEINE', catB: 'XANTHINE', risk: 'medium', message: 'Kafein ve teofilin benzer uyarıcı etkiler taşır; birlikte çarpıntı, titreme ve uykusuzluk artabilir.' },
   // --- Metamizol/pirazolonlar (agranülositoz + kanama profili) ---
   { catA: 'PYRAZOLONE', catB: 'VITAMIN_K_ANTAGONIST', risk: 'high', message: 'Metamizol (dipiron) warfarinle birlikte kanama riskini artırabilir ve warfarin etkisini öngörülemez değiştirebilir.' },
   { catA: 'PYRAZOLONE', catB: 'NSAID', risk: 'medium', message: 'Metamizol ve NSAID birlikte mide-bağırsak yan etkilerini ve kanama eğilimini artırabilir.' },

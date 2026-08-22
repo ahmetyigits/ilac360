@@ -3023,5 +3023,27 @@
     "source": "FDA etiketi (Cefobid)",
     "id": "R-0276",
     "evidence": "label"
+  },
+  {
+    "ingredientA": "kafein",
+    "ingredientB": "fluvoksamin",
+    "risk": "high",
+    "message": "Fluvoksamin, kafeinin vücuttan atılmasını ciddi yavaşlatır; kafeinli takviye/içeceklerle çarpıntı ve huzursuzluk riski artar.",
+    "details": "Fluvoksamin güçlü CYP1A2 inhibitörüdür; kafeinin yarı ömrünü yaklaşık 5 kat uzatır. Olağan miktarlar bile titreme, çarpıntı, uykusuzluk ve bulantıya yol açabilir.",
+    "action": "Fluvoksamin kullanırken kafeinli takviyelerden kaçının, kahve/çay tüketimini belirgin azaltın.",
+    "source": "FDA etiketi (Luvox) — CYP1A2 etkileşimleri",
+    "id": "R-0277",
+    "evidence": "label"
+  },
+  {
+    "ingredientA": "sarı kantaron",
+    "ingredientB": "etinilestradiol",
+    "risk": "medium",
+    "message": "Sarı kantaron, doğum kontrol haplarının etkinliğini azaltabilir.",
+    "details": "Sarı kantaron güçlü enzim (CYP3A4) indükleyicisidir; kontraseptif hormonların yıkımını hızlandırır. Ara kanama ve istenmeyen gebelik olguları bildirilmiştir.",
+    "action": "Sarı kantaron içeren ürün kullanıyorsanız ek/alternatif korunma yöntemi değerlendirin; doktorunuza bildirin.",
+    "source": "FDA St. Johns Wort etkileşim uyarısı; EMA HMPC Hyperici herba monografı",
+    "id": "R-0278",
+    "evidence": "label"
   }
 ]
