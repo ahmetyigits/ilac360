@@ -536,6 +536,18 @@ describe('İlaç-İlaç kanonik çiftler — bu liste HER ZAMAN uyarı vermeli',
     ['Diazepam', 'N05BA01', 'Tramadol Hidroklorür', 'N02AX02', 'critical'],                             // BZD×opioid (mevcut ağ)
     ['Budesonid', 'R03BA02', 'Ritonavir', 'J05AE03', 'medium'],
     ['saw palmetto ekstresi', 'G04CX02', 'Varfarin Sodyum', 'B01AA03', 'medium'],                       // bitkisel tur regresyonu
+    // --- Takviye edici gıda kataloğu (ATC yok — sınıf etiketleri taşır) ---
+    ['Sarı Kantaron', '0', 'Sertralin Hidroklorür', 'N06AB06', 'high'],                                 // eczacı örneği: hypericum×SSRI
+    ['Sarı Kantaron', '0', 'Varfarin Sodyum', 'B01AA03', 'high'],                                       // enzim indüksiyonu → etki kaybı
+    ['Sarı Kantaron', '0', 'Takrolimus', 'L04AD02', 'high'],                                            // organ reddi
+    ['Sarı Kantaron', '0', 'Etinilestradiol, Levonorgestrel', 'G03AA07', 'medium'],                     // kontraseptif
+    ['Ginseng G115, Demir, Magnezyum, Çinko', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],             // Pharmaton benzeri kombinasyon
+    ['Ginseng G115, Demir, Magnezyum, Çinko', '0', 'Siprofloksasin', 'J01MA02', 'medium'],              // mineral şelasyonu
+    ['K Vitamini, Demir, Kalsiyum, Magnezyum, Çinko', '0', 'Varfarin Sodyum', 'B01AA03', 'high'],       // Centrum benzeri (K vit!)
+    ['Omega-3', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],
+    ['Koenzim Q10', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],
+    ['Ekinezya', '0', 'Takrolimus', 'L04AD02', 'medium'],
+    ['Kafein', '0', 'Fluvoksamin Maleat', 'N06AB08', 'high'],
   ];
   const RISK_AT_LEAST = { critical: 0, high: 1, medium: 2 };
 
