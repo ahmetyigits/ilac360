@@ -15,6 +15,7 @@
     "warnings-coverage": "node scripts/warnings-coverage.mjs",
     "build:data": "node scripts/build-data.mjs",
     "build": "npm run build:data && npm --prefix client run build && node scripts/copy-dist.mjs",
-    "data-coverage": "node scripts/data-coverage.mjs"
+    "data-coverage": "node scripts/data-coverage.mjs",
+    "lint-supplements": "node scripts/lint-supplements.mjs"
   }
 }

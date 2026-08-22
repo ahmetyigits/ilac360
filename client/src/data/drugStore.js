@@ -223,7 +223,10 @@ export function searchDrugs(query, { limit = 25 } = {}) {
       matches.push(cleanDrugResponse(d));
       if (matches.length >= limit) break;
     }
-    if (matches.length > 0) return matches;
+    if (matches.length > 0) {
+      // Katalog yüzlerce kayda çıktı — liste deterministik olsun diye alfabetik
+      return matches.sort((a, b) => a.name.localeCompare(b.name, 'tr'));
+    }
     // Takviye eşleşmesi yoksa: filtre kelimesiyle normal arama ("takviye parol"
     // → parol araması), filtre de yoksa tam sorguyla devam (adı "takvi..." olan ilaç).
     if (rest) return searchDrugs(rest, { limit });
