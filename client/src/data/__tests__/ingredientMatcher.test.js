@@ -123,6 +123,40 @@ describe('getComponents + sinonimler', () => {
   });
 });
 
+describe('tuz/yazım varyantları ve yer-tutucular (sessiz boşluk denetimi)', () => {
+  // Bu varyantlar eksikken QT etiketi, kural eşleşmesi ve eşdeğerlik sessizce bölünüyordu.
+  it.each([
+    ['ketiapin hemifumarat', 'ketiapin'],
+    ['eritromisin estolat', 'eritromisin'],
+    ['eritromisin base', 'eritromisin'],
+    ['essitalopram okzalat', 'essitalopram'],
+    ['levofloksasin hermihidrat', 'levofloksasin'],
+    ['levofloksasin hemhidrat', 'levofloksasin'],
+    ['moksifloksasin hidroklorur', 'moksifloksasin'],
+    ['memantin hci', 'memantin'],
+    ['metilprednizolon aseponat', 'metilprednizolon'],
+    ['duloksetin hidroklorür pelletleri', 'duloksetin'],
+  ])('%s → %s', (input, expected) => {
+    expect(getComponents(input, new Map())).toEqual([expected]);
+  });
+
+  it('WHO yer-tutucu stringleri bileşen üretmez', () => {
+    expect(getComponents('combinations', new Map())).toEqual([]);
+    expect(getComponents('electrolytes', new Map())).toEqual([]);
+    // Gerçek bileşenle karışık: yer-tutucu atılır, gerçek kalır
+    expect(getComponents('parasetamol, combinations', new Map())).toEqual(['parasetamol']);
+  });
+
+  it('İngilizce jenerik yazım sinonimle Türkçe kanona iner', async () => {
+    const real = (await import('../../../../data/ingredient-synonyms.json')).default;
+    const lookup = buildSynonymLookup(real);
+    expect(getComponents('glimepiride', lookup)).toEqual(['glimepirid']);
+    expect(getComponents('amikacin', lookup)).toEqual(['amikasin']);
+    expect(getComponents('acetylcysteine', lookup)).toEqual(['asetilsistein']);
+    expect(getComponents('deksketoprofen tometamol', lookup)).toEqual(['deksketoprofen']);
+  });
+});
+
 describe('bitkisel varyant kanonikleşmesi (gerçek sinonim tablosu)', () => {
   // Dataset'te ginkgo 9 farklı yazımla geçiyor; hepsi tek kanona inmezse
   // ad-tabanlı kurallar ürünlerin yalnız bir kısmını yakalar (Tebokan bug'ı).

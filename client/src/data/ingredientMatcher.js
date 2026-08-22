@@ -26,9 +26,17 @@ const SALT_TOKENS = new Set([
   'disproksil', 'fumarat', 'etabonat', 'alafenamid',
   // Ester/prodrug ekleri: farmakolojik olarak ana moleküle eşdeğer
   // (kandesartan sileksetil ≡ kandesartan, sefuroksim aksetil ≡ sefuroksim)
-  'sileksetil', 'medoksomil', 'aksetil', 'proksetil', 'mofetil', 'pivoksil',
+  'sileksetil', 'medoksomil', 'aksetil', 'proksetil', 'mofetil', 'pivoksil', 'eteksilat',
   'sodyum', 'disodyum', 'potasyum', 'kalsiyum', 'magnezyum', 'trometamol', 'meglumin',
   'hbr', 'dietilamonyum', 'dietilamin', 'epolamin',
+  // OCR/yazım varyantları ve eksik kalan tuz/ester/form ekleri (2026-08 sessiz
+  // boşluk denetimi): bunlar eksikken "ketiapin hemifumarat" QT etiketini,
+  // "eritromisin estolat" makrolid kurallarını sessizce ıskalıyordu.
+  'hci', 'hidroklorur', 'hidroklorürt',
+  'hemifumarat', 'estolat', 'etilsüksinat', 'okzalat',
+  'hemhidrat', 'hermihidrat', 'aseponat', 'base',
+  // Formülasyon kelimeleri (pellet kapsül içerikleri) — molekül kimliği değildir
+  'pellet', 'pelletleri',
 ]);
 
 // Adı katyonla BAŞLAYAN bileşikler inorganik tuzlardır ("kalsiyum karbonat",
@@ -55,6 +63,18 @@ export function normalizeText(ingredient) {
     .trim();
   return cleaned || null;
 }
+
+// WHO ATC yer-tutucu stringleri: kaynak veride etken madde alanına sızmış sınıf
+// tanımlarıdır ("combinations", "electrolytes"...). Gerçek bileşen sanılırlarsa
+// hem sahte "ortak etkin madde" kartı üretirler hem eşdeğer gruplamayı bozarlar.
+const PLACEHOLDER_COMPONENTS = new Set([
+  'combinations', 'other combinations', 'various combinations',
+  'combinations excl. psycholeptics', 'combinations of electrolytes',
+  'electrolytes', 'electrolytes with carbohydrates',
+  'electrolytes in combination with other drugs',
+  'carbohydrates', 'various', 'amino acids',
+  'various alimentary tract and metabolism products',
+]);
 
 // Çoklu etken madde stringini bileşenlerine ayırır: "," "+" "/" ";" ve " ve ".
 export function splitComponents(normalized) {
@@ -105,7 +125,7 @@ export function getComponents(ingredient, synonymLookup) {
     // Harf içermeyen token'lar bileşen değildir: aşı serotip numaraları
     // ("tip 6, 11, 16, 18") bileşen sayılırsa iki farklı aşı "ortak etkin
     // madde" yanlış pozitifi üretir.
-    if (base && base.length >= 2 && /[a-z]/.test(base)) {
+    if (base && base.length >= 2 && /[a-z]/.test(base) && !PLACEHOLDER_COMPONENTS.has(base)) {
       bases.add(canonicalize(base, synonymLookup));
     }
   }
