@@ -37,6 +37,37 @@ const OUT = join(ROOT, 'client', 'public', 'data');
 const raw = JSON.parse(readFileSync(join(SRC, 'ilaclar-dataset.json'), 'utf-8'));
 const drugs = raw[2].data;
 
+// Manuel kürasyon ön-geçişi: kaynak veride etken maddesi VE ATC'si olmayan
+// ürünler (soğuk algılığı kombinasyonları, LOXIBIN vb.) her sorguda sessizce
+// "bilinmiyor"a düşer. Bu küçük dosya barkod anahtarıyla yalnız BOŞ/GEÇERSİZ
+// alanları doldurur; kaynak alanı zorunludur. Backfill haritalarından ÖNCE
+// uygulanır ki türetmeler de bu kayıtlardan beslensin.
+let manualIngredientCount = 0;
+try {
+  const manual = JSON.parse(readFileSync(join(SRC, 'manual-ingredients.json'), 'utf-8'));
+  const byBarcodeManual = new Map();
+  for (const m of manual) {
+    if (!m.source || !String(m.source).trim()) {
+      console.error(`manual-ingredients: source zorunlu (${m.barcode} ${m.name || ''})`);
+      process.exit(1);
+    }
+    byBarcodeManual.set(String(m.barcode).trim(), m);
+  }
+  for (const d of drugs) {
+    const m = byBarcodeManual.get(String(d.barcode || '').trim());
+    if (!m) continue;
+    if (m.ingredient && !isValidIngredient(d.Active_Ingredient)) {
+      d.Active_Ingredient = m.ingredient;
+      manualIngredientCount++;
+    }
+    if (m.atc && (!d.ATC_code || d.ATC_code === '0')) {
+      d.ATC_code = m.atc;
+    }
+  }
+} catch (err) {
+  if (err.code !== 'ENOENT') throw err; // dosya yoksa sessiz geç, bozuksa DUR
+}
+
 // TİTCK KT ekleri (scripts/titck-sync.mjs + titck-merge-desc.mjs üretir):
 // metinler TEKİL saklanır (titck-kt-texts.json, LFS), ürün eşlemesi barkod/ad
 // anahtarlıdır (titck-kt-map.json). Kendi Description'ı olmayan ürünlere build
@@ -218,26 +249,63 @@ try {
 // bileşenlerin gerçek sınıflarını (flurbiprofen → M01AE09 → NSAID) türetmek
 // için kullanır.
 const synonymLookup = buildSynonymLookup(synonyms);
+// MONO-TERCİH: bileşenin TEK başına olduğu ürünlerdeki ATC, kombinasyon-baskın
+// yanlış eşlemeyi önler. Örn. psödoefedrin çoğunlukla ibuprofen kombosunda
+// (M01AE51) satılır; genel çoğunluk onu sahte NSAID yapıyordu — mono ürünlerin
+// ATC'si (R01BA02) gerçek sınıfıdır.
 const atcCountsByComponent = new Map();
 for (const d of drugs) {
   if (!d.ATC_code || d.ATC_code === '0' || d.ATC_code.trim().length < 7) continue;
   const atc = d.ATC_code.trim();
-  for (const comp of getComponents(d.Active_Ingredient, synonymLookup)) {
+  const comps = getComponents(d.Active_Ingredient, synonymLookup);
+  const isMono = comps.length === 1;
+  for (const comp of comps) {
     let counts = atcCountsByComponent.get(comp);
     if (!counts) {
       counts = new Map();
       atcCountsByComponent.set(comp, counts);
     }
-    counts.set(atc, (counts.get(atc) || 0) + 1);
+    const c = counts.get(atc) || { n: 0, mono: 0 };
+    c.n += 1;
+    if (isMono) c.mono += 1;
+    counts.set(atc, c);
   }
 }
 const componentAtc = {};
 for (const [comp, counts] of atcCountsByComponent) {
-  let best = null, bestCount = -1;
-  for (const [atc, count] of counts) {
-    if (count > bestCount) { best = atc; bestCount = count; }
+  let best = null, bestMono = 0, bestN = -1;
+  for (const [atc, { n, mono }] of counts) {
+    // Önce mono çoğunluğu; hiç mono ürün yoksa genel çoğunluk.
+    if (mono > bestMono || (mono === bestMono && n > bestN)) {
+      best = atc; bestMono = mono; bestN = n;
+    }
   }
   if (best) componentAtc[comp] = best;
+}
+
+// Elle geçersiz kılma: mono-tercih bile yanlış kalıyorsa (ör. eritromisinin
+// mono ürünleri topikal D10AF02 baskın — makrolid kuralları için J01FA01
+// gerekir). Kaynak alanı ZORUNLU; eksikse build durur.
+let componentAtcOverrides = {};
+try {
+  componentAtcOverrides = JSON.parse(readFileSync(join(SRC, 'component-atc-overrides.json'), 'utf-8'));
+} catch {
+  // opsiyonel dosya
+}
+const ATC_RE = /^[A-Z]\d{2}[A-Z]{1,2}(\d{2})?$/;
+let overrideCount = 0;
+for (const [comp, o] of Object.entries(componentAtcOverrides)) {
+  if (comp === 'note') continue;
+  if (!o.atc || !ATC_RE.test(o.atc)) {
+    console.error(`component-atc-overrides: geçersiz ATC '${o.atc}' (${comp})`);
+    process.exit(1);
+  }
+  if (!o.source || !String(o.source).trim()) {
+    console.error(`component-atc-overrides: source zorunlu (${comp})`);
+    process.exit(1);
+  }
+  componentAtc[comp] = o.atc;
+  overrideCount++;
 }
 
 // --- İçerik-hash'li yazım + manifest ---
@@ -324,8 +392,8 @@ const bucketSizes = manifestFiles && Object.entries(manifestFiles)
 const maxBucket = Math.max(...bucketSizes);
 const totalBucket = bucketSizes.reduce((a, b) => a + b, 0);
 
-console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled})`);
-console.log('component-atc           ', kb(join(OUT, manifestFiles['component-atc.json'])), `(${Object.keys(componentAtc).length} components)`);
+console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled}, manuel kürasyon: ${manualIngredientCount})`);
+console.log('component-atc           ', kb(join(OUT, manifestFiles['component-atc.json'])), `(${Object.keys(componentAtc).length} components, ${overrideCount} override)`);
 console.log('desc buckets            ', `${BUCKET_COUNT} adet, toplam ${(totalBucket / 1024 / 1024).toFixed(2)} MB, en büyük ${(maxBucket / 1024).toFixed(0)} KB (${descriptionCount} descriptions, ${titckDescCount} tanesi TİTCK KT)`);
 console.log('usage-sections          ', kb(join(OUT, manifestFiles['usage-sections.json'])), `(${Object.keys(usageSections).length} entries)`);
 console.log('condition-desc-matches  ', kb(join(OUT, manifestFiles['condition-desc-matches.json'])), `(${conditions.length} conditions)`);
