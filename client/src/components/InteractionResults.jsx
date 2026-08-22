@@ -13,6 +13,7 @@ function displayName(name, foodKey) {
 // Yazdırılan rapordaki tekil ilaç uyarı tipleri (drug-warnings.json `type`)
 const WARNING_TYPE_LABELS = {
   pregnancy: 'Gebelik',
+  lactation: 'Emzirme',
   allergy: 'Alerji',
   age: 'Yaş Sınırı',
   administration: 'Kullanım Şekli',
@@ -223,7 +224,11 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
   const highRiskInteractions = interactions.filter((i) => !FOLDED_RISKS.has(i.risk));
   const lowRiskInteractions = interactions.filter((i) => FOLDED_RISKS.has(i.risk));
 
-  let visibleInteractions = showLowRisk ? interactions : highRiskInteractions;
+  // TÜM sonuçlar katlanır sınıftaysa katlama devre dışı: "bilinmiyor" tek
+  // sonuçken gizlenirse kullanıcı bunu "risk yok" okur (sessiz boşluk UX'i).
+  const allFolded = highRiskInteractions.length === 0 && lowRiskInteractions.length > 0;
+
+  let visibleInteractions = (showLowRisk || allFolded) ? interactions : highRiskInteractions;
   if (riskFilter !== 'all') {
     visibleInteractions = interactions.filter((i) => i.risk === riskFilter);
   }
@@ -297,6 +302,15 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
                   return cfg ? `${count} ${cfg.label.toLowerCase()}` : null;
                 }).filter(Boolean).join(' · ')}
               </p>
+              {riskCounts.unknown > 0 && (
+                <button
+                  onClick={() => setRiskFilter(riskFilter === 'unknown' ? 'all' : 'unknown')}
+                  className="text-[11.5px] text-text-secondary mt-1.5 flex items-center gap-1.5 hover:text-text-primary transition-colors cursor-pointer text-left"
+                >
+                  <HelpCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                  {riskCounts.unknown} çift için bilinen kural yok — bu, güvenli demek değildir.
+                </button>
+              )}
             </div>
             {riskFilter !== 'all' && (
               <button
@@ -340,7 +354,7 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
               />
             ))}
 
-            {riskFilter === 'all' && !showLowRisk && lowRiskInteractions.length > 0 && (
+            {riskFilter === 'all' && !allFolded && !showLowRisk && lowRiskInteractions.length > 0 && (
               <button
                 onClick={() => setShowLowRisk(true)}
                 className="w-full flex items-center justify-center gap-2 py-3 rounded-[13px] bg-card-inset text-[13px] font-medium text-text-secondary hover:text-text-primary hover:bg-accent-soft/60 transition-all cursor-pointer"
@@ -351,7 +365,7 @@ export default function InteractionResults({ interactions, unknownDrugs, onPrint
               </button>
             )}
 
-            {riskFilter === 'all' && showLowRisk && lowRiskInteractions.length > 0 && (
+            {riskFilter === 'all' && !allFolded && showLowRisk && lowRiskInteractions.length > 0 && (
               <button
                 onClick={() => setShowLowRisk(false)}
                 className="w-full flex items-center justify-center gap-2 py-3 rounded-[13px] bg-card-inset text-[13px] font-medium text-text-secondary hover:text-text-primary hover:bg-accent-soft/60 transition-all cursor-pointer"
