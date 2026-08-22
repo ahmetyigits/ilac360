@@ -308,6 +308,50 @@ for (const [comp, o] of Object.entries(componentAtcOverrides)) {
   overrideCount++;
 }
 
+// --- Takviye edici gıda enjeksiyonu ---
+// Katalog kayıtları doğrudan INDEX'e eklenir (kaynak diziye değil: backfill/
+// dupe geçişleri sentetik kayıtları görmemeli). Arama/sepet/motor/uyarılar
+// bileşen tabanlı olduğundan otomatik çalışır. ID bloğu 9000001+ rakamsaldır —
+// ?drug=/?d= paylaşım filtreleri (/^\d+$/) sentetik string ID'leri elerdi.
+let supplementCount = 0;
+try {
+  const suppFile = JSON.parse(readFileSync(join(SRC, 'supplement-products.json'), 'utf-8'));
+  const maxDatasetId = Math.max(...drugs.map((d) => Number(d.ID) || 0));
+  if (maxDatasetId >= 9000001) {
+    console.error(`supplement-products: dataset ID'leri 9000001 bloğuna taşmış (max ${maxDatasetId}) — id bloğunu kaydırın.`);
+    process.exit(1);
+  }
+  for (const s of suppFile.products || []) {
+    for (const field of ['id', 'name', 'ingredients', 'source', 'accessed']) {
+      if (!s[field] || String(s[field]).trim() === '') {
+        console.error(`supplement-products: zorunlu alan eksik: ${field} (${s.name || s.id})`);
+        process.exit(1);
+      }
+    }
+    if (!(Number(s.id) >= 9000001)) {
+      console.error(`supplement-products: id 9000001+ rakamsal blokta olmalı (${s.id})`);
+      process.exit(1);
+    }
+    index.push({
+      i: String(s.id),
+      n: s.name,
+      a: s.ingredients,
+      t: null,
+      b: null,
+      c: ['Takviye Edici Gıda', s.category].filter(Boolean),
+      h: false,
+      f: 'sistemik',
+      s: true,
+      sb: s.brand || null,
+      ss: s.source,
+      st: s.tobApproval || null,
+    });
+    supplementCount++;
+  }
+} catch (err) {
+  if (err.code !== 'ENOENT') throw err;
+}
+
 // --- İçerik-hash'li yazım + manifest ---
 mkdirSync(OUT, { recursive: true });
 
@@ -374,6 +418,7 @@ const manifest = {
   dataVersion: new Date().toISOString().slice(0, 7),
   bucketCount: BUCKET_COUNT,
   drugCount: index.length,
+  supplementCount,
   descriptionCount,
   usageSectionCount: Object.keys(usageSections).length,
   interactionRuleCount: interactions.length,
@@ -394,6 +439,7 @@ const totalBucket = bucketSizes.reduce((a, b) => a + b, 0);
 
 console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled}, manuel kürasyon: ${manualIngredientCount})`);
 console.log('component-atc           ', kb(join(OUT, manifestFiles['component-atc.json'])), `(${Object.keys(componentAtc).length} components, ${overrideCount} override)`);
+console.log('takviye kataloğu        ', `${supplementCount} kayıt (index'e enjekte edildi)`);
 console.log('desc buckets            ', `${BUCKET_COUNT} adet, toplam ${(totalBucket / 1024 / 1024).toFixed(2)} MB, en büyük ${(maxBucket / 1024).toFixed(0)} KB (${descriptionCount} descriptions, ${titckDescCount} tanesi TİTCK KT)`);
 console.log('usage-sections          ', kb(join(OUT, manifestFiles['usage-sections.json'])), `(${Object.keys(usageSections).length} entries)`);
 console.log('condition-desc-matches  ', kb(join(OUT, manifestFiles['condition-desc-matches.json'])), `(${conditions.length} conditions)`);

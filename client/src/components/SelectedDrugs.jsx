@@ -93,8 +93,15 @@ export default function SelectedDrugs({ drugs, onRemove, onSelect, activeDrugId,
               title={drug.activeIngredient ? `Etkin Madde: ${drug.activeIngredient}` : 'Detayı gör'}
               className="flex items-center gap-[9px] pl-[13px] py-2.5 rounded-l-xl cursor-pointer"
             >
-              <span className={`w-[7px] h-[7px] rounded-full flex-none ${activeDrugId === drug.id ? 'bg-white' : 'bg-accent'}`} />
+              <span className={`w-[7px] h-[7px] rounded-full flex-none ${activeDrugId === drug.id ? 'bg-white' : drug.isSupplement ? 'bg-emerald-500' : 'bg-accent'}`} />
               <span className="truncate max-w-48">{drug.name}</span>
+              {drug.isSupplement && (
+                <span className={`text-[10px] font-semibold px-1.5 py-px rounded-full ${
+                  activeDrugId === drug.id ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
+                }`}>
+                  Takviye
+                </span>
+              )}
             </button>
             <button
               aria-label={`${drug.name} listeden çıkar`}

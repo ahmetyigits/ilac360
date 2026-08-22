@@ -171,9 +171,16 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
       {/* Başlık: mono kicker + display ilaç adı */}
       <div className="px-5 sm:px-[26px] pt-5 sm:pt-[22px] pb-4 border-b border-border-light flex items-start justify-between gap-4">
         <div className="min-w-0">
-          <span className="font-mono text-[11px] tracking-[.18em] uppercase text-accent">İlaç Detayı</span>
-          <h2 className="font-display font-bold text-[20px] sm:text-[24px] leading-snug tracking-tight text-text-primary mt-1.5 [text-wrap:balance]">
+          <span className="font-mono text-[11px] tracking-[.18em] uppercase text-accent">
+            {detail.isSupplement ? 'Takviye Detayı' : 'İlaç Detayı'}
+          </span>
+          <h2 className="font-display font-bold text-[20px] sm:text-[24px] leading-snug tracking-tight text-text-primary mt-1.5 [text-wrap:balance] flex items-center gap-2.5 flex-wrap">
             {detail.name}
+            {detail.isSupplement && (
+              <span className="text-[11px] font-sans font-semibold tracking-normal px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
+                Takviye Edici Gıda
+              </span>
+            )}
           </h2>
         </div>
         <button
@@ -344,7 +351,26 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
           </div>
         )}
 
-        {!hasDescription && (
+        {!hasDescription && detail.isSupplement && (
+          <div className="bg-card-inset rounded-[14px] p-5 space-y-2">
+            <p className="text-[13.5px] text-text-secondary leading-relaxed">
+              Bu ürün bir <strong>takviye edici gıdadır, ilaç değildir</strong>.
+              Listelenen bileşenler etkileşim analizi için seçilmiş olanlardır;
+              ürünün tam içeriği için üretici kaynağına bakınız.
+            </p>
+            <p className="text-[12.5px] text-text-muted">
+              {detail.supplementBrand && <>Üretici: {detail.supplementBrand} · </>}
+              {detail.supplementApproval
+                ? <>TOB onay no: {detail.supplementApproval} · </>
+                : <>Onay durumu için <a href="https://ggbs.tarim.gov.tr/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Tarım ve Orman Bakanlığı GGBS</a> sorgusuna bakınız · </>}
+              {detail.supplementSource && detail.supplementSource.startsWith('http')
+                ? <a href={detail.supplementSource} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">İçerik kaynağı</a>
+                : <>Kaynak: {detail.supplementSource}</>}
+            </p>
+          </div>
+        )}
+
+        {!hasDescription && !detail.isSupplement && (
           <div className="bg-card-inset rounded-[14px] p-5 text-center">
             <p className="text-[13.5px] text-text-muted">
               Bu ilaç için prospektüs bilgisi veritabanımızda mevcut değildir.

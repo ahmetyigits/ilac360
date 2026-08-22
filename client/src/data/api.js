@@ -79,6 +79,10 @@ export async function getDrugDetail(id) {
     barcode: drug.barcode || null,
     categories: cleanCategories(drug),
     description,
+    isSupplement: !!drug.isSupplement,
+    supplementBrand: drug.supplementBrand || null,
+    supplementSource: drug.supplementSource || null,
+    supplementApproval: drug.supplementApproval || null,
     warnings: getWarningsForDrug({
       activeIngredient: drug.Active_Ingredient,
       atcCode,
@@ -139,6 +143,7 @@ export async function getDrugsByIds(ids) {
         barcode: drug.barcode || null,
         categories: cleanCategories(drug),
         hasDescription: !!drug._hasDescription,
+        isSupplement: !!drug.isSupplement,
       });
     } else {
       invalidIds.push(id);

@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url';
 import { turkishLower, flexibleIncludes, searchFold } from '../client/src/data/turkishText.js';
 import { bucketOf } from '../client/src/data/buckets.js';
 import { compileWarnings, matchWarnings } from '../client/src/data/warningMatcher.js';
-import { buildSynonymLookup } from '../client/src/data/ingredientMatcher.js';
+import { buildSynonymLookup, getComponents } from '../client/src/data/ingredientMatcher.js';
 import { detectForm } from '../client/src/data/formDetect.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -131,8 +131,21 @@ if (topikal) {
 const loxibin = index.find((e) => e.n.startsWith('LOXIBIN'));
 assert(!!loxibin && flexibleIncludes(loxibin.a || '', 'losartan') && loxibin.t === 'C09CA01',
   `LOXIBIN kürasyonu uygulanmış (${loxibin?.a} / ${loxibin?.t})`);
-const bothEmpty = index.filter((e) => !e.a && !e.t).length;
+const bothEmpty = index.filter((e) => !e.a && !e.t && !e.s).length;
 assert(bothEmpty === 0, `etken+ATC ikisi de boş ürün kalmadı (${bothEmpty})`);
+
+// Takviye kataloğu enjeksiyonu: Pharmaton bulunur, s bayrağı taşır, ginseng
+// bileşeni kanonikleşir (bulunamazsa katalog/sinonim regresyonu var demektir).
+const supplements = index.filter((e) => e.s);
+assert(supplements.length >= 20, `takviye kataloğu enjekte edilmiş (${supplements.length} kayıt)`);
+const pharmaton = index.find((e) => flexibleIncludes(e.n, 'pharmaton'));
+assert(!!pharmaton && pharmaton.s === true, `PHARMATON takviye bayrağıyla bulundu (${pharmaton?.n})`);
+if (pharmaton) {
+  const comps = getComponents(pharmaton.a, warnLookup);
+  assert(comps.includes('ginseng'), `Pharmaton bileşenlerinde kanonik 'ginseng' var (${comps.join(', ')})`);
+}
+const kantaronSupp = supplements.find((e) => flexibleIncludes(e.n, 'kantaron'));
+assert(!!kantaronSupp, `sarı kantaron takviyesi katalogda (${kantaronSupp?.n})`);
 
 if (failures > 0) {
   console.error(`\nSMOKE TEST BAŞARISIZ: ${failures} kontrol geçemedi.`);
