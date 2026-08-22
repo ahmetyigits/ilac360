@@ -62,6 +62,13 @@ const FIXTURE_DRUGS = [
 const COMPONENT_ATC = {
   'diklofenak': 'M01AB05',
   'warfarin': 'B01AA03',
+  // Gerçek build çıktısının örnekleri: ATC'si "0" ürünlerde motor bileşen
+  // başına bu haritadan kategori türetir (kanonik çift testleri bunu kullanır).
+  'deksketoprofen': 'M01AE17',
+  'glimepirid': 'A10BB12',
+  'indometazin': 'M01AB01',
+  'eritromisin': 'J01FA01',
+  'psödoefedrin': 'R01BA02',
 };
 
 function analyze(...names) {
@@ -485,4 +492,70 @@ describe('bitkisel ürün kuralları (Tebokan×Warfmadin sınıfı boşluklar)',
     expect(r.risk).toBe('critical');
     expect(r.message).toContain('aynı etkin madde');
   });
+});
+
+describe('İlaç-İlaç kanonik çiftler — bu liste HER ZAMAN uyarı vermeli', () => {
+  // "Tebokan×Warfmadin neden risksiz?" sınıfı sessiz kürasyon boşluklarına
+  // karşı sabitlenmiş kontrol listesi. Etken madde stringleri DATASET'İN GERÇEK
+  // yazımlarıdır (İngilizce jenerik, tuz varyantı, ATC "0" dahil). Buradaki bir
+  // çift "unknown"a düşerse kural/sinonim/harita bozulmuş demektir — testi
+  // değil KÜRASYONU düzelt.
+  const CANONICAL = [
+    // [etkenA, atcA, etkenB, atcB, en az beklenen risk]
+    ['ginkgo biloba yapraklari kuru ekstresi', 'N06DX02', 'Varfarin Sodyum', 'B01AA03', 'high'],       // Tebokan×Warfmadin (bildirilen bug)
+    ['deksketoprofen trometamol', '0', 'Varfarin Sodyum', 'B01AA03', 'critical'],                       // ATC "0" NSAID — componentAtc türetmesi
+    ['Metamizol Sodyum', 'N02BB02', 'Metotreksat', 'L04AX03', 'high'],                                  // Novalgin sınıfı (sıfır kapsamdaydı)
+    ['Metamizol Sodyum', 'N02BB02', 'Klozapin', 'N05AH02', 'high'],                                     // agranülositoz additif
+    ['Metamizol Sodyum', 'N02BB02', 'Varfarin Sodyum', 'B01AA03', 'high'],                              // PYRAZOLONE×VKA kategori
+    ['Tramadol Hidroklorür', 'N02AX02', 'Pregabalin', 'N03AX16', 'high'],                               // FDA 2019 gabapentinoid×opioid
+    ['Gabapentin', 'N03AX12', 'Morfin Sülfat', 'N02AA01', 'high'],
+    ['Everolimus', 'L04AA18', 'Klaritromisin', 'J01FA09', 'high'],                                      // mTOR×makrolid
+    ['Sirolimus', 'L04AA10', 'Ketokonazol', 'J02AB02', 'high'],                                         // mTOR×azol
+    ['Apiksaban', 'B01AF02', 'Karbamazepin', 'N03AF01', 'high'],                                        // DOAK×indükleyici
+    ['Rivaroksaban', 'B01AF01', 'Fenitoin', 'N03AB02', 'high'],
+    ['Dabigatran Eteksilat', 'B01AE07', 'Fenobarbital', 'N03AA02', 'high'],
+    ['riosiguat', 'C02KX05', 'Sildenafil Sitrat', 'G04BE03', 'critical'],                               // Adempas kara kutu
+    ['glimepiride', '0', 'Flukonazol', 'J02AC01', 'high'],                                              // İngilizce yazım + ATC "0"
+    ['psödoefedrin hidroklorur', 'R01BA02', 'Moklobemid', 'N06AG02', 'high'],                           // sempatomimetik×MAOİ
+    ['Parasetamol, Psödoefedrin Hcl, Klorfeniramin Maleat', 'R05X', 'Moklobemid', 'N06AG02', 'high'],   // GRIBEX kombinasyonu (kürasyonlu)
+    ['Sakubitril + Valsartan', 'C09DX04', 'Ramipril', 'C09AA05', 'critical'],                           // ARNI×ACE anjiyoödem
+    ['Ziprasidon', 'N05AE04', 'Ondansetron', 'A04AA01', 'medium'],                                      // yeni QT etiketi
+    ['Trazodon Hidroklorür', 'N06AX05', 'Moksifloksasin Hidroklorür', 'J01MA14', 'medium'],             // yeni QT etiketi
+    ['Sertralin Hidroklorür', 'N06AB06', 'Selejilin', 'N04BD01', 'critical'],                           // SSRI×MAO-B
+    ['Simvastatin', 'C10AA01', 'Klaritromisin', 'J01FA09', 'critical'],                                 // kontrendike statin çifti
+    ['eritromisin estolat', '0', 'Simvastatin', 'C10AA01', 'high'],                                     // tuz varyantı + ATC "0"
+    ['Potasyum Klorür', 'B05XA01', 'Spironolakton', 'C03DA01', 'high'],                                 // hiperkalemi
+    ['Metilen Mavisi', 'V03AB17', 'Sertralin Hidroklorür', 'N06AB06', 'critical'],                      // FDA 2011 DSC
+    ['Losartan Potasyum', 'C09CA01', 'Lityum Karbonat', 'N05AN01', 'high'],                             // LOXIBIN kürasyonu sınıfı
+    ['indometazin', '0', 'Lityum Karbonat', 'N05AN01', 'high'],                                         // tüm ürünleri ATC "0" olan NSAID
+    ['Flutikazon Propiyonat', 'R03BA05', 'Ritonavir', 'J05AE03', 'high'],                               // Cushing
+    ['Etinilestradiol, Levonorgestrel', 'G03AA07', 'Lamotrijin', 'N03AX09', 'medium'],                  // kontraseptif×lamotrijin
+    ['Etinilestradiol, Levonorgestrel', 'G03AA07', 'Modafinil', 'N06BA07', 'medium'],
+    ['Sefoperazon Sodyum', 'J01DD12', 'Varfarin Sodyum', 'B01AA03', 'medium'],                          // NMTT sefalosporin
+    ['Levodopa + Benserazid', 'N04BA02', 'Demir III Hidroksit Polimaltoz Kompleksi', 'B03AB05', 'medium'], // şelasyon
+    ['Diazepam', 'N05BA01', 'Tramadol Hidroklorür', 'N02AX02', 'critical'],                             // BZD×opioid (mevcut ağ)
+    ['Budesonid', 'R03BA02', 'Ritonavir', 'J05AE03', 'medium'],
+    ['saw palmetto ekstresi', 'G04CX02', 'Varfarin Sodyum', 'B01AA03', 'medium'],                       // bitkisel tur regresyonu
+  ];
+  const RISK_AT_LEAST = { critical: 0, high: 1, medium: 2 };
+
+  let pairId = 800;
+  for (const [ingA, atcA, ingB, atcB, minRisk] of CANONICAL) {
+    it(`${ingA} × ${ingB} → en az ${minRisk}`, () => {
+      const idA = String(pairId++), idB = String(pairId++);
+      setDrugsForTest([
+        { ID: idA, Product_Name: `KANONIK A ${idA}`, Active_Ingredient: ingA, ATC_code: atcA },
+        { ID: idB, Product_Name: `KANONIK B ${idB}`, Active_Ingredient: ingB, ATC_code: atcB },
+      ]);
+      const { interactions: results } = analyzeInteractions([
+        { id: idA, name: `KANONIK A ${idA}` },
+        { id: idB, name: `KANONIK B ${idB}` },
+      ]);
+      expect(results).toHaveLength(1);
+      expect(results[0].risk).not.toBe('unknown');
+      expect(RISK_AT_LEAST[results[0].risk]).toBeLessThanOrEqual(RISK_AT_LEAST[minRisk]);
+    });
+  }
+
+  afterAll(() => setDrugsForTest(FIXTURE_DRUGS));
 });
