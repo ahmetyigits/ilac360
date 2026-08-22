@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Tag, Layers, Barcode, FolderTree, FileText, Loader2, X, ChevronDown, ChevronUp, AlertTriangle, Baby, ShieldAlert, Users, Car, Citrus, Pill, Info, Clock } from 'lucide-react';
+import { Tag, Layers, Barcode, FolderTree, FileText, Loader2, X, ChevronDown, ChevronUp, AlertTriangle, Baby, ShieldAlert, Users, Car, Citrus, Pill, Info, Clock, Milk } from 'lucide-react';
 import { getDrugDetail, getEquivalents } from '../data/api';
 import { parseDescription, normalizeDescription } from '../data/descriptionFormat.js';
 import { reportError } from '../data/telemetry.js';
@@ -8,6 +8,7 @@ import { reportError } from '../data/telemetry.js';
 // Renkler InteractionResults'taki riskConfig tonlarıyla hizalıdır.
 const WARNING_TYPE_CONFIG = {
   pregnancy: { icon: Baby, label: 'Gebelik' },
+  lactation: { icon: Milk, label: 'Emzirme' },
   allergy: { icon: ShieldAlert, label: 'Alerji' },
   age: { icon: Users, label: 'Yaş Sınırı' },
   administration: { icon: Clock, label: 'Kullanım Şekli' },
@@ -35,6 +36,21 @@ const WARNING_SEVERITY_CONFIG = {
     iconBox: 'bg-accent',
   },
 };
+
+// Özel durum çipleri: prospektüsün TİTCK şablonundaki alt başlıklarına hızlı
+// erişim. Veri ÜRETMEZ, iddia etmez — yalnız ilgili bölüm metinde VARSA çip
+// çıkar ve tıklanınca o bölüme götürür (telif/kaynak yükü yok).
+const SPECIAL_SITUATIONS = [
+  { key: 'gebelik', label: 'Gebelik', match: ['hamilelik'] },
+  { key: 'emzirme', label: 'Emzirme', match: ['emzirme'] },
+  { key: 'arac', label: 'Araç Kullanımı', match: ['araç ve makine kullanımı'] },
+  { key: 'bobrek', label: 'Böbrek Yetmezliği', match: ['böbrek yetmezliği', 'böbrek/karaciğer yetmezliği'] },
+  { key: 'karaciger', label: 'Karaciğer Yetmezliği', match: ['karaciğer yetmezliği', 'böbrek/karaciğer yetmezliği'] },
+  { key: 'cocuk', label: 'Çocuklarda', match: ['çocuklarda kullanımı', 'çocuklarda kullanım'] },
+  { key: 'yasli', label: 'Yaşlılarda', match: ['yaşlılarda kullanımı', 'yaşlılarda kullanım'] },
+];
+// descriptionFormat'ın alt başlık normalizasyonuyla aynı katlama
+const foldSubheading = (s) => s.trim().replace(/\s+/g, ' ').replace(/[:.]$/, '').toLocaleLowerCase('tr');
 
 // Not: App bu bileşeni key={drug.id} ile render eder; ilaç değişince bileşen
 // sıfır state ile yeniden kurulur, effect içinde senkron state sıfırlamaya gerek kalmaz.
@@ -132,6 +148,23 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
 
   const sections = parseDescription(detail.description);
   const hasDescription = sections && sections.length > 0;
+
+  // Prospektüste karşılığı BULUNAN özel durum çipleri (bölüm indeksiyle)
+  const specialChips = [];
+  if (hasDescription) {
+    for (const sit of SPECIAL_SITUATIONS) {
+      const sectionIndex = sections.findIndex((sec) =>
+        (sec.parts || []).some((p) => p.subheading && sit.match.includes(foldSubheading(p.subheading))));
+      if (sectionIndex >= 0) specialChips.push({ ...sit, sectionIndex });
+    }
+  }
+  const openSpecialSection = (chip) => {
+    setShowFullDesc(true);
+    setExpandedSection(chip.sectionIndex);
+    requestAnimationFrame(() => {
+      document.getElementById(`desc-section-${chip.sectionIndex}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
 
   return (
     <div ref={panelRef} tabIndex={-1} className={`${shell} overflow-hidden animate-slide-up`}>
@@ -248,6 +281,29 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
           </div>
         )}
 
+        {hasDescription && specialChips.length > 0 && (
+          <div>
+            <p className="font-mono text-[10.5px] tracking-[.12em] uppercase text-text-muted mb-2.5">
+              Özel Durumlar
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {specialChips.map((chip) => (
+                <button
+                  key={chip.key}
+                  onClick={() => openSpecialSection(chip)}
+                  title={`Prospektüsteki "${chip.label}" bölümüne git`}
+                  className="px-3 py-1.5 rounded-full border border-accent/25 bg-accent-soft/50 text-[12.5px] font-semibold text-accent hover:bg-accent-soft transition-colors cursor-pointer"
+                >
+                  {chip.label}
+                </button>
+              ))}
+            </div>
+            <p className="text-[11px] text-text-muted mt-2">
+              Çipler ürünün kendi kullanma talimatındaki ilgili bölüme götürür.
+            </p>
+          </div>
+        )}
+
         {hasDescription && (
           <div>
             <div className="flex items-center justify-between mb-3">
@@ -274,13 +330,14 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
             ) : (
               <div className="space-y-2">
                 {sections.map((section, i) => (
-                  <DescriptionSection
-                    key={i}
-                    section={section}
-                    index={i}
-                    expanded={expandedSection === i}
-                    onToggle={() => setExpandedSection(expandedSection === i ? null : i)}
-                  />
+                  <div key={i} id={`desc-section-${i}`} className="scroll-mt-4">
+                    <DescriptionSection
+                      section={section}
+                      index={i}
+                      expanded={expandedSection === i}
+                      onToggle={() => setExpandedSection(expandedSection === i ? null : i)}
+                    />
+                  </div>
                 ))}
               </div>
             )}
