@@ -67,6 +67,11 @@ function expand(entry) {
     Category_5: cats[4] || '',
     Form: entry.f || null,
     _hasDescription: !!entry.h,
+    // Takviye edici gıda alanları (build enjeksiyonu; ilaç kayıtlarında yok)
+    isSupplement: !!entry.s,
+    supplementBrand: entry.sb || null,
+    supplementSource: entry.ss || null,
+    supplementApproval: entry.st || null,
   };
 }
 
@@ -175,6 +180,10 @@ export function cleanDrugResponse(drug) {
     barcode: drug.barcode || null,
     categories: cleanCategories(drug),
     hasDescription: !!drug._hasDescription,
+    isSupplement: !!drug.isSupplement,
+    supplementBrand: drug.supplementBrand || null,
+    supplementSource: drug.supplementSource || null,
+    supplementApproval: drug.supplementApproval || null,
   };
 }
 

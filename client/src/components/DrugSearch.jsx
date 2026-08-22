@@ -224,8 +224,12 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
                         {drug.activeIngredient || 'Etkin madde bilinmiyor'}
                       </span>
                     </div>
-                    <span className="flex-none px-2.5 py-[3px] bg-accent-soft rounded-[20px] text-[11px] font-medium text-accent">
-                      {drug.atcCode ? `ATC ${drug.atcCode}` : 'İlaç'}
+                    <span className={`flex-none px-2.5 py-[3px] rounded-[20px] text-[11px] font-medium ${
+                      drug.isSupplement
+                        ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
+                        : 'bg-accent-soft text-accent'
+                    }`}>
+                      {drug.isSupplement ? 'Takviye' : drug.atcCode ? `ATC ${drug.atcCode}` : 'İlaç'}
                     </span>
                   </button>
                 );
