@@ -49,7 +49,6 @@
   "amikasin": ["amikacin"],
   "sefuroksim": ["cefuroxime", "sefuroksim aksetil"],
   "asetilsistein": ["acetylcysteine", "asetil sistein", "n-asetilsistein", "n-asetil sistein"],
-  "çinko sülfat": ["zinc sulfate", "çinko sulfat"],
   "kolekalsiferol": ["vitamin d3", "d vitamini", "vitamin d", "cholecalciferol", "kolekalsiferol vitamin d3", "colecalciferol"],
   "lamotrijin": ["lamotrigine", "lamotrigin"],
   "repaglinid": ["repaglinide"],
@@ -63,5 +62,15 @@
   "riosiguat": ["riociguat"],
   "metamizol": ["metamizol sodyum monohidrat", "dipiron", "dipyrone", "novaminsulfon"],
   "loksoprofen": ["loxoprofen"],
-  "iopamidol": ["lopamidol"]
+  "iopamidol": ["lopamidol"],
+  "sarı kantaron": ["hypericum perforatum", "hypericum", "st johns wort", "sarı kantaron ekstresi", "sarı kantaron yağı", "hiperisin", "hypericum ekstresi"],
+  "ginseng": ["panax ginseng", "kore ginsengi", "ginseng g115", "g115", "ginseng ekstresi", "asya ginsengi", "panaks ginseng"],
+  "ekinezya": ["echinacea", "echinacea purpurea", "ekinezya ekstresi", "ekinacea"],
+  "koenzim q10": ["coq10", "co q10", "ubikinol", "ubidekarenon", "ko-enzim q10", "koenzim q-10"],
+  "omega-3": ["balık yağı", "omega 3", "epa", "dha", "omega3"],
+  "kara mürver": ["sambucus nigra", "elderberry", "kara mürver ekstresi"],
+  "çörek otu": ["nigella sativa", "çörek otu yağı"],
+  "k vitamini": ["fitomenadion", "phytomenadione", "vitamin k", "vitamin k1", "vitamin k2", "menakinon"],
+  "magnezyum": ["magnezyum sitrat", "magnezyum bisglisinat", "magnezyum oksit", "magnezyum malat"],
+  "çinko": ["çinko sülfat", "çinko pikolinat", "çinko glukonat", "zinc", "zinc sulfate", "çinko sulfat", "çinko sülfat heptahidrat", "çinko sülfat monohidrat"]
 }
