@@ -137,7 +137,7 @@ assert(bothEmpty === 0, `etken+ATC ikisi de boş ürün kalmadı (${bothEmpty})`
 // Takviye kataloğu enjeksiyonu: Pharmaton bulunur, s bayrağı taşır, ginseng
 // bileşeni kanonikleşir (bulunamazsa katalog/sinonim regresyonu var demektir).
 const supplements = index.filter((e) => e.s);
-assert(supplements.length >= 50, `takviye kataloğu enjekte edilmiş (${supplements.length} kayıt)`);
+assert(supplements.length >= 300, `takviye kataloğu enjekte edilmiş (${supplements.length} kayıt)`);
 const pharmaton = index.find((e) => flexibleIncludes(e.n, 'pharmaton'));
 assert(!!pharmaton && pharmaton.s === true, `PHARMATON takviye bayrağıyla bulundu (${pharmaton?.n})`);
 if (pharmaton) {
