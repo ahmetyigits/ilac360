@@ -399,6 +399,48 @@
         "VITAMIN_E"
       ],
       "source": "NIH ODS Vitamin E — yüksek dozda K vitamini bağımlı pıhtılaşma inhibisyonu; FDA Coumadin etiketi"
+    },
+    "crataegus": {
+      "classes": [
+        "CRATAEGUS"
+      ],
+      "source": "EMA HMPC Crataegi folium cum flore monografı — dijital glikozidlerin etkisini güçlendirebilir"
+    },
+    "meyan kökü": {
+      "classes": [
+        "LICORICE"
+      ],
+      "source": "EMA HMPC Liquiritiae radix monografı; FDA uyarısı — glisirizin hipokalemiye yol açar (digoksin/diüretik etkileşimi)"
+    },
+    "turna yemişi": {
+      "classes": [
+        "CRANBERRY"
+      ],
+      "source": "FDA etiketi (Coumadin) — cranberry ürünleriyle INR yükselmesi uyarısı"
+    },
+    "5-htp": {
+      "classes": [
+        "SEROTONERGIC_SUPPLEMENT"
+      ],
+      "source": "NIH ODS/NCCIH 5-HTP — serotonerjik ilaçlarla serotonin sendromu riski"
+    },
+    "kudret narı": {
+      "classes": [
+        "HYPOGLYCEMIC_HERBAL"
+      ],
+      "source": "NIH NCCIH Bitter Melon — kan şekeri düşürücü etki, antidiyabetiklerle additif"
+    },
+    "şerbetçiotu": {
+      "classes": [
+        "SEDATIVE_HERBAL"
+      ],
+      "source": "EMA HMPC Lupuli flos monografı — sedatiflerle additif etki"
+    },
+    "hint yağı": {
+      "classes": [
+        "STIMULANT_LAXATIVE"
+      ],
+      "source": "FDA OTC laksatif monografı — uyarıcı laksatif, kronik kullanımda hipokalemi"
     }
   }
 }

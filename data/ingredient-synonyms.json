@@ -40,7 +40,7 @@
   "ginkgo biloba": ["gingko biloba", "ginko biloba", "ginkgo", "ginkgo ekstresi", "ginkgo biloba ekstresi", "ginkgo glikozidi", "ginkgo biloba kuru ekstresi", "ginko biloba kuru ekstresi", "gingko biloba kuru ekstresi", "ginkgo biloba yapraklari kuru ekstresi", "ginkgo biloba l. yapraklari kuru ekstresi"],
   "valerian": ["tent. de valeriane", "valeriana officinalis", "valerian ekstresi", "kediotu ekstresi", "kediotu kuru ekstresi"],
   "pasiflora": ["tent. de pasiflora", "passiflora", "passiflora incarnata", "pasiflora ekstresi", "passiflora ekstresi"],
-  "crataegus": ["tent. de grateagus", "crataegus ekstresi", "alic ekstresi", "alic kuru ekstresi"],
+  "crataegus": ["tent. de grateagus", "crataegus ekstresi", "alic ekstresi", "alic kuru ekstresi", "alıç", "hawthorn", "alıç ekstresi", "alıç kuru ekstresi", "crataegus monogyna"],
   "saw palmetto": ["sabal", "saw palmetto ekstresi", "sabal ekstresi", "serenoa repens", "serenoa repens ekstresi"],
   "senna": ["senna glycosides", "senna ekstresi", "senne ekstresi", "sennoside", "sennosid", "sennozid", "sennosid a", "sennozid a", "sennosid b", "sennozid b", "sinameki ekstresi"],
   "silimarin": ["silymarin", "silimarin ekstresi", "silybum marianum gaertn meyvesi kuru ekstresi", "silybum marianum gaestner meyve ekstresi"],
@@ -80,5 +80,17 @@
   "e vitamini": ["vitamin e", "tokoferol", "alfa tokoferol", "d-alfa tokoferol", "tokoferil"],
   "yeşil çay": ["green tea", "camellia sinensis", "yeşil çay ekstresi", "egcg"],
   "kolajen": ["collagen", "hidrolize kolajen", "kolajen peptit"],
-  "probiyotik": ["probiotic", "laktobasillus", "lactobacillus", "bifidobacterium"]
+  "probiyotik": ["probiotic", "laktobasillus", "lactobacillus", "bifidobacterium"],
+  "meyan kökü": ["glycyrrhiza", "glycyrrhiza glabra", "licorice", "meyan", "meyan ekstresi", "meyan kökü ekstresi", "glisirizin"],
+  "turna yemişi": ["cranberry", "turna yemişi ekstresi", "cranberry ekstresi", "vaccinium macrocarpon"],
+  "kuersetin": ["quercetin"],
+  "rodiola": ["rhodiola", "rhodiola rosea", "rodiola ekstresi"],
+  "selenyum": ["selenium"],
+  "kudret narı": ["bitter melon", "momordica charantia", "kudret narı ekstresi"],
+  "şerbetçiotu": ["hops", "humulus lupulus", "şerbetçi otu"],
+  "hint yağı": ["castor oil", "ricinus communis"],
+  "çuha çiçeği yağı": ["evening primrose", "çuha çiçeği", "oenothera biennis"],
+  "kafein": ["guarana", "guarana ekstresi"],
+  "5-htp": ["5 htp", "hidroksitriptofan", "oxitriptan"],
+  "at kestanesi": ["horse chestnut", "aesculus hippocastanum", "at kestanesi ekstresi"]
 }
