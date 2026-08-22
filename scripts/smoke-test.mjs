@@ -126,6 +126,14 @@ if (topikal) {
     `topikal ürün sistemik uyarı ALMIYOR (${topikal.n})`);
 }
 
+// Manuel kürasyon regresyonu: LOXIBIN kaynak veride etken+ATC'siz geliyordu;
+// manual-ingredients.json losartan olarak küre etti (loksoprofen DEĞİL).
+const loxibin = index.find((e) => e.n.startsWith('LOXIBIN'));
+assert(!!loxibin && flexibleIncludes(loxibin.a || '', 'losartan') && loxibin.t === 'C09CA01',
+  `LOXIBIN kürasyonu uygulanmış (${loxibin?.a} / ${loxibin?.t})`);
+const bothEmpty = index.filter((e) => !e.a && !e.t).length;
+assert(bothEmpty === 0, `etken+ATC ikisi de boş ürün kalmadı (${bothEmpty})`);
+
 if (failures > 0) {
   console.error(`\nSMOKE TEST BAŞARISIZ: ${failures} kontrol geçemedi.`);
   process.exit(1);

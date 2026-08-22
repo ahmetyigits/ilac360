@@ -1,0 +1,135 @@
+[
+  {
+    "barcode": "8699578092429",
+    "name": "LOXIBIN 50 MG FILM KAPLI TABLET, 28 ADET",
+    "ingredient": "Losartan Potasyum",
+    "atc": "C09CA01",
+    "source": "ilacrehberi.com KT sayfası (barkod birebir doğrulandı; Biofarma). DİKKAT: ad benzerliğine rağmen loksoprofen/loksapin DEĞİLDİR."
+  },
+  {
+    "barcode": "8699788120134",
+    "name": "METORFAN 20 DRAJE",
+    "ingredient": "Dekstrometorfan Hbr, Difenhidramin Hcl, Efedrin Hcl",
+    "atc": "R05X",
+    "source": "ilacprospektusu.com (Osel İlaç; barkod doğrulandı)"
+  },
+  {
+    "barcode": "8699549570031",
+    "name": "DORFAN SURUP 100 ML",
+    "ingredient": "Psödoefedrin Hcl, Dekstrometorfan Hbr, Klorfeniramin Maleat",
+    "atc": "R01BA52",
+    "source": "ilactr.com (Akdeniz İlaç; barkod doğrulandı)"
+  },
+  {
+    "barcode": "8699519090095",
+    "name": "DRISTAN FILM TABLET, 20 ADET",
+    "ingredient": "Parasetamol, Fenilefrin Hcl, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "KÜB PDF (cdn.ilacrehberi.com, Turgut İlaçları) + ilacabak.com barkod doğrulaması"
+  },
+  {
+    "barcode": "8699600570253",
+    "name": "FENIDIN EKSPEKTORAN SURUP, 125 ML",
+    "ingredient": "Difenhidramin Hcl, Amonyum Klorür, Sodyum Sitrat",
+    "atc": "R05X",
+    "source": "ilacprospektusu.com (Merkez Laboratuarı; barkod doğrulandı)"
+  },
+  {
+    "barcode": "8699600574275",
+    "name": "FENIDIN EKSPEKTORAN SURUP, 150 ML",
+    "ingredient": "Difenhidramin Hcl, Amonyum Klorür, Sodyum Sitrat",
+    "atc": "R05X",
+    "source": "ilacprospektusu.com (aynı ürünün 150 ml ambalajı)"
+  },
+  {
+    "barcode": "8699649570030",
+    "name": "GAYABEKSIN 150 ML SURUP",
+    "ingredient": "Sodyum Benzoat, Potasyum Gayakolsülfonat",
+    "atc": "R05X",
+    "source": "ilacprospektusu.com (barkod doğrulandı)"
+  },
+  {
+    "barcode": "8699523570101",
+    "name": "GERAKON PEDIATRIK 100 ML SURUP",
+    "ingredient": "Parasetamol, Fenilefrin Hcl, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "ilacrehberi.com barkod sayfası + ilactr.com (Münir Şahin); bileşen adları doğrulandı, miktarlar doğrulanamadı"
+  },
+  {
+    "barcode": "8682257735823",
+    "name": "GERALGINE-HOT 500 MG+60MG+4MG/11G TEK KULLANIMLIK GRANUL ICEREN POŞET",
+    "ingredient": "Parasetamol, Psödoefedrin Hcl, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KT PDF (titck.gov.tr) — bileşim ve ürün adı birebir; üründeki 500+60+4 mg dozlarıyla uyumlu"
+  },
+  {
+    "barcode": "8680638250019",
+    "name": "GRIBEX HOT TEK KULLANIMLIK TOZ IÇEREN POŞET, 6 ADET",
+    "ingredient": "Parasetamol, Psödoefedrin Hcl, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "ilacabak.com + ilacrehberi.com prospektüs (ürün adıyla eşlendi)"
+  },
+  {
+    "barcode": "8680638250026",
+    "name": "GRIBEX HOT TEK KULLANIMLIK TOZ IÇEREN POŞET, 12 ADET",
+    "ingredient": "Parasetamol, Psödoefedrin Hcl, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "ilacabak.com + ilacrehberi.com prospektüs"
+  },
+  {
+    "barcode": "8680638250033",
+    "name": "GRIBEX HOT TEK KULLANIMLIK TOZ IÇEREN POŞET, 24 ADET",
+    "ingredient": "Parasetamol, Psödoefedrin Hcl, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "ilacabak.com + ilacrehberi.com prospektüs"
+  },
+  {
+    "barcode": "8680638250040",
+    "name": "GRIBEX HOT D TEK KULLANIMLIK TOZ IÇEREN POŞET, 6 ADET",
+    "ingredient": "Parasetamol, Psödoefedrin Hcl, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "ilacrehberi.com prospektüs — 'D' formu şekersizdir, EK ETKEN MADDE İÇERMEZ (dekstrometorfan yok)"
+  },
+  {
+    "barcode": "8680638250057",
+    "name": "GRIBEX HOT D TEK KULLANIMLIK TOZ IÇEREN POŞET, 12 ADET",
+    "ingredient": "Parasetamol, Psödoefedrin Hcl, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "ilacrehberi.com prospektüs (şekersiz form)"
+  },
+  {
+    "barcode": "8680638250064",
+    "name": "GRIBEX HOT D TEK KULLANIMLIK TOZ IÇEREN POŞET, 24 ADET",
+    "ingredient": "Parasetamol, Psödoefedrin Hcl, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "ilacrehberi.com prospektüs (şekersiz form)"
+  },
+  {
+    "barcode": "8680638250071",
+    "name": "GRIBEX HOT PEDİATRİK TEK KULLANIMLIK TOZ İÇEREN POŞET, 6 ADET",
+    "ingredient": "Parasetamol, Psödoefedrin Hcl, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "ilacrehberi.com prospektüs + ilacabak.com (yarı doz pediatrik form)"
+  },
+  {
+    "barcode": "8680638250088",
+    "name": "GRIBEX HOT PEDİATRİK TEK KULLANIMLIK TOZ İÇEREN POŞET, 12 ADET",
+    "ingredient": "Parasetamol, Psödoefedrin Hcl, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "ilacrehberi.com prospektüs + ilacabak.com"
+  },
+  {
+    "barcode": "8680638250095",
+    "name": "GRIBEX HOT PEDİATRİK TEK KULLANIMLIK TOZ İÇEREN POŞET, 24 ADET",
+    "ingredient": "Parasetamol, Psödoefedrin Hcl, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "ilacrehberi.com prospektüs + ilacabak.com"
+  },
+  {
+    "barcode": "8699824570114",
+    "name": "HISTORAN 125 ML SURUP",
+    "ingredient": "Difenhidramin Hcl, Amonyum Klorür, Sodyum Sitrat",
+    "atc": "R05X",
+    "source": "ilactr.com + kritikbakim.com (İlaçsan; barkod doğrulandı; FENIDIN ile aynı bileşim)"
+  }
+]

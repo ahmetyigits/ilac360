@@ -1,0 +1,35 @@
+{
+  "note": "Bileşen → ATC elle geçersiz kılma. Mono-tercihli otomatik seçim bile yanlış kaldığında kullanılır; source ZORUNLUDUR (build kontrol eder). ATC kaynağı: WHO ATC Index (kamu malı).",
+  "psödoefedrin": {
+    "atc": "R01BA02",
+    "source": "WHO ATC 2024 — pseudoephedrine R01BA02 (sistemik nazal dekonjestan); ibuprofen kombosu baskınlığı sahte NSAID sınıfı üretiyordu"
+  },
+  "eritromisin": {
+    "atc": "J01FA01",
+    "source": "WHO ATC 2024 — erythromycin J01FA01 (makrolid); mono ürünlerde topikal D10AF02 baskınlığı makrolid kurallarını düşürüyordu"
+  },
+  "indometazin": {
+    "atc": "M01AB01",
+    "source": "WHO ATC 2024 — indometacin M01AB01; tüm ürünleri kaynak veride ATC=0 (NSAID kuralları ve lityum çifti sessizdi)"
+  },
+  "miglitol": {
+    "atc": "A10BF02",
+    "source": "WHO ATC 2024 — miglitol A10BF02; tüm ürünleri ATC=0"
+  },
+  "iomeprol": {
+    "atc": "V08AB10",
+    "source": "WHO ATC 2024 — iomeprol V08AB10 (iyotlu kontrast; metformin×kontrast kuralı için)"
+  },
+  "iopamidol": {
+    "atc": "V08AB04",
+    "source": "WHO ATC 2024 — iopamidol V08AB04 (iyotlu kontrast)"
+  },
+  "kinidin": {
+    "atc": "C01BA01",
+    "source": "WHO ATC 2024 — quinidine C01BA01 (antiaritmik); tüm ürünleri ATC=0, digoksin kuralı kategorisiz kalıyordu"
+  },
+  "rofekoksib": {
+    "atc": "M01AH02",
+    "source": "WHO ATC 2024 — rofecoxib M01AH02 (COX-2 NSAID); tüm ürünleri ATC=0"
+  }
+}
