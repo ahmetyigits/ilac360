@@ -369,6 +369,36 @@
         "CAFFEINE"
       ],
       "source": "FDA OTC kafein monografı; lityum ve teofilinle etkileşim bildirimleri"
+    },
+    "sarımsak": {
+      "classes": [
+        "GARLIC"
+      ],
+      "source": "NIH NCCIH Garlic; FDA etiketi (Coumadin) bitkisel uyarısı — trombosit inhibisyonu/kanama olgu bildirimleri"
+    },
+    "zencefil": {
+      "classes": [
+        "GINGER"
+      ],
+      "source": "NIH NCCIH Ginger — tromboksan inhibisyonu, warfarinle INR yükselmesi olgu bildirimleri"
+    },
+    "zerdeçal": {
+      "classes": [
+        "CURCUMIN"
+      ],
+      "source": "NIH NCCIH Turmeric — antiplatelet etki; warfarinle kanama olgu bildirimleri"
+    },
+    "glukozamin": {
+      "classes": [
+        "GLUCOSAMINE"
+      ],
+      "source": "NIH ODS; olgu bildirimleri — glukozamin±kondroitin ile INR yükselmesi"
+    },
+    "e vitamini": {
+      "classes": [
+        "VITAMIN_E"
+      ],
+      "source": "NIH ODS Vitamin E — yüksek dozda K vitamini bağımlı pıhtılaşma inhibisyonu; FDA Coumadin etiketi"
     }
   }
 }

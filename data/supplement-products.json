@@ -1,30 +1,555 @@
 {
   "note": "Takviye edici gıda kataloğu — build sırasında ilaç index'ine enjekte edilir (id bloğu 9000001+). 'ingredients' alanı YALNIZ etkileşim-anlamlı bileşenleri kanonik yazımla listeler (tam içerik kaynaktadır; UI bunu belirtir). İçerik listeleri olgusal veridir; her kayıtta kaynak URL + erişim tarihi ZORUNLUDUR. tobApproval: GGBS (ggbs.tarim.gov.tr) sorgusundan elle doğrulanan Tarım ve Orman Bakanlığı onay numarası — doğrulanamadıysa boş. Melatonin ürünleri KATALOG DIŞI: Türkiye'de takviye değil TİTCK ruhsatlı ilaçtır (2023 düzenlemesi).",
   "products": [
-    { "id": 9000001, "name": "PHARMATON VITALITY KAPSÜL", "brand": "Pharmaton (Opella/Sanofi)", "ingredients": "Ginseng G115, Demir, Magnezyum, Çinko", "category": "Multivitamin + Ginseng", "tobApproval": "", "source": "https://www.pharmaton.com/tr-tr/urunler/pharmaton-vitality", "accessed": "2026-08-22" },
-    { "id": 9000002, "name": "PHARMATON 50 PLUS KAPSÜL", "brand": "Pharmaton (Opella/Sanofi)", "ingredients": "Omega-3, Magnezyum, Çinko", "category": "Multivitamin + Omega-3", "tobApproval": "", "source": "https://www.pharmaton.com/tr-tr/urunler/pharmaton-50-plus-vitamin-omega3", "accessed": "2026-08-22" },
-    { "id": 9000003, "name": "SUPRADYN ALL DAY TABLET", "brand": "Supradyn (Bayer)", "ingredients": "Demir, Kalsiyum, Magnezyum, Çinko", "category": "Multivitamin", "tobApproval": "", "source": "https://www.supradyn.com.tr/ (ürün etiketi)", "accessed": "2026-08-22" },
-    { "id": 9000004, "name": "SUPRADYN ENERGY COENZYME Q10 TABLET", "brand": "Supradyn (Bayer)", "ingredients": "Koenzim Q10, Demir, Kalsiyum, Magnezyum, Çinko", "category": "Multivitamin + CoQ10", "tobApproval": "", "source": "https://www.supradyn.com.tr/ (ürün etiketi)", "accessed": "2026-08-22" },
-    { "id": 9000005, "name": "CENTRUM ADULTS TABLET", "brand": "Centrum (Haleon)", "ingredients": "K Vitamini, Demir, Kalsiyum, Magnezyum, Çinko", "category": "Multivitamin", "tobApproval": "", "source": "https://www.centrum.com.tr/ (ürün etiketi — K vitamini içerir)", "accessed": "2026-08-22" },
-    { "id": 9000006, "name": "CENTRUM SILVER 50+ TABLET", "brand": "Centrum (Haleon)", "ingredients": "K Vitamini, Kalsiyum, Magnezyum, Çinko", "category": "Multivitamin 50+", "tobApproval": "", "source": "https://www.centrum.com.tr/ (ürün etiketi)", "accessed": "2026-08-22" },
-    { "id": 9000007, "name": "OCEAN BALIK YAĞI ŞURUP 150 ML", "brand": "Ocean (Orzax)", "ingredients": "Omega-3", "category": "Omega-3 / Balık yağı", "tobApproval": "", "source": "https://www.orzax.com.tr/urun/ocean-balik-yagi/", "accessed": "2026-08-22" },
-    { "id": 9000008, "name": "OCEAN PLUS OMEGA 3 1200 MG KAPSÜL", "brand": "Ocean (Orzax)", "ingredients": "Omega-3", "category": "Omega-3 / Balık yağı", "tobApproval": "", "source": "https://www.orzax.com.tr/ (ürün etiketi)", "accessed": "2026-08-22" },
-    { "id": 9000009, "name": "OCEAN OMEGA 3 & QH KAPSÜL", "brand": "Ocean (Orzax)", "ingredients": "Omega-3, Koenzim Q10", "category": "Omega-3 + CoQ10", "tobApproval": "", "source": "https://www.orzax.com.tr/urun/ocean-omega-3-qh/", "accessed": "2026-08-22" },
-    { "id": 9000010, "name": "SOLGAR GINKGO BILOBA KAPSÜL", "brand": "Solgar", "ingredients": "Ginkgo Biloba", "category": "Bitkisel — Ginkgo", "tobApproval": "", "source": "Solgar TR ürün etiketi (standardize ginkgo yaprak ekstresi)", "accessed": "2026-08-22" },
-    { "id": 9000011, "name": "ZADE VITAL SARI KANTARON YAĞI KAPSÜL", "brand": "Zade Vital", "ingredients": "Sarı Kantaron", "category": "Bitkisel — Sarı kantaron", "tobApproval": "", "source": "https://zadevital.com.tr/sari-kantaron-yagi/", "accessed": "2026-08-22" },
-    { "id": 9000012, "name": "ARİFOĞLU SARI KANTARON EKSTRESİ", "brand": "Arifoğlu", "ingredients": "Sarı Kantaron", "category": "Bitkisel — Sarı kantaron", "tobApproval": "", "source": "https://www.arifoglu.com/arifoglu-sari-kantaron-ekstresi-250ml", "accessed": "2026-08-22" },
-    { "id": 9000013, "name": "İMUNEKS EKİNEZYA KAPSÜL", "brand": "İmuneks", "ingredients": "Ekinezya", "category": "Bitkisel — Ekinezya", "tobApproval": "", "source": "İmuneks ürün etiketi (Echinacea purpurea ekstresi)", "accessed": "2026-08-22" },
-    { "id": 9000014, "name": "BEE'O UP PROPOLİS DAMLA", "brand": "BEE'O", "ingredients": "Propolis", "category": "Arı ürünleri", "tobApproval": "", "source": "https://www.beeo.com.tr/propolis-damla", "accessed": "2026-08-22" },
-    { "id": 9000015, "name": "SAMBUCOL BLACK ELDERBERRY ŞURUP", "brand": "Sambucol", "ingredients": "Kara Mürver, Çinko", "category": "Bitkisel — Kara mürver", "tobApproval": "", "source": "Sambucol TR ürün etiketi", "accessed": "2026-08-22" },
-    { "id": 9000016, "name": "REDOXON ÜÇLÜ ETKİ EFERVESAN TABLET", "brand": "Redoxon (Bayer)", "ingredients": "Vitamin C, Çinko", "category": "C vitamini + Çinko", "tobApproval": "", "source": "Redoxon TR ürün etiketi (C vitamini 1000 mg + çinko + D vitamini)", "accessed": "2026-08-22" },
-    { "id": 9000017, "name": "SOLGAR GENTLE IRON KAPSÜL", "brand": "Solgar", "ingredients": "Demir", "category": "Mineral — Demir", "tobApproval": "", "source": "Solgar TR ürün etiketi (demir bisglisinat 25 mg)", "accessed": "2026-08-22" },
-    { "id": 9000018, "name": "SOLGAR VITAMIN B12 1000 µG TABLET", "brand": "Solgar", "ingredients": "Siyanokobalamin", "category": "Vitamin — B12", "tobApproval": "", "source": "Solgar TR ürün etiketi", "accessed": "2026-08-22" },
-    { "id": 9000019, "name": "OCEAN VITAMIN D3K2 DAMLA", "brand": "Ocean (Orzax)", "ingredients": "Kolekalsiferol, K Vitamini", "category": "Vitamin — D3+K2", "tobApproval": "", "source": "https://www.orzax.com.tr/ (ürün etiketi — D3 + K2 menakinon-7)", "accessed": "2026-08-22" },
-    { "id": 9000020, "name": "SOLGAR MAGNESIUM CITRATE TABLET", "brand": "Solgar", "ingredients": "Magnezyum", "category": "Mineral — Magnezyum", "tobApproval": "", "source": "Solgar TR ürün etiketi (magnezyum sitrat 200 mg)", "accessed": "2026-08-22" },
-    { "id": 9000021, "name": "SOLGAR CALCIUM MAGNESIUM PLUS D3 TABLET", "brand": "Solgar", "ingredients": "Kalsiyum, Magnezyum, Kolekalsiferol", "category": "Mineral — Kalsiyum+Mg", "tobApproval": "", "source": "Solgar TR ürün etiketi", "accessed": "2026-08-22" },
-    { "id": 9000022, "name": "SOLGAR COENZYME Q10 100 MG KAPSÜL", "brand": "Solgar", "ingredients": "Koenzim Q10", "category": "CoQ10", "tobApproval": "", "source": "Solgar TR ürün etiketi (TOB kısıtlı maddeler listesi: CoQ10 100-200 mg/gün)", "accessed": "2026-08-22" },
-    { "id": 9000023, "name": "ARİFOĞLU KORE GİNSENGİ KAPSÜL", "brand": "Arifoğlu", "ingredients": "Ginseng", "category": "Bitkisel — Ginseng", "tobApproval": "", "source": "Arifoğlu ürün etiketi (Panax ginseng kök ekstresi)", "accessed": "2026-08-22" },
-    { "id": 9000024, "name": "ZADE VITAL ÇÖREK OTU YAĞI KAPSÜL", "brand": "Zade Vital", "ingredients": "Çörek Otu", "category": "Bitkisel — Çörek otu", "tobApproval": "", "source": "https://zadevital.com.tr/ (ürün etiketi — Nigella sativa soğuk pres yağ)", "accessed": "2026-08-22" },
-    { "id": 9000025, "name": "VENATURA KEDİOTU VALERIAN KAPSÜL", "brand": "Venatura", "ingredients": "Valerian, Pasiflora", "category": "Bitkisel — Uyku desteği", "tobApproval": "", "source": "Venatura ürün etiketi (kediotu kökü + pasiflora ekstresi; TOB limiti valerenik asit 24 mg/gün)", "accessed": "2026-08-22" }
+    {
+      "id": 9000001,
+      "name": "PHARMATON VITALITY KAPSÜL",
+      "brand": "Pharmaton (Opella/Sanofi)",
+      "ingredients": "Ginseng G115, Demir, Magnezyum, Çinko",
+      "category": "Multivitamin + Ginseng",
+      "tobApproval": "",
+      "source": "https://www.pharmaton.com/tr-tr/urunler/pharmaton-vitality",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000002,
+      "name": "PHARMATON 50 PLUS KAPSÜL",
+      "brand": "Pharmaton (Opella/Sanofi)",
+      "ingredients": "Omega-3, Magnezyum, Çinko",
+      "category": "Multivitamin + Omega-3",
+      "tobApproval": "",
+      "source": "https://www.pharmaton.com/tr-tr/urunler/pharmaton-50-plus-vitamin-omega3",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000003,
+      "name": "SUPRADYN ALL DAY TABLET",
+      "brand": "Supradyn (Bayer)",
+      "ingredients": "Demir, Kalsiyum, Magnezyum, Çinko",
+      "category": "Multivitamin",
+      "tobApproval": "",
+      "source": "https://www.supradyn.com.tr/ (ürün etiketi)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000004,
+      "name": "SUPRADYN ENERGY COENZYME Q10 TABLET",
+      "brand": "Supradyn (Bayer)",
+      "ingredients": "Koenzim Q10, Demir, Kalsiyum, Magnezyum, Çinko",
+      "category": "Multivitamin + CoQ10",
+      "tobApproval": "",
+      "source": "https://www.supradyn.com.tr/ (ürün etiketi)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000005,
+      "name": "CENTRUM ADULTS TABLET",
+      "brand": "Centrum (Haleon)",
+      "ingredients": "K Vitamini, Demir, Kalsiyum, Magnezyum, Çinko",
+      "category": "Multivitamin",
+      "tobApproval": "",
+      "source": "https://www.centrum.com.tr/ (ürün etiketi — K vitamini içerir)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000006,
+      "name": "CENTRUM SILVER 50+ TABLET",
+      "brand": "Centrum (Haleon)",
+      "ingredients": "K Vitamini, Kalsiyum, Magnezyum, Çinko",
+      "category": "Multivitamin 50+",
+      "tobApproval": "",
+      "source": "https://www.centrum.com.tr/ (ürün etiketi)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000007,
+      "name": "OCEAN BALIK YAĞI ŞURUP 150 ML",
+      "brand": "Ocean (Orzax)",
+      "ingredients": "Omega-3",
+      "category": "Omega-3 / Balık yağı",
+      "tobApproval": "",
+      "source": "https://www.orzax.com.tr/urun/ocean-balik-yagi/",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000008,
+      "name": "OCEAN PLUS OMEGA 3 1200 MG KAPSÜL",
+      "brand": "Ocean (Orzax)",
+      "ingredients": "Omega-3",
+      "category": "Omega-3 / Balık yağı",
+      "tobApproval": "",
+      "source": "https://www.orzax.com.tr/ (ürün etiketi)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000009,
+      "name": "OCEAN OMEGA 3 & QH KAPSÜL",
+      "brand": "Ocean (Orzax)",
+      "ingredients": "Omega-3, Koenzim Q10",
+      "category": "Omega-3 + CoQ10",
+      "tobApproval": "",
+      "source": "https://www.orzax.com.tr/urun/ocean-omega-3-qh/",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000010,
+      "name": "SOLGAR GINKGO BILOBA KAPSÜL",
+      "brand": "Solgar",
+      "ingredients": "Ginkgo Biloba",
+      "category": "Bitkisel — Ginkgo",
+      "tobApproval": "",
+      "source": "Solgar TR ürün etiketi (standardize ginkgo yaprak ekstresi)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000011,
+      "name": "ZADE VITAL SARI KANTARON YAĞI KAPSÜL",
+      "brand": "Zade Vital",
+      "ingredients": "Sarı Kantaron",
+      "category": "Bitkisel — Sarı kantaron",
+      "tobApproval": "",
+      "source": "https://zadevital.com.tr/sari-kantaron-yagi/",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000012,
+      "name": "ARİFOĞLU SARI KANTARON EKSTRESİ",
+      "brand": "Arifoğlu",
+      "ingredients": "Sarı Kantaron",
+      "category": "Bitkisel — Sarı kantaron",
+      "tobApproval": "",
+      "source": "https://www.arifoglu.com/arifoglu-sari-kantaron-ekstresi-250ml",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000013,
+      "name": "İMUNEKS EKİNEZYA KAPSÜL",
+      "brand": "İmuneks",
+      "ingredients": "Ekinezya",
+      "category": "Bitkisel — Ekinezya",
+      "tobApproval": "",
+      "source": "İmuneks ürün etiketi (Echinacea purpurea ekstresi)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000014,
+      "name": "BEE'O UP PROPOLİS DAMLA",
+      "brand": "BEE'O",
+      "ingredients": "Propolis",
+      "category": "Arı ürünleri",
+      "tobApproval": "",
+      "source": "https://www.beeo.com.tr/propolis-damla",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000015,
+      "name": "SAMBUCOL BLACK ELDERBERRY ŞURUP",
+      "brand": "Sambucol",
+      "ingredients": "Kara Mürver, Çinko",
+      "category": "Bitkisel — Kara mürver",
+      "tobApproval": "",
+      "source": "Sambucol TR ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000016,
+      "name": "REDOXON ÜÇLÜ ETKİ EFERVESAN TABLET",
+      "brand": "Redoxon (Bayer)",
+      "ingredients": "Vitamin C, Çinko",
+      "category": "C vitamini + Çinko",
+      "tobApproval": "",
+      "source": "Redoxon TR ürün etiketi (C vitamini 1000 mg + çinko + D vitamini)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000017,
+      "name": "SOLGAR GENTLE IRON KAPSÜL",
+      "brand": "Solgar",
+      "ingredients": "Demir",
+      "category": "Mineral — Demir",
+      "tobApproval": "",
+      "source": "Solgar TR ürün etiketi (demir bisglisinat 25 mg)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000018,
+      "name": "SOLGAR VITAMIN B12 1000 µG TABLET",
+      "brand": "Solgar",
+      "ingredients": "Siyanokobalamin",
+      "category": "Vitamin — B12",
+      "tobApproval": "",
+      "source": "Solgar TR ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000019,
+      "name": "OCEAN VITAMIN D3K2 DAMLA",
+      "brand": "Ocean (Orzax)",
+      "ingredients": "Kolekalsiferol, K Vitamini",
+      "category": "Vitamin — D3+K2",
+      "tobApproval": "",
+      "source": "https://www.orzax.com.tr/ (ürün etiketi — D3 + K2 menakinon-7)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000020,
+      "name": "SOLGAR MAGNESIUM CITRATE TABLET",
+      "brand": "Solgar",
+      "ingredients": "Magnezyum",
+      "category": "Mineral — Magnezyum",
+      "tobApproval": "",
+      "source": "Solgar TR ürün etiketi (magnezyum sitrat 200 mg)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000021,
+      "name": "SOLGAR CALCIUM MAGNESIUM PLUS D3 TABLET",
+      "brand": "Solgar",
+      "ingredients": "Kalsiyum, Magnezyum, Kolekalsiferol",
+      "category": "Mineral — Kalsiyum+Mg",
+      "tobApproval": "",
+      "source": "Solgar TR ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000022,
+      "name": "SOLGAR COENZYME Q10 100 MG KAPSÜL",
+      "brand": "Solgar",
+      "ingredients": "Koenzim Q10",
+      "category": "CoQ10",
+      "tobApproval": "",
+      "source": "Solgar TR ürün etiketi (TOB kısıtlı maddeler listesi: CoQ10 100-200 mg/gün)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000023,
+      "name": "ARİFOĞLU KORE GİNSENGİ KAPSÜL",
+      "brand": "Arifoğlu",
+      "ingredients": "Ginseng",
+      "category": "Bitkisel — Ginseng",
+      "tobApproval": "",
+      "source": "Arifoğlu ürün etiketi (Panax ginseng kök ekstresi)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000024,
+      "name": "ZADE VITAL ÇÖREK OTU YAĞI KAPSÜL",
+      "brand": "Zade Vital",
+      "ingredients": "Çörek Otu",
+      "category": "Bitkisel — Çörek otu",
+      "tobApproval": "",
+      "source": "https://zadevital.com.tr/ (ürün etiketi — Nigella sativa soğuk pres yağ)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000025,
+      "name": "VENATURA KEDİOTU VALERIAN KAPSÜL",
+      "brand": "Venatura",
+      "ingredients": "Valerian, Pasiflora",
+      "category": "Bitkisel — Uyku desteği",
+      "tobApproval": "",
+      "source": "Venatura ürün etiketi (kediotu kökü + pasiflora ekstresi; TOB limiti valerenik asit 24 mg/gün)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000026,
+      "name": "OCEAN VITAMIN D3 400 IU DAMLA",
+      "brand": "Ocean (Orzax)",
+      "ingredients": "Kolekalsiferol",
+      "category": "Vitamin — D3",
+      "tobApproval": "",
+      "source": "https://www.orzax.com.tr/ (ürün etiketi)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000027,
+      "name": "SOLGAR VITAMIN D3 1000 IU KAPSÜL",
+      "brand": "Solgar",
+      "ingredients": "Kolekalsiferol",
+      "category": "Vitamin — D3",
+      "tobApproval": "",
+      "source": "Solgar TR ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000028,
+      "name": "SOLGAR OMEGA-3 950 MG KAPSÜL",
+      "brand": "Solgar",
+      "ingredients": "Omega-3",
+      "category": "Omega-3 / Balık yağı",
+      "tobApproval": "",
+      "source": "Solgar TR ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000029,
+      "name": "MÖLLER'S OMEGA-3 BALIK YAĞI ŞURUP",
+      "brand": "Möller's",
+      "ingredients": "Omega-3",
+      "category": "Omega-3 / Balık yağı",
+      "tobApproval": "",
+      "source": "Möller's TR ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000030,
+      "name": "VOONKA OMEGA-3 KAPSÜL",
+      "brand": "Voonka",
+      "ingredients": "Omega-3",
+      "category": "Omega-3 / Balık yağı",
+      "tobApproval": "",
+      "source": "Voonka ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000031,
+      "name": "NUTRAXIN KRILL OIL KAPSÜL",
+      "brand": "Nutraxin",
+      "ingredients": "Kril Yağı",
+      "category": "Omega-3 / Kril yağı",
+      "tobApproval": "",
+      "source": "Nutraxin ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000032,
+      "name": "SOLGAR ZINC PICOLINATE 22 MG TABLET",
+      "brand": "Solgar",
+      "ingredients": "Çinko",
+      "category": "Mineral — Çinko",
+      "tobApproval": "",
+      "source": "Solgar TR ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000033,
+      "name": "VENATURA MAGNEZYUM BİSGLİSİNAT KAPSÜL",
+      "brand": "Venatura",
+      "ingredients": "Magnezyum",
+      "category": "Mineral — Magnezyum",
+      "tobApproval": "",
+      "source": "Venatura ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000034,
+      "name": "NUTRAXIN MAGNESIUM CITRATE TABLET",
+      "brand": "Nutraxin",
+      "ingredients": "Magnezyum",
+      "category": "Mineral — Magnezyum",
+      "tobApproval": "",
+      "source": "Nutraxin ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000035,
+      "name": "PROCEFERRİN KAPSÜL",
+      "brand": "Berko",
+      "ingredients": "Demir",
+      "category": "Mineral — Demir",
+      "tobApproval": "",
+      "source": "Proceferrin ürün etiketi (demir III polimaltoz takviyesi)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000036,
+      "name": "WELLCARE VITAMIN D3K2 DAMLA",
+      "brand": "Wellcare",
+      "ingredients": "Kolekalsiferol, K Vitamini",
+      "category": "Vitamin — D3+K2",
+      "tobApproval": "",
+      "source": "Wellcare ürün etiketi (D3 + K2 menakinon-7)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000037,
+      "name": "BEROCCA PERFORMANCE EFERVESAN TABLET",
+      "brand": "Berocca (Bayer)",
+      "ingredients": "Magnezyum, Çinko, Kalsiyum",
+      "category": "Multivitamin-mineral",
+      "tobApproval": "",
+      "source": "Berocca TR ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000038,
+      "name": "ARİFOĞLU SARIMSAK KAPSÜLÜ",
+      "brand": "Arifoğlu",
+      "ingredients": "Sarımsak",
+      "category": "Bitkisel — Sarımsak",
+      "tobApproval": "",
+      "source": "Arifoğlu ürün etiketi (Allium sativum)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000039,
+      "name": "ZADE VITAL SARIMSAK YAĞI KAPSÜL",
+      "brand": "Zade Vital",
+      "ingredients": "Sarımsak",
+      "category": "Bitkisel — Sarımsak",
+      "tobApproval": "",
+      "source": "https://zadevital.com.tr/ (ürün etiketi)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000040,
+      "name": "ZADE VITAL ZENCEFİL KAPSÜL",
+      "brand": "Zade Vital",
+      "ingredients": "Zencefil",
+      "category": "Bitkisel — Zencefil",
+      "tobApproval": "",
+      "source": "https://zadevital.com.tr/ (ürün etiketi)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000041,
+      "name": "VOONKA TURMERIC CURCUMIN COMPLEX KAPSÜL",
+      "brand": "Voonka",
+      "ingredients": "Zerdeçal, Zencefil",
+      "category": "Bitkisel — Zerdeçal",
+      "tobApproval": "",
+      "source": "Voonka ürün etiketi (kurkumin + zencefil + karabiber)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000042,
+      "name": "SOLGAR CURCUMIN KAPSÜL",
+      "brand": "Solgar",
+      "ingredients": "Zerdeçal",
+      "category": "Bitkisel — Zerdeçal",
+      "tobApproval": "",
+      "source": "Solgar TR ürün etiketi (kurkumin fitozom)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000043,
+      "name": "SOLGAR GLUCOSAMINE CHONDROITIN MSM TABLET",
+      "brand": "Solgar",
+      "ingredients": "Glukozamin",
+      "category": "Eklem — Glukozamin",
+      "tobApproval": "",
+      "source": "Solgar TR ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000044,
+      "name": "VOONKA GLUCOSAMINE CHONDROITIN MSM TABLET",
+      "brand": "Voonka",
+      "ingredients": "Glukozamin",
+      "category": "Eklem — Glukozamin",
+      "tobApproval": "",
+      "source": "Voonka ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000045,
+      "name": "SOLGAR VITAMIN E 400 IU KAPSÜL",
+      "brand": "Solgar",
+      "ingredients": "E Vitamini",
+      "category": "Vitamin — E",
+      "tobApproval": "",
+      "source": "Solgar TR ürün etiketi (d-alfa tokoferol)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000046,
+      "name": "SOLGAR GREEN TEA EXTRACT KAPSÜL",
+      "brand": "Solgar",
+      "ingredients": "Yeşil Çay, Kafein",
+      "category": "Bitkisel — Yeşil çay",
+      "tobApproval": "",
+      "source": "Solgar TR ürün etiketi (EGCG standardize; doğal kafein içerir)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000047,
+      "name": "VOONKA GINKGO BILOBA KAPSÜL",
+      "brand": "Voonka",
+      "ingredients": "Ginkgo Biloba",
+      "category": "Bitkisel — Ginkgo",
+      "tobApproval": "",
+      "source": "Voonka ürün etiketi (standardize ginkgo ekstresi)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000048,
+      "name": "ARİFOĞLU KEDİOTU DAMLASI",
+      "brand": "Arifoğlu",
+      "ingredients": "Valerian",
+      "category": "Bitkisel — Uyku desteği",
+      "tobApproval": "",
+      "source": "Arifoğlu ürün etiketi (Valeriana officinalis)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000049,
+      "name": "NUTRAXIN COENZYME Q10 KAPSÜL",
+      "brand": "Nutraxin",
+      "ingredients": "Koenzim Q10",
+      "category": "CoQ10",
+      "tobApproval": "",
+      "source": "Nutraxin ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000050,
+      "name": "SOLGAR MILK THISTLE KAPSÜL",
+      "brand": "Solgar",
+      "ingredients": "Silimarin",
+      "category": "Bitkisel — Deve dikeni",
+      "tobApproval": "",
+      "source": "Solgar TR ürün etiketi (Silybum marianum)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000051,
+      "name": "SAMBUCOL IMMUNO FORTE KAPSÜL",
+      "brand": "Sambucol",
+      "ingredients": "Kara Mürver, Çinko",
+      "category": "Bitkisel — Kara mürver",
+      "tobApproval": "",
+      "source": "Sambucol TR ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000052,
+      "name": "BEE'O UP PROPOLİS TABLET",
+      "brand": "BEE'O",
+      "ingredients": "Propolis",
+      "category": "Arı ürünleri",
+      "tobApproval": "",
+      "source": "https://www.beeo.com.tr/ (ürün etiketi)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000053,
+      "name": "VOONKA COLLAGEN BEAUTY SAŞE",
+      "brand": "Voonka",
+      "ingredients": "Kolajen",
+      "category": "Kolajen",
+      "tobApproval": "",
+      "source": "Voonka ürün etiketi (hidrolize kolajen)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000054,
+      "name": "NBL PROBIOTIC GOLD SAŞE",
+      "brand": "NBL (Nobel)",
+      "ingredients": "Probiyotik",
+      "category": "Probiyotik",
+      "tobApproval": "",
+      "source": "NBL Probiotic ürün etiketi",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9000055,
+      "name": "VITABIOTICS PREGNACARE TABLET",
+      "brand": "Vitabiotics",
+      "ingredients": "Demir, Çinko, Magnezyum",
+      "category": "Gebelik multivitamini",
+      "tobApproval": "",
+      "source": "Pregnacare TR ürün etiketi (K vitamini içermez)",
+      "accessed": "2026-08-22"
+    }
   ]
 }
