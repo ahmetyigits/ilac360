@@ -85,6 +85,10 @@ export const ATC_CATEGORY_MAP = [
   // kombinasyonlar component-classes.json sınıf etiketiyle yakalanır.
   { prefix: 'N06DX02', category: 'HERBAL_GINKGO' },
   { prefix: 'A06AB', category: 'STIMULANT_LAXATIVE' },
+  // Metamizol (Novalgin ailesi): TR'de çok satan, sıfır kapsamdaydı
+  { prefix: 'N02BB', category: 'PYRAZOLONE' },
+  // IV/oral potasyum preparatları — hiperkalemi ağı B05'ten de beslensin
+  { prefix: 'B05XA01', category: 'POTASSIUM_SUPPLEMENT' },
   { prefix: 'L01BA01', category: 'METHOTREXATE' },
   { prefix: 'L04AX03', category: 'METHOTREXATE' },
   { prefix: 'V08A', category: 'IODINATED_CONTRAST' },
@@ -315,6 +319,32 @@ export const CATEGORY_INTERACTIONS = [
   { catA: 'SNRI', catB: 'MAOI_A', risk: 'critical', message: 'SNRI ve MAO-A inhibitörü birlikte serotonin sendromu riski taşır.' },
   { catA: 'SNRI', catB: 'TRIPTAN', risk: 'high', message: 'SNRI ve triptan birlikte serotonin sendromu riskini artırır.' },
   { catA: 'SNRI', catB: 'LINEZOLID', risk: 'high', message: 'Linezolid ve SNRI birlikte serotonin sendromu riskini artırır.' },
+  // --- Metamizol/pirazolonlar (agranülositoz + kanama profili) ---
+  { catA: 'PYRAZOLONE', catB: 'VITAMIN_K_ANTAGONIST', risk: 'high', message: 'Metamizol (dipiron) warfarinle birlikte kanama riskini artırabilir ve warfarin etkisini öngörülemez değiştirebilir.' },
+  { catA: 'PYRAZOLONE', catB: 'NSAID', risk: 'medium', message: 'Metamizol ve NSAID birlikte mide-bağırsak yan etkilerini ve kanama eğilimini artırabilir.' },
+  { catA: 'PYRAZOLONE', catB: 'ANTIPLATELET', risk: 'medium', message: 'Metamizol, antiplatelet ilaçlarla birlikte kanama riskini artırabilir; aspirinin kalp koruyucu etkisini de azaltabilir.' },
+  // --- Gabapentinoidler (FDA 2019: opioidlerle solunum depresyonu) ---
+  { catA: 'GABAPENTINOID', catB: 'OPIOID', risk: 'high', message: 'Gabapentinoid (pregabalin/gabapentin) ve opioid birlikte solunum depresyonu riskini belirgin artırır.' },
+  { catA: 'GABAPENTINOID', catB: 'BENZODIAZEPINE', risk: 'medium', message: 'Gabapentinoid ve benzodiazepin birlikte sedasyonu ve solunum baskılanması riskini artırabilir.' },
+  // --- mTOR immünosüpresanlar (everolimus/sirolimus — dar terapötik CYP3A4/P-gp) ---
+  { catA: 'MTOR_IMMUNOSUPPRESSANT', catB: 'ANTIFUNGAL_SYSTEMIC', risk: 'high', message: 'Sistemik azol antifungaller everolimus/sirolimus düzeylerini katlar; toksisite ve derin immünosüpresyon riski.' },
+  { catA: 'MTOR_IMMUNOSUPPRESSANT', catB: 'MACROLIDE', risk: 'high', message: 'Makrolid antibiyotikler everolimus/sirolimus düzeylerini belirgin artırır; düzey takibi şarttır.' },
+  { catA: 'MTOR_IMMUNOSUPPRESSANT', catB: 'RIFAMYCIN', risk: 'high', message: 'Rifampisin everolimus/sirolimus düzeylerini düşürerek organ reddi riskine yol açabilir.' },
+  // --- Riociguat (FDA kara kutu: PDE5i ve nitratlarla kontrendike) ---
+  { catA: 'SGC_STIMULATOR', catB: 'PDE5_INHIBITOR', risk: 'critical', message: 'Riociguat ve PDE5 inhibitörü (sildenafil vb.) birlikte kullanımı kontrendikedir; yaşamı tehdit eden kan basıncı düşüşü olabilir.' },
+  { catA: 'SGC_STIMULATOR', catB: 'NITRATE', risk: 'critical', message: 'Riociguat ve nitrat birlikte kullanımı kontrendikedir; ağır hipotansiyon riski.' },
+  // --- Sülfonilüre × azol (CYP2C9 → hipoglisemi) ---
+  { catA: 'SULFONYLUREA', catB: 'ANTIFUNGAL_SYSTEMIC', risk: 'high', message: 'Azol antifungaller (flukonazol vb.) sülfonilürelerin yıkımını azaltarak ağır hipoglisemiye yol açabilir.' },
+  // --- ARNI (sakubitril/valsartan) × ACE inhibitörü: anjiyoödem, kontrendike ---
+  { catA: 'ARNI', catB: 'ACE_INHIBITOR', risk: 'critical', message: 'Sakubitril/valsartan ve ACE inhibitörü birlikte KULLANILMAZ; anjiyoödem riski. Geçişte 36 saat ara şarttır.' },
+  { catA: 'ARNI', catB: 'ACE_INHIBITOR_COMBO', risk: 'critical', message: 'Sakubitril/valsartan ve ACE inhibitörü birlikte KULLANILMAZ; anjiyoödem riski. Geçişte 36 saat ara şarttır.' },
+  // --- Levodopa × demir (şelasyon → emilim kaybı) ---
+  { catA: 'LEVODOPA', catB: 'IRON_SUPPLEMENT', risk: 'medium', message: 'Demir tuzları levodopanın emilimini azaltarak Parkinson tedavisinin etkisini zayıflatabilir; en az 2 saat arayla alın.' },
+  // --- Sempatomimetikler (psödoefedrin/efedrin/fenilefrin — soğuk algınlığı
+  // kombinasyonlarında yaygın; sınıf etiketi component-classes.json'dan gelir) ---
+  { catA: 'MAOI', catB: 'SYMPATHOMIMETIC', risk: 'critical', message: 'MAO inhibitörü ve burun açıcı sempatomimetik (psödoefedrin vb.) birlikte ani ve şiddetli kan basıncı yükselmesine (hipertansif kriz) yol açabilir. Soğuk algınlığı ilaçlarının içeriğini kontrol edin.' },
+  { catA: 'MAOI_A', catB: 'SYMPATHOMIMETIC', risk: 'high', message: 'Moklobemid ve sempatomimetik dekonjestanlar birlikte kan basıncını tehlikeli yükseltebilir.' },
+  { catA: 'MAOI_B', catB: 'SYMPATHOMIMETIC', risk: 'medium', message: 'MAO-B inhibitörü ve sempatomimetik dekonjestan birlikte kan basıncı yükselmesine yol açabilir; birlikte kullanmadan önce doktorunuza danışın.' },
   // --- Bitkiseller (emniyet ağı: adla eşleşmeyen ürün/il. formları için) ---
   // Ginkgo trombosit işlevini baskılayabilir → tüm kanama-riskli sınıflarla additif.
   { catA: 'HERBAL_GINKGO', catB: 'VITAMIN_K_ANTAGONIST', risk: 'high', message: 'Ginkgo biloba içeren ürünler warfarinle birlikte kanama riskini artırabilir; trombosit işlevi baskılanır.' },

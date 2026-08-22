@@ -15,7 +15,7 @@ import { isLowSystemicForm } from './formDetect.js';
 // ardından her alımda uygulanacak pratik talimatlar (kullanım şekli),
 // yaşam tarzı uyarıları sonra (araç, besin, takviye); 'general' (ani kesme,
 // süre sınırı, takip gereksinimi gibi sınıf uyarıları) en sonda.
-const TYPE_ORDER = { pregnancy: 0, allergy: 1, age: 2, administration: 3, driving: 4, food: 5, supplement: 6, general: 7 };
+const TYPE_ORDER = { pregnancy: 0, lactation: 1, allergy: 2, age: 3, administration: 4, driving: 5, food: 6, supplement: 7, general: 8 };
 const SEVERITY_ORDER = { critical: 0, high: 1, medium: 2, info: 3 };
 
 // Kayıt taraflarını ilaç tarafıyla aynı boru hattından geçirip önceden derle.

@@ -174,6 +174,24 @@
       "qt": "known",
       "source": "FDA etiketi (Propulsid) — QT/TdP nedeniyle kısıtlanmış kullanım"
     },
+    "psödoefedrin": {
+      "classes": [
+        "SYMPATHOMIMETIC"
+      ],
+      "source": "FDA etiketi (Sudafed) — MAO inhibitörleriyle kontrendikasyon uyarısı"
+    },
+    "efedrin": {
+      "classes": [
+        "SYMPATHOMIMETIC"
+      ],
+      "source": "FDA etiketi (efedrin sülfat) — MAOİ ile hipertansif kriz uyarısı"
+    },
+    "fenilefrin": {
+      "classes": [
+        "SYMPATHOMIMETIC"
+      ],
+      "source": "FDA OTC monografı (fenilefrin) — MAOİ uyarısı"
+    },
     "ginkgo biloba": {
       "classes": [
         "HERBAL_GINKGO"
@@ -197,6 +215,94 @@
         "STIMULANT_LAXATIVE"
       ],
       "source": "EMA HMPC Sennae folium monografı — kronik kullanımda hipokalemi uyarısı"
+    },
+    "metamizol": {
+      "classes": [
+        "PYRAZOLONE"
+      ],
+      "source": "EMA metamizol referral (PRAC 2018) — agranülositoz; WHO ATC N02BB02"
+    },
+    "pregabalin": {
+      "classes": [
+        "GABAPENTINOID"
+      ],
+      "source": "FDA Güvenlik Bildirimi 12/2019 — gabapentinoid + opioid/SSS baskılayıcı solunum depresyonu"
+    },
+    "gabapentin": {
+      "classes": [
+        "GABAPENTINOID"
+      ],
+      "source": "FDA Güvenlik Bildirimi 12/2019"
+    },
+    "everolimus": {
+      "classes": [
+        "MTOR_IMMUNOSUPPRESSANT"
+      ],
+      "source": "FDA etiketi (Afinitor/Zortress) — CYP3A4/P-gp substratı, dar terapötik"
+    },
+    "sirolimus": {
+      "classes": [
+        "MTOR_IMMUNOSUPPRESSANT"
+      ],
+      "source": "FDA etiketi (Rapamune)"
+    },
+    "riosiguat": {
+      "classes": [
+        "SGC_STIMULATOR"
+      ],
+      "source": "FDA etiketi (Adempas) — PDE5 inhibitörleri ve nitratlarla kontrendike (kara kutu)"
+    },
+    "metilen mavisi": {
+      "classes": [
+        "MAOI"
+      ],
+      "source": "FDA Güvenlik Bildirimi 07/2011 — metilen mavisi güçlü MAO-A inhibitörü, serotonerjiklerle serotonin sendromu"
+    },
+    "sakubitril": {
+      "classes": [
+        "ARNI"
+      ],
+      "source": "FDA etiketi (Entresto) — ACE inhibitörüyle kontrendike (anjiyoödem, 36 saat arayla)"
+    },
+    "levodopa": {
+      "classes": [
+        "LEVODOPA"
+      ],
+      "source": "FDA etiketi (Sinemet) — demir tuzları emilimi azaltır"
+    },
+    "potasyum klorür": {
+      "classes": [
+        "POTASSIUM_SUPPLEMENT"
+      ],
+      "source": "FDA etiketi (K-Dur) — RAAS inhibitörleri/K-tutucu diüretiklerle hiperkalemi"
+    },
+    "ziprasidon": {
+      "qt": "known",
+      "source": "FDA etiketi (Geodon) — QT uzaması uyarısı"
+    },
+    "sertindol": {
+      "qt": "known",
+      "source": "EMA etiketi (Serdolect) — doz bağımlı QT uzaması"
+    },
+    "lurasidon": {
+      "qt": "possible",
+      "source": "FDA etiketi (Latuda)"
+    },
+    "paliperidon": {
+      "qt": "possible",
+      "source": "FDA etiketi (Invega)"
+    },
+    "trazodon": {
+      "qt": "possible",
+      "source": "FDA etiketi (Desyrel) — pazarlama sonrası QT/TdP"
+    },
+    "solifenasin": {
+      "qt": "possible",
+      "source": "FDA etiketi (VESIcare) — doz bağımlı QT"
+    },
+    "tolterodin": {
+      "qt": "possible",
+      "source": "FDA etiketi (Detrol)"
     }
   }
 }
