@@ -422,6 +422,16 @@ const DEFAULT_ACTIONS = {
   medium: 'Birlikte kullanım gerekiyorsa doktor veya eczacı takibi önerilir.',
 };
 
+// Kanıt düzeyi (interactions.json `evidence`) → kullanıcıya okunur etiket.
+// Kaynak veride kayıtlı ama şimdiye dek yalnız yazdırma raporunda görünüyordu;
+// interaktif kartta da göstermek "her kural kaynaklıdır" iddiasını görünür kılar.
+const EVIDENCE_LABELS = {
+  label: 'Ürün etiketi (FDA/EMA)',
+  guideline: 'Klinik kılavuz',
+  review: 'Derleme makale',
+  expert: 'Uzman değerlendirmesi',
+};
+
 function InteractionCard({ interaction }) {
   const config = riskConfig[interaction.risk] || riskConfig.unknown;
   const action = interaction.action || DEFAULT_ACTIONS[interaction.risk] || null;
@@ -455,6 +465,16 @@ function InteractionCard({ interaction }) {
             <p className="text-[12.5px] mt-1.5">
               <span className="font-semibold text-text-primary">Ne yapmalı: </span>
               <span className="text-text-secondary">{action}</span>
+            </p>
+          )}
+          {(interaction.source || interaction.evidence) && (
+            <p className="text-[11px] text-text-muted mt-2 pt-2 border-t border-border/60 leading-relaxed">
+              {interaction.evidence && (
+                <span>Kanıt: {EVIDENCE_LABELS[interaction.evidence] || interaction.evidence}</span>
+              )}
+              {interaction.evidence && interaction.source && <span> · </span>}
+              {interaction.source && <span>Kaynak: {interaction.source}</span>}
+              {interaction.ruleId && <span className="font-mono text-text-muted"> ({interaction.ruleId})</span>}
             </p>
           )}
         </div>

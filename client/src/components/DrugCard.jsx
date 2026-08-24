@@ -162,7 +162,8 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
     setShowFullDesc(true);
     setExpandedSection(chip.sectionIndex);
     requestAnimationFrame(() => {
-      document.getElementById(`desc-section-${chip.sectionIndex}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // scrollIntoView?.() — ?. hem elemanı hem metodu korur (jsdom'da metod yok).
+      document.getElementById(`desc-section-${chip.sectionIndex}`)?.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
     });
   };
 

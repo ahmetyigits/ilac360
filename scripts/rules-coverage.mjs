@@ -57,7 +57,12 @@ if (!isMain) {
 
 function runCli() {
 const raw = JSON.parse(readFileSync(join(ROOT, 'data', 'ilaclar-dataset.json'), 'utf-8'));
-const drugs = raw[2].data;
+// Takviye kataloğu da aramada kalıcı olarak yer alır (build'de id 9000001+ ile
+// enjekte edilir); bu yüzden yalnız takviyede geçen maddeler (ör. sarı kantaron)
+// de kapsam havuzuna girmeli. ingredients alanı Active_Ingredient'e eşlenir.
+const supplements = JSON.parse(readFileSync(join(ROOT, 'data', 'supplement-products.json'), 'utf-8'));
+const supplementDrugs = (supplements.products || []).map((p) => ({ Active_Ingredient: p.ingredients }));
+const drugs = raw[2].data.concat(supplementDrugs);
 const rules = JSON.parse(readFileSync(join(ROOT, 'data', 'interactions.json'), 'utf-8'));
 const synonyms = JSON.parse(readFileSync(join(ROOT, 'data', 'ingredient-synonyms.json'), 'utf-8'));
 const { coveragePct, bothMatched, componentCount, unmatchedSides, lookup } = computeCoverage(drugs, rules, synonyms);

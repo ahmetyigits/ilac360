@@ -69,6 +69,12 @@ const COMPONENT_ATC = {
   'indometazin': 'M01AB01',
   'eritromisin': 'J01FA01',
   'psödoefedrin': 'R01BA02',
+  // Faz 2.4 — ATC="0" kör noktası daraltma: sinonim (morfin/enoksaparin) +
+  // override (klordiazepoksit/amilorid) ile kazanılan klinik-önemli kapsam.
+  'morfin': 'N02AA01',
+  'enoksaparin': 'B01AB05',
+  'klordiazepoksit': 'N05BA02',
+  'amilorid': 'C03DB01',
 };
 
 function analyze(...names) {
@@ -234,6 +240,87 @@ describe('additive-QT modeli', () => {
     const qtResults = results.filter((r) => r.message.includes('QT'));
     expect(qtResults.length).toBeGreaterThan(0);
     expect(qtResults.some((r) => r.message.includes('3 ilaç'))).toBe(true);
+  });
+});
+
+describe('additive-hipotansiyon modeli', () => {
+  // Aralarında SPESİFİK kural olmayan BP-düşüren ajanlar (ACE/CCB/tiyazid/beta);
+  // beta×CCB spesifik kuralı bilinçli dahil — o pair spesifik, diğerleri additif.
+  const BP_DRUGS = [
+    { ID: '701', Product_Name: 'DELIX 5 MG TABLET', Active_Ingredient: 'Ramipril', ATC_code: 'C09AA05' },
+    { ID: '702', Product_Name: 'NORVASC 5 MG TABLET', Active_Ingredient: 'Amlodipin', ATC_code: 'C08CA01' },
+    { ID: '703', Product_Name: 'ESIDREX 25 MG TABLET', Active_Ingredient: 'Hidroklorotiyazid', ATC_code: 'C03AA03' },
+    { ID: '704', Product_Name: 'BELOC 50 MG TABLET', Active_Ingredient: 'Metoprolol', ATC_code: 'C07AB02' },
+    { ID: '705', Product_Name: 'ZEYTIN YAPRAGI EKSTRESI KAPSUL', Active_Ingredient: 'Zeytin Yaprağı', ATC_code: '0' },
+    { ID: '706', Product_Name: 'PAROL 500 MG TABLET', Active_Ingredient: 'Parasetamol', ATC_code: 'N02BE01' },
+  ];
+  beforeAll(() => setDrugsForTest(BP_DRUGS));
+  afterAll(() => setDrugsForTest(FIXTURE_DRUGS));
+
+  it('2 BP ajanı additif-hipotansiyon ÜRETMEZ (ikili tedavi standarttır)', () => {
+    const results = analyze('DELIX 5 MG TABLET', 'NORVASC 5 MG TABLET');
+    expect(results.every((r) => !/kan basıncını düşürebilen/.test(r.message))).toBe(true);
+  });
+
+  it('3 BP ajanı → kümülatif düşük riskli hipotansiyon uyarısı ("3 ürün")', () => {
+    const results = analyze('DELIX 5 MG TABLET', 'NORVASC 5 MG TABLET', 'ESIDREX 25 MG TABLET');
+    const bp = results.filter((r) => /kan basıncını düşürebilen 3 ürün/.test(r.message));
+    expect(bp.length).toBeGreaterThan(0);
+    expect(bp.every((r) => r.risk === 'low')).toBe(true);
+  });
+
+  it('bitkisel (zeytin yaprağı) BP ajanı olarak sayılır', () => {
+    const results = analyze('DELIX 5 MG TABLET', 'NORVASC 5 MG TABLET', 'ZEYTIN YAPRAGI EKSTRESI KAPSUL');
+    expect(results.some((r) => /kan basıncını düşürebilen 3 ürün/.test(r.message))).toBe(true);
+  });
+
+  it('4+ BP ajanında risk orta seviyeye yükselir ("4 ürün")', () => {
+    const results = analyze('DELIX 5 MG TABLET', 'NORVASC 5 MG TABLET', 'ESIDREX 25 MG TABLET', 'BELOC 50 MG TABLET');
+    const bp = results.filter((r) => /kan basıncını düşürebilen 4 ürün/.test(r.message));
+    expect(bp.length).toBeGreaterThan(0);
+    expect(bp.every((r) => r.risk === 'medium')).toBe(true);
+  });
+
+  it('BP-nötr ilaç (parasetamol) sayıma girmez (2 BP + 1 nötr tetiklemez)', () => {
+    const results = analyze('DELIX 5 MG TABLET', 'NORVASC 5 MG TABLET', 'PAROL 500 MG TABLET');
+    expect(results.every((r) => !/kan basıncını düşürebilen/.test(r.message))).toBe(true);
+  });
+});
+
+describe('additive-serotonin modeli', () => {
+  // Aralarında SPESİFİK kural OLMAYAN serotonerjik çiftler kümülatif sayaca düşer:
+  // OPIOID×TRIPTAN, SNRI×OPIOID, SEROTONERGIC_SUPPLEMENT×OPIOID kuralsızdır;
+  // SSRI×TRIPTAN / SSRI×OPIOID vb. zaten spesifik kuralla yakalanır.
+  const SERO_DRUGS = [
+    { ID: '801', Product_Name: 'LUSTRAL 50 MG TABLET', Active_Ingredient: 'Sertralin Hidroklorür', ATC_code: 'N06AB06' },
+    { ID: '802', Product_Name: 'CONTRAMAL 50 MG KAPSUL', Active_Ingredient: 'Tramadol Hidroklorür', ATC_code: 'N02AX02' },
+    { ID: '803', Product_Name: 'IMIGRAN 50 MG TABLET', Active_Ingredient: 'Sumatriptan Süksinat', ATC_code: 'N02CC01' },
+    { ID: '804', Product_Name: '5-HTP KAPSUL', Active_Ingredient: '5-HTP', ATC_code: '0' },
+    { ID: '805', Product_Name: 'PAROL 500 MG TABLET', Active_Ingredient: 'Parasetamol', ATC_code: 'N02BE01' },
+  ];
+  beforeAll(() => setDrugsForTest(SERO_DRUGS));
+  afterAll(() => setDrugsForTest(FIXTURE_DRUGS));
+
+  it('2 serotonerjik ajan kümülatif uyarı ÜRETMEZ', () => {
+    const results = analyze('CONTRAMAL 50 MG KAPSUL', 'IMIGRAN 50 MG TABLET');
+    expect(results.every((r) => !/serotonin etkisini artırabilen/.test(r.message))).toBe(true);
+  });
+
+  it('3 serotonerjik ajan → kümülatif serotonin uyarısı ("3 ilaç/ürün", orta risk)', () => {
+    const results = analyze('LUSTRAL 50 MG TABLET', 'CONTRAMAL 50 MG KAPSUL', 'IMIGRAN 50 MG TABLET');
+    const sero = results.filter((r) => /serotonin etkisini artırabilen 3 ilaç/.test(r.message));
+    expect(sero.length).toBeGreaterThan(0);
+    expect(sero.every((r) => r.risk === 'medium')).toBe(true);
+  });
+
+  it('5-HTP takviyesi serotonerjik ajan olarak sayılır', () => {
+    const results = analyze('CONTRAMAL 50 MG KAPSUL', 'IMIGRAN 50 MG TABLET', '5-HTP KAPSUL');
+    expect(results.some((r) => /serotonin etkisini artırabilen 3/.test(r.message))).toBe(true);
+  });
+
+  it('serotonerjik opioid (tramadol) sayılır ama nötr ilaç (parasetamol) sayılmaz', () => {
+    const results = analyze('CONTRAMAL 50 MG KAPSUL', 'IMIGRAN 50 MG TABLET', 'PAROL 500 MG TABLET');
+    expect(results.every((r) => !/serotonin etkisini artırabilen/.test(r.message))).toBe(true);
   });
 });
 
@@ -555,6 +642,23 @@ describe('İlaç-İlaç kanonik çiftler — bu liste HER ZAMAN uyarı vermeli',
     ['Alıç', '0', 'Digoksin', 'C01AA05', 'medium'],
     ['Meyan Kökü', '0', 'Digoksin', 'C01AA05', 'medium'],
     ['Meyan Kökü', '0', 'Furosemid', 'C03CA01', 'medium'],
+    // --- Yeni takviye sınıfları (kürasyon turu 55→315 sonrası boşluk kapatma) ---
+    ['Çörek Otu', '0', 'Glimepirid', 'A10BB12', 'medium'],                                               // Nigella → hipoglisemi (sülfonilüre)
+    ['Çörek Otu', '0', 'İnsülin Glarjin', 'A10AE04', 'medium'],                                          // Nigella → hipoglisemi (insülin)
+    ['At Kestanesi', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],                                       // eskülin/kumarin → kanama
+    ['Reishi', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],                                             // reishi → kanama
+    ['Bromelain', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],                                          // bromelain → kanama
+    ['Astragalus', '0', 'Takrolimus', 'L04AD02', 'medium'],                                              // immün uyarım × kalsinörin
+    ['Spirulina', '0', 'Everolimus', 'L04AA18', 'medium'],                                               // immün uyarım × mTOR
+    ['Aşvaganda', '0', 'Levotiroksin Sodyum', 'H03AA01', 'medium'],                                      // aşvaganda × tiroid hormonu
+    ['Aşvaganda', '0', 'Diazepam', 'N05BA01', 'medium'],                                                 // aşvaganda × BZD (sedatif ekseni)
+    ['Kelp', '0', 'Levotiroksin Sodyum', 'H03AA01', 'medium'],                                           // kelp iyot × tiroid hormonu
+    // --- Faz 2.4: ATC="0" kör noktası daraltma (sinonim + override kapsamı) ---
+    ['morphine', '0', 'Diazepam', 'N05BA01', 'critical'],                                                // morphine→morfin (OPIOID) × BZD
+    ['enoxaparin', '0', 'Asetilsalisilik Asit', 'N02BA01', 'high'],                                      // enoxaparin→enoksaparin (HEPARIN) × aspirin
+    ['klordiazepoksit', '0', 'Tramadol Hidroklorür', 'N02AX02', 'critical'],                             // klordiazepoksit (BZD, override) × opioid
+    ['amilorid', '0', 'Ramipril', 'C09AA05', 'high'],                                                    // amilorid (K-tutucu, override) × ACE → hiperkalemi
+    ['Çuha Çiçeği Yağı', '0', 'Varfarin Sodyum', 'B01AA03', 'medium'],                                   // Faz 2.6: evening primrose → kanama (HERBAL_ANTIPLATELET)
   ];
   const RISK_AT_LEAST = { critical: 0, high: 1, medium: 2 };
 

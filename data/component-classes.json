@@ -3,30 +3,26 @@
   "components": {
     "venlafaksin": {
       "classes": [
-        "SNRI",
-        "SEROTONERGIC"
+        "SNRI"
       ],
       "qt": "possible",
       "source": "FDA etiketi (Effexor XR)"
     },
     "duloksetin": {
       "classes": [
-        "SNRI",
-        "SEROTONERGIC"
+        "SNRI"
       ],
       "source": "FDA etiketi (Cymbalta)"
     },
     "milnasipran": {
       "classes": [
-        "SNRI",
-        "SEROTONERGIC"
+        "SNRI"
       ],
       "source": "FDA etiketi (Savella)"
     },
     "desvenlafaksin": {
       "classes": [
-        "SNRI",
-        "SEROTONERGIC"
+        "SNRI"
       ],
       "source": "FDA etiketi (Pristiq)"
     },
@@ -34,13 +30,13 @@
       "classes": [
         "SEROTONERGIC"
       ],
-      "source": "FDA etiketi (Ultram) — serotonin sendromu uyarısı"
+      "source": "FDA etiketi (Ultram) — serotonin sendromu uyarısı; OPIOID sınıfı ATC'den gelir (SEROTONERGIC additif-serotonin sayacında kullanılır)"
     },
     "fentanil": {
       "classes": [
         "SEROTONERGIC"
       ],
-      "source": "FDA etiketi (Duragesic) — serotonin sendromu uyarısı"
+      "source": "FDA etiketi (Duragesic) — serotonin sendromu uyarısı; OPIOID sınıfı ATC'den gelir (SEROTONERGIC additif-serotonin sayacında kullanılır)"
     },
     "amiodaron": {
       "qt": "known",
@@ -75,8 +71,11 @@
       "source": "FDA etiketi (Kytril)"
     },
     "metadon": {
+      "classes": [
+        "SEROTONERGIC"
+      ],
       "qt": "known",
-      "source": "FDA etiketi (Dolophine) — QT/TdP kara kutu"
+      "source": "FDA etiketi (Dolophine) — QT/TdP kara kutu; serotonerjik aktivite (SEROTONERGIC additif-serotonin sayacında kullanılır)"
     },
     "moksifloksasin": {
       "qt": "known",
@@ -441,6 +440,79 @@
         "STIMULANT_LAXATIVE"
       ],
       "source": "FDA OTC laksatif monografı — uyarıcı laksatif, kronik kullanımda hipokalemi"
+    },
+    "çörek otu": {
+      "classes": [
+        "HYPOGLYCEMIC_HERBAL"
+      ],
+      "source": "Zhang ve ark. Front Nutr 2022;9:977756 (RCT meta-analizi) — Nigella sativa açlık kan şekerini ve HbA1c'yi belirgin düşürür; antidiyabetiklerle additif hipoglisemi"
+    },
+    "saw palmetto": {
+      "classes": [
+        "HERBAL_ANTIPLATELET"
+      ],
+      "source": "MSKCC About Herbs — Saw Palmetto: eklenen antikoagülan etki, uzamış kanama zamanı olgu bildirimleri"
+    },
+    "bromelain": {
+      "classes": [
+        "HERBAL_ANTIPLATELET"
+      ],
+      "source": "Natural Medicines / RxList Bromelain — insan trombosit agregasyonunu azaltır; olası CYP2C9 inhibisyonu, warfarinle kanama riski"
+    },
+    "at kestanesi": {
+      "classes": [
+        "HERBAL_ANTIPLATELET"
+      ],
+      "source": "MSKCC About Herbs — Horse Chestnut: eskülin (hidroksikumarin) additif antikoagülan etki, kanama riski"
+    },
+    "reishi": {
+      "classes": [
+        "HERBAL_ANTIPLATELET"
+      ],
+      "source": "MSKCC About Herbs — Reishi: INR/PT/APTT uzaması, trombosit agregasyonunda azalma; warfarin etkileşimi olgu bildirimi"
+    },
+    "astragalus": {
+      "classes": [
+        "IMMUNOSTIMULANT_HERBAL"
+      ],
+      "source": "NIH NCCIH Astragalus — bağışıklığı uyarır; immünosüpresan ilaçlarla etkileşebilir"
+    },
+    "spirulina": {
+      "classes": [
+        "IMMUNOSTIMULANT_HERBAL"
+      ],
+      "source": "MSKCC About Herbs — Spirulina: immün uyarıcı; immünosüpresif tedaviyi zayıflatabilir (teorik/olgu düzeyi)"
+    },
+    "aşvaganda": {
+      "classes": [
+        "SEDATIVE_HERBAL",
+        "THYROID_STIMULATING_HERBAL"
+      ],
+      "source": "NIH NCCIH Ashwagandha — sedatiflerle etkileşim; TSH'yi düşürüp T3/T4'ü yükseltir, tiroid ilaçlarıyla additif"
+    },
+    "kelp": {
+      "classes": [
+        "IODINE_THYROID"
+      ],
+      "source": "NIH ODS Iodine — yüksek iyot yükü tiroid işlevini bozabilir (hipo/hipertiroidi); tiroid ilacı ihtiyacını değiştirir"
+    },
+    "zeytin yapraği": {
+      "classes": [
+        "HYPOTENSIVE_HERBAL"
+      ],
+      "source": "Susalit ve ark. Phytomedicine 2011;18:251 (RCT) — zeytin yaprağı ekstresi kan basıncını belirgin düşürür (kaptoprille karşılaştırılabilir); additif hipotansiyon"
+    },
+    "l-arginin": {
+      "classes": [
+        "HYPOTENSIVE_HERBAL"
+      ],
+      "source": "NIH ODS / MSKCC L-Arginine — nitrik oksit öncülü, vazodilatasyon yoluyla kan basıncını düşürebilir; antihipertansiflerle additif"
+    },
+    "çuha çiçeği yaği": {
+      "classes": [
+        "HERBAL_ANTIPLATELET"
+      ],
+      "source": "MSKCC About Herbs — Evening Primrose Oil: GLA trombosit agregasyonunu azaltır, uzamış kanama zamanı; warfarin/antiplateletle additif kanama (garlic/ginger anchor'ı)"
     }
   }
 }

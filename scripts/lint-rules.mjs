@@ -6,7 +6,7 @@ import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { normalizeRuleIngredient, buildSynonymLookup } from '../client/src/data/ingredientMatcher.js';
-import { ATC_CATEGORY_MAP, CATEGORY_INTERACTIONS } from '../client/src/data/categoryRules.js';
+import { ATC_CATEGORY_MAP, CATEGORY_INTERACTIONS, BP_LOWERING_CATEGORIES, SEROTONERGIC_CATEGORIES } from '../client/src/data/categoryRules.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -114,9 +114,14 @@ CATEGORY_INTERACTIONS.forEach((rule, i) => {
   }
 });
 
-// Hiçbir kuralda geçmeyen (ölü) kategoriler — hata değil, uyarı
+// Hiçbir kuralda geçmeyen (ölü) kategoriler — hata değil, uyarı.
+// Additive-model kategorileri (BP + serotonin sayaçları) motorun sayacıyla
+// tüketilir, sınıf çifti kuralı gerektirmez — QT etiketleri gibi ölü sayılmaz.
+const additiveModelCategories = new Set([...BP_LOWERING_CATEGORIES, ...SEROTONERGIC_CATEGORIES]);
 for (const cat of mappedCategories) {
-  if (!referencedCategories.has(cat)) warnings.push(`ölü kategori (hiçbir sınıf kuralında geçmiyor): ${cat}`);
+  if (!referencedCategories.has(cat) && !additiveModelCategories.has(cat)) {
+    warnings.push(`ölü kategori (hiçbir sınıf kuralında geçmiyor): ${cat}`);
+  }
 }
 
 console.log(`Çift kuralı: ${rules.length} · Sınıf kuralı: ${CATEGORY_INTERACTIONS.length} · Kategori: ${mappedCategories.size}`);
