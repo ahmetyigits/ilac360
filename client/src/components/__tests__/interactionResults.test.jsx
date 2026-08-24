@@ -46,3 +46,24 @@ describe('InteractionResults — bilinmeyen sonuç görünürlüğü', () => {
     expect(screen.getByText('İLAÇ A1')).toBeInTheDocument();
   });
 });
+
+describe('InteractionResults — kaynak/kanıt görünürlüğü', () => {
+  const sourcedCard = {
+    drug1: 'COUMADIN', drug2: 'ASPIRIN', id1: '1', id2: '2',
+    risk: 'critical', message: 'Ciddi kanama riski.', details: 'Mekanizma metni.',
+    evidence: 'label', source: 'FDA etiketi (Coumadin)', ruleId: 'R-0002',
+  };
+
+  it('kaynak/kanıt taşıyan kartta kanıt düzeyi, kaynak ve kural kimliği görünür', () => {
+    render(<InteractionResults interactions={[sourcedCard]} unknownDrugs={[]} onPrintBlocked={vi.fn()} />);
+    expect(screen.getByText(/Kanıt: Ürün etiketi/i)).toBeInTheDocument();
+    expect(screen.getByText(/Kaynak: FDA etiketi \(Coumadin\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/R-0002/)).toBeInTheDocument();
+  });
+
+  it('kaynak/kanıt taşımayan kartta kaynak satırı hiç render edilmez', () => {
+    render(<InteractionResults interactions={[highCard]} unknownDrugs={[]} onPrintBlocked={vi.fn()} />);
+    expect(screen.queryByText(/Kanıt:/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Kaynak:/i)).not.toBeInTheDocument();
+  });
+});

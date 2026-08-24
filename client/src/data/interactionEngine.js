@@ -10,6 +10,8 @@ import { loadFoods, getFoodByKey, setFoodsForTest } from './foodStore.js';
 import { detectForm, isLowSystemicForm } from './formDetect.js';
 import {
   CATEGORY_INTERACTIONS,
+  BP_LOWERING_CATEGORIES,
+  SEROTONERGIC_CATEGORIES,
   getCategory,
   getAllCategories,
   checkCategoryInteraction,
@@ -255,6 +257,11 @@ export function analyzeInteractions(drugRefs) {
     }
     const fullCats = new Set([...ownCats, ...componentCats]);
 
+    // Kan basıncı düşüren ajan mı? Topikal/oftalmik formda (QT gibi) sayılmaz.
+    const bpLowering = !lowSystemic && [...activeCats].some((c) => BP_LOWERING_CATEGORIES.has(c));
+    // Serotonerjik ajan mı? (SSRI/SNRI/MAOİ/triptan/serotonerjik-opioid/5-HTP...)
+    const serotonergic = !lowSystemic && [...activeCats].some((c) => SEROTONERGIC_CATEGORIES.has(c));
+
     return {
       name: name || drug?.Product_Name,
       drug,
@@ -262,6 +269,8 @@ export function analyzeInteractions(drugRefs) {
       lowSystemic,
       // Topikal/oftalmik formda QT katkısı sayılmaz
       qtLevel: lowSystemic ? null : qtLevel,
+      bpLowering,
+      serotonergic,
       components: new Set(components),
       atcCode: drug?.ATC_code || null,
       categories: [...activeCats],
@@ -274,6 +283,12 @@ export function analyzeInteractions(drugRefs) {
   // Additive-QT modeli: analizdeki QT uzatan ajan sayısı — ≥3 ajanda çift
   // bazlı uyarılar bir seviye yükselir (toplam yük artar).
   const qtAgentCount = drugData.filter((d) => d.qtLevel).length;
+  // Additive-hipotansiyon: kan basıncı düşüren ajan sayısı — 3+ ajanda kümülatif
+  // tansiyon düşüşü/ortostatik hipotansiyon uyarısı üretilir.
+  const bpAgentCount = drugData.filter((d) => d.bpLowering).length;
+  // Additive-serotonin: serotonerjik ajan sayısı — 3+ ajanda kümülatif serotonin
+  // sendromu uyarısı üretilir (spesifik çift kuralı olmayan çiftlerde).
+  const serotonergicAgentCount = drugData.filter((d) => d.serotonergic).length;
 
   for (let i = 0; i < drugData.length; i++) {
     for (let j = i + 1; j < drugData.length; j++) {
@@ -425,6 +440,40 @@ export function analyzeInteractions(drugRefs) {
             ? `Listenizde QT aralığını uzatabilen ${qtAgentCount} ilaç var. Birlikte kullanım ciddi kalp ritim bozukluğu (Torsades de Pointes) riskini artırır.`
             : 'Her iki ilaç da QT aralığını uzatabilir. Birlikte kullanım kalp ritim bozukluğu riskini artırabilir; EKG takibi gerekebilir.',
           details: `${a.drug.Active_Ingredient?.trim() || '—'} (QT: ${a.qtLevel === 'known' ? 'bilinen' : 'olası'}) ↔ ${b.drug.Active_Ingredient?.trim() || '—'} (QT: ${b.qtLevel === 'known' ? 'bilinen' : 'olası'})`,
+        });
+        continue;
+      }
+
+      // Additive-serotonin: 3+ serotonerjik ajan yığıldığında (ve daha spesifik
+      // bir kural yukarıda eşleşmediyse) kümülatif serotonin sendromu uyarısı.
+      // En tehlikeli çiftler (SSRI×MAOİ vb.) zaten yukarıda yakalanır; bu dal
+      // kuralların kaçırdığı yükü (ör. tramadol×triptan) 3+ ajanda bildirir.
+      if (serotonergicAgentCount >= 3 && a.serotonergic && b.serotonergic) {
+        results.push({
+          drug1: a.name,
+          drug2: b.name,
+          id1: a.drug.ID,
+          id2: b.drug.ID,
+          risk: 'medium',
+          message: `Listenizde serotonin etkisini artırabilen ${serotonergicAgentCount} ilaç/ürün var. Birlikte kullanım serotonin sendromu (ajitasyon, titreme, ateş, kalp hızında artış) riskini artırabilir; belirti görülürse hekime başvurun.`,
+          details: `${a.drug.Active_Ingredient?.trim() || a.name} ↔ ${b.drug.Active_Ingredient?.trim() || b.name}`,
+        });
+        continue;
+      }
+
+      // Additive-hipotansiyon: 3+ kan basıncı düşüren ajan yığıldığında (ve daha
+      // spesifik bir kural yukarıda eşleşmediyse) kümülatif tansiyon düşüşü uyarısı.
+      // İkili kombinasyon uyarılmaz — ikili/üçlü antihipertansif tedavi çoğu zaman
+      // bilinçli ve guideline'lıdır; asıl risk polifarmasi (ortostatik hipotansiyon/düşme).
+      if (bpAgentCount >= 3 && a.bpLowering && b.bpLowering) {
+        results.push({
+          drug1: a.name,
+          drug2: b.name,
+          id1: a.drug.ID,
+          id2: b.drug.ID,
+          risk: bpAgentCount >= 4 ? 'medium' : 'low',
+          message: `Listenizde kan basıncını düşürebilen ${bpAgentCount} ürün var. Birlikte kullanım tansiyonu fazla düşürebilir; özellikle ayağa kalkarken baş dönmesi/sersemlik (ortostatik hipotansiyon) ve düşme riskine dikkat edin.`,
+          details: `${a.drug.Active_Ingredient?.trim() || a.name} ↔ ${b.drug.Active_Ingredient?.trim() || b.name}`,
         });
         continue;
       }

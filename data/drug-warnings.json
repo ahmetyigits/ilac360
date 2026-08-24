@@ -204,6 +204,9 @@
     "match": {
       "ingredients": [
         "warfarin"
+      ],
+      "atcPrefixes": [
+        "B01AA"
       ]
     },
     "systemicOnly": true,

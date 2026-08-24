@@ -126,6 +126,28 @@ export function getAllCategories(atcCode) {
   return cats;
 }
 
+// Additive-hipotansiyon modeli (interactionEngine): kan basıncını düşüren
+// kategoriler. 3+ ajan yığıldığında kümülatif tansiyon düşüşü/ortostatik
+// hipotansiyon uyarısı üretilir (QT sayacının tansiyon karşılığı). İkili
+// kombinasyon uyarılmaz — ikili/üçlü antihipertansif tedavi çoğu zaman bilinçli.
+export const BP_LOWERING_CATEGORIES = new Set([
+  'ACE_INHIBITOR', 'ACE_INHIBITOR_COMBO', 'ARB', 'ARB_COMBO',
+  'BETA_BLOCKER', 'CALCIUM_CHANNEL_BLOCKER',
+  'THIAZIDE_DIURETIC', 'LOOP_DIURETIC', 'POTASSIUM_SPARING_DIURETIC',
+  'ANTIHYPERTENSIVE', 'NITRATE', 'ALPHA_BLOCKER', 'PDE5_INHIBITOR', 'ARNI',
+  'HYPOTENSIVE_HERBAL',
+]);
+
+// Additive-serotonin modeli (interactionEngine): serotonerjik ajan sınıfları.
+// 3+ ajan yığıldığında (spesifik çift kuralı yoksa) kümülatif serotonin sendromu
+// uyarısı üretilir. En tehlikeli çiftler (SSRI×MAOİ vb.) zaten spesifik kuralla
+// yakalanır; sayaç bu kuralların KAÇIRDIĞI yükü (ör. tramadol×triptan) yakalar.
+// 'SEROTONERGIC' etiketi serotonerjik opioidlere aittir (tüm opioidler değil).
+export const SEROTONERGIC_CATEGORIES = new Set([
+  'SSRI', 'SNRI', 'TCA', 'MAOI', 'MAOI_A', 'MAOI_B', 'TRIPTAN', 'LINEZOLID',
+  'SEROTONERGIC_SUPPLEMENT', 'HYPERICUM', 'SEROTONERGIC',
+]);
+
 export const CATEGORY_INTERACTIONS = [
   { catA: 'NSAID', catB: 'NSAID', risk: 'high', message: 'İki NSAID birlikte kullanımı gastrointestinal kanama riskini önemli ölçüde artırır.' },
   { catA: 'NSAID', catB: 'ANTIPLATELET', risk: 'high', message: 'NSAID ve antiplatelet birlikte kullanımı kanama riskini artırır.' },
@@ -429,6 +451,20 @@ export const CATEGORY_INTERACTIONS = [
   { catA: 'STIMULANT_LAXATIVE', catB: 'CARDIAC_GLYCOSIDE', risk: 'medium', message: 'Uyarıcı laksatiflerin (sinameki) kronik kullanımı hipokalemiye yol açarak digoksin toksisitesi riskini artırır.' },
   { catA: 'STIMULANT_LAXATIVE', catB: 'LOOP_DIURETIC', risk: 'low', message: 'Uyarıcı laksatif ve diüretik birlikte potasyum kaybını artırabilir.' },
   { catA: 'STIMULANT_LAXATIVE', catB: 'THIAZIDE_DIURETIC', risk: 'low', message: 'Uyarıcı laksatif ve diüretik birlikte potasyum kaybını artırabilir.' },
+  // --- Kanama-riskli bitkisel takviyeler (saw palmetto, bromelain, at kestanesi,
+  // reishi): trombosit işlevi/hidroksikumarin ekseninde — GARLIC/GINGER anchor'ıyla
+  // aynı profil (warfarin medium, antiplatelet low). Kaynaklar component-classes.json. ---
+  { catA: 'HERBAL_ANTIPLATELET', catB: 'VITAMIN_K_ANTAGONIST', risk: 'medium', message: 'Saw palmetto, bromelain, at kestanesi veya reishi gibi bitkisel takviyeler warfarinle birlikte kanama riskini artırabilir; INR takibi önerilir.' },
+  { catA: 'HERBAL_ANTIPLATELET', catB: 'ANTIPLATELET', risk: 'low', message: 'Bu bitkisel takviyeler (saw palmetto, bromelain, at kestanesi, reishi) antiplatelet ilaçlarla kanama eğilimini hafif artırabilir.' },
+  // --- İmmün uyarıcı bitkiseller (astragalus, spirulina): ekinezya gibi
+  // immünosüpresif tedaviyi zayıflatabilir. ---
+  { catA: 'IMMUNOSTIMULANT_HERBAL', catB: 'CALCINEURIN', risk: 'medium', message: 'Astragalus/spirulina gibi bağışıklığı uyaran bitkiseller siklosporin/takrolimus tedavisinin etkisini azaltabilir.' },
+  { catA: 'IMMUNOSTIMULANT_HERBAL', catB: 'MTOR_IMMUNOSUPPRESSANT', risk: 'medium', message: 'Astragalus/spirulina gibi bağışıklığı uyaran bitkiseller everolimus/sirolimus tedavisinin etkisini azaltabilir.' },
+  // --- Aşvaganda: TSH'yi düşürüp tiroid hormonunu yükseltir → levotiroksinle additif.
+  // (Sedasyon ekseni SEDATIVE_HERBAL sınıfından gelir.) ---
+  { catA: 'THYROID_STIMULATING_HERBAL', catB: 'THYROID_HORMONE', risk: 'medium', message: 'Aşvaganda tiroid hormonu düzeylerini yükseltebilir; levotiroksinle birlikte tiroid fonksiyonu izlenmeli, tirotoksikoz riskine dikkat edilmelidir.' },
+  // --- Kelp/deniz yosunu: yüksek iyot yükü tiroid işlevini bozar. ---
+  { catA: 'IODINE_THYROID', catB: 'THYROID_HORMONE', risk: 'medium', message: 'Kelp (deniz yosunu) yüksek iyot içerir; tiroid işlevini bozarak levotiroksin ihtiyacını değiştirebilir. Tiroid ilacı kullananlar kaçınmalıdır.' },
 ];
 
 // Çok-kategorili ürünlerde (kombinasyonlar) birden çok kural eşleşebilir;

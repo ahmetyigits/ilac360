@@ -31,5 +31,21 @@
   "rofekoksib": {
     "atc": "M01AH02",
     "source": "WHO ATC 2024 — rofecoxib M01AH02 (COX-2 NSAID); tüm ürünleri ATC=0"
+  },
+  "parnaparin": {
+    "atc": "B01AB09",
+    "source": "WHO ATC 2024 — parnaparin B01AB09 (DMAH/heparin); tüm ürünleri ATC=0, kanama/antikoagülan kuralları sessizdi"
+  },
+  "nadroparin": {
+    "atc": "B01AB06",
+    "source": "WHO ATC 2024 — nadroparin B01AB06 (DMAH/heparin); otomatik seçim yanlışlıkla R03AL03 (solunum) üretiyordu — antikoagülan sınıfı düzeltmesi"
+  },
+  "klordiazepoksit": {
+    "atc": "N05BA02",
+    "source": "WHO ATC 2024 — chlordiazepoxide N05BA02 (benzodiazepin); kombinasyon ürünlerinde (Librax vb.) ATC=0, sedasyon/opioid kuralları sessizdi"
+  },
+  "amilorid": {
+    "atc": "C03DB01",
+    "source": "WHO ATC 2024 — amiloride C03DB01 (potasyum tutucu diüretik); kombinasyon ürünlerinde ATC=0, hiperkalemi kuralları sessizdi"
   }
 }
