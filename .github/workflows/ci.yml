@@ -54,6 +54,9 @@ jobs:
       - name: Lint rules
         run: node scripts/lint-rules.mjs
 
+      - name: Lint supplements
+        run: node scripts/lint-supplements.mjs
+
       - name: Lint warnings
         run: node scripts/lint-warnings.mjs
 
@@ -66,6 +69,11 @@ jobs:
 
       - name: Unit tests
         run: npm --prefix client run test
+
+      # Bilgi amaçlı kod-kapsamı özeti (kapı değil; eşik ileride eklenebilir).
+      - name: Code coverage (bilgilendirme)
+        run: npm --prefix client run test:coverage
+        continue-on-error: true
 
       - name: Build client
         run: npm --prefix client run build

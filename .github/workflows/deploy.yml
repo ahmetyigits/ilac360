@@ -1,0 +1,81 @@
+# Opsiyonel deploy otomasyonu — ELLE tetiklenir (workflow_dispatch).
+# Her push'ta otomatik deploy BİLİNÇLİ olarak KAPALI: yayın kararı insana ait
+# (data-refresh-runbook.md'deki sıra/atomiklik notları geçerlidir).
+#
+# Gerekli GitHub Secrets (Settings → Secrets and variables → Actions):
+#   FTP_SERVER      — Hostinger FTP host (ör. ftp.ilac360.com)
+#   FTP_USERNAME    — FTP kullanıcı adı
+#   FTP_PASSWORD    — FTP parolası
+#   FTP_SERVER_DIR  — hedef dizin (ör. /public_html/)
+# Secret'lar tanımlı değilse deploy adımı atlanır (workflow kırılmaz).
+
+name: Deploy (manual)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # Job seviyesinde env: adım `if`'leri kendi adım-env'ini göremez (GitHub kuralı),
+    # bu yüzden secret'ı burada env'e alıp `if: env.FTP_SERVER != ''` ile kontrol ederiz.
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: LFS dosya kimliklerini çıkar
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: LFS cache
+        uses: actions/cache@v4
+        with:
+          path: .git/lfs
+          key: lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: LFS pull
+        run: git lfs pull
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --prefix client
+
+      # Yayın öncesi kapılar (CI ile aynı) — kırıksa deploy edilmez.
+      - name: Build data + gates
+        run: |
+          node scripts/build-data.mjs
+          node scripts/smoke-test.mjs
+          node scripts/lint-rules.mjs
+          node scripts/lint-supplements.mjs
+          node scripts/rules-coverage.mjs --min 95
+
+      - name: Build client
+        run: npm --prefix client run build
+
+      - name: Copy dist to repo root
+        run: node scripts/copy-dist.mjs
+
+      # Secret'lar tanımlıysa FTP ile yükle; değilse atla (workflow yeşil kalır).
+      - name: FTP deploy (yalnız secret varsa)
+        if: ${{ env.FTP_SERVER != '' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          local-dir: ./dist/
+          # Eski hash'li dosyalar hemen SİLİNMEZ: açık sekmeler onlara başvurabilir
+          # (runbook 6.4). Bir sonraki yenilemede temizlenir.
+          dangerous-clean-slate: false
+
+      - name: Deploy atlandıysa uyar
+        if: ${{ env.FTP_SERVER == '' }}
+        run: echo "FTP secret'ları tanımlı değil — yalnız derleme yapıldı, yükleme atlandı."

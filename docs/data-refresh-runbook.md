@@ -57,6 +57,23 @@ Toplam süre: ~15 dakika.
    Doğrulama: `https://ilac360.com/data/manifest.json` 200 dönmeli ve
    `generatedAt` yeni tarihi göstermeli; Hakkında sayfası bunu otomatik yansıtır.
 
+## TİTCK prospektüs (KT) kapsamını genişletme (opsiyonel, aylık)
+
+Şu an ürünlerin ~%40'ında bağlı prospektüs (KT) var; kalanına `getDescription`
+TİTCK'ye yönlendirir. Kapsamı artırmak için (ayda bir, veri yenilemeyle birlikte):
+
+1. `node scripts/titck-sync.mjs` — resumable; titck.gov.tr/kubkt'ten yeni
+   barkodlar için KT çeker (PDF→metin), `data/titck-kt-texts.json` +
+   `data/titck-kt-map.json`'a ekler. CAPTCHA/ağ nedeniyle yarı-otomatiktir;
+   süre öngörülemez, kaldığı yerden devam eder.
+2. `node scripts/titck-merge-desc.mjs` build sırasında bağlar (dataset'e
+   KOPYALAMAZ; LFS küçük kalsın diye barkod-anahtarlı eşleme kullanır).
+3. Kapsam kontrolü: eşleşen barkod / toplam ürün oranı. Hedef kademeli: %40→%60+.
+
+Bu bir **veri operasyonudur**, kod değişikliği değildir; kapsam kapısına dahil
+değildir (ağ bağımlı). Toplu çekim OLANAKSIZ (tescilli framework + CAPTCHA);
+yalnız kademeli, barkod-anahtarlı kürasyon.
+
 ## Sorun giderme
 
 - **"beklenmeyen şema"** — export phpMyAdmin JSON değil; doğru yöntemle alın.
