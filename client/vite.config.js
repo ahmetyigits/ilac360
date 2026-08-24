@@ -43,12 +43,19 @@ export default defineConfig({
             },
           },
           {
-            // İçerik-hash'li veri dosyaları değişmez → önce cache
+            // İçerik-hash'li veri dosyaları değişmez → önce cache.
+            // cacheName sürümü (-v2): bozuk bir dağıtım sırasında SPA fallback
+            // (index.html) veri URL'lerine 200 olarak dönebiliyor ve CacheFirst
+            // bunu KALICI önbelleğe alıyor; sonra normal açılışta bozuk HTML'i
+            // servis edip uygulamayı kilitliyor. cacheName'i yükseltmek zehirli
+            // eski önbelleği TERK eder → autoUpdate SW herkeste kendiliğinden
+            // taze veri indirir. (Gelecekte tekrar olursa yine yükselt.)
             urlPattern: /\/data\/.*\.[0-9a-f]{8}\.json$/,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'ilac360-data',
+              cacheName: 'ilac360-data-v2',
               expiration: { maxEntries: 90, maxAgeSeconds: 60 * 60 * 24 * 90 },
+              cacheableResponse: { statuses: [200] },
             },
           },
           {
@@ -56,7 +63,7 @@ export default defineConfig({
             urlPattern: /\/data\/manifest\.json$/,
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'ilac360-data-manifest',
+              cacheName: 'ilac360-data-manifest-v2',
               networkTimeoutSeconds: 3,
             },
           },
