@@ -134,6 +134,15 @@ assert(!!loxibin && flexibleIncludes(loxibin.a || '', 'losartan') && loxibin.t =
 const bothEmpty = index.filter((e) => !e.a && !e.t && !e.s).length;
 assert(bothEmpty === 0, `etken+ATC ikisi de boş ürün kalmadı (${bothEmpty})`);
 
+// Beslenme (FSMP) nötrleme regresyonu: V06* (WHO "genel besinler") ürünlerinde
+// kaynak veri rastgele/yanlış ilaç etken maddesi taşıyordu (ör. ENSURE →
+// "Teikoplanin"); build bunları nötrler ki sahte eşdeğer/etkileşim üretmesin.
+const v06WithDrug = index.filter((e) => (e.t || '').startsWith('V06') && e.a);
+assert(v06WithDrug.length === 0,
+  `V06 beslenme ürünlerinde ilaç etken maddesi kalmadı (${v06WithDrug.length})`);
+const ensureFsmp = index.find((e) => e.n.includes('ENSURE'));
+assert(!ensureFsmp || !ensureFsmp.a, `ENSURE FSMP etken maddesi nötrlendi (a=${ensureFsmp?.a ?? 'null'})`);
+
 // Takviye kataloğu enjeksiyonu: Pharmaton bulunur, s bayrağı taşır, ginseng
 // bileşeni kanonikleşir (bulunamazsa katalog/sinonim regresyonu var demektir).
 const supplements = index.filter((e) => e.s);

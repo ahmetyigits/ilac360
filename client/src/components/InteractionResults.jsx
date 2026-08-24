@@ -435,6 +435,8 @@ const EVIDENCE_LABELS = {
 function InteractionCard({ interaction }) {
   const config = riskConfig[interaction.risk] || riskConfig.unknown;
   const action = interaction.action || DEFAULT_ACTIONS[interaction.risk] || null;
+  const details = interaction.details || '';
+  const isMechanism = !!details && !details.includes('↔') && !details.startsWith('Sistemik formda');
 
   return (
     <div className={`rounded-[14px] border p-4 transition-all ${config.card}`}>
@@ -458,7 +460,16 @@ function InteractionCard({ interaction }) {
             </p>
           )}
           <p className="text-[13.5px] text-text-secondary mt-1 leading-[1.5]">{interaction.message}</p>
-          {interaction.details && (
+          {/* details çift-kuralı/besin kurallarında gerçek mekanizma prozudur (neden/
+              hangi enzim-taşıyıcı/yön); sınıf & additif kurallarında ise motorun ürettiği
+              "madde (SINIF) ↔ madde (SINIF)" etiketidir (↔ içerir). Yalnız mekanizma
+              metnini 'Mekanizma:' başlığıyla vurgula, etiketi eski ikincil stilde bırak. */}
+          {isMechanism ? (
+            <p className="text-[12.5px] mt-1.5 leading-[1.5]">
+              <span className="font-semibold text-text-primary">Mekanizma: </span>
+              <span className="text-text-secondary">{interaction.details}</span>
+            </p>
+          ) : interaction.details && (
             <p className="text-[12px] text-text-muted mt-0.5">{interaction.details}</p>
           )}
           {action && (

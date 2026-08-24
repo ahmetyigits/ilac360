@@ -68,6 +68,25 @@ try {
   if (err.code !== 'ENOENT') throw err; // dosya yoksa sessiz geç, bozuksa DUR
 }
 
+// Enteral/oral beslenme (FSMP) ürünleri — yanlış ilaç etken maddesi temizliği.
+// WHO ATC V06 = "genel besinler" (enteral/oral beslenme, özel tıbbi amaçlı gıda).
+// Kaynak veride bu ürünlerin Active_Ingredient alanına rastgele/alakasız ilaç
+// adları sızmış (ör. ENSURE → "Teikoplanin", NUTRISON → "Levetirasetam"). Bunlar
+// ilaç değildir; yanlış etken madde hem sahte eşdeğer grupları hem sahte etkileşim
+// üretir (ürün, o ilacın sınıfı gibi işlem görür). V06* ürünlerinin ilaç etken
+// maddesini nötrle → placeholder, isValidIngredient=false, componentKey null.
+// Çıkarım haritalarından ÖNCE çalışır ki yanlış "madde→ATC" oyları da düşsün.
+const NON_DRUG_ATC_PREFIXES = ['V06'];
+const NEUTRAL_INGREDIENT = 'Etken maddesi bilgisi bulunamadı.';
+let nutritionNeutralizedCount = 0;
+for (const d of drugs) {
+  const atc = (d.ATC_code || '').trim();
+  if (NON_DRUG_ATC_PREFIXES.some((p) => atc.startsWith(p)) && isValidIngredient(d.Active_Ingredient)) {
+    d.Active_Ingredient = NEUTRAL_INGREDIENT;
+    nutritionNeutralizedCount++;
+  }
+}
+
 // TİTCK KT ekleri (scripts/titck-sync.mjs + titck-merge-desc.mjs üretir):
 // metinler TEKİL saklanır (titck-kt-texts.json, LFS), ürün eşlemesi barkod/ad
 // anahtarlıdır (titck-kt-map.json). Kendi Description'ı olmayan ürünlere build
@@ -437,7 +456,7 @@ const bucketSizes = manifestFiles && Object.entries(manifestFiles)
 const maxBucket = Math.max(...bucketSizes);
 const totalBucket = bucketSizes.reduce((a, b) => a + b, 0);
 
-console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled}, manuel kürasyon: ${manualIngredientCount})`);
+console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled}, manuel kürasyon: ${manualIngredientCount}, beslenme nötrlendi: ${nutritionNeutralizedCount})`);
 console.log('component-atc           ', kb(join(OUT, manifestFiles['component-atc.json'])), `(${Object.keys(componentAtc).length} components, ${overrideCount} override)`);
 console.log('takviye kataloğu        ', `${supplementCount} kayıt (index'e enjekte edildi)`);
 console.log('desc buckets            ', `${BUCKET_COUNT} adet, toplam ${(totalBucket / 1024 / 1024).toFixed(2)} MB, en büyük ${(maxBucket / 1024).toFixed(0)} KB (${descriptionCount} descriptions, ${titckDescCount} tanesi TİTCK KT)`);

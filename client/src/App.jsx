@@ -527,6 +527,11 @@ export default function App() {
       setCurrentView('about');
       return;
     }
+    if (id === 'changelog') {
+      setCurrentView('changelog');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     setCurrentView('checker');
     setSearchMode(id);
     window.scrollTo({ top: 0, behavior: 'smooth' });
