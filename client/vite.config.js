@@ -31,6 +31,10 @@ export default defineConfig({
         // stratejileriyle ilk kullanımda cache'lenir.
         globPatterns: ['**/*.{js,css,html,svg}', 'pwa-*.png'],
         globIgnores: ['data/**', 'assets/*.wasm', 'screenshot.png', 'og-image.png'],
+        // Tek seferlik otomatik iyileştirme: SW aktive olunca zehirli eski veri
+        // önbelleklerini siler ve takılı açık pencereleri yeniden yükler. Etkilenen
+        // eski ziyaretçiler elle hiçbir şey yapmadan düzelir (bkz. public/sw-heal.js).
+        importScripts: ['/sw-heal.js'],
         navigateFallback: '/index.html',
         runtimeCaching: [
           {
@@ -53,7 +57,7 @@ export default defineConfig({
             urlPattern: /\/data\/.*\.[0-9a-f]{8}\.json$/,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'ilac360-data-v2',
+              cacheName: 'ilac360-data-v3',
               expiration: { maxEntries: 90, maxAgeSeconds: 60 * 60 * 24 * 90 },
               cacheableResponse: { statuses: [200] },
             },
@@ -63,7 +67,7 @@ export default defineConfig({
             urlPattern: /\/data\/manifest\.json$/,
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'ilac360-data-manifest-v2',
+              cacheName: 'ilac360-data-manifest-v3',
               networkTimeoutSeconds: 3,
             },
           },
