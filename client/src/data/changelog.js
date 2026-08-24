@@ -1,0 +1,49 @@
+// Sürüm / yenilik notları — "Yenilikler" sayfasında gösterilir.
+// YENİ SÜRÜM EKLERKEN: en yeni girişi dizinin BAŞINA ekle. Her değişiklik için
+// isteğe bağlı `tag: 'YENİ' | 'İYİLEŞTİRME' | 'DÜZELTME'` kullanılabilir.
+
+export const CHANGELOG = [
+  {
+    date: '2026-08-24',
+    title: 'Büyük içerik güncellemesi',
+    summary:
+      'Besin etkileşimleri, tek ilaç uyarıları ve çok daha fazla bitkisel/takviye etkileşimi eklendi; her uyarının kaynağı artık ekranda.',
+    changes: [
+      {
+        tag: 'YENİ',
+        title: 'Besin & içecek etkileşimleri',
+        desc: 'İlaçların yanına besin/içecek ekleyip kontrol edebilirsiniz: greyfurt, alkol, süt/kalsiyum, kafein, K vitamini, tiramin (peynir vb.), potasyum ve sarı kantaron. Örn. greyfurt–statin, süt–antibiyotik, tiramin–MAO inhibitörü.',
+      },
+      {
+        tag: 'YENİ',
+        title: 'Tek ilaç seçilince uyarılar',
+        desc: 'Tek bir ilaca bakınca bile ürün etiketinden derlenmiş uyarılar çıkıyor: gebelik, emzirme, alerji, besinle alım, kullanım şekli, araç kullanımı, yaş sınırı ve takviye notları — kaynağıyla birlikte.',
+      },
+      {
+        tag: 'YENİ',
+        title: 'Çoklu ilaç (polifarmasi) uyarıları',
+        desc: 'Aynı yönde etki eden 3+ ürün birikince kümülatif uyarı: tansiyon düşürenler → ortostatik hipotansiyon/düşme riski; serotonerjik ilaçlar → serotonin sendromu riski.',
+      },
+      {
+        tag: 'YENİ',
+        title: 'Bitkisel & takviye etkileşimleri genişledi',
+        desc: 'Çörek otu (kan şekeri), saw palmetto / reishi / bromelain / at kestanesi / çuha çiçeği yağı (kanama), ashwagandha (tiroid + sedasyon), kelp (iyot/tiroid), astragalus & spirulina (bağışıklık), zeytin yaprağı & L-arginin (tansiyon) ve daha fazlası — hepsi kaynaklı eklendi.',
+      },
+      {
+        tag: 'YENİ',
+        title: 'Her uyarının kaynağı ekranda',
+        desc: 'Her etkileşimin yanında kanıt düzeyi ve kaynağı (FDA/EMA ürün etiketi, klinik kılavuz vb.) görünüyor.',
+      },
+      {
+        tag: 'İYİLEŞTİRME',
+        title: 'Daha fazla ilaç doğru tanınıyor',
+        desc: 'Farklı yazım/form yüzünden gözden kaçan bazı etkin maddeler (morphine, düşük molekül ağırlıklı heparinler ve diğerleri) artık doğru sınıflanıyor; yanlış eşleşen bir madde de düzeltildi.',
+      },
+      {
+        tag: 'YENİ',
+        title: 'Kullanım kolaylıkları',
+        desc: 'İlaç listenizi isimlendirip kaydedin, sık kullandıklarınızı favorileyin, hastalığa göre ararken yazdıkça anında sonuç alın, isterseniz otomatik analizi açın.',
+      },
+    ],
+  },
+];
