@@ -16,6 +16,12 @@ export default function Footer({ onNavigate }) {
           >
             Hakkında
           </button>
+          <button
+            onClick={() => onNavigate?.('changelog')}
+            className="text-[13px] font-normal text-text-muted hover:text-accent transition-colors cursor-pointer"
+          >
+            Yenilikler
+          </button>
           <a
             href="https://github.com/ahmetyigits/ilac360"
             target="_blank"

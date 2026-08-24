@@ -44,6 +44,21 @@ export const CHANGELOG = [
         title: 'Kullanım kolaylıkları',
         desc: 'İlaç listenizi isimlendirip kaydedin, sık kullandıklarınızı favorileyin, hastalığa göre ararken yazdıkça anında sonuç alın, isterseniz otomatik analizi açın.',
       },
+      {
+        tag: 'İYİLEŞTİRME',
+        title: 'Eşdeğer ilaçlar daha kapsamlı',
+        desc: 'Bir ilaca bakınca altındaki "Eşdeğer İlaçlar" listesi artık ATC kodu olmayan ürünlerde de aynı etken maddeli alternatifleri gösteriyor (oral/topikal gibi farklı formlar karıştırılmadan). Binlerce üründe daha önce boş kalan eşdeğer listesi artık dolu.',
+      },
+      {
+        tag: 'DÜZELTME',
+        title: 'Beslenme ürünlerindeki hatalı ilaç etiketi düzeltildi',
+        desc: 'Bazı enteral/oral beslenme (FSMP) ürünleri kaynak veride yanlışlıkla bir ilaç etken maddesiyle etiketlenmiş ve sahte etkileşim/eşdeğer üretiyordu; bu ürünler temizlendi.',
+      },
+      {
+        tag: 'İYİLEŞTİRME',
+        title: 'Etkileşim mekanizması ekranda vurgulu',
+        desc: 'Her etkileşimde "neden, hangi enzim/taşıyıcı üzerinden, neyi artırıp azalttığı ve hangi soruna yol açtığı" artık kartta ayrı bir "Mekanizma" başlığıyla görünüyor — hekim ve eczacı için daha anlaşılır.',
+      },
     ],
   },
 ];

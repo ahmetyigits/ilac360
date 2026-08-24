@@ -67,3 +67,30 @@ describe('InteractionResults — kaynak/kanıt görünürlüğü', () => {
     expect(screen.queryByText(/Kaynak:/i)).not.toBeInTheDocument();
   });
 });
+
+describe('InteractionResults — mekanizma görünürlüğü', () => {
+  const mechanismCard = {
+    drug1: 'SIMVASTATIN', drug2: 'KLARITROMISIN', id1: '1', id2: '2',
+    risk: 'critical', message: 'Rabdomiyoliz riski.',
+    details: 'Klaritromisin CYP3A4 enzimini inhibe ederek simvastatin düzeyini artırır.',
+  };
+  // Sınıf/additif kurallarında details motorca üretilen "madde (SINIF) ↔ madde (SINIF)"
+  // etiketidir — mekanizma değil; "Mekanizma:" başlığı ALMAMALI.
+  const classLabelCard = {
+    drug1: 'İBUPROFEN', drug2: 'WARFARIN', id1: '3', id2: '4',
+    risk: 'high', message: 'Kanama riski artar.',
+    details: 'ibuprofen (NSAID) ↔ warfarin (VITAMIN_K_ANTAGONIST)',
+  };
+
+  it('çift-kuralı proz mekanizmasını "Mekanizma:" başlığıyla gösterir', () => {
+    render(<InteractionResults interactions={[mechanismCard]} unknownDrugs={[]} onPrintBlocked={vi.fn()} />);
+    expect(screen.getByText(/Mekanizma:/)).toBeInTheDocument();
+    expect(screen.getByText(/CYP3A4 enzimini inhibe ederek/)).toBeInTheDocument();
+  });
+
+  it('sınıf-etiketi details\'i "Mekanizma:" başlığı ALMAZ ama metin görünür', () => {
+    render(<InteractionResults interactions={[classLabelCard]} unknownDrugs={[]} onPrintBlocked={vi.fn()} />);
+    expect(screen.queryByText(/Mekanizma:/)).not.toBeInTheDocument();
+    expect(screen.getByText(/ibuprofen \(NSAID\)/)).toBeInTheDocument();
+  });
+});
