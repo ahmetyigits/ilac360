@@ -54,6 +54,16 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
     }
   }, [pageSize]);
 
+  // Canlı arama: yazdıkça 300ms debounce ile ara (ilaç aramasıyla tutarlı).
+  // Zaten aranmış sorgu (Enter/Ara/hızlı-kart sonrası submittedQuery) tekrar
+  // aranmaz — mükerrer ağ çağrısı olmaz. Enter/buton anında tetiklemeye devam eder.
+  useEffect(() => {
+    const q = query.trim();
+    if (q.length < 2 || q === submittedQuery) return;
+    const t = setTimeout(() => { setPage(1); doSearch(q, 1); }, 300);
+    return () => clearTimeout(t);
+  }, [query, submittedQuery, doSearch]);
+
   const handleSubmit = (e) => {
     e?.preventDefault();
     setPage(1);
@@ -103,7 +113,7 @@ export default function ConditionSearch({ onSelect, onViewDrug, selectedDrugs, m
             <h2 className="text-sm font-semibold text-text-primary">Hastalığa Göre İlaç Ara</h2>
           </div>
           <span className="text-[11px] text-text-muted">
-            {isMaxReached ? `Maksimum ${maxDrugs} ilaç seçildi` : 'Yazıp Enter\'a basın veya Ara butonuna tıklayın'}
+            {isMaxReached ? `Maksimum ${maxDrugs} ilaç seçildi` : 'Yazdıkça otomatik aranır'}
           </span>
         </div>
         <div className="p-4">

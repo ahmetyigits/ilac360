@@ -1,11 +1,11 @@
-import { Loader2, Share2 } from 'lucide-react';
+import { Loader2, Share2, Star } from 'lucide-react';
 import { buildShareUrl } from '../data/basketStore.js';
 
 // 3A: seçili ilaçlar odak kart dilinde — açık mavi hap çipleri (mavi nokta + ×)
 // ve tam genişlik "Etkileşimleri Kontrol Et" düğmesi.
 // `embedded`: hero'daki odak kartın İÇİNDE düz blok olarak render edilir
 // (kart içinde kart görünümü oluşmaz); aksi halde kendi kartını çizer.
-export default function SelectedDrugs({ drugs, onRemove, onSelect, activeDrugId, onAnalyze, analysisLoading, onClearAll, onToast, embedded = false }) {
+export default function SelectedDrugs({ drugs, onRemove, onSelect, activeDrugId, onAnalyze, analysisLoading, onClearAll, onToast, embedded = false, favoriteIds = [], onToggleFavorite, autoAnalyze = false, onToggleAutoAnalyze }) {
   const handleShare = async () => {
     const url = buildShareUrl(drugs);
     try {
@@ -103,6 +103,24 @@ export default function SelectedDrugs({ drugs, onRemove, onSelect, activeDrugId,
                 </span>
               )}
             </button>
+            {onToggleFavorite && (() => {
+              const isFav = favoriteIds.includes(String(drug.id));
+              return (
+                <button
+                  onClick={() => onToggleFavorite(drug.id)}
+                  aria-label={isFav ? `${drug.name} favorilerden çıkar` : `${drug.name} favorilere ekle`}
+                  aria-pressed={isFav}
+                  title={isFav ? 'Favorilerden çıkar' : 'Favorilere ekle'}
+                  className="px-1.5 py-2.5 cursor-pointer"
+                >
+                  <Star className={`w-3.5 h-3.5 transition-colors ${
+                    isFav
+                      ? 'text-amber-400 fill-amber-400'
+                      : activeDrugId === drug.id ? 'text-white/70 hover:text-white' : 'text-text-muted hover:text-amber-400'
+                  }`} />
+                </button>
+              );
+            })()}
             <button
               aria-label={`${drug.name} listeden çıkar`}
               onClick={() => onRemove(drug.id)}
@@ -125,14 +143,27 @@ export default function SelectedDrugs({ drugs, onRemove, onSelect, activeDrugId,
           Besin etkileşimi analizi için listeye en az 1 ilaç ekleyin.
         </p>
       ) : (
-        <button
-          onClick={onAnalyze}
-          disabled={analysisLoading}
-          className="w-full mt-4 py-[15px] bg-accent text-white text-center rounded-[13px] text-[15.5px] font-semibold hover:bg-accent-deep transition-colors disabled:opacity-60 cursor-pointer flex items-center justify-center gap-2"
-        >
-          {analysisLoading && <Loader2 className="w-4 h-4 animate-spin" />}
-          Etkileşimleri Kontrol Et
-        </button>
+        <>
+          <button
+            onClick={onAnalyze}
+            disabled={analysisLoading}
+            className="w-full mt-4 py-[15px] bg-accent text-white text-center rounded-[13px] text-[15.5px] font-semibold hover:bg-accent-deep transition-colors disabled:opacity-60 cursor-pointer flex items-center justify-center gap-2"
+          >
+            {analysisLoading && <Loader2 className="w-4 h-4 animate-spin" />}
+            Etkileşimleri Kontrol Et
+          </button>
+          {onToggleAutoAnalyze && (
+            <label className="mt-2.5 flex items-center gap-2 text-[12.5px] text-text-muted cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={autoAnalyze}
+                onChange={onToggleAutoAnalyze}
+                className="w-3.5 h-3.5 accent-blue-600 cursor-pointer"
+              />
+              Liste değiştikçe otomatik analiz et
+            </label>
+          )}
+        </>
       )}
     </div>
   );

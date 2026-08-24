@@ -8,6 +8,13 @@ import {
   parseSharedDrugId,
   clearShareParams,
 } from './data/basketStore.js';
+import {
+  getSavedLists,
+  saveList,
+  deleteList,
+  getFavoriteIds,
+  toggleFavorite,
+} from './data/listsStore.js';
 import DisclaimerGate from './components/DisclaimerGate';
 import { hasAcknowledgedDisclaimer } from './data/disclaimer.js';
 import { reportError } from './data/telemetry.js';
@@ -19,10 +26,12 @@ import DrugCard from './components/DrugCard';
 import InteractionResults from './components/InteractionResults';
 import LegalWarning from './components/LegalWarning';
 import AboutPage from './components/AboutPage';
+import Changelog from './components/Changelog';
 import Toast from './components/Toast';
 import Onboarding from './components/Onboarding';
 import ConditionSearch from './components/ConditionSearch';
 import FoodPicker from './components/FoodPicker';
+import SavedLists from './components/SavedLists';
 import Hero from './components/Hero';
 import Footer from './components/Footer';
 
@@ -38,7 +47,13 @@ export default function App() {
   const [detailOnTop, setDetailOnTop] = useState(false);
   const [interactions, setInteractions] = useState(null);
   const [unknownDrugs, setUnknownDrugs] = useState([]);
+  const [savedLists, setSavedLists] = useState([]);
+  const [favorites, setFavorites] = useState([]);   // çözülmüş favori ilaç nesneleri
+  const [favoriteIds, setFavoriteIds] = useState([]); // yıldız durumu için id listesi
   const [analysisLoading, setAnalysisLoading] = useState(false);
+  const [autoAnalyze, setAutoAnalyze] = useState(() => {
+    try { return localStorage.getItem('auto_analyze') === 'true'; } catch { return false; }
+  });
   const [stats, setStats] = useState(null);
   const [dataError, setDataError] = useState(false);
   const [showDisclaimerGate, setShowDisclaimerGate] = useState(false);
@@ -61,6 +76,18 @@ export default function App() {
     localStorage.setItem('darkMode', darkMode);
   }, [darkMode]);
 
+  // showToast önce tanımlanmalı: aşağıdaki handler'lar (handleSaveList/
+  // handleLoadList) bunu bağımlılık dizisinde kullanır — sonra tanımlanırsa
+  // render sırasında TDZ ("Cannot access 'showToast' before initialization").
+  const showToast = useCallback((message, type = 'info') => {
+    const id = ++toastIdRef.current;
+    setToasts(prev => [...prev, { id, message, type }].slice(-4));
+    // Uzun mesajlar (paylaşım gizlilik notu gibi) okunmadan kaybolmasın:
+    // süre mesaj uzunluğuyla ölçeklenir.
+    const duration = Math.max(4000, message.length * 55);
+    setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), duration);
+  }, []);
+
   const loadInitialData = useCallback(() => {
     setDataError(false);
     // bootData üç veri setini birden ısıtır; istatistikler ilaç+kural verisinden gelir.
@@ -69,12 +96,45 @@ export default function App() {
       .then((s) => {
         setStats(s);
         restoreBasket();
+        setSavedLists(getSavedLists());
+        refreshFavorites();
       })
       .catch((err) => {
         reportError(err, 'bootData');
         setDataError(true);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // { drugIds, foodKeys } → çözülmüş öğe nesneleri (+ geçersiz id'ler).
+  // restoreBasket ve kayıtlı-liste yükleme aynı çözümlemeyi paylaşır.
+  const resolveItems = useCallback(async ({ drugIds = [], foodKeys = [] }) => {
+    const items = [];
+    let invalidIds = [];
+    if (drugIds.length > 0) {
+      const { drugs, invalidIds: bad } = await getDrugsByIds(drugIds);
+      items.push(...drugs);
+      invalidIds = bad;
+    }
+    if (foodKeys.length > 0) {
+      const { foods } = await getFoodsByKeys(foodKeys);
+      items.push(...foods);
+    }
+    return { items, invalidIds };
+  }, []);
+
+  // Favori id'lerini güncel veriden çözer (görünen ad için); yıldız durumu
+  // için ham id listesini de tutar.
+  const refreshFavorites = useCallback(async () => {
+    const ids = getFavoriteIds();
+    setFavoriteIds(ids);
+    if (ids.length === 0) { setFavorites([]); return; }
+    try {
+      const { drugs } = await getDrugsByIds(ids);
+      setFavorites(drugs);
+    } catch (err) {
+      reportError(err, 'refreshFavorites');
+    }
   }, []);
 
   // Sepeti geri yükle: paylaşım URL'si (?d=) localStorage'a göre önceliklidir.
@@ -88,17 +148,9 @@ export default function App() {
       const singleDrugId = parseSharedDrugId(location.search);
       const isShared = sharedIds.length > 0 || sharedFoodKeys.length > 0;
       const stored = isShared ? { drugIds: sharedIds, foodKeys: sharedFoodKeys } : loadBasket();
-      const items = [];
-      if (stored.drugIds.length > 0) {
-        const { drugs, invalidIds } = await getDrugsByIds(stored.drugIds);
-        items.push(...drugs);
-        if (invalidIds.length > 0) {
-          showToast(`${invalidIds.length} ilaç artık veritabanında bulunamadı.`, 'warning');
-        }
-      }
-      if (stored.foodKeys.length > 0) {
-        const { foods } = await getFoodsByKeys(stored.foodKeys);
-        items.push(...foods);
+      const { items, invalidIds } = await resolveItems(stored);
+      if (invalidIds.length > 0) {
+        showToast(`${invalidIds.length} ilaç artık veritabanında bulunamadı.`, 'warning');
       }
       if (items.length > 0) {
         setSelectedDrugs(items.slice(0, MAX_DRUGS));
@@ -117,6 +169,40 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // --- Kayıtlı listeler + favoriler (Faz 3.1) ---
+  const handleSaveList = useCallback((name) => {
+    const entry = saveList(name, selectedDrugs);
+    if (entry) {
+      setSavedLists(getSavedLists());
+      showToast(`"${entry.name}" listesi kaydedildi.`, 'info');
+    }
+  }, [selectedDrugs, showToast]);
+
+  const handleLoadList = useCallback(async (list) => {
+    try {
+      const { items, invalidIds } = await resolveItems({ drugIds: list.d, foodKeys: list.f });
+      if (items.length > 0) {
+        setSelectedDrugs(items.slice(0, MAX_DRUGS));
+        setActiveDrug(null);
+        setInteractions(null);
+        setUnknownDrugs([]);
+        showToast(`"${list.name}" yüklendi — ${items.length} öge.`, 'info');
+      }
+      if (invalidIds.length > 0) showToast(`${invalidIds.length} ilaç artık bulunamadı.`, 'warning');
+    } catch (err) {
+      reportError(err, 'loadList');
+    }
+  }, [resolveItems, showToast]);
+
+  const handleDeleteList = useCallback((id) => {
+    setSavedLists(deleteList(id));
+  }, []);
+
+  const handleToggleFavorite = useCallback((id) => {
+    toggleFavorite(id);
+    refreshFavorites();
+  }, [refreshFavorites]);
+
   // Sepet her değiştiğinde cihaza kaydedilir (yenilemede kaybolmaz).
   useEffect(() => {
     if (restoredRef.current) saveBasket(selectedDrugs);
@@ -125,6 +211,17 @@ export default function App() {
   useEffect(() => {
     loadInitialData();
   }, [loadInitialData]);
+
+  // Deep-link: ?p=yenilikler → Yenilikler sayfası (menüde link YOK, sadece URL).
+  useEffect(() => {
+    try {
+      if (new URLSearchParams(location.search).get('p') === 'yenilikler') {
+        setCurrentView('changelog');
+      }
+    } catch {
+      // URL okunamazsa yoksay
+    }
+  }, []);
 
   // Analiz sonucu gelince görünür alana kaydır — özellikle hastalık aramasında
   // uzun sonuç listesi varken sonuçların "kaybolmasını" engeller.
@@ -142,15 +239,6 @@ export default function App() {
       drugCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }, [activeDrug]);
-
-  const showToast = useCallback((message, type = 'info') => {
-    const id = ++toastIdRef.current;
-    setToasts(prev => [...prev, { id, message, type }].slice(-4));
-    // Uzun mesajlar (paylaşım gizlilik notu gibi) okunmadan kaybolmasın:
-    // süre mesaj uzunluğuyla ölçeklenir.
-    const duration = Math.max(4000, message.length * 55);
-    setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), duration);
-  }, []);
 
   // Kullanıcı eylemiyle detay açma: çip/sonuç tıklaması detayı üste taşır.
   const openDrugDetail = useCallback((drug) => {
@@ -218,6 +306,23 @@ export default function App() {
     }
   }, [selectedDrugs, showToast]);
 
+  // Otomatik analiz tercihi kalıcı.
+  useEffect(() => {
+    try { localStorage.setItem('auto_analyze', String(autoAnalyze)); } catch { /* kapalı */ }
+  }, [autoAnalyze]);
+
+  // Otomatik analiz: tercih açık, liste geçerli (≥2 öge + ≥1 ilaç), disclaimer
+  // ONAYLI ve henüz sonuç yoksa — değişiklik durulunca (700ms) çalışır.
+  // Onaylı değilken otomatik gate AÇILMAZ (rahatsız etmez); ilk analizi kullanıcı yapar.
+  useEffect(() => {
+    if (!autoAnalyze) return;
+    if (selectedDrugs.length < 2 || !selectedDrugs.some((d) => !d.isFood)) return;
+    if (interactions || analysisLoading) return;
+    if (!hasAcknowledgedDisclaimer()) return;
+    const t = setTimeout(() => { analyzeInteractions(); }, 700);
+    return () => clearTimeout(t);
+  }, [autoAnalyze, selectedDrugs, interactions, analysisLoading, analyzeInteractions]);
+
   // İçerik kutusu: 3A tasarımının 1180px'lik kolonu
   const boxed = (children, extra = '') => (
     <div className={`max-w-[1180px] mx-auto px-5 sm:px-12 py-6 sm:py-8 space-y-5 ${extra}`}>
@@ -228,6 +333,11 @@ export default function App() {
   const renderContent = () => {
     if (currentView === 'about') {
       return boxed(<AboutPage stats={stats} />);
+    }
+
+    // Yenilikler sayfası: menüde link YOK; yalnız ?p=yenilikler URL'iyle erişilir.
+    if (currentView === 'changelog') {
+      return boxed(<Changelog />);
     }
 
     const errorBanner = dataError && (
@@ -312,6 +422,23 @@ export default function App() {
         onClearAll={clearAllDrugs}
         onToast={showToast}
         embedded={searchMode === 'drug'}
+        favoriteIds={favoriteIds}
+        onToggleFavorite={handleToggleFavorite}
+        autoAnalyze={autoAnalyze}
+        onToggleAutoAnalyze={() => setAutoAnalyze((p) => !p)}
+      />
+    );
+
+    const hasSavedContent = savedLists.length > 0 || favorites.length > 0 || selectedDrugs.length >= 1;
+    const savedListsPanel = (
+      <SavedLists
+        savedLists={savedLists}
+        favorites={favorites}
+        canSave={selectedDrugs.length >= 1}
+        onSaveCurrent={handleSaveList}
+        onLoadList={handleLoadList}
+        onDeleteList={handleDeleteList}
+        onAddFavorite={addDrug}
       />
     );
 
@@ -342,6 +469,7 @@ export default function App() {
               onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} öge seçilebilir.`, 'warning')}
             />
             {sepet}
+            {savedListsPanel}
           </Hero>
           {boxed(<LegalWarning />)}
         </>
@@ -356,14 +484,45 @@ export default function App() {
           selectedDrugs={selectedDrugs}
           maxDrugs={MAX_DRUGS}
           onMaxReached={() => showToast(`En fazla ${MAX_DRUGS} ilaç seçilebilir.`, 'warning')}
-          renderBeforeResults={<>{sepet}{resultsBlock}</>}
+          renderBeforeResults={<>
+            {sepet}
+            {hasSavedContent && (
+              <div className="bg-card rounded-[20px] border border-ink/10 shadow-[0_20px_50px_-30px_rgba(20,32,46,.35)] p-5 sm:p-[26px]">
+                {savedListsPanel && (
+                  <SavedLists
+                    savedLists={savedLists}
+                    favorites={favorites}
+                    canSave={selectedDrugs.length >= 1}
+                    onSaveCurrent={handleSaveList}
+                    onLoadList={handleLoadList}
+                    onDeleteList={handleDeleteList}
+                    onAddFavorite={addDrug}
+                    embedded={false}
+                  />
+                )}
+              </div>
+            )}
+            {resultsBlock}
+          </>}
         />
         <LegalWarning />
       </>
     );
   };
 
+  // Yenilikler sayfasından ayrılırken ?p'yi temizle (yenilemede geri açılmasın).
+  const clearChangelogParam = () => {
+    try {
+      if (new URLSearchParams(location.search).has('p')) {
+        history.replaceState(null, '', location.pathname);
+      }
+    } catch {
+      // history API yoksa önemli değil
+    }
+  };
+
   const handleNavigate = (id) => {
+    clearChangelogParam();
     if (id === 'about') {
       setCurrentView('about');
       return;
@@ -375,6 +534,7 @@ export default function App() {
 
   // Logo: her durumda gerçek ana sayfaya (hero) döner — çalışma alanı sıfırlanır.
   const handleLogoClick = () => {
+    clearChangelogParam();
     clearAllDrugs();
     setCurrentView('checker');
     setSearchMode('drug');
