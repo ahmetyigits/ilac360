@@ -103,6 +103,8 @@ Pull requests are welcome — especially for:
 
 Please keep the rule engine and the UI separate. Interaction logic lives in [`client/src/data/interactionEngine.js`](client/src/data/interactionEngine.js).
 
+See [docs/architecture.md](docs/architecture.md) for the data flow, engine resolution order, and build pipeline; [docs/data-refresh-runbook.md](docs/data-refresh-runbook.md) for monthly data refresh; and [docs/deploy-hostinger.md](docs/deploy-hostinger.md) for publishing.
+
 ---
 
 ## Disclaimer

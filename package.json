@@ -11,6 +11,7 @@
     "test": "npm --prefix client run test",
     "smoke-test": "node scripts/smoke-test.mjs",
     "rules-coverage": "node scripts/rules-coverage.mjs",
+    "lint-rules": "node scripts/lint-rules.mjs",
     "lint-warnings": "node scripts/lint-warnings.mjs",
     "warnings-coverage": "node scripts/warnings-coverage.mjs",
     "build:data": "node scripts/build-data.mjs",
