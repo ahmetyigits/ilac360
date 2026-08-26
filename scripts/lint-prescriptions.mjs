@@ -43,6 +43,16 @@ try {
   if (err.code !== 'ENOENT') throw err;
 }
 
+// Molekül güvenlik ağı çizelgesi (INCB) — tip geçerliliği
+try {
+  const sched = JSON.parse(readFileSync(join(SRC, 'prescription-schedule.json'), 'utf-8'));
+  for (const [comp, type] of Object.entries(sched.components || {})) {
+    if (!VALID.has(type)) { console.error(`  HATA: prescription-schedule geçersiz tip '${type}' (${comp})`); errors++; }
+  }
+} catch (err) {
+  if (err.code !== 'ENOENT') throw err;
+}
+
 // Barkodlar veri setinde var mı? (kapsam raporu; hata değil)
 const drugs = JSON.parse(readFileSync(join(SRC, 'ilaclar-dataset.json'), 'utf-8'))[2].data;
 const known = new Set(drugs.map((d) => String(d.barcode || '').trim()));

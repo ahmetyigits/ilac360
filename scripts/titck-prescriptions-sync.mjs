@@ -207,6 +207,18 @@ async function main() {
   }
   if (manualCount) console.log(`elle bağlama: ${manualCount} ürün`);
 
+  // Markası artık kapsanan (elle/otomatik bağlanan) residual'leri düş — gerçek
+  // boşluk kalsın (ör. RITALINE elle bağlandıysa 'RITALIN' adayını gösterme).
+  const byBcName = new Map(raw.map((d) => [String(d.barcode || '').trim(), d.Product_Name]));
+  const coveredBrands = new Set();
+  for (const bc of Object.keys(products)) {
+    const nm = byBcName.get(bc);
+    if (nm) coveredBrands.add(brandOf(nm));
+  }
+  for (const t of ['kirmizi', 'yesil']) {
+    residuals[t] = residuals[t].filter((nm) => !coveredBrands.has(brandOf(nm)));
+  }
+
   // Elle bağlama adaylarını (markası sette olan eşleşmeyenler) incelemeye yaz.
   writeFileSync(RESIDUAL_PATH, JSON.stringify({
     note: 'Otomatik eşleşmeyen ama markası veri setinde bulunan liste satırları. Eczacı incelemesi: her biri için doğru barkod(lar) prescription-manual.json\'a eklenmeli ya da retail sette yoksa yok sayılmalı.',

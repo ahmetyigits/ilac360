@@ -1,0 +1,12 @@
+{
+  "note": "Veri setindeki AÇIK etken madde join hatalarının barkod bazlı düzeltmesi. manual-ingredients.json yalnız BOŞ alanı doldurur; bu dosya DOLU-ama-yanlış değerleri EZER. Kaynak: ürün adı + ATC kodu (ör. MORFIA ATC N02AA01=morfin ama etken madde 'Eslikarbazepin' yazıyordu). Reçete tipi doğru (barkod bazlı) ama kartta yanlış etken madde görünmesini engeller. Eczacı onayıyla genişletilir.",
+  "source": "ürün adı + ATC kodu tutarlılığı (veri seti join hatası düzeltmesi)",
+  "barcodes": {
+    "8699680010021": "Morfin Sülfat",
+    "8699788750690": "Morfin Hidroklorür",
+    "8699788750393": "Efedrin Hidroklorür",
+    "8699587011237": "Dimenhidrinat",
+    "8699587011565": "Dimenhidrinat",
+    "8699587011220": "Dimenhidrinat"
+  }
+}

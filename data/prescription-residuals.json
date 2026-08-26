@@ -1,24 +1,8 @@
 {
   "note": "Otomatik eşleşmeyen ama markası veri setinde bulunan liste satırları. Eczacı incelemesi: her biri için doğru barkod(lar) prescription-manual.json'a eklenmeli ya da retail sette yoksa yok sayılmalı.",
-  "generatedAt": "2026-08-26T17:39:25.435Z",
+  "generatedAt": "2026-08-26T20:27:07.859Z",
   "kirmizi": [
-    "FENTANYL 0,05 MG/ML 10 ML IV 50 AMPUL",
-    "FENTANYL 0,05 MG/ML 2 ML IV 50 AMPUL",
-    "FENTANYL CITRATE 50 MCG/ML 10 ML ENJEKTABL COZELTI ICEREN FLAKON",
-    "FENTANYL CITRATE 50 MCG/ML 2 ML 10 AMPUL",
-    "FENTANYL CITRATE BP ANTIGEN IV ENJ. SOL 0,5 MG/10 ML 10 AMPUL",
-    "FENTANYL CITRATE BP ANTIGEN IV ENJ. SOL. 0,1 MG/2 ML 10 AMPUL",
-    "M-ESLON 10 MG 21 MIKROPELLET KAPSUL",
-    "MORFIN HIDROKLORUR 0,02 G 1 ML 5 AMPUL",
-    "MORPHINE HCL 0,02 GR 5 AMPUL",
-    "RITALIN 10 MG 30 TABLET",
-    "XYREM ORAL ÇÖZELTİ 500 MG/ML"
+    "RITALIN 10 MG 30 TABLET"
   ],
-  "yesil": [
-    "FENOKODIN 20 TABLET",
-    "MIDOLAM 5 MG/1 ML IM/IV/REKTAL COZELTI ICEREN 5 AMPUL",
-    "NEURICA 150 MG 56 KAPSUL",
-    "PENTAL 1 GR 1 FLAKON",
-    "TRAMOSEL IV/IM/SC ENJEKSIYONLUK COZELTI ICEREN 100 MG/2 ML 5 AMP."
-  ]
+  "yesil": []
 }
