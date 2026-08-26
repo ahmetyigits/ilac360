@@ -7,6 +7,7 @@ import {
   getDescription,
   isValidIngredient,
   cleanCategories,
+  getPrescriptionMeta,
 } from './drugStore.js';
 import {
   loadInteractions,
@@ -84,6 +85,7 @@ export async function getDrugDetail(id) {
     supplementSource: drug.supplementSource || null,
     supplementApproval: drug.supplementApproval || null,
     prescriptionType: drug.prescriptionType || null,
+    prescriptionListDate: drug.prescriptionType ? (getPrescriptionMeta()?.dates?.[drug.prescriptionType] || null) : null,
     ktUrl: drug.ktUrl || null,
     warnings: getWarningsForDrug({
       activeIngredient: drug.Active_Ingredient,

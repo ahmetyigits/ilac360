@@ -1,0 +1,27 @@
+{
+  "note": "Elle bağlanmış reçete tipleri — otomatik ad-eşleşmesi kaçıran ama resmî TİTCK listesinde olan ve veri setinde bulunan ürünler. prescription-residuals.json'daki adaylardan eczacı doğrulamasıyla eklendi. Barkod → tip. Kaynak: ilgili TİTCK renkli reçete listesi (kırmızı/yeşil). RITALIN/metilfenidat = KIRMIZI (2010/26 genelgesi).",
+  "barcodes": {
+    "8699606756910": "kirmizi",
+    "8699606756903": "kirmizi",
+    "8681281000112": "kirmizi",
+    "8681281000105": "kirmizi",
+    "8699540170759": "kirmizi",
+    "8699540170650": "kirmizi",
+    "8699540170704": "kirmizi",
+    "8699788750690": "kirmizi",
+    "8699607750061": "kirmizi",
+    "8699607750078": "kirmizi",
+    "8699504011104": "kirmizi",
+    "8699624650047": "kirmizi",
+
+    "8699587011398": "yesil",
+    "8681697750151": "yesil",
+    "8681697750168": "yesil",
+    "8699828150473": "yesil",
+    "8699828150503": "yesil",
+    "8699828150480": "yesil",
+    "8699508270385": "yesil",
+    "8699508270392": "yesil",
+    "8680400770660": "yesil"
+  }
+}
