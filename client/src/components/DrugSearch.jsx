@@ -6,6 +6,14 @@ import { isScanSupported } from '../data/barcodeDetector.js';
 import BarcodeScanner from './BarcodeScanner.jsx';
 import { reportError } from '../data/telemetry.js';
 
+// Arama sonucu için kompakt reçete tipi rozeti (DrugCard'daki renklerle hizalı).
+const RX_PILL = {
+  kirmizi: { label: 'Kırmızı R.', cls: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' },
+  yesil: { label: 'Yeşil R.', cls: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300' },
+  turuncu: { label: 'Turuncu R.', cls: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300' },
+  mor: { label: 'Mor R.', cls: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300' },
+};
+
 export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onMaxReached }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
@@ -224,12 +232,19 @@ export default function DrugSearch({ onSelect, selectedDrugs, maxDrugs = 10, onM
                         {drug.activeIngredient || 'Etkin madde bilinmiyor'}
                       </span>
                     </div>
-                    <span className={`flex-none px-2.5 py-[3px] rounded-[20px] text-[11px] font-medium ${
-                      drug.isSupplement
-                        ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
-                        : 'bg-accent-soft text-accent'
-                    }`}>
-                      {drug.isSupplement ? 'Takviye' : drug.atcCode ? `ATC ${drug.atcCode}` : 'İlaç'}
+                    <span className="flex-none flex items-center gap-1.5">
+                      {drug.prescriptionType && RX_PILL[drug.prescriptionType] && (
+                        <span className={`px-2 py-[3px] rounded-[20px] text-[11px] font-semibold ${RX_PILL[drug.prescriptionType].cls}`}>
+                          {RX_PILL[drug.prescriptionType].label}
+                        </span>
+                      )}
+                      <span className={`px-2.5 py-[3px] rounded-[20px] text-[11px] font-medium ${
+                        drug.isSupplement
+                          ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
+                          : 'bg-accent-soft text-accent'
+                      }`}>
+                        {drug.isSupplement ? 'Takviye' : drug.atcCode ? `ATC ${drug.atcCode}` : 'İlaç'}
+                      </span>
                     </span>
                   </button>
                 );

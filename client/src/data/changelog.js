@@ -4,6 +4,29 @@
 
 export const CHANGELOG = [
   {
+    date: '2026-08-26',
+    title: 'Reçete tipi, kişiye göre değerlendirme ve kaynak linkleri',
+    summary:
+      'İlaçlar için reçete tipi rozeti (kırmızı/yeşil/turuncu), yaş-cinsiyet profiline göre uyarı önceliklendirme ve ilaç detayında resmi TİTCK prospektüs linki eklendi.',
+    changes: [
+      {
+        tag: 'YENİ',
+        title: 'Reçete tipi rozeti',
+        desc: 'Kontrole tabi ilaçlar artık renkli rozetle işaretleniyor: kırmızı reçete (narkotik — morfin, fentanil, oksikodon…), yeşil reçete (psikotrop — benzodiazepinler, pregabalin, zolpidem…), turuncu reçete (metilfenidat). Etken maddeden türetilir; kontrole tabi olmayan ürünler rozetsiz kalır.',
+      },
+      {
+        tag: 'YENİ',
+        title: 'Kişiye göre değerlendirme',
+        desc: 'Cinsiyet, yaş bandı ve gebe/emziren bilgisini girince ilaca ait ilgili uyarılar (gebelik, emzirme, pediatrik) öne çıkarılıp "Bu profil için" rozetiyle vurgulanıyor. Hiçbir uyarı gizlenmez; yalnız önceliklendirilir.',
+      },
+      {
+        tag: 'YENİ',
+        title: 'Resmi prospektüs (KT) linki',
+        desc: 'İlaç detayında "TİTCK\'de oku" linkiyle ürünün resmi Kullanma Talimatı\'na (prospektüs PDF) doğrudan ulaşabilirsiniz — 8.000+ üründe. Doktor/eczacı orijinali kaynağından okuyabilir.',
+      },
+    ],
+  },
+  {
     date: '2026-08-24',
     title: 'Büyük içerik güncellemesi',
     summary:

@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { Tag, Layers, Barcode, FolderTree, FileText, Loader2, X, ChevronDown, ChevronUp, AlertTriangle, Baby, ShieldAlert, Users, Car, Citrus, Pill, Info, Clock, Milk } from 'lucide-react';
+import { Tag, Layers, Barcode, FolderTree, FileText, Loader2, X, ChevronDown, ChevronUp, AlertTriangle, Baby, ShieldAlert, Users, Car, Citrus, Pill, Info, Clock, Milk, UserCog, ExternalLink } from 'lucide-react';
 import { getDrugDetail, getEquivalents } from '../data/api';
 import { parseDescription, normalizeDescription } from '../data/descriptionFormat.js';
 import { reportError } from '../data/telemetry.js';
+import ProfileControl from './ProfileControl.jsx';
+import { getProfile, setProfile as persistProfile, clearProfile } from '../data/profileStore.js';
+import { relevantWarningTypes, isProfileSet, isGeriatric, profileSummary } from '../data/profileRelevance.js';
 
 // Tekil ilaç statik uyarıları — kutu piktogramı dili: tip ikonu + kısa başlık.
 // Renkler InteractionResults'taki riskConfig tonlarıyla hizalıdır.
@@ -16,6 +19,14 @@ const WARNING_TYPE_CONFIG = {
   food: { icon: Citrus, label: 'Besin' },
   supplement: { icon: Pill, label: 'Takviye' },
   general: { icon: Info, label: 'Genel' },
+};
+
+// Reçete tipi rozeti (kontrole tabi ilaçlar) — renk + kısa açıklama.
+const PRESCRIPTION_BADGE = {
+  kirmizi: { label: 'Kırmızı Reçete', note: 'Kontrole tabi uyuşturucu (narkotik); kırmızı reçeteye tabidir.', cls: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' },
+  yesil: { label: 'Yeşil Reçete', note: 'Kontrole tabi psikotrop; yeşil reçeteye tabidir.', cls: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300' },
+  turuncu: { label: 'Turuncu Reçete', note: 'Turuncu reçeteye tabidir.', cls: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300' },
+  mor: { label: 'Mor Reçete', note: 'Mor reçeteye tabidir.', cls: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300' },
 };
 
 const WARNING_SEVERITY_CONFIG = {
@@ -62,7 +73,13 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
   const [showFullDesc, setShowFullDesc] = useState(false);
   const [expandedSection, setExpandedSection] = useState(null);
   const [retryToken, setRetryToken] = useState(0);
+  // Hasta profili (kişiye göre değerlendirme) — localStorage'dan; kartlar arası korunur.
+  const [profile, setProfileState] = useState(getProfile);
+  const [showProfile, setShowProfile] = useState(false);
   const panelRef = useRef(null);
+
+  const updateProfile = (p) => setProfileState(persistProfile(p));
+  const resetProfile = () => setProfileState(clearProfile());
 
   useEffect(() => {
     let stale = false;
@@ -167,6 +184,19 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
     });
   };
 
+  // Kişiye göre değerlendirme: profil ile eşleşen uyarıları ÖNE al + işaretle.
+  // Gizleme YOK — sıralama + rozet. Yaşlı profili prospektüsün "Yaşlılarda"
+  // bölümüne yönlendirilir (uyarı verisi geriatrik tip taşımıyor).
+  const relTypes = relevantWarningTypes(profile);
+  const allWarnings = detail.warnings || [];
+  const relevantIds = new Set(allWarnings.filter((w) => relTypes.has(w.type)).map((w) => w.id));
+  const orderedWarnings = [
+    ...allWarnings.filter((w) => relevantIds.has(w.id)),
+    ...allWarnings.filter((w) => !relevantIds.has(w.id)),
+  ];
+  const geriatricChip = isGeriatric(profile) ? specialChips.find((c) => c.key === 'yasli') : null;
+  const profileActive = isProfileSet(profile);
+
   return (
     <div ref={panelRef} tabIndex={-1} className={`${shell} overflow-hidden animate-slide-up`}>
       {/* Başlık: mono kicker + display ilaç adı */}
@@ -182,7 +212,18 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
                 Takviye Edici Gıda
               </span>
             )}
+            {detail.prescriptionType && PRESCRIPTION_BADGE[detail.prescriptionType] && (
+              <span className={`text-[11px] font-sans font-semibold tracking-normal px-2.5 py-1 rounded-full ${PRESCRIPTION_BADGE[detail.prescriptionType].cls}`}>
+                {PRESCRIPTION_BADGE[detail.prescriptionType].label}
+              </span>
+            )}
           </h2>
+          {detail.prescriptionType && PRESCRIPTION_BADGE[detail.prescriptionType] && (
+            <p className="text-[12px] text-text-muted mt-1.5 leading-relaxed">
+              {PRESCRIPTION_BADGE[detail.prescriptionType].note}{' '}
+              <span className="text-text-muted/80">Bilgilendirme amaçlıdır; resmi reçete sınıfı TİTCK düzenlemesine tabidir.</span>
+            </p>
+          )}
         </div>
         <button
           onClick={onClose}
@@ -202,14 +243,47 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
           <InfoCard icon={FolderTree} label="Ana Kategori" value={categories[0] || '—'} missing={!categories[0]} />
         </div>
 
+        {/* Kişiye göre değerlendirme: cinsiyet/yaş/gebe-emziren profili → ilgili uyarıları öne çıkar */}
+        {!detail.isSupplement && (
+          <div className="space-y-2.5">
+            {(showProfile || profileActive) ? (
+              <ProfileControl profile={profile} onChange={updateProfile} onClear={resetProfile} />
+            ) : (
+              <button
+                type="button"
+                onClick={() => setShowProfile(true)}
+                className="flex items-center gap-2 text-[13px] font-medium text-accent hover:underline cursor-pointer"
+              >
+                <UserCog className="w-4 h-4" /> Kişiye göre değerlendir (yaş / cinsiyet)
+              </button>
+            )}
+            {profileActive && (
+              <div className="rounded-[12px] bg-accent-soft/60 border border-accent/20 px-3.5 py-2.5 text-[12.5px] text-text-secondary leading-relaxed">
+                <span className="font-semibold text-text-primary">Profil ({profileSummary(profile)}):</span>{' '}
+                {relevantIds.size > 0
+                  ? `${relevantIds.size} uyarı profilinizle ilgili — aşağıda öne çıkarıldı.`
+                  : 'Bu ilaçta profilinize özel olarak eşleşen derlenmiş uyarı yok (yine de dikkatli olun).'}
+                {geriatricChip && (
+                  <>
+                    {' '}
+                    <button type="button" onClick={() => openSpecialSection(geriatricChip)} className="text-accent font-medium hover:underline cursor-pointer">
+                      Prospektüs: Yaşlılarda kullanımı →
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
         {detail.warnings && detail.warnings.length > 0 ? (
           <div>
             <p className="font-mono text-[10.5px] tracking-[.12em] uppercase text-text-muted mb-2.5">
               Önemli Uyarılar <span className="normal-case tracking-normal">({detail.warnings.length})</span>
             </p>
             <div className="space-y-2">
-              {detail.warnings.map((w) => (
-                <WarningCallout key={w.id} warning={w} defaultOpen={w.severity === 'critical'} />
+              {orderedWarnings.map((w) => (
+                <WarningCallout key={w.id} warning={w} defaultOpen={w.severity === 'critical'} relevant={relevantIds.has(w.id)} />
               ))}
             </div>
             <p className="text-[11px] text-text-muted mt-2 leading-relaxed">
@@ -319,13 +393,26 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
                 <FileText className="w-3.5 h-3.5 text-accent" />
                 Prospektüs / Kullanma Talimatı
               </p>
-              <button
-                onClick={() => setShowFullDesc(!showFullDesc)}
-                className="text-[12.5px] text-accent hover:text-accent-deep font-semibold flex items-center gap-1 cursor-pointer transition-colors"
-              >
-                {showFullDesc ? 'Gizle' : 'Tümünü Göster'}
-                {showFullDesc ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-              </button>
+              <div className="flex items-center gap-3">
+                {detail.ktUrl && (
+                  <a
+                    href={detail.ktUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[12.5px] text-accent hover:text-accent-deep font-semibold flex items-center gap-1 cursor-pointer transition-colors"
+                    title="Resmi prospektüsü (KT) TİTCK'de aç"
+                  >
+                    TİTCK'de oku <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )}
+                <button
+                  onClick={() => setShowFullDesc(!showFullDesc)}
+                  className="text-[12.5px] text-accent hover:text-accent-deep font-semibold flex items-center gap-1 cursor-pointer transition-colors"
+                >
+                  {showFullDesc ? 'Gizle' : 'Tümünü Göster'}
+                  {showFullDesc ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                </button>
+              </div>
             </div>
 
             {!showFullDesc ? (
@@ -374,16 +461,27 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
         {!hasDescription && !detail.isSupplement && (
           <div className="bg-card-inset rounded-[14px] p-5 text-center">
             <p className="text-[13.5px] text-text-muted">
-              Bu ilaç için prospektüs bilgisi veritabanımızda mevcut değildir.
+              Bu ilaç için prospektüs metni veritabanımızda mevcut değildir.
             </p>
-            <p className="text-[12.5px] text-text-muted mt-1">
-              Güncel ve resmi bilgi için <a
-                href="https://www.titck.gov.tr/kubkt"
+            {detail.ktUrl ? (
+              <a
+                href={detail.ktUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-accent hover:underline"
-              >TİTCK KÜB/KT arşivine</a> başvurunuz.
-            </p>
+                className="inline-flex items-center gap-1.5 mt-2 text-[13px] font-semibold text-accent hover:underline"
+              >
+                Resmi prospektüsü (KT) TİTCK'de oku <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            ) : (
+              <p className="text-[12.5px] text-text-muted mt-1">
+                Güncel ve resmi bilgi için <a
+                  href="https://www.titck.gov.tr/kubkt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:underline"
+                >TİTCK KÜB/KT arşivine</a> başvurunuz.
+              </p>
+            )}
           </div>
         )}
       </div>
@@ -391,14 +489,14 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
   );
 }
 
-function WarningCallout({ warning, defaultOpen }) {
-  const [open, setOpen] = useState(!!defaultOpen);
+function WarningCallout({ warning, defaultOpen, relevant }) {
+  const [open, setOpen] = useState(!!defaultOpen || !!relevant);
   const typeCfg = WARNING_TYPE_CONFIG[warning.type] || WARNING_TYPE_CONFIG.allergy;
   const sevCfg = WARNING_SEVERITY_CONFIG[warning.severity] || WARNING_SEVERITY_CONFIG.info;
   const Icon = typeCfg.icon;
 
   return (
-    <div className={`rounded-[14px] border overflow-hidden ${sevCfg.card}`}>
+    <div className={`rounded-[14px] border overflow-hidden ${sevCfg.card} ${relevant ? 'ring-2 ring-accent/60' : ''}`}>
       <button
         onClick={() => setOpen(!open)}
         aria-expanded={open}
@@ -412,6 +510,11 @@ function WarningCallout({ warning, defaultOpen }) {
           <span className="font-mono text-[10px] font-bold uppercase tracking-[.08em] text-text-muted bg-card-inset border border-border rounded-md px-2 py-[2px]">
             {typeCfg.label}
           </span>
+          {relevant && (
+            <span className="text-[10px] font-bold uppercase tracking-[.06em] px-2 py-[2px] rounded-md bg-accent text-white">
+              Bu profil için
+            </span>
+          )}
         </div>
         <span className="shrink-0">
           {open ? (

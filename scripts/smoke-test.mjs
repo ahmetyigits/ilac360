@@ -143,6 +143,20 @@ assert(v06WithDrug.length === 0,
 const ensureFsmp = index.find((e) => e.n.includes('ENSURE'));
 assert(!ensureFsmp || !ensureFsmp.a, `ENSURE FSMP etken maddesi nötrlendi (a=${ensureFsmp?.a ?? 'null'})`);
 
+// Reçete tipi enjeksiyonu (kontrole tabi ilaçlar): kürasyonlu molekül listesinden
+// türetilir; kanonik tam eşleşme yanlış-pozitif üretmemeli (apomorfin ≠ morfin).
+const rxK = index.filter((e) => e.rx === 'kirmizi');
+const rxY = index.filter((e) => e.rx === 'yesil');
+const rxT = index.filter((e) => e.rx === 'turuncu');
+assert(rxK.length >= 40 && rxY.length >= 200 && rxT.length >= 30,
+  `reçete tipi enjekte edildi (kırmızı ${rxK.length}, yeşil ${rxY.length}, turuncu ${rxT.length})`);
+const mfen = index.find((e) => flexibleIncludes(e.a || '', 'metilfenidat'));
+assert(!mfen || mfen.rx === 'turuncu', `metilfenidat turuncu reçete (${mfen?.n})`);
+const apo = index.find((e) => flexibleIncludes(e.a || '', 'apomorfin'));
+assert(!apo || apo.rx !== 'kirmizi', `apomorfin yanlışlıkla 'morfin' sayılıp kırmızı OLMADI (${apo?.n})`);
+const suppRx = index.find((e) => e.s && e.rx);
+assert(!suppRx, `takviye ürünleri reçete tipi almıyor (${suppRx?.n ?? 'yok'})`);
+
 // Takviye kataloğu enjeksiyonu: Pharmaton bulunur, s bayrağı taşır, ginseng
 // bileşeni kanonikleşir (bulunamazsa katalog/sinonim regresyonu var demektir).
 const supplements = index.filter((e) => e.s);

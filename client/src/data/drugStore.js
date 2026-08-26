@@ -72,6 +72,10 @@ function expand(entry) {
     supplementBrand: entry.sb || null,
     supplementSource: entry.ss || null,
     supplementApproval: entry.st || null,
+    // Reçete tipi (kontrole tabi ilaçlar; build enjeksiyonu) — 'kirmizi'|'yesil'|'turuncu'|'mor'|null
+    prescriptionType: entry.rx || null,
+    // TİTCK KT prospektüs kalıcı linki (varsa)
+    ktUrl: entry.kt || null,
   };
 }
 
@@ -184,6 +188,7 @@ export function cleanDrugResponse(drug) {
     supplementBrand: drug.supplementBrand || null,
     supplementSource: drug.supplementSource || null,
     supplementApproval: drug.supplementApproval || null,
+    prescriptionType: drug.prescriptionType || null,
   };
 }
 
