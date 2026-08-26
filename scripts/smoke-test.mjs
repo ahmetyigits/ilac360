@@ -156,6 +156,14 @@ assert(!ritalin || ritalin.rx === 'kirmizi', `RITALINE (metilfenidat) kırmızı
 assert(index.filter((e) => e.rx === 'turuncu').length === 0, `turuncu reçete kullanılmıyor (faktör ürünleri kapsam dışı)`);
 const suppRx = index.find((e) => e.s && e.rx);
 assert(!suppRx, `takviye ürünleri reçete tipi almıyor (${suppRx?.n ?? 'yok'})`);
+// Molekül güvenlik ağı (INCB çizelge): zolpidem TİTCK yeşil ÜRÜN-listesinde yok
+// ama mono ürünü çizelgeden yeşil olmalı (yanlış-negatif boşluğu kapandı).
+const zolp = index.find((e) => flexibleIncludes(e.a || '', 'zolpidem'));
+assert(!zolp || zolp.rx === 'yesil', `zolpidem çizelgeden yeşil reçete (${zolp?.n} / ${zolp?.rx})`);
+// Etken madde join düzeltmesi: MORFIA artık 'Eslikarbazepin' değil morfin + kırmızı.
+const morfia = index.find((e) => e.b === '8699680010021');
+assert(!morfia || (flexibleIncludes(morfia.a || '', 'morfin') && morfia.rx === 'kirmizi'),
+  `MORFIA join düzeltildi (${morfia?.a} / ${morfia?.rx})`);
 
 // Takviye kataloğu enjeksiyonu: Pharmaton bulunur, s bayrağı taşır, ginseng
 // bileşeni kanonikleşir (bulunamazsa katalog/sinonim regresyonu var demektir).

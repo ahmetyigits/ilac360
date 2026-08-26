@@ -68,6 +68,25 @@ try {
   if (err.code !== 'ENOENT') throw err; // dosya yoksa sessiz geç, bozuksa DUR
 }
 
+// Etken madde join-hatası düzeltmeleri (barkod bazlı) — manual-ingredients yalnız
+// BOŞ alanı doldurur; bu, DOLU-ama-yanlış değeri EZER (ör. MORFIA'nın 'Eslikarbazepin'
+// yazan etken maddesi → 'Morfin Sülfat'). Çıkarım haritalarından ÖNCE.
+let ingredientCorrectionCount = 0;
+try {
+  const corr = JSON.parse(readFileSync(join(SRC, 'ingredient-corrections.json'), 'utf-8'));
+  if (!corr.source || !String(corr.source).trim()) {
+    console.error('ingredient-corrections: source zorunlu');
+    process.exit(1);
+  }
+  const byBc = corr.barcodes || {};
+  for (const d of drugs) {
+    const ing = byBc[String(d.barcode || '').trim()];
+    if (ing) { d.Active_Ingredient = ing; ingredientCorrectionCount++; }
+  }
+} catch (err) {
+  if (err.code !== 'ENOENT') throw err;
+}
+
 // Enteral/oral beslenme (FSMP) ürünleri — yanlış ilaç etken maddesi temizliği.
 // WHO ATC V06 = "genel besinler" (enteral/oral beslenme, özel tıbbi amaçlı gıda).
 // Kaynak veride bu ürünlerin Active_Ingredient alanına rastgele/alakasız ilaç
@@ -397,11 +416,29 @@ try {
 } catch (err) {
   if (err.code !== 'ENOENT') throw err;
 }
+// Molekül güvenlik ağı (INCB çizelgesi) — ürün-listesi bir tip vermediğinde,
+// YALNIZ tek-bileşenli ürünlere bileşen çizelgesini uygula. Kombinasyonlar ürün
+// listelerinden gelir (kombinasyon/muafiyet molekülden çıkmaz). Ürün-listesi
+// override eder; çizelge yalnız boşlukları (ör. zolpidem, klordiazepoksit) doldurur.
+let prescriptionSchedule = {};
+try {
+  prescriptionSchedule = JSON.parse(readFileSync(join(SRC, 'prescription-schedule.json'), 'utf-8')).components || {};
+} catch (err) {
+  if (err.code !== 'ENOENT') throw err;
+}
 let prescriptionCount = 0;
+let scheduleCount = 0;
 for (const entry of index) {
   if (entry.s || !entry.b) continue; // takviye / barkodsuz → atla
   const t = prescriptionByBarcode[String(entry.b).trim()];
-  if (t) { entry.rx = t; prescriptionCount++; }
+  if (t) { entry.rx = t; prescriptionCount++; continue; }
+  if (entry.a && Object.keys(prescriptionSchedule).length) {
+    const comps = getComponents(entry.a, synonymLookup);
+    if (comps.length === 1 && prescriptionSchedule[comps[0]]) {
+      entry.rx = prescriptionSchedule[comps[0]];
+      scheduleCount++;
+    }
+  }
 }
 
 // --- İçerik-hash'li yazım + manifest ---
@@ -494,7 +531,7 @@ const bucketSizes = manifestFiles && Object.entries(manifestFiles)
 const maxBucket = Math.max(...bucketSizes);
 const totalBucket = bucketSizes.reduce((a, b) => a + b, 0);
 
-console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled}, manuel kürasyon: ${manualIngredientCount}, beslenme nötrlendi: ${nutritionNeutralizedCount}, reçete tipli: ${prescriptionCount})`);
+console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled}, manuel kürasyon: ${manualIngredientCount}, beslenme nötrlendi: ${nutritionNeutralizedCount}, reçete tipli: ${prescriptionCount}+${scheduleCount} çizelge)`);
 console.log('component-atc           ', kb(join(OUT, manifestFiles['component-atc.json'])), `(${Object.keys(componentAtc).length} components, ${overrideCount} override)`);
 console.log('takviye kataloğu        ', `${supplementCount} kayıt (index'e enjekte edildi)`);
 console.log('desc buckets            ', `${BUCKET_COUNT} adet, toplam ${(totalBucket / 1024 / 1024).toFixed(2)} MB, en büyük ${(maxBucket / 1024).toFixed(0)} KB (${descriptionCount} descriptions, ${titckDescCount} tanesi TİTCK KT)`);

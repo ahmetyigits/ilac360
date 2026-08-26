@@ -1,0 +1,21 @@
+{
+  "note": "Molekül (kanonik bileşen) düzeyinde reçete GÜVENLİK AĞI — INCB resmî çizelgelerinden (UN 1961 Narkotik 'Yellow List' → kırmızı; UN 1971 Psikotrop 'Green List' → yeşil). TİTCK ürün-listesi PDF'leri her ürünü tek tek saymadığından (ör. zolpidem/klordiazepoksit yeşil ürün-listesinde yok) oluşan YANLIŞ-NEGATİF boşluğu kapatır. UYGULAMA KURALI (build-data): yalnız TEK-BİLEŞENLİ ürünlere uygulanır; kombinasyonlar ürün-listelerinden gelir (kombinasyon/düşük-doz muafiyeti molekülden çıkmaz). Ürün-listesi (prescription-products.json) tipi HER ZAMAN bunu override eder. Yalnız veri setinde ürünü bulunan bileşenler listelendi; INCB'de doğrulandı. Kaynak: incb.org green-list / yellow-list (scripts/incb-schedule.mjs ile yenilenebilir). NOT (eczacı incelemesi): kodein narkotik çizelgesinde → saf/mono kodein ürünü kırmızı; kodein KOMBİNASYONLARI ürün-listesinden (izlemeye tabi) gelir.",
+  "components": {
+    "morfin": "kirmizi",
+    "kodein": "kirmizi",
+    "fentanil": "kirmizi",
+    "oksikodon": "kirmizi",
+    "petidin": "kirmizi",
+    "remifentanil": "kirmizi",
+    "zolpidem": "yesil",
+    "diazepam": "yesil",
+    "alprazolam": "yesil",
+    "lorazepam": "yesil",
+    "klonazepam": "yesil",
+    "klordiazepoksit": "yesil",
+    "midazolam": "yesil",
+    "medazepam": "yesil",
+    "nitrazepam": "yesil",
+    "fenobarbital": "yesil"
+  }
+}
