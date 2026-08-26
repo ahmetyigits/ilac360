@@ -23,11 +23,12 @@ import DrugCard from '../DrugCard.jsx';
 afterEach(cleanup);
 
 describe('DrugCard — reçete tipi rozeti', () => {
-  it('kontrole tabi ilaçta "Yeşil Reçete" rozeti + bilgilendirme görünür', async () => {
-    globalThis.__rxDetail = detail;
+  it('kontrole tabi ilaçta "Yeşil Reçete" rozeti + TİTCK liste bilgisi görünür', async () => {
+    globalThis.__rxDetail = { ...detail, prescriptionListDate: '03.04.2026' };
     render(<DrugCard drug={{ id: '1' }} onClose={vi.fn()} />);
     expect(await screen.findByText('Yeşil Reçete')).toBeInTheDocument();
-    expect(screen.getByText(/resmi reçete sınıfı TİTCK/i)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /TİTCK resmî listesi/i })).toBeInTheDocument();
+    expect(screen.getByText(/03\.04\.2026/)).toBeInTheDocument();
   });
 
   it('reçete tipi olmayan ilaçta rozet render edilmez', async () => {

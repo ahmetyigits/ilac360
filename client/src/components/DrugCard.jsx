@@ -21,12 +21,12 @@ const WARNING_TYPE_CONFIG = {
   general: { icon: Info, label: 'Genel' },
 };
 
-// Reçete tipi rozeti (kontrole tabi ilaçlar) — renk + kısa açıklama.
+// Reçete tipi rozeti (kontrole tabi ilaçlar; TİTCK resmî listelerinden ürün bazlı).
 const PRESCRIPTION_BADGE = {
   kirmizi: { label: 'Kırmızı Reçete', note: 'Kontrole tabi uyuşturucu (narkotik); kırmızı reçeteye tabidir.', cls: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' },
   yesil: { label: 'Yeşil Reçete', note: 'Kontrole tabi psikotrop; yeşil reçeteye tabidir.', cls: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300' },
-  turuncu: { label: 'Turuncu Reçete', note: 'Turuncu reçeteye tabidir.', cls: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300' },
-  mor: { label: 'Mor Reçete', note: 'Mor reçeteye tabidir.', cls: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300' },
+  izleme: { label: 'İzlemeye Tabi', note: 'Normal (beyaz) reçete ile verilir ancak izlemeye tabidir.', cls: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' },
+  mor: { label: 'Mor Reçete', note: 'Kan menşeli ürün; mor reçeteye tabidir.', cls: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300' },
 };
 
 const WARNING_SEVERITY_CONFIG = {
@@ -221,7 +221,10 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
           {detail.prescriptionType && PRESCRIPTION_BADGE[detail.prescriptionType] && (
             <p className="text-[12px] text-text-muted mt-1.5 leading-relaxed">
               {PRESCRIPTION_BADGE[detail.prescriptionType].note}{' '}
-              <span className="text-text-muted/80">Bilgilendirme amaçlıdır; resmi reçete sınıfı TİTCK düzenlemesine tabidir.</span>
+              <a href="https://www.titck.gov.tr/faaliyetalanlari/ilac/uyusturucu-ve-psikotrop-maddeler" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+                TİTCK resmî listesi
+              </a>
+              {detail.prescriptionListDate ? ` (${detail.prescriptionListDate})` : ''} esas alınmıştır; bilgilendirme amaçlıdır.
             </p>
           )}
         </div>

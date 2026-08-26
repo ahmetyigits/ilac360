@@ -143,17 +143,17 @@ assert(v06WithDrug.length === 0,
 const ensureFsmp = index.find((e) => e.n.includes('ENSURE'));
 assert(!ensureFsmp || !ensureFsmp.a, `ENSURE FSMP etken maddesi nötrlendi (a=${ensureFsmp?.a ?? 'null'})`);
 
-// Reçete tipi enjeksiyonu (kontrole tabi ilaçlar): kürasyonlu molekül listesinden
-// türetilir; kanonik tam eşleşme yanlış-pozitif üretmemeli (apomorfin ≠ morfin).
+// Reçete tipi enjeksiyonu (kontrole tabi ilaçlar): TİTCK resmî listelerinden
+// ÜRÜN/barkod bazlı (metilfenidat=kırmızı; turuncu YOK — o faktör ürünleri).
 const rxK = index.filter((e) => e.rx === 'kirmizi');
 const rxY = index.filter((e) => e.rx === 'yesil');
-const rxT = index.filter((e) => e.rx === 'turuncu');
-assert(rxK.length >= 40 && rxY.length >= 200 && rxT.length >= 30,
-  `reçete tipi enjekte edildi (kırmızı ${rxK.length}, yeşil ${rxY.length}, turuncu ${rxT.length})`);
-const mfen = index.find((e) => flexibleIncludes(e.a || '', 'metilfenidat'));
-assert(!mfen || mfen.rx === 'turuncu', `metilfenidat turuncu reçete (${mfen?.n})`);
-const apo = index.find((e) => flexibleIncludes(e.a || '', 'apomorfin'));
-assert(!apo || apo.rx !== 'kirmizi', `apomorfin yanlışlıkla 'morfin' sayılıp kırmızı OLMADI (${apo?.n})`);
+const rxI = index.filter((e) => e.rx === 'izleme');
+assert(rxK.length >= 50 && rxY.length >= 100 && rxI.length >= 50,
+  `reçete tipi enjekte edildi (kırmızı ${rxK.length}, yeşil ${rxY.length}, izleme ${rxI.length})`);
+// RITALINE (metilfenidat) elle bağlandı → kırmızı (2010/26); turuncu DEĞİL.
+const ritalin = index.find((e) => e.b === '8699504011104');
+assert(!ritalin || ritalin.rx === 'kirmizi', `RITALINE (metilfenidat) kırmızı reçete (${ritalin?.rx})`);
+assert(index.filter((e) => e.rx === 'turuncu').length === 0, `turuncu reçete kullanılmıyor (faktör ürünleri kapsam dışı)`);
 const suppRx = index.find((e) => e.s && e.rx);
 assert(!suppRx, `takviye ürünleri reçete tipi almıyor (${suppRx?.n ?? 'yok'})`);
 

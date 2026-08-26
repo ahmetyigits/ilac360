@@ -24,11 +24,17 @@ let loadPromise = null;
 // mantıksal ad → gerçek dosya adı çözümü manifest üzerinden yapılır.
 let manifestPromise = null;
 
+let loadedManifest = null;
+// Reçete tipi liste tarihleri (manifest.prescription.dates) — UI kaynak/tarih için.
+export function getPrescriptionMeta() {
+  return loadedManifest?.prescription || null;
+}
+
 export function loadManifest() {
   if (manifestPromise) return manifestPromise;
   manifestPromise = fetch(`${DATA_BASE}/manifest.json`, { cache: 'no-cache' })
     .then((r) => {
-      if (r.ok) return r.json();
+      if (r.ok) return r.json().then((m) => { loadedManifest = m; return m; });
       if (r.status === 404) return null; // manifest'siz eski dağıtım: hash'siz adlara düş (kalıcı)
       // Sunucu hatası geçici olabilir: cache'leme, sonraki çağrı yeniden denesin.
       manifestPromise = null;
