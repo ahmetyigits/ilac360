@@ -1,0 +1,45 @@
+{
+  "note": "Reçete tipi (kontrole tabi ilaçlar) — kanonik ETKEN MADDE (bileşen) anahtarıyla. Build sırasında getComponents ile ürünün bileşenlerine eşlenir; herhangi bir bileşen buradaysa ürüne en kısıtlayıcı tip atanır (kırmızı>yeşil>turuncu>mor). Anahtarlar kanonik/tuz-ayıklanmış formda olmalı (ör. 'morfin' — 'morfin sülfat' değil). Tam eşleşme olduğu için 'morfin' anahtarı 'apomorfin'i ETKİLEMEZ. ÇEKİRDEK LİSTE — eczacı doğrulaması bekliyor: kodein, tramadol, buprenorfin, gabapentin gibi sınır moleküller BİLİNÇLİ olarak DIŞARIDA bırakıldı (yanlış 'kırmızı/yeşil' dememek için); resmi TİTCK Renkli Reçete listesiyle teyit edilip eklenmeli. Kontrole tabi olmayan ürünler rozetsiz kalır (normal/OTC ayrımı veriden güvenilir yapılamaz).",
+  "types": {
+    "kirmizi": "Kırmızı reçete (kontrole tabi uyuşturucu / narkotik)",
+    "yesil": "Yeşil reçete (kontrole tabi psikotrop)",
+    "turuncu": "Turuncu reçete",
+    "mor": "Mor reçete"
+  },
+  "components": {
+    "morfin": { "type": "kirmizi", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "fentanil": { "type": "kirmizi", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "remifentanil": { "type": "kirmizi", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "sufentanil": { "type": "kirmizi", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "alfentanil": { "type": "kirmizi", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "oksikodon": { "type": "kirmizi", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "hidromorfon": { "type": "kirmizi", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "petidin": { "type": "kirmizi", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "metadon": { "type": "kirmizi", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "tapentadol": { "type": "kirmizi", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "hidrokodon": { "type": "kirmizi", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+
+    "diazepam": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "alprazolam": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "lorazepam": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "klonazepam": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "midazolam": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "bromazepam": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "klordiazepoksit": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "klobazam": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "flurazepam": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "estazolam": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "triazolam": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "oksazepam": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "zolpidem": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "zopiklon": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "zaleplon": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "pregabalin": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "fenobarbital": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "barbital": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "pentobarbital": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+    "amobarbital": { "type": "yesil", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" },
+
+    "metilfenidat": { "type": "turuncu", "source": "TİTCK Renkli Reçete / Kontrole Tabi İlaçlar listesi" }
+  }
+}

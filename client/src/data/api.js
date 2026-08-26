@@ -83,6 +83,8 @@ export async function getDrugDetail(id) {
     supplementBrand: drug.supplementBrand || null,
     supplementSource: drug.supplementSource || null,
     supplementApproval: drug.supplementApproval || null,
+    prescriptionType: drug.prescriptionType || null,
+    ktUrl: drug.ktUrl || null,
     warnings: getWarningsForDrug({
       activeIngredient: drug.Active_Ingredient,
       atcCode,

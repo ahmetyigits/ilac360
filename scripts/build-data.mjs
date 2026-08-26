@@ -99,6 +99,14 @@ try {
 } catch {
   // opsiyonel: dosyalar yoksa yalnız veri setindeki Description kullanılır
 }
+// TİTCK KT prospektüs kalıcı URL'leri (scripts/titck-fetch-urls.mjs üretir) —
+// aynı barkod/ad anahtarı. Varsa ilaç detayına "Prospektüsü TİTCK'de oku" linki.
+let titckUrls = {};
+try {
+  titckUrls = JSON.parse(readFileSync(join(SRC, 'titck-kt-urls.json'), 'utf-8'));
+} catch {
+  // opsiyonel: dosya yoksa UI genel arşiv linkine düşer
+}
 const titckKeyOf = (d) => d.barcode && String(d.barcode).trim()
   ? `b:${String(d.barcode).trim()}`
   : `n:${searchFold(d.Product_Name || '')}`;
@@ -198,6 +206,7 @@ for (const d of drugs) {
   }
   const id = String(d.ID);
 
+  const ktUrl = titckUrls[titckKeyOf(d)] || null;
   index.push({
     i: id,
     n: d.Product_Name,
@@ -209,6 +218,8 @@ for (const d of drugs) {
     // Farmasötik form ('topikal'/'oftalmik'/...) — motor sistemik uyarıları
     // düşük emilimli formlarda bastırmak için kullanır.
     f: detectForm(searchFold(d.Product_Name), atc),
+    // TİTCK KT prospektüs kalıcı linki (varsa) — 'kt' anahtarı yalnız dolu ürünlerde.
+    ...(ktUrl ? { kt: ktUrl } : {}),
   });
 
   if (desc) {
@@ -371,6 +382,47 @@ try {
   if (err.code !== 'ENOENT') throw err;
 }
 
+// --- Reçete tipi (kontrole tabi ilaçlar) ---
+// Kanonik bileşen → reçete tipi. Ürünün getComponents bileşenlerinden herhangi
+// biri haritadaysa en kısıtlayıcı tip atanır (kırmızı>yeşil>turuncu>mor). Tam
+// bileşen eşleşmesi olduğu için ("morfin" ≠ "apomorfin") yanlış-pozitif üretmez.
+// Takviyeler ve etken maddesi çözülemeyen ürünler atlanır. Kural motorunu
+// ETKİLEMEZ — yalnız index'e bilgilendirici rozet alanı (rx) ekler.
+const RX_VALID = new Set(['kirmizi', 'yesil', 'turuncu', 'mor']);
+const RX_PRIORITY = { kirmizi: 0, yesil: 1, turuncu: 2, mor: 3 };
+const prescriptionMap = {};
+try {
+  const rxFile = JSON.parse(readFileSync(join(SRC, 'prescription-types.json'), 'utf-8'));
+  for (const [comp, o] of Object.entries(rxFile.components || {})) {
+    if (!o || !RX_VALID.has(o.type)) {
+      console.error(`prescription-types: geçersiz tip '${o && o.type}' (${comp})`);
+      process.exit(1);
+    }
+    if (!o.source || !String(o.source).trim()) {
+      console.error(`prescription-types: source zorunlu (${comp})`);
+      process.exit(1);
+    }
+    prescriptionMap[comp] = o.type;
+  }
+} catch (err) {
+  if (err.code !== 'ENOENT') throw err;
+}
+let prescriptionCount = 0;
+if (Object.keys(prescriptionMap).length > 0) {
+  for (const entry of index) {
+    if (entry.s || !entry.a) continue; // takviye / etken maddesiz → atla
+    let best = null;
+    for (const comp of getComponents(entry.a, synonymLookup)) {
+      const t = prescriptionMap[comp];
+      if (t && (best === null || RX_PRIORITY[t] < RX_PRIORITY[best])) best = t;
+    }
+    if (best) {
+      entry.rx = best;
+      prescriptionCount++;
+    }
+  }
+}
+
 // --- İçerik-hash'li yazım + manifest ---
 mkdirSync(OUT, { recursive: true });
 
@@ -456,7 +508,7 @@ const bucketSizes = manifestFiles && Object.entries(manifestFiles)
 const maxBucket = Math.max(...bucketSizes);
 const totalBucket = bucketSizes.reduce((a, b) => a + b, 0);
 
-console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled}, manuel kürasyon: ${manualIngredientCount}, beslenme nötrlendi: ${nutritionNeutralizedCount})`);
+console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled}, manuel kürasyon: ${manualIngredientCount}, beslenme nötrlendi: ${nutritionNeutralizedCount}, reçete tipli: ${prescriptionCount})`);
 console.log('component-atc           ', kb(join(OUT, manifestFiles['component-atc.json'])), `(${Object.keys(componentAtc).length} components, ${overrideCount} override)`);
 console.log('takviye kataloğu        ', `${supplementCount} kayıt (index'e enjekte edildi)`);
 console.log('desc buckets            ', `${BUCKET_COUNT} adet, toplam ${(totalBucket / 1024 / 1024).toFixed(2)} MB, en büyük ${(maxBucket / 1024).toFixed(0)} KB (${descriptionCount} descriptions, ${titckDescCount} tanesi TİTCK KT)`);
