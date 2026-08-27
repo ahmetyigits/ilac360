@@ -143,27 +143,28 @@ assert(v06WithDrug.length === 0,
 const ensureFsmp = index.find((e) => e.n.includes('ENSURE'));
 assert(!ensureFsmp || !ensureFsmp.a, `ENSURE FSMP etken maddesi nötrlendi (a=${ensureFsmp?.a ?? 'null'})`);
 
-// Reçete tipi enjeksiyonu (kontrole tabi ilaçlar): TİTCK resmî listelerinden
-// ÜRÜN/barkod bazlı (metilfenidat=kırmızı; turuncu YOK — o faktör ürünleri).
-const rxK = index.filter((e) => e.rx === 'kirmizi');
-const rxY = index.filter((e) => e.rx === 'yesil');
-const rxI = index.filter((e) => e.rx === 'izleme');
-assert(rxK.length >= 50 && rxY.length >= 100 && rxI.length >= 50,
-  `reçete tipi enjekte edildi (kırmızı ${rxK.length}, yeşil ${rxY.length}, izleme ${rxI.length})`);
-// RITALINE (metilfenidat) elle bağlandı → kırmızı (2010/26); turuncu DEĞİL.
-const ritalin = index.find((e) => e.b === '8699504011104');
-assert(!ritalin || ritalin.rx === 'kirmizi', `RITALINE (metilfenidat) kırmızı reçete (${ritalin?.rx})`);
-assert(index.filter((e) => e.rx === 'turuncu').length === 0, `turuncu reçete kullanılmıyor (faktör ürünleri kapsam dışı)`);
-const suppRx = index.find((e) => e.s && e.rx);
-assert(!suppRx, `takviye ürünleri reçete tipi almıyor (${suppRx?.n ?? 'yok'})`);
-// Molekül güvenlik ağı (INCB çizelge): zolpidem TİTCK yeşil ÜRÜN-listesinde yok
-// ama mono ürünü çizelgeden yeşil olmalı (yanlış-negatif boşluğu kapandı).
-const zolp = index.find((e) => flexibleIncludes(e.a || '', 'zolpidem'));
-assert(!zolp || zolp.rx === 'yesil', `zolpidem çizelgeden yeşil reçete (${zolp?.n} / ${zolp?.rx})`);
-// Etken madde join düzeltmesi: MORFIA artık 'Eslikarbazepin' değil morfin + kırmızı.
+// Reçete tipi rozeti şu an KAPALI (build-data RECETE_ROZET_AKTIF=false) — kürasyonlu
+// TR molekül çizelgesi eczacı onayına dek canlıda gizli. Enjeksiyon açıksa doğrula.
+if (index.some((e) => e.rx)) {
+  const rxK = index.filter((e) => e.rx === 'kirmizi');
+  const rxY = index.filter((e) => e.rx === 'yesil');
+  const rxI = index.filter((e) => e.rx === 'izleme');
+  assert(rxK.length >= 50 && rxY.length >= 100 && rxI.length >= 50,
+    `reçete tipi enjekte edildi (kırmızı ${rxK.length}, yeşil ${rxY.length}, izleme ${rxI.length})`);
+  const ritalin = index.find((e) => e.b === '8699504011104');
+  assert(!ritalin || ritalin.rx === 'kirmizi', `RITALINE (metilfenidat) kırmızı reçete (${ritalin?.rx})`);
+  assert(index.filter((e) => e.rx === 'turuncu').length === 0, `turuncu reçete kullanılmıyor`);
+  const suppRx = index.find((e) => e.s && e.rx);
+  assert(!suppRx, `takviye ürünleri reçete tipi almıyor (${suppRx?.n ?? 'yok'})`);
+  const zolp = index.find((e) => flexibleIncludes(e.a || '', 'zolpidem'));
+  assert(!zolp || zolp.rx === 'yesil', `zolpidem çizelgeden yeşil reçete (${zolp?.n})`);
+} else {
+  assert(index.filter((e) => e.rx).length === 0, 'reçete tipi rozeti kapalı (kürasyon bekliyor) — canlıda gizli');
+}
+// Etken madde join düzeltmesi (reçeteden bağımsız): MORFIA artık 'Eslikarbazepin' değil morfin.
 const morfia = index.find((e) => e.b === '8699680010021');
-assert(!morfia || (flexibleIncludes(morfia.a || '', 'morfin') && morfia.rx === 'kirmizi'),
-  `MORFIA join düzeltildi (${morfia?.a} / ${morfia?.rx})`);
+assert(!morfia || flexibleIncludes(morfia.a || '', 'morfin'),
+  `MORFIA join düzeltildi (${morfia?.a})`);
 
 // Takviye kataloğu enjeksiyonu: Pharmaton bulunur, s bayrağı taşır, ginseng
 // bileşeni kanonikleşir (bulunamazsa katalog/sinonim regresyonu var demektir).

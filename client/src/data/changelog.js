@@ -5,15 +5,10 @@
 export const CHANGELOG = [
   {
     date: '2026-08-26',
-    title: 'Reçete tipi, kişiye göre değerlendirme ve kaynak linkleri',
+    title: 'Kişiye göre değerlendirme ve resmi prospektüs linki',
     summary:
-      'İlaçlar için reçete tipi rozeti (kırmızı/yeşil/izlemeye tabi), yaş-cinsiyet profiline göre uyarı önceliklendirme ve ilaç detayında resmi TİTCK prospektüs linki eklendi.',
+      'Yaş-cinsiyet profiline göre uyarı önceliklendirme ve ilaç detayında resmi TİTCK prospektüs (KT) linki eklendi.',
     changes: [
-      {
-        tag: 'YENİ',
-        title: 'Reçete tipi rozeti',
-        desc: 'İlaçlar TİTCK resmî renkli reçete listelerine göre rozetleniyor: kırmızı reçete (narkotik — morfin, fentanil, metilfenidat…), yeşil reçete (psikotrop — benzodiazepinler, pregabalin, tramadol…) ve normal reçete–izlemeye tabi (gabapentin, kodein kombinasyonları…). Ürün/barkod bazlıdır; kaynak listenin tarihi ve resmî liste linki kartta gösterilir.',
-      },
       {
         tag: 'YENİ',
         title: 'Kişiye göre değerlendirme',
