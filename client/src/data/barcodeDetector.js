@@ -12,8 +12,10 @@ const FORMATS = ['ean_13', 'data_matrix', 'qr_code'];
 let detectorPromise = null;
 
 export function isScanSupported() {
-  return typeof window !== 'undefined'
-    && window.isSecureContext
+  // getUserMedia yalnız güvenli bağlamda (HTTPS/localhost) tanımlı olduğundan
+  // ayrı isSecureContext kontrolü gereksiz; onu kaldırmak, isSecureContext'in
+  // yanlış false döndüğü nadir mobil durumlarda düğmenin gizlenmesini önler.
+  return typeof navigator !== 'undefined'
     && !!navigator.mediaDevices?.getUserMedia;
 }
 

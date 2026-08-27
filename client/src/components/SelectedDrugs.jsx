@@ -153,12 +153,12 @@ export default function SelectedDrugs({ drugs, onRemove, onSelect, activeDrugId,
             Etkileşimleri Kontrol Et
           </button>
           {onToggleAutoAnalyze && (
-            <label className="mt-2.5 flex items-center gap-2 text-[12.5px] text-text-muted cursor-pointer select-none">
+            <label className="mt-2.5 flex items-center gap-2 text-[12.5px] text-text-muted cursor-pointer select-none py-1.5">
               <input
                 type="checkbox"
                 checked={autoAnalyze}
                 onChange={onToggleAutoAnalyze}
-                className="w-3.5 h-3.5 accent-blue-600 cursor-pointer"
+                className="w-[18px] h-[18px] accent-blue-600 cursor-pointer flex-none"
               />
               Liste değiştikçe otomatik analiz et
             </label>
