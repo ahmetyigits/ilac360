@@ -426,17 +426,23 @@ try {
 } catch (err) {
   if (err.code !== 'ENOENT') throw err;
 }
+// AÇMA/KAPAMA: reçete tipi rozeti canlıda YALNIZ kürasyonlu Türkiye molekül
+// çizelgesi eczacı onayından geçince açılır. O ana dek false → index'e rx
+// enjekte EDİLMEZ, canlıda rozet çıkmaz (kod/veri korunur, çalışma sürer).
+const RECETE_ROZET_AKTIF = false;
 let prescriptionCount = 0;
 let scheduleCount = 0;
-for (const entry of index) {
-  if (entry.s || !entry.b) continue; // takviye / barkodsuz → atla
-  const t = prescriptionByBarcode[String(entry.b).trim()];
-  if (t) { entry.rx = t; prescriptionCount++; continue; }
-  if (entry.a && Object.keys(prescriptionSchedule).length) {
-    const comps = getComponents(entry.a, synonymLookup);
-    if (comps.length === 1 && prescriptionSchedule[comps[0]]) {
-      entry.rx = prescriptionSchedule[comps[0]];
-      scheduleCount++;
+if (RECETE_ROZET_AKTIF) {
+  for (const entry of index) {
+    if (entry.s || !entry.b) continue; // takviye / barkodsuz → atla
+    const t = prescriptionByBarcode[String(entry.b).trim()];
+    if (t) { entry.rx = t; prescriptionCount++; continue; }
+    if (entry.a && Object.keys(prescriptionSchedule).length) {
+      const comps = getComponents(entry.a, synonymLookup);
+      if (comps.length === 1 && prescriptionSchedule[comps[0]]) {
+        entry.rx = prescriptionSchedule[comps[0]];
+        scheduleCount++;
+      }
     }
   }
 }
