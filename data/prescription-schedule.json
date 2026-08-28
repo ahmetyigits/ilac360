@@ -1,7 +1,8 @@
 {
-  "note": "KÜRASYONLU Türkiye molekül reçete çizelgesi (güvenlik ağı) — ECZACI DOĞRULAMASI BEKLİYOR. Kaynaklar eczacı odası duyuruları + TİTCK genelgeleri (ikincil; TİTCK'nin kendi PDF listeleri robots ile kapalı). Kanonik bileşen → tip. UYGULAMA (build-data): YALNIZ tek-bileşenli ürünlere; kombinasyonlar ürün-listesinden (prescription-products.json) gelir ve override eder. KRİTİK: kombinasyon ürün listesinde yoksa çizelge onu boyamaz (mono-kural) — ör. kodeinli bir kombinasyon listede yoksa ROZETSİZ kalır (kombinasyonlar tek tip değil: diklofenak+kodein yeşil, parasetamol/naproksen+kodein izleme). ÇIKARILANLAR/eklenmeyenler: benzidamin FORMA BAĞLI (yalnız Tantum/Tanflex/Benzidan oral katı formlar kontrole tabi; gargara/sprey/jel değil → molekül-geneli YANLIŞ olurdu, ürün-listesine bırakıldı); fenilefrin çok geniş (soğuk algınlığı kombinasyonlarında; yalnız göz damlası kararı → ürün-listesi). TEYİT BEKLEYEN (TİTCK PDF gerekli, hastane iç listelerinden, primary DEĞİL — EKLENMEDİ): klorazepat dipotasyum, kokain, tiyopental sodyum, etomidat, esketamin, dihidrokodein/folkodin, buprenorfin+nalokson. Kombinasyon işi (ürün-listesi): Klipaks/Libkol (klordiazepoksit), Codefen (kodein).",
-  "source": "TİTCK renkli reçete genelgeleri + il eczacı odaları duyuruları (ikincil kaynaklar)",
+  "note": "KÜRASYONLU Türkiye molekül→reçete tipi çizelgesi. v2 (28.08.2026) — ikincil kaynaklardan satır satır doğrulandı; TİTCK'nin kendi PDF'leri robots ile kapalı olduğu için BİRİNCİL doğrulama yapılamadı, eczacı onayı hâlâ şart. UYGULAMA (build-data): YALNIZ tek-bileşenli ürünlere; kombinasyonlar prescription-products.json'dan gelir ve override eder. Kombinasyon ürün listesinde yoksa çizelge onu boyamaz (mono-kural) — kodeinli kombinasyonların TAMAMI izlemeye tabi olduğu için bunlar ürün listesine girmeli. ÇIKARILANLAR (forma bağlı, molekül-geneli yanlış olurdu — ürün-listesine bırakıldı): benzidamin (yalnız Tantum/Tanflex 50 mg oral katı), fenilefrin (yalnız Mydfrin göz damlası). ONAY BEKLEYEN, EKLENMEDİ (geniş etki alanı — yanlış rozet riski): psödoefedrin ve efedrin (2018 izleme listesinde Sudafed/Eksofed/Rinogest/Dekoferin gibi MONO ürünler var, ancak sonraki duyurular yalnız 'kombine ilaçlar' diyor — çelişki eczacıya sorulmalı). Ayrıca eklenmedi: dihidrokodein, folkodin (Türkiye'de ruhsatlı ürün yok; folkodin 2023'te AB'de geri çekildi).",
+  "source": "TİTCK kırmızı reçete listesi 07.08.2024 (TEİS/TEB aktarımı) + normal reçete ile verilmesi gereken izlemeye tabi ilaçlar listesi 08.08.2018 (Sağlık Aktüel aktarımı) + yeşil reçete listesi (Karaman/İstanbul Ü. aktarımları) + TEB/eczacı odası duyuruları (pregabalin 01.04.2019, armodafinil 24.08.2021, Stablon)",
   "guncellemeTarihi": "2026-08-28",
+  "surum": 2,
   "components": {
     "morfin": "kirmizi",
     "kodein": "kirmizi",
@@ -17,6 +18,8 @@
     "hidrokodon": "kirmizi",
     "metilfenidat": "kirmizi",
     "buprenorfin": "kirmizi",
+    "esketamin": "kirmizi",
+    "kokain": "kirmizi",
 
     "zolpidem": "yesil",
     "zopiklon": "yesil",
@@ -33,8 +36,11 @@
     "nitrazepam": "yesil",
     "flurazepam": "yesil",
     "oksazepam": "yesil",
+    "klorazepat": "yesil",
     "fenobarbital": "yesil",
     "barbital": "yesil",
+    "tiyopental": "yesil",
+    "etomidat": "yesil",
     "pregabalin": "yesil",
     "tramadol": "yesil",
     "tianeptine": "yesil",
@@ -47,6 +53,17 @@
     "dimenhidrinat": "izleme",
     "tropikamid": "izleme",
     "siklopentolat": "izleme",
-    "dekstrometorfan": "izleme"
-  }
+    "dekstrometorfan": "izleme",
+    "buspiron": "izleme",
+    "bornaprin": "izleme"
+  },
+  "aliases": {
+    "tianeptine": ["tianeptin", "tianeptin sodyum"],
+    "klorazepat": ["klorazepat dipotasyum", "dipotasyum klorazepat"],
+    "tiyopental": ["tiyopental sodyum", "sodyum tiyopental"],
+    "buprenorfin": ["buprenorphine"],
+    "bornaprin": ["bornaprin hidroklorur"],
+    "biperiden": ["biperiden laktat", "biperiden hidroklorur"]
+  },
+  "kombinasyonNotu": "prescription-products.json'a eklenmesi gerekenler (çizelge bunları boyamaz): Suboxone (buprenorfin+nalokson → kırmızı); tüm kodeinli kombinasyonlar → izleme (A-Ferin, Apranax Plus/Semiplus, Nurofen Plus, Parakodin, Geralgine, Temsaljin, Doladamon); Tranko-Buskas (hiyosin+medazepam → izleme, mono medazepam yeşil olduğu için override ŞART); Lomotil (difenoksilat+atropin → izleme); pregabalin+B12 kombinasyonları → yeşil; Tantum/Tanflex 50 mg oral katı (benzidamin → izleme); Mydfrin (fenilefrin göz damlası → izleme); Sikloplejin ve Tropamid zaten mono."
 }

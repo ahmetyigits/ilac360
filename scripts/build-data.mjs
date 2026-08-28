@@ -422,7 +422,19 @@ try {
 // override eder; çizelge yalnız boşlukları (ör. zolpidem, klordiazepoksit) doldurur.
 let prescriptionSchedule = {};
 try {
-  prescriptionSchedule = JSON.parse(readFileSync(join(SRC, 'prescription-schedule.json'), 'utf-8')).components || {};
+  const schedFile = JSON.parse(readFileSync(join(SRC, 'prescription-schedule.json'), 'utf-8'));
+  prescriptionSchedule = { ...(schedFile.components || {}) };
+  // aliases → aynı tipe genişlet: veri setinde farklı yazım/tuz (ör. "tianeptin
+  // sodyum", "klorazepat dipotasyum") görünürse mono-eşleşme kaçmasın. Her alias'ı
+  // getComponents ile kanonikleştirip tek bileşene inebiliyorsa haritaya ekle.
+  for (const [canonical, forms] of Object.entries(schedFile.aliases || {})) {
+    const type = prescriptionSchedule[canonical];
+    if (!type) continue;
+    for (const form of forms) {
+      const comps = getComponents(form, synonymLookup);
+      if (comps.length === 1 && !prescriptionSchedule[comps[0]]) prescriptionSchedule[comps[0]] = type;
+    }
+  }
 } catch (err) {
   if (err.code !== 'ENOENT') throw err;
 }
