@@ -1,5 +1,7 @@
 {
-  "note": "KÜRASYONLU Türkiye molekül reçete çizelgesi (güvenlik ağı) — ECZACI DOĞRULAMASI BEKLİYOR. Kanonik bileşen → tip. INCB çekirdeği (UN 1961 narkotik→kırmızı, 1971 psikotrop→yeşil) + Türkiye'ye özgü kontroller. UYGULAMA (build-data): yalnız TEK-BİLEŞENLİ ürünlere; kombinasyonlar ürün-listesinden (prescription-products.json) gelir ve override eder. Şu an build'de RECETE_ROZET_AKTIF=false → canlıda GİZLİ; onaydan sonra açılır. DOĞRULANACAK NOKTALAR: (1) kodein mono→kırmızı doğru mu? kombinasyonlar izleme (ürün-listesi). (2) biperiden yeşil (TİTCK yeşil listesinde AKINETON). (3) tianeptin tipi. (4) izleme kalemleri (gabapentin/modafinil/benzidamin/dimenhidrinat/tropikamid) doğru mu? (5) eksik molekül var mı?",
+  "note": "KÜRASYONLU Türkiye molekül reçete çizelgesi (güvenlik ağı) — ECZACI DOĞRULAMASI BEKLİYOR. Kaynaklar eczacı odası duyuruları + TİTCK genelgeleri (ikincil; TİTCK'nin kendi PDF listeleri robots ile kapalı). Kanonik bileşen → tip. UYGULAMA (build-data): YALNIZ tek-bileşenli ürünlere; kombinasyonlar ürün-listesinden (prescription-products.json) gelir ve override eder. KRİTİK: kombinasyon ürün listesinde yoksa çizelge onu boyamaz (mono-kural) — ör. kodeinli bir kombinasyon listede yoksa ROZETSİZ kalır (kombinasyonlar tek tip değil: diklofenak+kodein yeşil, parasetamol/naproksen+kodein izleme). ÇIKARILANLAR/eklenmeyenler: benzidamin FORMA BAĞLI (yalnız Tantum/Tanflex/Benzidan oral katı formlar kontrole tabi; gargara/sprey/jel değil → molekül-geneli YANLIŞ olurdu, ürün-listesine bırakıldı); fenilefrin çok geniş (soğuk algınlığı kombinasyonlarında; yalnız göz damlası kararı → ürün-listesi). TEYİT BEKLEYEN (TİTCK PDF gerekli, hastane iç listelerinden, primary DEĞİL — EKLENMEDİ): klorazepat dipotasyum, kokain, tiyopental sodyum, etomidat, esketamin, dihidrokodein/folkodin, buprenorfin+nalokson. Kombinasyon işi (ürün-listesi): Klipaks/Libkol (klordiazepoksit), Codefen (kodein).",
+  "source": "TİTCK renkli reçete genelgeleri + il eczacı odaları duyuruları (ikincil kaynaklar)",
+  "guncellemeTarihi": "2026-08-28",
   "components": {
     "morfin": "kirmizi",
     "kodein": "kirmizi",
@@ -37,12 +39,14 @@
     "tramadol": "yesil",
     "tianeptine": "yesil",
     "biperiden": "yesil",
+    "ketamin": "yesil",
 
     "gabapentin": "izleme",
     "modafinil": "izleme",
     "armodafinil": "izleme",
-    "benzidamin": "izleme",
     "dimenhidrinat": "izleme",
-    "tropikamid": "izleme"
+    "tropikamid": "izleme",
+    "siklopentolat": "izleme",
+    "dekstrometorfan": "izleme"
   }
 }
