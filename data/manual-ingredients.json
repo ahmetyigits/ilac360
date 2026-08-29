@@ -131,5 +131,740 @@
     "ingredient": "Difenhidramin Hcl, Amonyum Klorür, Sodyum Sitrat",
     "atc": "R05X",
     "source": "ilactr.com + kritikbakim.com (İlaçsan; barkod doğrulandı; FENIDIN ile aynı bileşim)"
+  },
+  {
+    "barcode": "8699511940039",
+    "name": "MAGNESIE CALCINEE SABA TOZ",
+    "ingredient": "Magnezyum Oksit",
+    "atc": "A02AA04",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (A02AA04)"
+  },
+  {
+    "barcode": "8699511010077",
+    "name": "LOPERMID 2 MG 20 TABLET",
+    "ingredient": "Loperamid Hidroklorür",
+    "atc": "A07DA03",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (A07DA03)"
+  },
+  {
+    "barcode": "8681308044839",
+    "name": "SALAZOPYRIN 500 MG 50 ENTERIK TABLET",
+    "ingredient": "Sülfasalazin",
+    "atc": "A07EC01",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (A07EC01)"
+  },
+  {
+    "barcode": "8681308031006",
+    "name": "GLUCOTROL-XL 10 MG 20 TABLET",
+    "ingredient": "Glipizid",
+    "atc": "A10BB07",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (A10BB07)"
+  },
+  {
+    "barcode": "8699786090569",
+    "name": "ONGLYZA 5 MG 28 FILM KAPLI TABLET",
+    "ingredient": "Saksagliptin",
+    "atc": "A10BH03",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (A10BH03)"
+  },
+  {
+    "barcode": "8699786952003",
+    "name": "BYETTA 10 µG/40 µL SC",
+    "ingredient": "Eksenatid",
+    "atc": "A10BJ01",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (A10BJ01)"
+  },
+  {
+    "barcode": "8699593151262",
+    "name": "ZAVESCA 100 MG 84 KAPSUL",
+    "ingredient": "Miglustat",
+    "atc": "A16AX06",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (A16AX06)"
+  },
+  {
+    "barcode": "8699809260054",
+    "name": "FABRAZYME 35 MG 1 FLAKON",
+    "ingredient": "Agalsidaz Beta",
+    "atc": "A16AB04",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (A16AB04)"
+  },
+  {
+    "barcode": "8699809779150",
+    "name": "ALDURAZYME 100 U/ML",
+    "ingredient": "Laronidaz",
+    "atc": "A16AB05",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (A16AB05)"
+  },
+  {
+    "barcode": "8698856350305",
+    "name": "ELIDEL KREM 30 GR",
+    "ingredient": "Pimekrolimus",
+    "atc": "D11AH02",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (D11AH02)"
+  },
+  {
+    "barcode": "8699561350055",
+    "name": "EXPIGMENT %2 30 GR KREM",
+    "ingredient": "Hidrokinon",
+    "atc": "D11AX11",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (D11AX11)"
+  },
+  {
+    "barcode": "8681308361004",
+    "name": "CLEOCIN %2 VAJINAL KREM",
+    "ingredient": "Klindamisin Fosfat",
+    "atc": "G01AA10",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (G01AA10)"
+  },
+  {
+    "barcode": "8699546100354",
+    "name": "GYNO-CANESTEN 1 VAJINAL TABLET",
+    "ingredient": "Klotrimazol",
+    "atc": "G01AF02",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (G01AF02)"
+  },
+  {
+    "barcode": "8699584900794",
+    "name": "MIKO-PENOTRAN 1200 MG 1 OVUL",
+    "ingredient": "Mikonazol Nitrat",
+    "atc": "G01AF04",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (G01AF04)"
+  },
+  {
+    "barcode": "8681308771070",
+    "name": "DEPO-PROVERA 150 MG/ML",
+    "ingredient": "Medroksiprogesteron Asetat",
+    "atc": "G03AC06",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (G03AC06)"
+  },
+  {
+    "barcode": "8699546010042",
+    "name": "PROVIRON 25 MG 20 TABLET",
+    "ingredient": "Mesterolon",
+    "atc": "G03BB01",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (G03BB01)"
+  },
+  {
+    "barcode": "8699514042723",
+    "name": "DYNABAC 10 ENTERIK KAPLI TABLET",
+    "ingredient": "Diritromisin",
+    "atc": "J01FA13",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (J01FA13)"
+  },
+  {
+    "barcode": "8699828010340",
+    "name": "I.N.H 100 MG 100 TABLET",
+    "ingredient": "İzoniazid",
+    "atc": "J04AC01",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (J04AC01)"
+  },
+  {
+    "barcode": "8699586262890",
+    "name": "HOLOXAN 0,5 G IV",
+    "ingredient": "İfosfamid",
+    "atc": "L01AA06",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (L01AA06)"
+  },
+  {
+    "barcode": "8681308151018",
+    "name": "ESTRACYT 140 MG 100 KAPSUL",
+    "ingredient": "Estramustin",
+    "atc": "L01XX11",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (L01XX11)"
+  },
+  {
+    "barcode": "8699546093991",
+    "name": "NUBEQA 300 MG FILM KAPLI TABLET",
+    "ingredient": "Darolutamid",
+    "atc": "L02BB06",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (L02BB06)"
+  },
+  {
+    "barcode": "8699874080106",
+    "name": "IMURAN 50 MG 100 TABLET",
+    "ingredient": "Azatiyoprin",
+    "atc": "L04AX01",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (L04AX01)"
+  },
+  {
+    "barcode": "8699538154808",
+    "name": "THALIDOMIDE CELGENE 50 MG 28 KAPSUL",
+    "ingredient": "Talidomid",
+    "atc": "L04AX02",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (L04AX02)"
+  },
+  {
+    "barcode": "8699525890597",
+    "name": "ENDOL 100 MG 10 SUPOZITUAR",
+    "ingredient": "İndometazin",
+    "atc": "M01AB01",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (M01AB01)"
+  },
+  {
+    "barcode": "8680395500020",
+    "name": "MYSOLINE 250 MG 30 TABLET",
+    "ingredient": "Primidon",
+    "atc": "N03AA03",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (N03AA03)"
+  },
+  {
+    "barcode": "8681308011008",
+    "name": "EDRONAX 4 MG 60 TABLET",
+    "ingredient": "Reboksetin",
+    "atc": "N06AX18",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (N06AX18)"
+  },
+  {
+    "barcode": "8699808040015",
+    "name": "CAMPRAL 84 ENTERIK TABLET",
+    "ingredient": "Akamprosat Kalsiyum",
+    "atc": "N07BB03",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (N07BB03)"
+  },
+  {
+    "barcode": "8699624650047",
+    "name": "XYREM 500MG/ML ORAL COZELTI",
+    "ingredient": "Sodyum Oksibat",
+    "atc": "N07XX04",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (N07XX04)"
+  },
+  {
+    "barcode": "8681308159151",
+    "name": "XALKORI 200 MG 60 KAPSUL",
+    "ingredient": "Krizotinib",
+    "atc": "L01ED01",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (L01ED01)"
+  },
+  {
+    "barcode": "8681308777621",
+    "name": "TORISEL 25 MG/ML IV",
+    "ingredient": "Temsirolimus",
+    "atc": "L01EG01",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (L01EG01)"
+  },
+  {
+    "barcode": "8699043890468",
+    "name": "XOSPATA 40 MG FILM KAPLI TABLET",
+    "ingredient": "Gilteritinib",
+    "atc": "L01EX13",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (L01EX13)"
+  },
+  {
+    "barcode": "8699862270014",
+    "name": "KYPROLIS 60 MG IV",
+    "ingredient": "Karfilzomib",
+    "atc": "L01XG02",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (L01XG02)"
+  },
+  {
+    "barcode": "8680656080438",
+    "name": "VENCLYXTO 10 MG 14 FILM KAPLI TABLET",
+    "ingredient": "Venetoklaks",
+    "atc": "L01XX52",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (L01XX52)"
+  },
+  {
+    "barcode": "8699715772108",
+    "name": "MISINTU 20 MG ENJ",
+    "ingredient": "Mitomisin",
+    "atc": "L01DC03",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (L01DC03)"
+  },
+  {
+    "barcode": "8699828690085",
+    "name": "VINKO 1 MG/ML IV",
+    "ingredient": "Vinblastin Sülfat",
+    "atc": "L01CA01",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (L01CA01)"
+  },
+  {
+    "barcode": "8699650772737",
+    "name": "YONDELIS 1 MG IV",
+    "ingredient": "Trabektedin",
+    "atc": "L01CX01",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (L01CX01)"
+  },
+  {
+    "barcode": "8699636790403",
+    "name": "ONCO-TICE 2 ML 1 AMPUL",
+    "ingredient": "BCG (Bacillus Calmette-Guérin, canlı)",
+    "atc": "L03AX03",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (L03AX03)"
+  },
+  {
+    "barcode": "8699769980351",
+    "name": "PROLASTIN-C 1000 MG IV",
+    "ingredient": "İnsan Alfa-1 Proteinaz İnhibitörü",
+    "atc": "B02AB02",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (B02AB02)"
+  },
+  {
+    "barcode": "8682162000016",
+    "name": "PIASCLEDINE 300 MG KAPSUL",
+    "ingredient": "Avokado ve Soya Yağı Sabunlaşmayan Kısımları",
+    "atc": "M01AX26",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (M01AX26)"
+  },
+  {
+    "barcode": "8699760610196",
+    "name": "MIOSTAT SINGLE DOSE 1.5 ML",
+    "ingredient": "Karbakol",
+    "atc": "S01EB02",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (S01EB02)"
+  },
+  {
+    "barcode": "8681738610048",
+    "name": "VYZULTA 0,24 MG/ML GOZ DAMLASI",
+    "ingredient": "Latanoprosten Bunod",
+    "atc": "S01EE06",
+    "source": "WHO ATC (DSÖ ATC indeksi) 7-hane tam kod = molekülü birebir tanımlar; ürün adıyla teyit (S01EE06)"
+  },
+  {
+    "barcode": "8699543010069",
+    "name": "LOMOTIL 20 TABLET",
+    "ingredient": "Difenoksilat Hidroklorür, Atropin Sülfat",
+    "atc": "A07DA01",
+    "source": "WHO ATC A07DA01 difenoksilat + Lomotil bileşimi (difenoksilat+atropin) iyi bilinen"
+  },
+  {
+    "barcode": "8681026050303",
+    "name": "DIENILLE 2 MG/0,03 MG 21 FILM KAPLI TABLET",
+    "ingredient": "Dienogest, Etinilestradiol",
+    "atc": "G03AA16",
+    "source": "WHO ATC G03AA16 = dienogest ve etinilestradiol"
+  },
+  {
+    "barcode": "8699546120048",
+    "name": "CYCLO-PROGYNOVA 21 DRAJE",
+    "ingredient": "Estradiol Valerat, Norgestrel",
+    "atc": "G03FB01",
+    "source": "WHO ATC G03FB01 = norgestrel ve estrojen (Cyclo-Progynova bilinen bileşim)"
+  },
+  {
+    "barcode": "8699638125494",
+    "name": "TRANKO-BUSKAS 10+10 20 TABLET",
+    "ingredient": "Hiyosin Butilbromür, Medazepam",
+    "atc": "A03CB",
+    "source": "TİTCK/ürün bileşimi (hiyosin+medazepam) — reçete kürasyonunda da teyitli"
+  },
+  {
+    "barcode": "8699828140023",
+    "name": "GYNOFERON DEPO 80/0,35 MG KAPLI TABLET",
+    "ingredient": "Ferröz Sülfat, Folik Asit",
+    "atc": "B03AD03",
+    "source": "WHO ATC B03AD = demir + folik asit kombinasyonu"
+  },
+  {
+    "barcode": "8699749140027",
+    "name": "GYNOTARDYFERON 80 MG/0,35 MG",
+    "ingredient": "Ferröz Sülfat, Folik Asit",
+    "atc": "B03AD03",
+    "source": "WHO ATC B03AD = demir + folik asit kombinasyonu"
+  },
+  {
+    "barcode": "8699828010418",
+    "name": "GRIPAMOL TABLET",
+    "ingredient": "Parasetamol, Klorfeniramin Maleat, Psödoefedrin Hidroklorür, Dekstrometorfan Hidrobromür",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699570150011",
+    "name": "A-FERIN 300 MG 30 KAPSUL",
+    "ingredient": "Parasetamol, Klorfeniramin Maleat, Kodein Fosfat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8698978570018",
+    "name": "ANTIBEKSIN 100 ML SURUP",
+    "ingredient": "Efedrin Hidroklorür, Sodyum Sitrat, Potasyum Sülfogayakolat, Feniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699546095131",
+    "name": "BENICAL COLD 20 FILM TABLET",
+    "ingredient": "Parasetamol, Psödoefedrin Hidroklorür, Dekstrometorfan Hidrobromür",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699578011277",
+    "name": "GERALGINE PLUS 300MG/30 MG 20 TABLET",
+    "ingredient": "Parasetamol, Kodein Fosfat",
+    "atc": "N02AJ06",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699578572211",
+    "name": "KATARIN 120 MG + 50 MG +1 MG/5 ML PEDIATRIK SURUP",
+    "ingredient": "Parasetamol, Oksolamin Sitrat, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699512570013",
+    "name": "PEREKS 150 ML OKSURUK SURUBU",
+    "ingredient": "Difenhidramin Hidroklorür, Efedrin Hidroklorür, Guaifenesin",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699531570254",
+    "name": "ARTU 100 ML SURUP",
+    "ingredient": "Potasyum Sülfogayakolat, Efedrin Hidroklorür, Sodyum Benzoat, Prometazin Hidroklorür",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699828570011",
+    "name": "TRIATUS 100 ML SURUP",
+    "ingredient": "Dekstrometorfan Hidrobromür, Psödoefedrin Hidroklorür, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699692570018",
+    "name": "BRONKOFLU 6,66 MG+100 MG/5 ML ŞURUP",
+    "ingredient": "Efedrin Hidroklorür, Guaifenesin",
+    "atc": "R03CK",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699540250116",
+    "name": "TYLOL HOT 500 MG 12 POSET",
+    "ingredient": "Parasetamol, Psödoefedrin Hidroklorür, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699540250123",
+    "name": "TYLOL HOT 500+60+4 MG 24 POSET",
+    "ingredient": "Parasetamol, Psödoefedrin Hidroklorür, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699540250109",
+    "name": "TYLOL HOT 500+60+4 MG 6 POSET",
+    "ingredient": "Parasetamol, Psödoefedrin Hidroklorür, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699540250192",
+    "name": "TYLOL HOT D 12 POSET",
+    "ingredient": "Parasetamol, Psödoefedrin Hidroklorür, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699540250208",
+    "name": "TYLOL HOT D 24 POSET",
+    "ingredient": "Parasetamol, Psödoefedrin Hidroklorür, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699540250185",
+    "name": "TYLOL HOT D 6 POSET",
+    "ingredient": "Parasetamol, Psödoefedrin Hidroklorür, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699540250321",
+    "name": "TYLOLHOT DAY 12 POSET",
+    "ingredient": "Parasetamol, Psödoefedrin Hidroklorür, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699540250154",
+    "name": "TYLOL HOT PEDIATRIK 12 POSET",
+    "ingredient": "Parasetamol, Psödoefedrin Hidroklorür, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699540250161",
+    "name": "TYLOL HOT PEDIATRIK 24 POSET",
+    "ingredient": "Parasetamol, Psödoefedrin Hidroklorür, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699540250147",
+    "name": "TYLOL HOT PEDIATRIK 6 POSET",
+    "ingredient": "Parasetamol, Psödoefedrin Hidroklorür, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699540570801",
+    "name": "TYLOL COLD 100 ML ŞURUP",
+    "ingredient": "Parasetamol, Psödoefedrin Hidroklorür, Klorfeniramin Maleat, Dekstrometorfan Hidrobromür",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699717250024",
+    "name": "PAROL HOT 12 POSET GRANUL",
+    "ingredient": "Parasetamol, Psödoefedrin Hidroklorür, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699717250017",
+    "name": "PAROL HOT PEDIATRIK 12 POSET GRANUL",
+    "ingredient": "Parasetamol, Psödoefedrin Hidroklorür, Klorfeniramin Maleat",
+    "atc": "R05X",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699591510108",
+    "name": "KETOBER %0,16 SPREY 30 ML",
+    "ingredient": "Ketoprofen",
+    "atc": "A01AD",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699536640013",
+    "name": "MAJEZIK %0,25 GARGARA 200 ML",
+    "ingredient": "Flurbiprofen",
+    "atc": "A01AD",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699584890774",
+    "name": "KORTOS 27 MG/5 MG 10 SUPOZITUAR",
+    "ingredient": "Polidokanol, Hidrokortizon Asetat",
+    "atc": "C05AA01",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699584420766",
+    "name": "KORTOS KREM 30 GR",
+    "ingredient": "Bizmut Subgallat, Benzokain, Benzalkonyum Klorür, Hidrokortizon Asetat",
+    "atc": "C05AA01",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8698856340528",
+    "name": "REPARIL-GEL N %1 + %5 JEL",
+    "ingredient": "Essin, Dietilamin Salisilat",
+    "atc": "M02AC",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699511350036",
+    "name": "PANTENOL PLUS % 5 + % 0,5 KREM",
+    "ingredient": "Dekspantenol, Klorheksidin Hidroklorür",
+    "atc": "D11A",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699819340678",
+    "name": "NOSKAR JEL",
+    "ingredient": "Soğan Ekstresi, Heparin Sodyum, Allantoin",
+    "atc": "D03AX",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699527340052",
+    "name": "BARICUS 50 IU/%1/%10 JEL",
+    "ingredient": "Heparin Sodyum, Allantoin, Soğan Ekstresi",
+    "atc": "D03AX",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8680952510929",
+    "name": "OSTEOFLEX 90 FILM TABLET",
+    "ingredient": "Glukozamin Sülfat, Kondroitin Sülfat, C Vitamini, Manganez, Zerdeçal Ekstresi",
+    "atc": "M01AX",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699527400251",
+    "name": "SULFARHIN BURUN MERHEMI",
+    "ingredient": "Antazolin Hidroklorür, Efedrin Hidroklorür, Klorbutanol, Mentol, Nafazolin Hidroklorür, Okaliptol",
+    "atc": "R01AB",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699514093640",
+    "name": "VENOTREX 50 MG DEGISTIRILMIS SALIMLI TABLET",
+    "ingredient": "At Kestanesi Tohumu Kuru Ekstresi",
+    "atc": "C05CX03",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699566753103",
+    "name": "FERROVEN 100 MG/5 ML IV",
+    "ingredient": "Demir Hidroksit Sükroz Kompleksi",
+    "atc": "B03AC",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699772750033",
+    "name": "FERVION 100MG/2ML IM",
+    "ingredient": "Demir Hidroksit Polimaltoz Kompleksi",
+    "atc": "B03AC",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699587571120",
+    "name": "FERRO SANOL B 150 ML SURUP",
+    "ingredient": "Demir Glisin Sülfat, Tiamin, Riboflavin, Piridoksin",
+    "atc": "B03AE03",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699788750270",
+    "name": "BEHEPTAL 2 ML 5 AMPUL",
+    "ingredient": "Tiamin Hidroklorür, Piridoksin Hidroklorür, Riboflavin, Siyanokobalamin, Dekspantenol, Niasinamid",
+    "atc": "A11EA",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8683060750034",
+    "name": "BEMIKS KOMPOZE ENJEKSIYONLUK COZELTI",
+    "ingredient": "Tiamin, Riboflavin, Piridoksin, Niasinamid, Dekspantenol",
+    "atc": "A11EA",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699527090025",
+    "name": "APIKOBAL 250/250/1 MG FILM TABLET",
+    "ingredient": "Tiamin Hidroklorür, Piridoksin Hidroklorür, Siyanokobalamin",
+    "atc": "A11DB",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699828090052",
+    "name": "BEVITAB B12 250/250/1 MG FILM TABLET",
+    "ingredient": "Tiamin Hidroklorür, Piridoksin Hidroklorür, Siyanokobalamin",
+    "atc": "A11DB",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699536040066",
+    "name": "CHALIA 250/250/1/300 MG GASTRO-REZISTAN TABLET",
+    "ingredient": "Tiamin, Piridoksin, Siyanokobalamin, Alfa-Lipoik Asit",
+    "atc": "A16AX",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8681144039099",
+    "name": "MULTIMIX 100 ML SURUP",
+    "ingredient": "A Vitamini, D3 Vitamini, E Vitamini, C Vitamini, Tiamin, Riboflavin, Piridoksin, Nikotinamid, Dekspantenol, Biotin",
+    "atc": "A11BA",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699514574934",
+    "name": "POLIVIT 100 ML SURUP",
+    "ingredient": "A Vitamini, D3 Vitamini, E Vitamini, C Vitamini, Tiamin, Riboflavin, Piridoksin, Nikotinamid, Dekspantenol",
+    "atc": "A11BA",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699508570041",
+    "name": "VITABIOL 100 ML SURUP",
+    "ingredient": "A Vitamini, D3 Vitamini, C Vitamini, Tiamin, Riboflavin, Piridoksin, Niasinamid, Dekspantenol",
+    "atc": "A11BA",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699591240043",
+    "name": "POROKS-D3 1000 MG/880 IU EFERVESAN GRANUL",
+    "ingredient": "Kalsiyum Karbonat, Kolekalsiferol",
+    "atc": "A12AX",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8680881020445",
+    "name": "CALCIDAY D3 1200 MG/800 IU EFERVESAN TABLET",
+    "ingredient": "Kalsiyum Karbonat, Kolekalsiferol",
+    "atc": "A12AX",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699828190042",
+    "name": "ACE PLUS SELENYUM 30 YUMUSAK KAPSUL",
+    "ingredient": "Beta-Karoten, C Vitamini, E Vitamini, Selenyum",
+    "atc": "A11JC",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8682758040013",
+    "name": "BENEDAY ENTERIK KAPLI TABLET",
+    "ingredient": "Alfa-Lipoik Asit, Tiamin, Piridoksin, Siyanokobalamin",
+    "atc": "A16AX",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8681413880629",
+    "name": "EXTRANEAL PERITON DIYALIZ COZELTISI (2000 ML)",
+    "ingredient": "İkodekstrin, Sodyum Klorür, Sodyum Laktat, Kalsiyum Klorür, Magnezyum Klorür",
+    "atc": "B05D",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8681413880612",
+    "name": "EXTRANEAL PERITON DIYALIZ COZELTISI (2500 ML)",
+    "ingredient": "İkodekstrin, Sodyum Klorür, Sodyum Laktat, Kalsiyum Klorür, Magnezyum Klorür",
+    "atc": "B05D",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699606675617",
+    "name": "DIANEFROL PERITON DIYALIZ COZELTISI",
+    "ingredient": "Glukoz, Sodyum Klorür, Sodyum Laktat, Kalsiyum Klorür, Magnezyum Klorür",
+    "atc": "B05D",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699606675655",
+    "name": "DIANEFROL PERITON DIYALIZ COZELTISI",
+    "ingredient": "Glukoz, Sodyum Klorür, Sodyum Laktat, Kalsiyum Klorür, Magnezyum Klorür",
+    "atc": "B05D",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699606675754",
+    "name": "DIANEFROL PERITON DIYALIZ COZELTISI",
+    "ingredient": "Glukoz, Sodyum Klorür, Sodyum Laktat, Kalsiyum Klorür, Magnezyum Klorür",
+    "atc": "B05D",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8697791000856",
+    "name": "NOVO-HELISEN DEPOT SC",
+    "ingredient": "Ev Tozu Akarı Alerjen Ekstresi",
+    "atc": "V01AA",
+    "source": "TİTCK KÜB/KT + ilaçrehberi/ilacabak/üretici prospektüsü (barkod doğrulandı) — küratör turu 2026-08-29"
+  },
+  {
+    "barcode": "8699828770466",
+    "name": "DARABIN 50 MG/ML IV LIYOFILIZE TOZ",
+    "ingredient": "Fludarabin Fosfat",
+    "atc": "L01BB05",
+    "source": "ilacabak/ilacrehberi/farmalog KÜB — ATC L01BB05=fludarabin ile tutarlı (barkod doğrulandı) — küratör 2026-08-29"
+  },
+  {
+    "barcode": "8699546241231",
+    "name": "ASPIRIN COMPLEX ORAL SUSPANSIYON GRANULLU",
+    "ingredient": "Asetilsalisilik Asit, Psödoefedrin Hidroklorür",
+    "atc": "R05X",
+    "source": "Bayer KÜB (Aspirin Complex = ASA 500 mg + psödoefedrin 30 mg) — küratör 2026-08-29"
+  },
+  {
+    "barcode": "8681429550363",
+    "name": "FEIBA 500 U IV LIYOFILIZE TOZ",
+    "ingredient": "Aktive Protrombin Kompleksi Konsantresi",
+    "atc": "B02BD03",
+    "source": "WHO ATC B02BD03 = faktör VIII inhibitör baypas edici aktivite (FEIBA); Baxter/Takeda KÜB — küratör 2026-08-29"
   }
 ]
