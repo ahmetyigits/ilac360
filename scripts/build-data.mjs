@@ -26,7 +26,7 @@ import {
   flexibleIncludes,
 } from '../client/src/data/turkishText.js';
 import { BUCKET_COUNT, bucketOf } from '../client/src/data/buckets.js';
-import { getComponents, buildSynonymLookup } from '../client/src/data/ingredientMatcher.js';
+import { getComponents, componentKey, buildSynonymLookup } from '../client/src/data/ingredientMatcher.js';
 import { detectForm } from '../client/src/data/formDetect.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -36,6 +36,17 @@ const OUT = join(ROOT, 'client', 'public', 'data');
 
 const raw = JSON.parse(readFileSync(join(SRC, 'ilaclar-dataset.json'), 'utf-8'));
 const drugs = raw[2].data;
+
+// Sinonim tablosu + kanonikleştirme: backfill haritaları (madde↔ATC) ve reçete
+// çizelgesi bunu kullandığından erkenden kurulur. (Eskiden dosyada daha aşağıda
+// tanımlıydı; kanonik-bileşen bazlı backfill için yukarı taşındı.)
+let synonyms = {};
+try {
+  synonyms = JSON.parse(readFileSync(join(SRC, 'ingredient-synonyms.json'), 'utf-8'));
+} catch {
+  console.warn('ingredient-synonyms.json bulunamadı; sinonimler boş bırakıldı.');
+}
+const synonymLookup = buildSynonymLookup(synonyms);
 
 // Kaynak veri biçim temizliği ön-geçişi (TÜM backfill/kürasyondan ÖNCE): iki
 // bozuk biçim etken madde alanını kirletip etkileşim analizini sessizce bozuyor.
@@ -156,14 +167,19 @@ const titckKeyOf = (d) => d.barcode && String(d.barcode).trim()
   : `n:${searchFold(d.Product_Name || '')}`;
 let titckDescCount = 0;
 
-// 1. geçiş: etkin madde → en sık görülen ATC kodu eşlemesini kur.
-// Kaynak veride 4940 ilaçta ATC eksik; çoğunda etkin madde dolu ve aynı etkin
-// maddenin ATC'si başka kayıtlarda biliniyor. 2. geçişte bu eksikleri dolduruyoruz.
+// 1. geçiş: KANONİK BİLEŞEN → en sık görülen ATC kodu eşlemesini kur.
+// Kaynak veride ~4940 ilaçta ATC eksik; çoğunda etkin madde dolu ve aynı etkin
+// maddenin ATC'si başka kayıtlarda biliniyor. Anahtar tam-string DEĞİL kanonik
+// bileşen kümesidir (componentKey): "glimepiride"(İng.)/"Glimepirid"/"glimepirid
+// maleat" hepsi aynı anahtara iner → tek-yazımlı ürünlerdeki ATC diğerlerine de
+// akar. Tam-string anahtarı bu varyantları böldüğü için yüzlerce kayıt boşta
+// kalıyordu (ölçüm: kanonik +638 ek doldurma).
 const atcCountsByIngredient = new Map();
 for (const d of drugs) {
   if (!isValidIngredient(d.Active_Ingredient)) continue;
   if (!d.ATC_code || d.ATC_code === '0') continue;
-  const key = turkishLower(d.Active_Ingredient.trim());
+  const key = componentKey(d.Active_Ingredient, synonymLookup);
+  if (!key) continue;
   const atc = d.ATC_code.trim();
   let counts = atcCountsByIngredient.get(key);
   if (!counts) {
@@ -227,7 +243,8 @@ for (const d of drugs) {
   let ingredient = isValidIngredient(d.Active_Ingredient) ? d.Active_Ingredient.trim() : null;
   let atc = d.ATC_code && d.ATC_code !== '0' ? d.ATC_code.trim() : null;
   if (!atc && ingredient) {
-    const inferred = ingredientToAtc.get(turkishLower(ingredient));
+    const ck = componentKey(ingredient, synonymLookup);
+    const inferred = ck ? ingredientToAtc.get(ck) : null;
     if (inferred) {
       atc = inferred;
       atcBackfilled++;
@@ -311,18 +328,9 @@ for (const condition of conditions) {
 }
 
 const interactions = JSON.parse(readFileSync(join(SRC, 'interactions.json'), 'utf-8'));
-let synonyms = {};
-try {
-  synonyms = JSON.parse(readFileSync(join(SRC, 'ingredient-synonyms.json'), 'utf-8'));
-} catch {
-  console.warn('ingredient-synonyms.json bulunamadı; sinonimler boş bırakıldı.');
-}
-
-// Kanonik bileşen → en sık ATC kodu. Motor bunu, kendi ATC'si sınıf haritasına
-// düşmeyen kombinasyon ürünlerinde (ör. flurbiprofen+tiyokolşikosid → M03BX55)
-// bileşenlerin gerçek sınıflarını (flurbiprofen → M01AE09 → NSAID) türetmek
-// için kullanır.
-const synonymLookup = buildSynonymLookup(synonyms);
+// synonyms + synonymLookup dosyanın başında (drugs yüklenince) kurulur —
+// backfill haritaları ondan önce ihtiyaç duyuyor. Aşağıdaki mono-tercih haritası
+// da aynı synonymLookup'ı kullanır.
 // MONO-TERCİH: bileşenin TEK başına olduğu ürünlerdeki ATC, kombinasyon-baskın
 // yanlış eşlemeyi önler. Örn. psödoefedrin çoğunlukla ibuprofen kombosunda
 // (M01AE51) satılır; genel çoğunluk onu sahte NSAID yapıyordu — mono ürünlerin
