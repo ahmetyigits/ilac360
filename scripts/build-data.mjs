@@ -37,6 +37,31 @@ const OUT = join(ROOT, 'client', 'public', 'data');
 const raw = JSON.parse(readFileSync(join(SRC, 'ilaclar-dataset.json'), 'utf-8'));
 const drugs = raw[2].data;
 
+// Kaynak veri biçim temizliği ön-geçişi (TÜM backfill/kürasyondan ÖNCE): iki
+// bozuk biçim etken madde alanını kirletip etkileşim analizini sessizce bozuyor.
+//   1) Python-dict repr artığı: "{'deger': 'X', 'kategori': {...}}". Gerçek
+//      molekül 'deger' alanında gömülü ama normalizeText '{' görünce null döner
+//      → ürünün HİÇ bileşeni olmaz, TÜM etkileşim/eşdeğer analizine GÖRÜNMEZ olur
+//      (ör. CLOPIXOL→zuklopentiksol [antipsikotik/QT], HUMAN ALBUMIN, FUSIX→
+//      gentamisin). 'deger'i çıkarıp gerçek maddeyi geri kazan (129 kayıt).
+//   2) Satır sonu / ters bölü: "diltiazem \nhidroklorur". Eşleşme \s+ ile tolere
+//      eder ama kartta çirkin görünür; tek boşluğa indir (188 kayıt).
+let dictReprRecovered = 0;
+let ingredientWhitespaceFixed = 0;
+for (const d of drugs) {
+  const a = d.Active_Ingredient;
+  if (typeof a !== 'string') continue;
+  const t = a.trim();
+  if (t.startsWith('{') && t.includes("'deger'")) {
+    const m = t.match(/'deger'\s*:\s*'([^']*)'/);
+    if (m && m[1].trim()) { d.Active_Ingredient = m[1].trim(); dictReprRecovered++; continue; }
+  }
+  if (/[\n\r\\]/.test(a)) {
+    d.Active_Ingredient = a.replace(/\\/g, ' ').replace(/\s+/g, ' ').trim();
+    ingredientWhitespaceFixed++;
+  }
+}
+
 // Manuel kürasyon ön-geçişi: kaynak veride etken maddesi VE ATC'si olmayan
 // ürünler (soğuk algılığı kombinasyonları, LOXIBIN vb.) her sorguda sessizce
 // "bilinmiyor"a düşer. Bu küçük dosya barkod anahtarıyla yalnız BOŞ/GEÇERSİZ
@@ -549,7 +574,7 @@ const bucketSizes = manifestFiles && Object.entries(manifestFiles)
 const maxBucket = Math.max(...bucketSizes);
 const totalBucket = bucketSizes.reduce((a, b) => a + b, 0);
 
-console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled}, manuel kürasyon: ${manualIngredientCount}, beslenme nötrlendi: ${nutritionNeutralizedCount}, reçete tipli: ${prescriptionCount}+${scheduleCount} çizelge)`);
+console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled}, dict-repr kurtarıldı: ${dictReprRecovered}, boşluk düzeltildi: ${ingredientWhitespaceFixed}, manuel kürasyon: ${manualIngredientCount}, beslenme nötrlendi: ${nutritionNeutralizedCount}, reçete tipli: ${prescriptionCount}+${scheduleCount} çizelge)`);
 console.log('component-atc           ', kb(join(OUT, manifestFiles['component-atc.json'])), `(${Object.keys(componentAtc).length} components, ${overrideCount} override)`);
 console.log('takviye kataloğu        ', `${supplementCount} kayıt (index'e enjekte edildi)`);
 console.log('desc buckets            ', `${BUCKET_COUNT} adet, toplam ${(totalBucket / 1024 / 1024).toFixed(2)} MB, en büyük ${(maxBucket / 1024).toFixed(0)} KB (${descriptionCount} descriptions, ${titckDescCount} tanesi TİTCK KT)`);
