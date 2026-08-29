@@ -48,6 +48,10 @@ try {
 }
 const synonymLookup = buildSynonymLookup(synonyms);
 
+// İlaç olmayan / bilinmeyen etken madde için nötr placeholder (isValidIngredient=false,
+// componentKey null). Descriptor temizliği ve V06 nötrlemesi ortak kullanır.
+const NEUTRAL_INGREDIENT = 'Etken maddesi bilgisi bulunamadı.';
+
 // Kaynak veri biçim temizliği ön-geçişi (TÜM backfill/kürasyondan ÖNCE): iki
 // bozuk biçim etken madde alanını kirletip etkileşim analizini sessizce bozuyor.
 //   1) Python-dict repr artığı: "{'deger': 'X', 'kategori': {...}}". Gerçek
@@ -71,6 +75,27 @@ for (const d of drugs) {
     d.Active_Ingredient = a.replace(/\\/g, ' ').replace(/\s+/g, ' ').trim();
     ingredientWhitespaceFixed++;
   }
+}
+
+// WHO ATC İngilizce descriptor sızıntısı temizliği (dict-repr'dan SONRA, manual/
+// backfill'den ÖNCE): "valsartan and diuretics" gibi İngilizce sınıf metinleri
+// etken madde alanına sızmış; getComponents 'and'i bölmediği için tek blok kalıp
+// gerçek moleküle eşleşmiyordu. String-bazlı harita Türkçe kanonik ada çevirir
+// ('' → nötrle). Kanonik anahtar Türkçe ürünlerle birleşince ATC backfill de beslenir.
+let descriptorFixed = 0;
+try {
+  const dmap = JSON.parse(readFileSync(join(SRC, 'ingredient-descriptor-map.json'), 'utf-8')).map || {};
+  for (const d of drugs) {
+    if (typeof d.Active_Ingredient !== 'string') continue;
+    const key = searchFold(d.Active_Ingredient).replace(/\s+/g, ' ').trim();
+    if (Object.prototype.hasOwnProperty.call(dmap, key)) {
+      const val = dmap[key];
+      d.Active_Ingredient = val && val.trim() ? val : NEUTRAL_INGREDIENT;
+      descriptorFixed++;
+    }
+  }
+} catch (err) {
+  if (err.code !== 'ENOENT') throw err;
 }
 
 // Manuel kürasyon ön-geçişi: kaynak veride etken maddesi VE ATC'si olmayan
@@ -132,7 +157,6 @@ try {
 // maddesini nötrle → placeholder, isValidIngredient=false, componentKey null.
 // Çıkarım haritalarından ÖNCE çalışır ki yanlış "madde→ATC" oyları da düşsün.
 const NON_DRUG_ATC_PREFIXES = ['V06'];
-const NEUTRAL_INGREDIENT = 'Etken maddesi bilgisi bulunamadı.';
 let nutritionNeutralizedCount = 0;
 for (const d of drugs) {
   const atc = (d.ATC_code || '').trim();
@@ -195,6 +219,17 @@ for (const [ing, counts] of atcCountsByIngredient) {
     if (count > bestCount) { bestAtc = atc; bestCount = count; }
   }
   if (bestAtc) ingredientToAtc.set(ing, bestAtc);
+}
+// Kürasyonlu son-çare (WHO ATC): veri konsensüsünün ULAŞAMADIĞI, o molekülün ATClı
+// başka örneği olmayan bileşenler (iomeprol, miglitol, ezetimib+simvastatin...).
+// Yalnız boşluğu doldurur; veri konsensüsü VARSA ona dokunmaz (üzerine yazmaz).
+try {
+  const amap = JSON.parse(readFileSync(join(SRC, 'ingredient-atc-map.json'), 'utf-8')).map || {};
+  for (const [ck, atc] of Object.entries(amap)) {
+    if (!ingredientToAtc.has(ck)) ingredientToAtc.set(ck, atc);
+  }
+} catch (err) {
+  if (err.code !== 'ENOENT') throw err;
 }
 
 // Ters yön: ATC → en sık görülen etken madde. 7 karakterlik tam ATC kodu
@@ -582,7 +617,7 @@ const bucketSizes = manifestFiles && Object.entries(manifestFiles)
 const maxBucket = Math.max(...bucketSizes);
 const totalBucket = bucketSizes.reduce((a, b) => a + b, 0);
 
-console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled}, dict-repr kurtarıldı: ${dictReprRecovered}, boşluk düzeltildi: ${ingredientWhitespaceFixed}, manuel kürasyon: ${manualIngredientCount}, beslenme nötrlendi: ${nutritionNeutralizedCount}, reçete tipli: ${prescriptionCount}+${scheduleCount} çizelge)`);
+console.log('drugs-index             ', mb(join(OUT, manifestFiles['drugs-index.json'])), `(${index.length} drugs, ATC backfilled: ${atcBackfilled}, ingredient backfilled: ${ingredientBackfilled}, dict-repr kurtarıldı: ${dictReprRecovered}, descriptor çevrildi: ${descriptorFixed}, boşluk düzeltildi: ${ingredientWhitespaceFixed}, manuel kürasyon: ${manualIngredientCount}, beslenme nötrlendi: ${nutritionNeutralizedCount}, reçete tipli: ${prescriptionCount}+${scheduleCount} çizelge)`);
 console.log('component-atc           ', kb(join(OUT, manifestFiles['component-atc.json'])), `(${Object.keys(componentAtc).length} components, ${overrideCount} override)`);
 console.log('takviye kataloğu        ', `${supplementCount} kayıt (index'e enjekte edildi)`);
 console.log('desc buckets            ', `${BUCKET_COUNT} adet, toplam ${(totalBucket / 1024 / 1024).toFixed(2)} MB, en büyük ${(maxBucket / 1024).toFixed(0)} KB (${descriptionCount} descriptions, ${titckDescCount} tanesi TİTCK KT)`);
