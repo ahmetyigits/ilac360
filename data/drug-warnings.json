@@ -3712,5 +3712,144 @@
     "message": "Düzenli yüksek doz aspirin emziren annede bebeğe geçerek kanama eğilimi ve teorik Reye riski oluşturabilir; düşük doz (bebek aspirini) genellikle kabul edilir.",
     "source": "FDA etiketi; TİTCK KT",
     "evidence": "label"
+  },
+  {
+    "id": "W-0312",
+    "type": "pregnancy",
+    "severity": "high",
+    "match": {
+      "atcPrefixes": [
+        "M01A"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Gebeliğin ilerleyen döneminde kullanılmaz",
+    "message": "NSAİİ ağrı kesiciler (ibuprofen, naproksen, diklofenak vb.) gebeliğin 20. haftasından sonra, özellikle son üç ayda kullanılmamalıdır; bebekte kalp damarının (duktus arteriozus) erken kapanmasına ve böbrek/sıvı sorunlarına yol açabilir.",
+    "details": "İlk 20 haftada kısa süreli kullanım hekim önerisiyle olabilir; yine de gebelikte ağrı için önce parasetamol tercih edilir.",
+    "source": "FDA İlaç Güvenliği Duyurusu (Ekim 2020); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0313",
+    "type": "pregnancy",
+    "severity": "critical",
+    "match": {
+      "atcPrefixes": [
+        "C09A",
+        "C09B"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Gebelikte kullanılmaz",
+    "message": "ACE inhibitörleri (ramipril, enalapril, perindopril vb.) gebelikte, özellikle 2. ve 3. üç ayda bebekte böbrek hasarı, sıvı azlığı ve ölüme yol açabilir. Gebelikte ve gebelik planlanıyorsa kullanılmamalı, hekimle güvenli alternatife geçilmelidir.",
+    "source": "FDA etiketi (kutulu uyarı); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0314",
+    "type": "pregnancy",
+    "severity": "critical",
+    "match": {
+      "atcPrefixes": [
+        "C09C",
+        "C09D"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Gebelikte kullanılmaz",
+    "message": "ARB grubu tansiyon ilaçları (valsartan, losartan, kandesartan, telmisartan vb.) gebelikte, özellikle 2. ve 3. üç ayda bebekte böbrek hasarı ve ölüme yol açabilir. Gebelikte ve gebelik planlanıyorsa kullanılmamalıdır.",
+    "source": "FDA etiketi (kutulu uyarı); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0315",
+    "type": "pregnancy",
+    "severity": "high",
+    "match": {
+      "atcPrefixes": [
+        "C10AA"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Gebelikte genellikle önerilmez",
+    "message": "Statinler (atorvastatin, rosuvastatin, simvastatin vb.) gebelikte genellikle önerilmez; kolesterol bebeğin gelişimi için gereklidir. Gebelik planlanıyorsa ilacın bırakılması önerilir, hekiminize danışın.",
+    "source": "FDA etiketi (2021 güncellemesi); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0316",
+    "type": "pregnancy",
+    "severity": "medium",
+    "match": {
+      "atcPrefixes": [
+        "J01M"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Gebelikte tercih edilmez",
+    "message": "Florokinolon antibiyotikler (siprofloksasin, levofloksasin, moksifloksasin vb.) gebelikte tercih edilmez; hayvan çalışmalarında eklem kıkırdağı üzerine etki gösterilmiştir. Daha güvenli alternatif varsa hekim onu seçer.",
+    "source": "TİTCK KT; EMA",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0317",
+    "type": "pregnancy",
+    "severity": "high",
+    "match": {
+      "atcPrefixes": [
+        "J01A"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Gebeliğin 2. yarısında kullanılmaz",
+    "message": "Tetrasiklin grubu antibiyotikler (doksisiklin, tetrasiklin vb.) gebeliğin yaklaşık 15. haftasından sonra bebekte diş renklenmesi ve kemik gelişimi sorunlarına yol açar; bu dönemde kullanılmamalıdır.",
+    "source": "TİTCK KT; FDA etiketi",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0318",
+    "type": "lactation",
+    "severity": "high",
+    "match": {
+      "ingredients": [
+        "kodein",
+        "tramadol"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Emzirirken tercih edilmez",
+    "message": "Kodein ve tramadol anne sütüne geçer; bazı bebeklerde aşırı uyku ve tehlikeli solunum baskılanması bildirilmiştir (özellikle ilacı hızlı metabolize eden annelerde). Emzirme döneminde tercih edilmez.",
+    "source": "FDA İlaç Güvenliği Duyurusu (2017); TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0319",
+    "type": "age",
+    "severity": "high",
+    "match": {
+      "ingredients": [
+        "asetilsalisilik asit"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "Çocuk ve ergenlerde dikkat (Reye sendromu)",
+    "message": "Aspirin (asetilsalisilik asit) çocuklarda ve ergenlerde ateşli/viral hastalıklar sırasında Reye sendromu denen nadir ama ölümcül karaciğer-beyin hasarına yol açabilir; hekim önermedikçe bu yaş grubunda kullanılmamalıdır.",
+    "source": "FDA etiketi; TİTCK KT",
+    "evidence": "label"
+  },
+  {
+    "id": "W-0320",
+    "type": "age",
+    "severity": "high",
+    "match": {
+      "atcPrefixes": [
+        "J01A"
+      ]
+    },
+    "systemicOnly": true,
+    "title": "8 yaş altında kullanılmaz",
+    "message": "Tetrasiklin grubu antibiyotikler 8 yaşından küçük çocuklarda kalıcı diş renklenmesine ve kemik gelişimi sorunlarına yol açar; bu yaş grubunda kullanılmamalıdır.",
+    "source": "TİTCK KT; FDA etiketi",
+    "evidence": "label"
   }
 ]

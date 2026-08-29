@@ -194,7 +194,18 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
     ...allWarnings.filter((w) => relevantIds.has(w.id)),
     ...allWarnings.filter((w) => !relevantIds.has(w.id)),
   ];
-  const geriatricChip = isGeriatric(profile) ? specialChips.find((c) => c.key === 'yasli') : null;
+  // Profil → prospektüsün ilgili özel bölümleri (gebelik/emzirme/çocuk/yaşlı).
+  // Kürasyonlu uyarı (36 yüksek-riskli molekül) çoğu ilaçta yok; asıl değer,
+  // profile uygun prospektüs bölümünü — o ilacın KENDİ resmi metnini — öne
+  // çıkarmaktır (her KT'li üründe çalışır, iddia üretmez, kaynağa götürür).
+  const PROFILE_SECTION_KEYS = [];
+  if (profile?.pregnant) PROFILE_SECTION_KEYS.push('gebelik');
+  if (profile?.breastfeeding) PROFILE_SECTION_KEYS.push('emzirme');
+  if (['bebek', 'cocuk', 'ergen'].includes(profile?.ageBand)) PROFILE_SECTION_KEYS.push('cocuk');
+  if (isGeriatric(profile)) PROFILE_SECTION_KEYS.push('yasli');
+  const profileSectionChips = PROFILE_SECTION_KEYS
+    .map((k) => specialChips.find((c) => c.key === k))
+    .filter(Boolean);
   const profileActive = isProfileSet(profile);
 
   return (
@@ -261,18 +272,28 @@ export default function DrugCard({ drug, onClose, onSelectDrug }) {
               </button>
             )}
             {profileActive && (
-              <div className="rounded-[12px] bg-accent-soft/60 border border-accent/20 px-3.5 py-2.5 text-[12.5px] text-text-secondary leading-relaxed">
-                <span className="font-semibold text-text-primary">Profil ({profileSummary(profile)}):</span>{' '}
-                {relevantIds.size > 0
-                  ? `${relevantIds.size} uyarı profilinizle ilgili — aşağıda öne çıkarıldı.`
-                  : 'Bu ilaçta profilinize özel olarak eşleşen derlenmiş uyarı yok (yine de dikkatli olun).'}
-                {geriatricChip && (
-                  <>
-                    {' '}
-                    <button type="button" onClick={() => openSpecialSection(geriatricChip)} className="text-accent font-medium hover:underline cursor-pointer">
-                      Prospektüs: Yaşlılarda kullanımı →
-                    </button>
-                  </>
+              <div className="rounded-[12px] bg-accent-soft/60 border border-accent/20 px-3.5 py-2.5 text-[12.5px] text-text-secondary leading-relaxed space-y-2">
+                <div>
+                  <span className="font-semibold text-text-primary">Profil ({profileSummary(profile)}):</span>{' '}
+                  {relevantIds.size > 0
+                    ? `${relevantIds.size} uyarı profilinizle ilgili — aşağıda öne çıkarıldı.`
+                    : profileSectionChips.length > 0
+                      ? 'Derlenmiş özel uyarı yok; bu ilacın kendi prospektüsünün ilgili bölümlerine bakın:'
+                      : 'Bu ilaçta profilinize özel derlenmiş uyarı yok ve prospektüste ilgili bölüm bulunamadı (yine de dikkatli olun; hekim/eczacıya danışın).'}
+                </div>
+                {profileSectionChips.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5">
+                    {profileSectionChips.map((chip) => (
+                      <button
+                        key={chip.key}
+                        type="button"
+                        onClick={() => openSpecialSection(chip)}
+                        className="inline-flex items-center gap-1 rounded-full bg-accent/10 hover:bg-accent/20 text-accent font-medium px-2.5 py-1 text-[12px] transition-colors cursor-pointer"
+                      >
+                        Prospektüs: {chip.label} →
+                      </button>
+                    ))}
+                  </div>
                 )}
               </div>
             )}
