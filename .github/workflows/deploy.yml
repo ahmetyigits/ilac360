@@ -65,7 +65,7 @@ jobs:
       # Secret'lar tanımlıysa FTP ile yükle; değilse atla (workflow yeşil kalır).
       - name: FTP deploy (yalnız secret varsa)
         if: ${{ env.FTP_SERVER != '' }}
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
