@@ -1,125 +1,95 @@
-# ilac360
+# ilaç360
 
-Open-source drug interaction checker for the Turkish pharmaceutical market. Live at [ilac360.com](https://ilac360.com).
+Drug interaction checker for the Turkish pharmaceutical market. Search 20,000+ Turkish drug products, build a list of up to 10, and check them against sourced interaction rules. Everything runs in the browser: no backend, no accounts, no tracking.
 
-Turkey has more than 20,000 registered drug products, but no free tool that understands Turkish brand names well. Most existing solutions rely on US or UK naming, which often does not match what is prescribed here.
+Live at [ilac360.com](https://ilac360.com).
 
-ilac360 lets you search the Turkish market, select up to 10 drugs, and see possible interactions instantly — risk levels, active ingredients, ATC codes, and a printable report.
+![React 19](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)
+![Vite 8](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
+![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4-38BDF8?logo=tailwindcss&logoColor=white)
+![PWA](https://img.shields.io/badge/PWA-offline-5A0FC8?logo=pwa&logoColor=white)
+![License MIT](https://img.shields.io/badge/license-MIT-000000)
 
-The app runs entirely in the browser. No backend, no accounts, no tracking. The drug data is loaded once and queried locally.
+![ilaç360](client/public/screenshot.png)
 
-![ilac360 screenshot](client/public/screenshot.png)
+## Background
 
----
+Turkey has over 20,000 registered drug products, but the free interaction checkers most people reach for are built around US or UK drug names. Searching for a Turkish brand like *Coraspin*, *Majezik* or *Delix* usually returns nothing.
+
+ilaç360 is built directly on the Turkish market dataset. The source data is compiled at build time into static JSON, loaded once, and queried locally, so a patient's medication list never leaves the device.
 
 ## Features
 
-- Search across ~20,000 drug products in the Turkish market (by brand name, active ingredient, or barcode)
-- Condition-based search with 80+ mapped indications and prospectus fallback
-- Interaction analysis with clear risk levels (critical, high, medium, low, unknown, info) and a severity legend
-- Rule engine: ~220 sourced ingredient-pair rules + 170+ ATC-class rules, matched on salt-stripped ingredient components with a synonym table (no substring false positives); exact counts live in `data/manifest.json` after a build
-- Printable interaction report
-- Installable PWA with offline caching of previously viewed data
-- Optional cookie-free error reporting and analytics (off by default — see [docs/telemetry.md](docs/telemetry.md))
-- Dark mode
+- Search 20,559 products by brand name, active ingredient, or barcode, including camera barcode scanning
+- Interaction analysis with six risk levels (critical / high / medium / low / unknown / info) and a severity legend
+- Condition-based search over 80+ mapped indications, with a leaflet full-text fallback
+- 228 sourced clinical warnings: pregnancy, lactation, pediatric, geriatric, food, allergy, driving
+- Optional local profile (age band, sex, pregnancy, breastfeeding) that lifts the relevant warnings to the top; nothing is ever hidden
+- Per-product link to the original TİTCK leaflet
+- Printable report, dark mode, and an installable PWA that works offline after first load
 
----
+## Interaction engine
+
+Matching runs on active-ingredient *components*, not raw strings. Each product's ingredient field is normalized into canonical components: combination products are split, salt forms are stripped, and spelling variants are mapped through a synonym table. Rules then match on exact component equality.
+
+This avoids the common failure mode where a naive substring match links unrelated ingredients (for example `asetilsalisilik asit` against `salisilik asit`). The dataset ships 277 rules at ingredient-pair and ATC-class level. Every rule carries a `source`, and CI fails the build if fewer than 95% of rule ingredients resolve against real dataset components.
+
+The engine and matcher live in [`client/src/data/`](client/src/data/) (`interactionEngine.js`, `ingredientMatcher.js`), kept separate from the UI and covered by unit tests. [docs/architecture.md](docs/architecture.md) documents the resolution order.
+
+## Data pipeline
+
+[`scripts/build-data.mjs`](scripts/build-data.mjs) compiles the 55 MB source dataset into content-hashed JSON under `client/public/data/`, resolved through `manifest.json`:
+
+- `drugs-index.<hash>.json` — slim records for in-memory search
+- `drugs-desc-NN.<hash>.json` — leaflet text split across 512 hash buckets, so a drug card fetches a single ~180 KB file instead of the whole corpus
+- `interactions`, `drug-warnings`, `condition-mapping`, `ingredient-synonyms`
+
+Hashed filenames let every data file be cached immutably at the edge. The build also backfills missing ATC codes from the most common code seen for each ingredient elsewhere in the dataset.
 
 ## Stack
 
-- React 19, Vite 8, Tailwind CSS 4
-- Pure client-side: a single static bundle plus JSON data files
-- No server, no database, no API keys
+- React 19, Tailwind CSS 4, Vite 8
+- `vite-plugin-pwa` (Workbox) for offline caching
+- `barcode-detector` with a `zxing-wasm` fallback for scanning
+- No server, database, or API keys; the build output is fully static
 
----
+## Development
 
-## Data
-
-Source data lives in `data/`:
-
-| File                       | Content                                                            |
-|----------------------------|--------------------------------------------------------------------|
-| `ilaclar-dataset.json`     | ~20.000 drug records from the Turkish drug database (Git LFS)      |
-| `interactions.json`        | Curated ingredient-pair rules (~220), each with a `source` field   |
-| `ingredient-synonyms.json` | Canonical ingredient names ↔ real-world dataset spellings          |
-| `condition-mapping.json`   | Condition → drug-class mapping for indication search               |
-
-`scripts/build-data.mjs` reads these and writes content-hashed JSON into `client/public/data/` (resolved via `manifest.json`):
-
-- `drugs-index.<hash>.json` — slim records for in-memory search
-- `drugs-desc-NN.<hash>.json` — leaflet text split into 64 hash buckets (~180 KB gzip each; a drug card fetches exactly one)
-- `usage-sections.<hash>.json` — "ne için kullanılır" excerpts for free-text condition search
-- `condition-desc-matches.<hash>.json` — precomputed condition ↔ leaflet matches
-- `interactions.<hash>.json`, `condition-mapping.<hash>.json`, `ingredient-synonyms.<hash>.json`
-
-The build also backfills missing ATC codes by mapping each drug's active ingredient to the most common ATC seen elsewhere in the dataset. `npm run rules-coverage` reports which rule ingredients actually match dataset components (CI enforces ≥95%).
-
----
-
-## Local Development
-
-Requires Node.js 22 (`.nvmrc`) and [Git LFS](https://git-lfs.com) (the 55 MB source dataset `data/ilaclar-dataset.json` is stored in LFS — run `git lfs install` before cloning/pulling).
+Requires Node.js 22 (`.nvmrc`) and [Git LFS](https://git-lfs.com) — the 55 MB source dataset is stored in LFS, so run `git lfs install` before cloning.
 
 ```bash
-npm run setup                  # npm ci in client/
-npm run build:data             # generates client/public/data/* (hashed files + manifest.json)
-npm run dev                    # starts Vite dev server on :5173
-npm test                       # unit tests (Vitest)
-npm run smoke-test             # data integrity checks on generated files
+npm run setup        # install client dependencies
+npm run build:data   # generate client/public/data/* and manifest.json
+npm run dev          # Vite dev server on :5173
+npm test             # Vitest
+npm run smoke-test   # data integrity checks
 ```
 
----
+CI runs on every push ([.github/workflows/ci.yml](.github/workflows/ci.yml)): ESLint, 29 Vitest suites with V8 coverage, the data smoke test, the rule/supplement/warning linters, a 95% rule-coverage gate, and a full production build.
 
-## Production Build
+## Build and deploy
 
 ```bash
 npm run build
 ```
 
-This regenerates the data files, builds the client into `client/dist/`, and mirrors the output to `dist/` at the repo root for static deployment. `dist/` is **not** committed — it is produced locally by the build (CI also uploads it as an artifact).
+This regenerates the data, builds the client into `client/dist/`, and mirrors it to `dist/` for static hosting (`dist/` is not committed). The output drops onto any static host; a tuned `.htaccess` for Apache/LiteSpeed hosts ships inside the build, and content-hashed data files are safe to cache immutably.
 
-The contents of `dist/` can be uploaded to any static host (Netlify, Vercel, Hostinger static, GitHub Pages, plain S3 + CloudFront, etc.). No runtime is needed. A `.htaccess` with cache/gzip/SPA-rewrite rules for Apache/LiteSpeed hosts (e.g. Hostinger) ships inside the build; data files use content-hashed names resolved through `data/manifest.json`, so they can be cached immutably at the edge.
-
----
-
-## Project Layout
+## Project layout
 
 ```
-client/        React app (Vite)
-data/          Source data (drug records via Git LFS, interaction rules, synonyms, conditions)
-scripts/       Data build + smoke test scripts
-dist/          Production build output (generated; not in git)
+client/   React app: components, data engine + stores, tests
+data/     Source data: drug records (Git LFS), rules, warnings, synonyms, conditions
+scripts/  Data build, linters, coverage gates, smoke test
+docs/     Architecture, data-refresh runbook, deploy guides
 ```
-
----
-
-## Contributing
-
-Pull requests are welcome — especially for:
-
-- New interaction rules in `data/interactions.json`
-- Additional condition mappings in `data/condition-mapping.json`
-- UI fixes and accessibility improvements
-
-Please keep the rule engine and the UI separate. Interaction logic lives in [`client/src/data/interactionEngine.js`](client/src/data/interactionEngine.js).
-
-See [docs/architecture.md](docs/architecture.md) for the data flow, engine resolution order, and build pipeline; [docs/data-refresh-runbook.md](docs/data-refresh-runbook.md) for monthly data refresh; and [docs/deploy-hostinger.md](docs/deploy-hostinger.md) for publishing.
-
----
 
 ## Disclaimer
 
-This tool is for informational purposes only. It is not medical advice and not a substitute for professional clinical judgment. Always consult your doctor or pharmacist before making decisions about medications.
-
----
+For informational purposes only. Not medical advice, and not a substitute for professional clinical judgment. Always consult a doctor or pharmacist before making decisions about medications.
 
 ## License
 
-Code: [MIT](LICENSE) © 2026 Ahmet Yiğit
+Code: [MIT](LICENSE) © 2026 Ahmet Yiğit.
 
-**The MIT license covers the code only, not the bundled data.**
-`data/ilaclar-dataset.json` is derived from TİTCK (Turkish Medicines and
-Medical Devices Agency) public product data and is subject to TİTCK's own
-terms — verify them before redistributing or using the data commercially.
-See [data/LICENSE-DATA.md](data/LICENSE-DATA.md) for details, including the
-sourcing policy for interaction rules (no CC-BY-NC sources).
+The MIT license covers the code only, not the bundled data. `data/ilaclar-dataset.json` is derived from TİTCK (Turkish Medicines and Medical Devices Agency) public product data and is subject to TİTCK's own terms; verify them before redistributing or using the data commercially. See [data/LICENSE-DATA.md](data/LICENSE-DATA.md) for the full sourcing policy.
